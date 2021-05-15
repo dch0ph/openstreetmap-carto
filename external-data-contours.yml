@@ -1,0 +1,22 @@
+settings:
+  temp_schema: loading
+  schema: public
+  data_dir: data
+  database: gis
+  metadata_table: external_data
+sources:
+  terrain50_contours:
+    sourcefile: "../OSTerrain50/data/*/*.zip"
+    file: "*_line.shp"
+    ogropts:
+      - "-explodecollections"
+      # needs reprojecting
+      - '-t_srs'
+      - 'EPSG:3857'
+    archive:
+      format: zip
+      files:
+        - "*_line.dbf"
+        - "*_line.prj"
+        - "*_line.shp"
+        - "*_line.shx"

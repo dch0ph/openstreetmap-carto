@@ -10,8 +10,8 @@ Overlapping borders are hidden by a white background line, rendered before each 
 Then all three layers are added to the rendering with comp-op: darken, so that the white lines will not show
 */
 
-#admin-low-zoom[zoom < 8],
-#admin-mid-zoom[zoom >= 8][zoom < 13],
+//#admin-low-zoom[zoom < 8]
+//#admin-mid-zoom[zoom >= 8][zoom < 13],
 #admin-high-zoom[zoom >= 13] {
   [admin_level = '2']::firstline {
     [zoom >= 8] {
@@ -509,42 +509,41 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
     [zoom >= 10] {
       // inner line
       ::wideline {
-        opacity: 0.15;
-        line-width: 3.6;
         // Unlike planet_osm_line, planet_osm_polygon does not preserves the
         // original direction of the OSM way: Following OGS at
         // https://www.opengeospatial.org/standards/sfa always at the left
         // is the interior and at the right the exterior of the polygon.(This
         // also applies to inner rings of multipolygons.) So a negative
         // line-offset is always an offset to the inner side of the polygon.
-        line-offset: -0.9;
         line-color: @protected-area;
         [boundary = 'aboriginal_lands'] {
           line-color: @aboriginal;
         }
         line-join: round;
         line-cap: round;
-        [zoom >= 12] {
-          line-width: 4;
-          line-offset: -1;
-        }
-        [zoom >= 14] {
+// make bolder at lower zoom level
+        line-width: 3;
+        line-offset: -0.75;
+		opacity: 0.3;
+        [zoom >= 16] {
+		  opacity: 0.15;
           line-width: 6;
           line-offset: -2;
         }
       }
       // outer line
       ::narrowline {
-        opacity: 0.15;
-        line-width: 1.8;
+        opacity: 0.7;
+        line-width: 1;
         line-color: @protected-area;
         [boundary = 'aboriginal_lands'] {
           line-color: @aboriginal;
         }
         line-join: round;
         line-cap: round;
-        [zoom >= 12] {
+        [zoom >= 15] {
             line-width: 2;
+			opacity: 0.2
         }
       }
     }

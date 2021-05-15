@@ -1,5 +1,5 @@
 @building-fill: #d9d0c9;  // Lch(84, 5, 68)
-@building-line: darken(@building-fill, 15%);  // Lch(70, 9, 66)
+@building-line: black;
 @building-low-zoom: darken(@building-fill, 4%);
 
 @building-major-fill: darken(@building-fill, 10%);  // Lch(75, 8, 67)
@@ -11,29 +11,24 @@
 @entrance-normal: @building-line;
 
 #buildings {
-  [zoom >= 14] {
-    polygon-fill: @building-low-zoom;
-    polygon-clip: false;
-    [zoom >= 15] {
-      polygon-fill: @building-fill;
-      line-color: @building-line;
-      line-width: .75;
-      line-clip: false;
-    }
-    [amenity = 'place_of_worship'],
-    [aeroway = 'terminal'],
-    [aerialway = 'station'],
-    [building = 'train_station'],
-    [public_transport = 'station'] {
-      polygon-fill: @building-major-z14;
-      [zoom >= 15] {
-        polygon-fill: @building-major-z15;
-        line-color: @building-major-line;
-        [zoom >= 16] {
-          polygon-fill: @building-major-fill;
-        }
-      }
-    }
+  [zoom >= 14][building != 'church'][building != 'mosque'],
+  [zoom >= 16] {
+	[building != 'ruins' ] {
+		polygon-clip: false;
+		polygon-fill: @building-fill;
+		[way_pixels < 50] { polygon-fill: @building-line; }
+	}
+	[building = 'ruins'] {
+		polygon-fill: white;
+		opacity: 0.8;
+		casing/line-width: 0.8;
+		casing/line-color: white;
+		casing/line-opacity: 0.8;
+	}
+	line/line-color: @building-line;
+	line/line-width: 0.8;
+	[building = 'ruins'] { line/line-dasharray: 1.5,1; }  
+    line/line-clip: false;
   }
 }
 

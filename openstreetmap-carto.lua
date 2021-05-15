@@ -2,6 +2,9 @@
 -- https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md
 
 -- Objects with any of the following keys will be treated as polygon
+
+-- abandoned seems a bit random... (PH)
+
 local polygon_keys = {
     'abandoned:aeroway',
     'abandoned:amenity',
@@ -60,6 +63,7 @@ local polygon_values = {
 }
 
 -- The following keys will be deleted
+-- Non-UK tags removed (PH)
 local delete_tags = {
     'note',
     'source',
@@ -67,120 +71,22 @@ local delete_tags = {
     'attribution',
     'comment',
     'fixme',
+	'FIXME',
     -- Tags generally dropped by editors, not otherwise covered
     'created_by',
     'odbl',
-    -- Lots of import tags
-    -- EUROSHA (Various countries)
-    'project:eurosha_2012',
-
-    -- UrbIS (Brussels, BE)
-    'ref:UrbIS',
-
-    -- NHN (CA)
-    'accuracy:meters',
-    'waterway:type',
-    -- StatsCan (CA)
-    'statscan:rbuid',
-
-    -- RUIAN (CZ)
-    'ref:ruian:addr',
-    'ref:ruian',
-    'building:ruian:type',
-    -- DIBAVOD (CZ)
-    'dibavod:id',
-    -- UIR-ADR (CZ)
-    'uir_adr:ADRESA_KOD',
-
-    -- GST (DK)
-    'gst:feat_id',
-    -- osak (DK)
-    'osak:identifier',
-
-    -- Maa-amet (EE)
-    'maaamet:ETAK',
-    -- FANTOIR (FR)
-    'ref:FR:FANTOIR',
-
-    -- OPPDATERIN (NO)
-    'OPPDATERIN',
-    -- Various imports (PL)
-    'addr:city:simc',
-    'addr:street:sym_ul',
-    'building:usage:pl',
-    'building:use:pl',
-    -- TERYT (PL)
-    'teryt:simc',
-
-    -- RABA (SK)
-    'raba:id',
-
-    -- LINZ (NZ)
-    'linz2osm:objectid',
-    -- DCGIS (Washington DC, US)
-    'dcgis:gis_id',
-    -- Building Identification Number (New York, US)
-    'nycdoitt:bin',
-    -- Chicago Building Inport (US)
-    'chicago:building_id',
-    -- Louisville, Kentucky/Building Outlines Import (US)
-    'lojic:bgnum',
-    -- MassGIS (Massachusetts, US)
-    'massgis:way_id',
-
     -- misc
     'import',
     'import_uuid',
     'OBJTYPE',
     'SK53_bulk:load'
 }
+
 delete_prefixes = {
     'note:',
     'source:',
-    -- Corine (CLC) (Europe)
-    'CLC:',
-
-    -- Geobase (CA)
-    'geobase:',
-    -- CanVec (CA)
-    'canvec:',
-    -- Geobase (CA)
-    'geobase:',
-
-    -- kms (DK)
-    'kms:',
-
-    -- ngbe (ES)
-    -- See also note:es and source:file above
-    'ngbe:',
-
-    -- Friuli Venezia Giulia (IT)
-    'it:fvg:',
-
-    -- KSJ2 (JA)
-    -- See also note:ja and source_ref above
-    'KSJ2:',
-    -- Yahoo/ALPS (JA)
-    'yh:',
-
-    -- LINZ (NZ)
-    'LINZ2OSM:',
-    'LINZ:',
-
-    -- WroclawGIS (PL)
-    'WroclawGIS:',
     -- Naptan (UK)
     'naptan:',
-
-    -- TIGER (US)
-    'tiger:',
-    -- GNIS (US)
-    'gnis:',
-    -- National Hydrography Dataset (US)
-    'NHD:',
-    'nhd:',
-    -- mvdgis (Montevideo, UY)
-    'mvdgis:'
 }
 
 -- Big table for z_order and roads status for certain tags. z=0 is turned into
@@ -195,6 +101,7 @@ local roads_info = {
         residential     = {z = 330, roads = false},
         unclassified    = {z = 330, roads = false},
         road            = {z = 330, roads = false},
+-- Note that living_street, road, track and footway are redistributed to other highway types
         living_street   = {z = 320, roads = false},
         pedestrian      = {z = 310, roads = false},
         raceway         = {z = 300, roads = false},
@@ -205,10 +112,14 @@ local roads_info = {
         tertiary_link   = {z = 200, roads = false},
         service         = {z = 150, roads = false},
         track           = {z = 110, roads = false},
+-- Fake highway types created from route relations
+		rwn             = {z = 110, roads = false},
+		lwn             = {z = 110, roads = false},
         path            = {z = 100, roads = false},
         footway         = {z = 100, roads = false},
         bridleway       = {z = 100, roads = false},
-        cycleway        = {z = 100, roads = false},
+-- Move cycleway up since these are often parallel too and over-written by roads at zoom = 14
+        cycleway        = {z = 375, roads = false},
         steps           = {z = 90,  roads = false},
         platform        = {z = 90,  roads = false}
     },
@@ -223,7 +134,9 @@ local roads_info = {
         miniature       = {z = 420, roads = false},
         turntable       = {z = 420, roads = false},
         tram            = {z = 410, roads = false},
-        disused         = {z = 400, roads = false},
+-- Move disused railway down
+        disused         = {z = 80, roads = false},
+        dismantled      = {z = 80, roads = false},
         construction    = {z = 400, roads = false},
         platform        = {z = 90,  roads = false},
     },
@@ -279,6 +192,11 @@ function roads(tags)
     return 0
 end
 
+local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
+local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit' }
+
+--- If tagged with disused, turn into 'historic=yes'
+
 --- Generic filtering of OSM tags
 -- @param tags Raw OSM tags
 -- @return Filtered OSM tags
@@ -303,18 +221,139 @@ function filter_tags_generic(tags)
         end
     end
 
+	-- Suppress admin boundaries
+   if (tags["boundary"] == "administrative") then
+      tags["boundary"] = nil
+   end
+   
+    -- Try to second-guess what permissive actually means (only relevant to paths which change colour)
+    if tags['access'] == 'permissive' then
+		if (tags['highway'] == 'path') or (tags['highway'] == 'footway') then
+			tags['foot'] = 'permissive'
+		end
+		tags['access'] = 'yes'
+	end
+
    -- Filter out objects that have no tags after deleting
     if next(tags) == nil then
         return 1, {}
     end
 
+	--- Fudge disused status into historic = yes
+	--- Combine mine, mineshaft and adit (often poorly distinguished)
+	if tags['disused:man_made'] then
+		tags['man_made'] = tags['disused:man_made']
+		tags['historic'] = 'yes'
+	elseif tags['disused:landuse'] then
+		tags['landuse'] = tags['disused:landuse']
+		tags['historic'] = 'yes'
+	end
+	if tags['man_made'] == 'adit' then
+		tags['man_made'] = 'mineshaft'
+	end
+	if tags['disused'] == 'yes' then
+		tags['historic'] = 'yes'
+	end
+	if is_in(tags['historic'], mine_tags) then
+		tags['man_made'] = 'mineshaft'
+		tags['historic'] = 'yes'
+	end
+	
+	if (tags['man_made'] == 'spoil_heap') or (tags['disused:man_made'] == 'spoil_heap') then
+		tags['natural'] = 'scree'
+	end
+	
+	if tags['landuse'] == 'farmland' then
+		if is_in(tags['farmland'], meadow_tags) or (tags['animal'] ~= nil) then
+			if (tags['farmland'] ~= 'meadow') or (tags['animal'] ~= nil) then
+				tags['meadow'] = 'pasture'
+			end
+			tags['landuse'] = 'meadow'
+		end
+	elseif tags['landuse'] == 'forest' then
+	-- assume plantations are conifers if not stated otherwise (will trigger a darker colour)
+		if tags['leaf_type'] ~= nil then
+			tags['leaf_type'] = 'needleleaved'  
+		elseif tags['leaf_type'] == 'broadleaved' then
+			tags['landuse'] = nil
+			tags['natural'] = 'wood'
+		end
+	end
+	if (tags['landuse'] == 'meadow') and (tags['meadow'] == 'pasture') then
+	-- Fake new landuse to distinguish animal grazing
+		tags['landuse'] = 'pasture'
+	end
+	if (tags['natural'] == 'wood') and (tags['leaf_type'] == 'needleleaved') then
+		tags['natural'] = nil
+		tags['landuse'] = 'forest'
+	end
+
     -- Convert layer to an integer
     tags['layer'] = layer(tags['layer'])
+
+	-- If name does not exist but name:en does, use it.	
+    if (tags['name'] == nil) and (tags['name:en'] ~= nil ) then
+		tags['name'] = tags['name:en']
+    end
+	
+
+-- Render national parks and AONBs as such no matter how they are tagged.
+	if (( tags["boundary"]      == "protected_area"                      ) and
+       (( tags["designation"]   == "national_park"                      )  or 
+        ( tags["designation"]   == "area_of_outstanding_natural_beauty" )  or
+        ( tags["designation"]   == "Area of Outstanding Natural Beauty" )  or
+        ( tags["protect_class"] == "5"                                  ))) then
+      tags["boundary"] = "national_park"
+   end
+
+	-- Normalise use of common
+	if (tags['designation'] == 'common') and (tags['leisure'] ~= nil) then
+		tags['leisure'] = 'common'
+		tags['amenity'] = nil
+	end
+
+	if (tags['ruined:building'] ~=nil) or (tags['abandoned:building'] ~= nil) then
+		tags['building'] = 'ruins'
+	elseif (tags['building'] ~= nil) and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes')) then
+		tags['building'] = 'ruins'
+	end
+	
+	-- Create place=farm if farmyard is named (will create higher priority label)
+	if (tags['landuse'] == 'farmyard') and (tags['name'] ~= nil) then
+		tags['place'] = 'farm'
+	end
+	
+	-- Try to strip leading The from pub names
+	if (tags['amenity'] == 'pub') and tags['name'] then
+		stripname = string.match(tags['name'], "^The (.*)")
+		if stripname then
+			tags['name'] = stripname
+		end
+	end
+		
     return 0, tags
 end
 
 -- Filtering on nodes
 function filter_tags_node (keyvalues, numberofkeys)
+
+-- Suppress cairn if coincides with peak
+	if (keyvalues['natural'] == 'peak') and (keyvalues['man_made'] == 'cairn') then
+		keyvalues['man_made'] = nil
+	end
+	
+-- Separate out grouse butt from generic hunting stand
+	if keyvalues['hunting_stand'] == 'grouse_butt' then
+		keyvalues['amenity'] = 'grouse_butt'
+	end
+
+-- If no height given, set as 'medium'-sized chimney
+    if keyvalues['height'] == nil then
+        if keyvalues['man_made'] == 'chimney' then
+            keyvalues['height'] = '40'
+        end
+    end
+				
     return filter_tags_generic(keyvalues)
 end
 
@@ -334,6 +373,195 @@ function filter_basic_tags_rel (keyvalues, numberofkeys)
     return 0, keyvalues
 end
 
+-- These will also be treated as 'bad'
+local poor_visibility_tags = { 'no', 'none', 'nil', 'horrible', 'very_bad', 'poor'}
+-- service or unclassified road with these surface tags will be demoted to track
+local bad_surface_tags = { 'unpaved', 'dirt', 'earth' }
+local good_surface_tags = { 'asphalt', 'concrete', 'compacted', 'fine_gravel' }
+local no_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
+--- Note not trying to distinguish between restricted_byway and byway
+--- Also treating ORPAs as BOATs
+local BOAT_alternative_tags = { 'byway', 'public_byway', 'orpa', 'unclassified_country_road', 'unclassified_county_road', 'restricted_byway', 'unclassified_highway' }
+local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 'public_bridleway'}
+--local keepbridges = { 'cycleway', 'path', 'bridleway' }
+local access_tags = { 'foot', 'horse', 'bicycle' }
+local pathtypes = { 'cycleway', 'path', 'bridleway' }
+--local bridges = { 'cantilever', 'movable', 'trestle', 'viaduct' }
+
+-- Specific filtering on highways
+function filter_highway (keyvalues)
+
+-- Suppress generic road and living_street
+	if keyvalues['highway'] == 'living_street' then
+		keyvalues['highway'] = 'residential'
+	elseif keyvalues['highway'] == 'road' then
+		keyvalues['highway'] = 'unclassified'
+	end
+-- Demote narrow unclassified road to service road 
+	if (keyvalues['highway'] == 'unclassified') and (lanes == 1) then
+		keyvalues['highway'] = 'service'
+-- Mark driveways as private if reasonable
+	elseif (keyvalues['service'] == 'driveway') and (keyvalues['designation'] == nil) and (keyvalues['access'] == nil) then
+		keyvalues['access'] = 'private'
+	end
+			
+	-- Consolidate tags relating to poor trail visibility (these will be desaturated)
+	if is_in(keyvalues['trail_visibility'], poor_visibility_tags) or (keyvalues['foot:physical'] == 'no') or (keyvalues['overgrown'] == 'yes') then
+		keyvalues['trail_visibility'] = 'bad'
+	end
+
+-- Consolidate access tags
+-- Note the SQL query also looks to "compact" private -> no
+-- First - lose "access=designated", which is meaningless.
+-- Keep permissive for time being. Merge customers -> destination
+	if keyvalues['access'] == 'designated' then
+		keyvalues['access'] = nil
+	elseif keyvalues['access'] ~= nil then
+		if is_in(keyvalues['access'], no_access_tags) then
+			keyvalues['access'] = 'no'
+		elseif keyvalues['access'] == 'customers' then
+			keyvalues['access'] = 'destination'
+		end
+	end
+
+	-- Normalise BOAT designation
+	if is_in(keyvalues['designation'], BOAT_alternative_tags) then
+		keyvalues['designation'] = 'byway_open_to_all_traffic'
+	elseif keyvalues['designation'] == 'permissive_footpath' then
+		keyvalues['foot'] = 'permissive'
+	elseif keyvalues['designation'] == 'permissive_bridleway' then
+		keyvalues['foot'] = 'permissive'
+		keyvalues['bicycle'] = 'permissive'
+		keyvalues['horse'] = 'permissive'
+    end
+	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
+	
+	-- Filter out driveways unless designated
+	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] ~=nil) then
+		return 1, {}
+	end
+		
+	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
+	keyvalues['railway'] = nil
+
+	local origsurface = keyvalues['surface'] 
+	if origsurface ~= nil then
+		if (origsurface == 'cobblestone:flattened') or (origsurface == 'unhewn_cobblestone') then
+			keyvalues['surface'] = 'cobblestone'
+		elseif (origsurface == 'concrete:plates') or (origsurface == 'concrete:lanes') then
+			keyvalues['surface'] = 'concrete'
+		end
+	end
+	local surface = keyvalues['surface']
+	local isbadsurface = is_in(surface, bad_surface_tags)
+	local isgoodsurface = is_in(surface, good_surface_tags)
+		
+	local width = tonumber(keyvalues['width']) or 0
+	if keyvalues['trail_visibility'] ~= nil then
+		if width >= 2 then	
+			keyvalues['trail_visibility'] = 'excellent'
+		elseif keyvalues['informal'] == 'yes' then
+			keyvalues['trail_visibility'] = 'bad'
+		end
+	end
+	
+	-- Create a tracktype based on surface if none exists
+	-- Default tracktype is 3 for track, and 1 for service
+	if keyvalues['tracktype'] == nil then
+		if isbadsurface or (keyvalues['trail_visibility'] == 'bad') then
+			keyvalues['tracktype'] = 'grade5'
+		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or (surface == 'asphalt') then
+	-- In the absence of other evidence, assume service roads and cycleways are asphalt
+			keyvalues['tracktype'] = 'grade1'
+		elseif isgoodsurface or (keyvalues['trail_visibility'] == 'excellent') then
+	-- Surface has to be explictly asphalt to count as "excellent". 
+			keyvalues['tracktype'] = 'grade2'
+		else
+			keyvalues['tracktype'] = 'grade3'
+		end
+	end
+		
+	-- Include PRoW ref in name if available
+	if keyvalues['prow_ref'] ~= nil then
+		if keyvalues['name'] == nil then
+			keyvalues['name'] = prow_ref
+		else	
+			keyvalues['name'] = keyvalues['name'] .. '(' .. keyvalues['prow_ref'] .. ')'
+		end
+	end
+
+-- Consolidate access tags to remove private->no and designated->yes
+ 
+    for index, access_tag in ipairs (access_tags) do
+		if keyvalues[access_tag] == 'private' then
+			keyvalues[access_tag] = 'no'
+		elseif keyvalues[access_tag] == 'designated' then
+			keyvalues[access_tag] = 'yes'
+		end
+    end
+ 
+   -- Remove no access if PRoW and not explicitly tagged with foot=no
+   if ((keyvalues['access'] == 'no') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
+		keyvalues['access'] = nil
+	end
+
+-- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for).	
+	if keyvalues['footway'] == 'sidewalk' then
+		keyvalues['name'] = nil
+	end
+
+	-- Kill off track and extend service to include tracktype
+	if keyvalues['highway'] == 'track' then
+		keyvalues['highway'] = 'service'
+		-- Kill any sidewalk tag from tracks
+		keyvalues['sidewalk'] = nil
+	-- Kill off footway and treat as minor service road if decent surface present or path if not
+	elseif keyvalues['highway'] == 'footway' then
+		if isgoodsurface or (keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway') then
+			keyvalues['highway'] = 'pedestrian'
+	-- For pedestrian routes, ignore shared cycleway
+			keyvalues['bicycle'] = nil
+		else
+			keyvalues['highway'] = 'path'
+		end
+	end
+	
+	-- Paths with cycle access must really be cycleways
+	if (keyvalues['highway'] == 'path') and (keyvalues['bicycle'] == 'yes') then
+		keyvalues['highway'] = 'cycleway'
+	end
+	
+	if is_in(keyvalues['highway'], pathtypes) then
+		if keyvalues['embankment'] == 'yes' then
+			keyvalues['bridge'] = 'embankment'
+		elseif keyvalues['cutting'] == 'yes' then
+			keyvalues['bridge'] = 'cutting'
+		end
+	end
+
+	if keyvalues['sidewalk'] == 'none' then
+		keyvalues['sidewalk'] = 'no'
+	end
+	-- Flag if verges present. This will disable a road being flagged as dangerous for walking
+	if (keyvalues['verge'] ~= 'no') and (keyvalues['verge'] ~= nil) and (keyvalues['sidewalk'] == 'no') then
+		keyvalues['sidewalk'] = 'verge'
+	end
+	
+	-- Retagging for renderer!
+	if keyvalues['man_made'] == 'pumping_station' then
+		keyvalues['made_made'] = 'wastewater_plant'
+	end
+		
+	if keyvalues['made_made'] == 'spillway' then
+		keyvalues['natural'] = 'water'
+	end
+	
+	return 0, keyvalues
+end
+
+local religionbuilding_tags = { 'church', 'mosque' }
+local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
+
 -- Filtering on ways
 function filter_tags_way (keyvalues, numberofkeys)
     local filter = 0  -- Will object be filtered out?
@@ -345,13 +573,147 @@ function filter_tags_way (keyvalues, numberofkeys)
         return filter, keyvalues, polygon, roads
     end
 
-    polygon = isarea(keyvalues)
+-- Stop wall being rendered if sheepfold symbol used (not ideal for complex structures)
+	if keyvalues['man_made'] == 'sheepfold' then
+		keyvalues['barrier'] = nil
+	end
 
+	-- Consolidate name:left / right
+	-- Probably don't need this for walking map
+	if (keyvalues['name'] == nil) and (keyvalues['name:left'] ~= nil) and (keyvalues['name:right'] ~= nil) then
+		keyvalues['name'] = keyvalues['name:left'] .. " / " .. keyvalues['name:right']
+	end
+
+-- Note AJT-style uses pathnarrow
+	if (keyvalues['highway'] == nil) and ((keyvalues['golf'] == 'path') or (keyvalues['golf'] == 'cartpath')) then
+		keyvalues['highway'] = 'path'
+	end
+	
+-- A bridge is a bridge is a bridge ...
+	if keyvalues['bridge'] then
+		keyvalues['bridge'] = 'yes'
+	end
+
+	if keyvalues['highway'] then
+		filter, keyvalues = filter_highway(keyvalues)
+		if filter == 1 then
+			return filter, keyvalues, polygon, roads(keyvalues)
+		end
+	end
+
+-- Don't render railway bridges.
+-- Note that paths on dismantled railways are handled as highways
+	local railwaytype = keyvalues['railway']
+	if railwaytype then
+		keyvalues['bridge'] = nil
+	-- Consolidate railway types
+		if railwaytype == 'abandoned' then
+			keyvalues['railway'] = 'disused'
+		elseif (railwaytype == 'monorail') or (railwaytype == 'preserved') then
+			keyvalues['railway'] = 'rail'
+	-- Consolidate on tram as this is handled as special case
+		elseif is_in(railwaytype, lightrail_tags) then
+			keyvalues['railway'] = 'tram'
+		end
+	-- Consolidate tunnels
+		if keyvalues['tunnel'] or (keyvalues['covered'] == 'yes') then
+			keyvalues['tunnel'] = 'yes'
+		end
+	end
+	
+	-- Consolidate church buildings so can filter out small (active) churches at low zoom
+	if keyvalues['building'] == 'chapel' then
+		keyvalues['building'] = 'church'
+	end
+	if (keyvalues['building'] == 'yes') and (keyvalues['amenity'] == 'place_of_worship') then
+		if keyvalues['religion'] == 'christian' then
+			keyvalues['building'] = 'church'
+		elseif keyvalues['religion'] == 'muslim' then
+			keyvalues['building'] = 'mosque'		
+		end
+	elseif is_in(keyvalues['building'], religionbuilding_tags) and (keyvalues['amenity'] ~= 'place_of_worship') then
+	-- Hide religious buildings that are not active i.e. will not be tagged with place of worship
+		keyvalues['building'] = 'yes'
+	end
+		
+	-- Promote bridge/tunnel:name if possible
+	if (keyvalues['bridge:name'] ~= nil) and (keyvalues['name'] == nil) then
+		keyvalues['name'] = keyvalues['bridge:name']
+	end
+	if (keyvalues['tunnel:name'] ~= nil) and (keyvalues['name'] == nil) then
+		keyvalues['name'] = keyvalues['tunnel:name']
+	end
+	
+	-- Introduce general category of ruined barrier
+	if keyvalues['ruined:barrier'] or (keyvalues['barrier'] == 'ruins') then
+		keyvalues['barrier'] = 'ruined'
+	end 
+	
+	local natural = keyvalues['natural']
+	local wetland = keyvalues['wetland']
+	local tidal = keyvalues['tidal']
+	
+	if natural then
+	-- Rationalise beach to sand, mud or shingle (coarse) 
+		if (natural == 'beach') or (natural == 'shoal') or (keyvalues['wetland'] == 'tidalflat') then
+			if (keyvalues['surface'] == 'sand') or (keyvalues['surface'] == nil) then
+				keyvalues['natural'] = 'sand'
+			elseif keyvalues['surface'] == 'mud' then
+				keyvalues['natural'] = 'mud'
+			else
+				keyvalues['natural'] = 'shingle'
+			end
+			if natural ~= 'beach' then
+				keyvalues['wetland'] = 'partial'
+			end
+	-- Try to merge natural = wetland into existing natural types overprinted with partial / fully wet symbols
+		elseif natural == 'wetland' then
+			if (wetland == 'marsh') or (wetland == 'saltmarsh') then
+				if tidal == 'yes' then
+					keyvalues['wetland'] = 'partial'					
+				else
+					keyvalues['wetland'] = 'yes'
+				end
+				if (wetland == 'marsh') or (tidal == 'yes') then
+					keyvalues['natural'] = 'scrub'
+				end
+			elseif wetland == 'reedbed' then
+				keyvalues['wetland'] = 'yes'
+			elseif wetland == 'wet_meadow' then
+				keyvalues['natural'] = nil
+				keyvalues['landuse'] = 'meadow'
+				keyvalues['wetland'] = 'partial'
+				keyvalues['pasture'] = nil
+			elseif (wetland == 'swamp') or (wetland == 'mangrove') then
+				keyvalues['natural'] = 'wood'
+				keyvalues['wetland'] = 'yes'
+			elseif (wetland == 'bog') or (wetland == 'fen') then
+				keyvalues['wetland'] = 'partial'
+				keyvalues['natural'] = 'heath'
+			elseif wetland == 'stringbog' then
+				keyvalues['wetland'] = 'yes'
+				keyvalues['natural'] = 'scrub'
+			end
+		elseif natural == 'mud' then
+			keyvalues['wetland'] = 'partial'
+		end
+	end
+	
+    polygon = isarea(keyvalues)
+	
     -- Add z_order column
     keyvalues["z_order"] = z_order(keyvalues)
 
     return filter, keyvalues, polygon, roads(keyvalues)
 end
+
+local major_walking_tags = { 'iwn', 'nwn', 'rwn' }
+
+-- Rather crude. Should break on ; and check components 
+function contains(str, test)
+	return string.find(str, test)
+end
+
 
 --- Handling for relation members and multipolygon generation
 -- @param keyvalues OSM tags, after processing by relation transform
@@ -386,7 +748,22 @@ function filter_tags_relation_member (keyvalues, keyvaluemembers, roles, memberc
         keyvalues.z_order = z_order(keyvalues)
         return 0, keyvalues, members_superseded, 0, 1, 0
     elseif type == "route" then
+	
+	-- Find walking routes and add fake highway tag so they are picked out
+		local network = keyvalues['network']
+		if network ~= nil then
+			if is_in(network, major_walking_tags) then
+				keyvalues['highway'] = 'rwn'
+			elseif contains(network, 'lwn') then
+				keyvalues['highway'] = 'lwn'
+			end
+			if (keyvalues['name'] == nil) and (keyvalues['ref'] ~= nil) then
+				keyvalues['name'] = keyvalues['ref']
+			end
+		end
+			
         keyvalues.z_order = z_order(keyvalues)
+	-- Should add members to line database
         return 0, keyvalues, members_superseded, 1, 0, roads(keyvalues)
     end
 
@@ -420,6 +797,10 @@ function isarea (tags)
 end
 
 function is_in (needle, haystack)
+-- Short-curcuit
+	if needle == nil then
+		return false
+	end
     for index, value in ipairs (haystack) do
         if value == needle then
             return true

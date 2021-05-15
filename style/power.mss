@@ -1,8 +1,8 @@
-@power-line-color: #888;
+@power-line-color: #333;
 
 #power-line {
-  [zoom >= 14] {
-    line-width: 0.5;
+  [zoom >= 13] {
+    line-width: 0.75;
     line-color: @power-line-color;
     [zoom >= 15] {
       line-width: 0.6;
@@ -20,13 +20,13 @@
 }
 
 #power-minorline {
-  [zoom >= 16] {
+  [zoom >= 14] {
     line-width: 0.3;
     line-color: @power-line-color;
-    [zoom >= 17] {
+    [zoom >= 15] {
       line-width: 0.4;
     }
-    [zoom >= 18] {
+    [zoom >= 16] {
       line-width: 0.5;
     }
   }
@@ -34,21 +34,22 @@
 
 #power-towers {
   [power = 'tower'] {
-    [zoom >= 14] {
+    [zoom >= 13] {
       marker-file: url('symbols/man_made/power_tower_small.svg');
       marker-width: 3;
     }
-    [zoom >= 15] {
+    [zoom >= 14] {
       marker-file: url('symbols/man_made/power_tower.svg');
-      marker-width: 5;
+      marker-width: 4;
     }
-    [zoom >= 17] {
+    [zoom >= 16] {
       marker-width: 7;
     }
   }
-  [power = 'pole'][zoom >= 16] {
-    marker-file: url('symbols/square.svg');
-    marker-fill: #928f8f;
-    marker-width: 3;
+  [power = 'pole'] {
+//    marker-file: url('symbols/square.svg');
+	[zoom >= 14] { marker-width: 2; }
+	[zoom >= 16] { marker-width: 3; }
   }
+  marker-fill: @power-line-color
 }
