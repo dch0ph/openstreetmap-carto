@@ -7,6 +7,8 @@
 @tunnel-color: #505050;
 @stream-width: 1.1;
 
+@wastewater-color: desaturate(@water-color, 30%);
+
 @waterway-text-repeat-distance: 200;
 
 #water-areas {
@@ -28,11 +30,14 @@
   [landuse = 'reservoir'],
   [waterway = 'riverbank'] {
     [int_intermittent = 'no'] {
-      polygon-fill: @water-color;
-	  polygon-smooth: @water-smooth;
+	  [ water = 'wastewater'] { polygon-fill: @wastewater-color; }
+	  [ water != 'wastewater'] {
+        polygon-fill: @water-color;
+		polygon-smooth: @water-smooth;
+     	line-smooth: @water-smooth;
+	  }
 	  line-width: 0.8;
 	  line-color: @water-line-color;
-	  line-smooth: @water-smooth;
       [way_pixels >= 4] { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.6; }
     }

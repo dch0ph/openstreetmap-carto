@@ -1,3 +1,48 @@
+# UKz14
+
+This fork of the CartoCSS stylesheets is optimised for printed UK walking maps at zoom level 14
+(scale about 1:12500). They may also work at different zoom levels, but this is not tested.
+
+Significant changes from the standard OSM styling:
+
+The "track" type (brown lines in the standard map) are merged with "service" roads to a narrow
+white road with black casing which varies from solid (asphalt surface) to short dash (soft 
+surfaces e.g. bare earth), with a "service" road being assumed to be an asphalt surface by default,
+while a track is assumed to be a "mid-grade" surface.
+
+The "footway" type is also "disappeared" into either a pedestrian highway (solid surface) or a path
+(soft surface, default), again with the goal of providing a visual distinction between hard and soft
+surfaces.
+
+Rights of way are indicated by coloured dashed lines, with again the solidity of the line reflecting
+the surface, and colours indicating the nature of the right of way. This scheme allows RoW information
+to be easily added to "road"-types.
+
+Walking/hiking routes are added.
+
+Many "land cover" symbols have been reworked to be clearer at z14. In particular wetlands have
+been rationalised so that an overlay of unbroken blue lines indicates permanently water-logged areas
+(unlikely to be passable on foot) from merely "wet" areas, such as bog (overlay with dashed blue
+lines). 
+
+A number of symbols have been changed / added to better illustrate relevant features at z14. Features
+that have been "promoted" to appear at z14 include tall features, such as power line posts, masts, churches
+etc., moorland features that may add navigation, such as sheepfolds, grouse butts, together with
+selected "tourism" features, such as cafes, pubs, viewpoints and parking places.
+
+1 km grid-lines for the UK are added from open OS data. The data source has been added to the
+external-data.yml config file, and so these are uploaded with a modified version of the
+get-external-data.py script.
+
+Contour information is obtained from the freely available OSTerrain50 data set. If the 100 km squares
+of interest are unpacked into OSTerrain50/data, these can be uploaded to the database using get-external-data.py
+with external-data-contours.yml as the config file. (Loading all the contours for the UK will be extremely slow.)
+
+Data for a legend is contained in UKz14_legend.osm. After adding to the Postgres database, the legend
+can be obtained by rendering bounding box \[134.999, -24.998, 135.054, -24.982\] (WGS84 datum).
+
+The rest of this README tracks the original.  
+
 # OpenStreetMap Carto
 
 ![screenshot](https://raw.github.com/gravitystorm/openstreetmap-carto/master/preview.png)
