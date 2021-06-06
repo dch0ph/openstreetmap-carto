@@ -444,7 +444,12 @@ function filter_highway (keyvalues)
 	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
 	keyvalues['railway'] = nil
 
-	local origsurface = keyvalues['surface'] 
+    -- Prioritise any explicit footway surface
+	if keyvalues['footway:surface'] then
+		keyvalues['surface'] = keyvalues['footway:surface']
+	end
+	
+	local origsurface = keyvalues['surface']
 	if origsurface ~= nil then
 		if (origsurface == 'cobblestone:flattened') or (origsurface == 'unhewn_cobblestone') then
 			keyvalues['surface'] = 'cobblestone'
@@ -481,15 +486,6 @@ function filter_highway (keyvalues)
 		end
 	end
 		
-	-- Include PRoW ref in name if available
-	if keyvalues['prow_ref'] ~= nil then
-		if keyvalues['name'] == nil then
-			keyvalues['name'] = prow_ref
-		else	
-			keyvalues['name'] = keyvalues['name'] .. '(' .. keyvalues['prow_ref'] .. ')'
-		end
-	end
-
 -- Consolidate access tags to remove private->no and designated->yes
  
     for index, access_tag in ipairs (access_tags) do
