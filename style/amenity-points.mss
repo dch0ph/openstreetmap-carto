@@ -1408,11 +1408,13 @@
 
   [feature = 'amenity_parking'] {
     [zoom >= 16],
-	[zoom >= 14][access != 'private'] {
+	[zoom >= 14][access = 'yes'],
+	[zoom >= 14][access = null],
+    [zoom >= 14][access = 'permissive']	{
       marker-file: url('symbols/amenity/parking.svg');
       marker-clip: false;
       marker-fill: @transportation-icon;
-      [access != ''][access != 'permissive'][access != 'yes'] { marker-opacity: 0.33; }
+      [access != null][access != 'permissive'][access != 'yes'] { marker-opacity: 0.33; }
 	  [zoom < 16] { marker-width: 8; }
     }
   }
@@ -1657,10 +1659,7 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @culture;
       text-dy: 11;
-	  [zoom < 16] {
-		text-dy: 9;
-		text-size: 9;
-	  }
+	  [zoom < 16] { text-dy: 8; }
       [feature = 'amenity_community_centre'] { text-dy: 10; }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;

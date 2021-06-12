@@ -314,7 +314,7 @@ function filter_tags_generic(tags)
 
 	if (tags['ruined:building'] ~=nil) or (tags['abandoned:building'] ~= nil) then
 		tags['building'] = 'ruins'
-	elseif (tags['building'] ~= nil) and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes')) then
+	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes')) then
 		tags['building'] = 'ruins'
 	end
 	
@@ -323,10 +323,11 @@ function filter_tags_generic(tags)
 		tags['place'] = 'farm'
 	end
 	
-	-- Try to strip leading The from pub names
-	if (tags['amenity'] == 'pub') and tags['name'] then
+	-- Try to strip leading The from pub/cafe names if results has >1 word
+	-- e.g. will shorten to "Rat and Ratchet" but not change "The Rat"
+	if ((tags['amenity'] == 'pub') or (tags['amenity'] == 'cafe')) and tags['name'] then
 		stripname = string.match(tags['name'], "^The (.*)")
-		if stripname then
+		if stripname and string.find(stripname, " ") then
 			tags['name'] = stripname
 		end
 	end
@@ -377,7 +378,9 @@ end
 local poor_visibility_tags = { 'no', 'none', 'nil', 'horrible', 'very_bad', 'poor'}
 -- service or unclassified road with these surface tags will be demoted to track
 local bad_surface_tags = { 'unpaved', 'dirt', 'earth' }
-local good_surface_tags = { 'asphalt', 'concrete', 'compacted', 'fine_gravel' }
+local hardunsealed_surface_tags = {  'compacted', 'fine_gravel', 'cobblestone' }
+-- excellent is defined for walking rather than cycling!
+local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett' }
 local no_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
 --- Note not trying to distinguish between restricted_byway and byway
 --- Also treating ORPAs as BOATs
@@ -459,7 +462,8 @@ function filter_highway (keyvalues)
 	end
 	local surface = keyvalues['surface']
 	local isbadsurface = is_in(surface, bad_surface_tags)
-	local isgoodsurface = is_in(surface, good_surface_tags)
+	local isexcellentsurface = is_in(surface, excellent_surface_tags)
+	local ishardunsealedsurface = is_in(surface, hardunsealed_surface_tags)
 		
 	local width = tonumber(keyvalues['width']) or 0
 	if keyvalues['trail_visibility'] ~= nil then
@@ -475,11 +479,10 @@ function filter_highway (keyvalues)
 	if keyvalues['tracktype'] == nil then
 		if isbadsurface or (keyvalues['trail_visibility'] == 'bad') then
 			keyvalues['tracktype'] = 'grade5'
-		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or (surface == 'asphalt') then
+		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface then
 	-- In the absence of other evidence, assume service roads and cycleways are asphalt
 			keyvalues['tracktype'] = 'grade1'
-		elseif isgoodsurface or (keyvalues['trail_visibility'] == 'excellent') then
-	-- Surface has to be explictly asphalt to count as "excellent". 
+		elseif ishardunsealedsurface or (keyvalues['trail_visibility'] == 'excellent') then
 			keyvalues['tracktype'] = 'grade2'
 		else
 			keyvalues['tracktype'] = 'grade3'
