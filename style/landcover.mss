@@ -28,7 +28,7 @@
 @commercial-line: #d1b2b0;  // Lch(75,12,25)
 @industrial: #ebdbe8;       // Lch(89,9,330) (Also used for railway, wastewater_plant)
 @industrial-line: #c6b3c3;  // Lch(75,11,330) (Also used for railway-line, wastewater_plant-line)
-@farmland: #eef0d5;         // Lch(94,14,112)
+@farmland: darken(#eef0d5, 4%);         // was Lch(94,14,112)
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
 @farmyard: #f5dcba;         // Lch(89,20,80)
 @farmyard-line: brown;
@@ -372,7 +372,7 @@
 
   [feature = 'landuse_meadow'],
   [feature = 'landuse_pasture'] {
-    polygon-fill: lighten(@grass, 8%);
+    polygon-fill: lighten(@grass, 4%);
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }

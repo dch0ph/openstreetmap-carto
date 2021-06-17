@@ -272,7 +272,7 @@
   <node id='-839762' action='modify' lat='-24.98701810074' lon='135.03986341684' />
   <node id='-839763' action='modify' lat='-24.98526908592' lon='135.03468541143'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Broadleaved wood' />
+    <tag k='name' v='Broadleaved' />
   </node>
   <node id='-839764' action='modify' lat='-24.98409336044' lon='135.03687273151' />
   <node id='-839765' action='modify' lat='-24.98556083115' lon='135.03465680927' />
@@ -281,11 +281,11 @@
   <node id='-839768' action='modify' lat='-24.98487037054' lon='135.03687231392' />
   <node id='-839769' action='modify' lat='-24.9882156647' lon='135.03468899578'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Mixed wood' />
+    <tag k='name' v='Mixed' />
   </node>
   <node id='-839770' action='modify' lat='-24.98381279374' lon='135.03765820384'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Farmland (crops)' />
+    <tag k='name' v='Farmland' />
   </node>
   <node id='-839771' action='modify' lat='-24.98701224694' lon='135.03464340091' />
   <node id='-839772' action='modify' lat='-24.98701710927' lon='135.03761797071' />
@@ -294,7 +294,7 @@
   <node id='-839775' action='modify' lat='-24.98487523295' lon='135.03984688371' />
   <node id='-839776' action='modify' lat='-24.98674239218' lon='135.03468720361'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Conifer wood' />
+    <tag k='name' v='Conifer' />
   </node>
   <node id='-839777' action='modify' lat='-24.98849219377' lon='135.03688884445' />
   <node id='-839778' action='modify' lat='-24.98556667435' lon='135.03985267356' />
@@ -318,7 +318,7 @@
   <node id='-839790' action='modify' lat='-24.98635339735' lon='135.03687767833' />
   <node id='-839791' action='modify' lat='-24.98674725452' lon='135.03766177341'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Pasture / grazing' />
+    <tag k='name' v='Pasture' />
   </node>
   <node id='-839792' action='modify' lat='-24.98821565498' lon='135.04063276023'>
     <tag k='annotation' v='text' />
@@ -354,7 +354,7 @@
   <node id='-839809' action='modify' lat='-24.98701709954' lon='135.04356173515' />
   <node id='-839810' action='modify' lat='-24.98381278402' lon='135.04360196829'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Grass (managed)' />
+    <tag k='name' v='Grass (mown)' />
   </node>
   <node id='-839811' action='modify' lat='-24.98556568381' lon='135.04357514352' />
   <node id='-839812' action='modify' lat='-24.98783153669' lon='135.0458067441' />
@@ -395,7 +395,7 @@
   <node id='-839838' action='modify' lat='-24.98782910554' lon='135.04877729058' />
   <node id='-839839' action='modify' lat='-24.98674481363' lon='135.04657608434'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Recreation ground' />
+    <tag k='name' v='Rec. ground' />
   </node>
   <node id='-839840' action='modify' lat='-24.98635483799' lon='135.04654526457' />
   <node id='-839841' action='modify' lat='-24.98848850404' lon='135.04653630655' />
@@ -439,7 +439,7 @@
   <node id='-839867' action='modify' lat='-24.98487037054' lon='135.05172236413' />
   <node id='-839868' action='modify' lat='-24.9882156647' lon='135.04953904599'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Brownfield / construction' />
+    <tag k='name' v='Brownfield / Constr.' />
   </node>
   <node id='-839869' action='modify' lat='-24.98635241654' lon='135.04950643405' />
   <node id='-839870' action='modify' lat='-24.98556083115' lon='135.04950685948' />
@@ -585,15 +585,15 @@
   <node id='-839959' action='modify' lat='-24.99085013465' lon='135.04436212319' />
   <node id='-839960' action='modify' lat='-24.99105614456' lon='135.04436233459' />
   <node id='-839961' action='modify' lat='-24.99105650055' lon='135.04394004758' />
-  <node id='-839962' action='modify' lat='-24.9906438145' lon='135.04606353201' />
-  <node id='-839963' action='modify' lat='-24.99116353902' lon='135.04485186964' />
-  <node id='-839964' action='modify' lat='-24.99116251714' lon='135.04606406428' />
-  <node id='-839965' action='modify' lat='-24.99064483638' lon='135.04485133737' />
+  <node id='-839962' action='modify' lat='-24.9906438145' lon='135.04623519339' />
+  <node id='-839963' action='modify' lat='-24.99116353902' lon='135.04502353102' />
+  <node id='-839964' action='modify' lat='-24.99116251714' lon='135.04623572566' />
+  <node id='-839965' action='modify' lat='-24.99064483638' lon='135.04502299875' />
   <node id='-839966' action='modify' lat='-24.99034699166' lon='135.04252368412'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Building' />
   </node>
-  <node id='-839967' action='modify' lat='-24.99034699166' lon='135.04487089748'>
+  <node id='-839967' action='modify' lat='-24.99034699166' lon='135.04504255886'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Ruins' />
   </node>
@@ -601,7 +601,7 @@
     <tag k='amenity' v='place_of_worship' />
     <tag k='religion' v='christian' />
   </node>
-  <node id='-839969' action='modify' lat='-24.99221914646' lon='135.04544987678'>
+  <node id='-839969' action='modify' lat='-24.99221914646' lon='135.04562153816'>
     <tag k='amenity' v='place_of_worship' />
     <tag k='religion' v='muslim' />
   </node>
@@ -609,18 +609,18 @@
     <tag k='annotation' v='text' />
     <tag k='name' v='Church' />
   </node>
-  <node id='-839971' action='modify' lat='-24.99166246705' lon='135.04487480951'>
+  <node id='-839971' action='modify' lat='-24.99166246705' lon='135.04504647089'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Mosque' />
   </node>
-  <node id='-839972' action='modify' lat='-24.99352041909' lon='135.04544987678'>
+  <node id='-839972' action='modify' lat='-24.99352041909' lon='135.04562153816'>
     <tag k='tourism' v='viewpoint' />
   </node>
   <node id='-839973' action='modify' lat='-24.99296374556' lon='135.04252759614'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Mast (comm)' />
   </node>
-  <node id='-839974' action='modify' lat='-24.99296208568' lon='135.04487480808'>
+  <node id='-839974' action='modify' lat='-24.99296208568' lon='135.04504646946'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Viewpoint' />
   </node>
@@ -632,44 +632,44 @@
     <tag k='annotation' v='text' />
     <tag k='name' v='Wind turbine' />
   </node>
-  <node id='-839977' action='modify' lat='-24.99426146818' lon='135.04487872544'>
+  <node id='-839977' action='modify' lat='-24.99426146818' lon='135.04505038682'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Map' />
   </node>
-  <node id='-839978' action='modify' lat='-24.99043672017' lon='135.04795942549'>
+  <node id='-839978' action='modify' lat='-24.99043672017' lon='135.04813108687'>
     <tag k='amenity' v='cafe' />
     <tag k='name' v='Cafe' />
   </node>
-  <node id='-839979' action='modify' lat='-24.99042962862' lon='135.05029099077'>
+  <node id='-839979' action='modify' lat='-24.99042962862' lon='135.05046265215'>
     <tag k='amenity' v='pub' />
     <tag k='name' v='Pub' />
   </node>
-  <node id='-839980' action='modify' lat='-24.99149845012' lon='135.04794087261'>
+  <node id='-839980' action='modify' lat='-24.99149845012' lon='135.04811253399'>
     <tag k='historic' v='archaeological_site' />
     <tag k='name' v='Historic site' />
   </node>
-  <node id='-839981' action='modify' lat='-24.9935248247' lon='135.05025874581'>
+  <node id='-839981' action='modify' lat='-24.9935248247' lon='135.05043040719'>
     <tag k='barrier' v='kissing_gate' />
   </node>
-  <node id='-839982' action='modify' lat='-24.99296981108' lon='135.0473364666'>
+  <node id='-839982' action='modify' lat='-24.99296981108' lon='135.04750812798'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Stile' />
   </node>
-  <node id='-839983' action='modify' lat='-24.9935248247' lon='135.04792718053'>
+  <node id='-839983' action='modify' lat='-24.9935248247' lon='135.04809884191'>
     <tag k='barrier' v='stile' />
   </node>
-  <node id='-839984' action='modify' lat='-24.9929681512' lon='135.04968367853'>
+  <node id='-839984' action='modify' lat='-24.9929681512' lon='135.04985533991'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Kissing gate' />
   </node>
-  <node id='-839985' action='modify' lat='-24.99427473793' lon='135.04734429313'>
+  <node id='-839985' action='modify' lat='-24.99427473793' lon='135.04751595451'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Bench' />
   </node>
-  <node id='-839986' action='modify' lat='-24.99483140551' lon='135.04793500849'>
+  <node id='-839986' action='modify' lat='-24.99483140551' lon='135.04810666987'>
     <tag k='amenity' v='bench' />
   </node>
-  <node id='-839987' action='modify' lat='-24.99427473793' lon='135.04969150649'>
+  <node id='-839987' action='modify' lat='-24.99427473793' lon='135.04986316787'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Car parking' />
   </node>
@@ -677,11 +677,11 @@
   <node id='-839989' action='modify' lat='-24.99129467226' lon='135.0169193691' />
   <node id='-839990' action='modify' lat='-24.99201422389' lon='135.01263856877' />
   <node id='-839991' action='modify' lat='-24.9920003652' lon='135.01466018138' />
-  <node id='-839992' action='modify' lat='-24.99176748131' lon='135.05027705346'>
+  <node id='-839992' action='modify' lat='-24.99176748131' lon='135.05044871484'>
     <tag k='man_made' v='survey_point' />
     <tag k='name' v='Trig point' />
   </node>
-  <node id='-839993' action='modify' lat='-24.99611120261' lon='135.04545963723'>
+  <node id='-839993' action='modify' lat='-24.99611120261' lon='135.04563129861'>
     <tag k='amenity' v='hunting_stand' />
     <tag k='hunting_stand' v='grouse_butt' />
   </node>
@@ -689,19 +689,19 @@
     <tag k='annotation' v='text' />
     <tag k='name' v='Sheepfold' />
   </node>
-  <node id='-839995' action='modify' lat='-24.99555454082' lon='135.04488456996'>
+  <node id='-839995' action='modify' lat='-24.99555454082' lon='135.04505623134'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Grouse butt' />
   </node>
-  <node id='-839996' action='modify' lat='-24.99481349952' lon='135.0454557213'>
+  <node id='-839996' action='modify' lat='-24.99481349952' lon='135.04562738268'>
     <tag k='information' v='map' />
     <tag k='tourism' v='information' />
   </node>
-  <node id='-839997' action='modify' lat='-24.99556781043' lon='135.04735013764'>
+  <node id='-839997' action='modify' lat='-24.99556781043' lon='135.04752179902'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Mine' />
   </node>
-  <node id='-839998' action='modify' lat='-24.99612447215' lon='135.04794085301'>
+  <node id='-839998' action='modify' lat='-24.99612447215' lon='135.04811251439'>
     <tag k='man_made' v='adit' />
   </node>
   <node id='-839999' action='modify' lat='-24.99481349952' lon='135.04312415602'>
@@ -709,18 +709,18 @@
     <tag k='generator:source' v='wind' />
     <tag k='power' v='generator' />
   </node>
-  <node id='-840000' action='modify' lat='-24.99612447215' lon='135.05027241828'>
+  <node id='-840000' action='modify' lat='-24.99612447215' lon='135.05044407966'>
     <tag k='disused' v='yes' />
     <tag k='man_made' v='adit' />
   </node>
   <node id='-840001' action='modify' lat='-24.99611120261' lon='135.04312807196'>
     <tag k='man_made' v='sheepfold' />
   </node>
-  <node id='-840002' action='modify' lat='-24.99481790509' lon='135.05026459032'>
+  <node id='-840002' action='modify' lat='-24.99481790509' lon='135.0504362517'>
     <tag k='amenity' v='parking' />
     <tag k='barrier' v='kissing_gate' />
   </node>
-  <node id='-840003' action='modify' lat='-24.99556781043' lon='135.04969735101'>
+  <node id='-840003' action='modify' lat='-24.99556781043' lon='135.04986901239'>
     <tag k='annotation' v='text' />
     <tag k='name' v='Disused mine' />
   </node>
@@ -1390,6 +1390,7 @@
     <tag k='designation' v='public_footpath' />
     <tag k='highway' v='service' />
     <tag k='name' v='Road + PRoW' />
+    <tag k='tracktype' v='grade2' />
   </way>
   <way id='-172286' action='modify'>
     <nd ref='-839642' />

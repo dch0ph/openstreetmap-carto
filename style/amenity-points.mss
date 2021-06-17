@@ -81,6 +81,7 @@
     }
     [feature = 'amenity_cafe'] {
       marker-file: url('symbols/amenity/cafe.svg');
+	  [zoom < 16] { marker-width: 9; }
 /*	  [zoom < 16] {
 		marker-width: 8;
 		glow/marker-fill: white;
@@ -91,6 +92,7 @@
     }
     [feature = 'amenity_pub'] {
       marker-file: url('symbols/amenity/pub.svg');
+	  [zoom < 16] { marker-width: 9; }
     }
 	marker-max-error: 2.0;
   }

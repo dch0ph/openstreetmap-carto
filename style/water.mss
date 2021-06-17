@@ -5,9 +5,10 @@
 @glacier-line: #9cf;
 
 @tunnel-color: #505050;
-@stream-width: 1.1;
+@stream-width-z14: 1.1;
+@stream-width-z15plus: 1.4;
 
-@wastewater-color: desaturate(@water-color, 30%);
+@wastewater-color: desaturate(@water-color, 40%);
 
 @waterway-text-repeat-distance: 200;
 
@@ -219,12 +220,12 @@
         water/line-join: round;
         water/line-clip: false;
       }
-      water/line-width: @stream-width;
+      water/line-width: @stream-width-z14;
       water/line-color: @water-line-color;
 	  [int_tunnel = 'yes'] { water/line-color: lighten(@water-line-color, 20%); }
 	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'] { water/line-smooth: @water-smooth; }
 
-      [waterway = 'stream'][zoom >= 15] { water/line-width: 2; }
+      [waterway = 'stream'][zoom >= 15] { water/line-width: @stream-width-z15plus; }
 
 	  [int_intermittent != 'yes'][zoom >= 13] {
 		marker-file: url('symbols/oneway.svg');

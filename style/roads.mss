@@ -59,7 +59,7 @@
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
 @cycleway-fill-noaccess: #9999ff;
 @bridleway-fill: limegreen;
-@BOAT-fill: #4b0082; // indigo!
+@BOAT-fill: purple;
 //@bridleway-fill-noaccess: lighten(@bridleway-fill, 30%);
 //@track-fill: #996600;
 //@track-fill-noaccess: #e2c5bb;
@@ -179,6 +179,7 @@
 // bump down at z14
 @primary-width-z14:				  4.5;
 @primary-link-width-z14:		  3.5;
+@primary-link-width-z14:		  3.5;
 @secondary-width-z14:             4.5;
 @secondary-link-width-z14:		  3.5;
 // bump down tertiary
@@ -191,20 +192,21 @@
 @steps-width-z14:                 2.25;
 @cycleway-width-z14:              1.0;
 
-@motorway-width-z15:             10;
-@motorway-link-width-z15:         7.8;
-@trunk-width-z15:                10;
-@trunk-link-width-z15:          7.8;
-@primary-width-z15:              10;
-@primary-link-width-z15:        7.8;
-@secondary-width-z15:             9;
-@secondary-link-width-z15:        7;
-@tertiary-width-z15:              9;
-@tertiary-link-width-z15:         7;
+// bump down at z15
+@motorway-width-z15:             7;
+@motorway-link-width-z15:         5.5;
+@trunk-width-z15:                @motorway-width-z15;
+@trunk-link-width-z15:          @motorway-link-width-z15;
+@primary-width-z15:              @motorway-width-z15;
+@primary-link-width-z15:        @motorway-link-width-z15;
+@secondary-width-z15:             6;
+@secondary-link-width-z15:        4.5;
+@tertiary-width-z15:              @secondary-width-z15;
+@tertiary-link-width-z15:         @secondary-link-width-z15;
 // bumped down from 5
 @residential-width-z15:           4;
-@living-street-width-z15:         5;
-@pedestrian-width-z15:            4;
+//@living-street-width-z15:         5;
+@pedestrian-width-z15:            @residential-width-z15;
 // bumped up from 1.2
 //@bridleway-width-z15:             1.4;
 //@footway-width-z15:               1.4;
@@ -667,7 +669,7 @@
         [tracktype = 'grade4'] { line-dasharray: 3.2,3.8; }
         [tracktype = 'grade5'] { line-dasharray: 2.5,4.5; }
 
-        [zoom >= 15] {
+        [zoom >= 16] {
           [tracktype = 'grade2'] {
             line-dasharray: 11,4;
           }
@@ -1235,7 +1237,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           b/line-width: 7;
         }
       }
-      [construction = 'living_street'][zoom >= 14] {
+    /*  [construction = 'living_street'][zoom >= 14] {
         line-color: @minor-construction;
         b/line-color: @living-street-fill;
         line-width: @living-street-width-z14;
@@ -1254,7 +1256,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           line-width: 8;
           b/line-width: 7;
         }
-      }
+      } */
       [construction = 'pedestrian'][zoom >= 14] {
         line-color: @minor-construction;
         b/line-color: @pedestrian-fill;
@@ -1438,7 +1440,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[tracktype = 'grade4'] { line/line-dasharray: 3.2,3.8; }
 			[tracktype = 'grade5'] { line/line-dasharray: 2.5,4.5; }
 		
-			[zoom >= 15] {
+			[zoom >= 16] {
 			  [tracktype = 'grade2'] {
 				line/line-dasharray: 11,4;
 			  }
