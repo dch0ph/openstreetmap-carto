@@ -1783,10 +1783,11 @@ Layer:
             way,
             power
         FROM planet_osm_point
-        WHERE power IN ('tower', 'pole')
+        WHERE power IN ('tower', 'pole', 'transitionpole')
         ORDER BY
           CASE power
-            WHEN 'tower' THEN 2
+            WHEN 'tower' THEN 3
+            WHEN 'transitionpole' THEN 2
             WHEN 'pole' THEN 1
           END DESC
         ) AS power_towers

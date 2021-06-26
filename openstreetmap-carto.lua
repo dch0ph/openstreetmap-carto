@@ -318,7 +318,7 @@ function filter_tags_generic(tags)
 		tags['building'] = 'ruins'
 	end
 	
-	-- Create place=farm if farmyard is named (will create higher priority label)
+	-- Create place=farm if farmyard is named. Creates a higher priority (and uniform) label for farms
 	if (tags['landuse'] == 'farmyard') and (tags['name'] ~= nil) then
 		tags['place'] = 'farm'
 	end
@@ -354,6 +354,13 @@ function filter_tags_node (keyvalues, numberofkeys)
             keyvalues['height'] = '40'
         end
     end
+
+-- Mark transitions, including distribution transformers, with larger pole
+	if keyvalues['power'] == 'pole' then
+		if (keyvalues['location:transition'] == 'yes') or (keyvalues['transformer'] == 'distribution') then
+			keyvalues['power'] = 'transitionpole'
+		end
+	end
 				
     return filter_tags_generic(keyvalues)
 end

@@ -39,17 +39,24 @@
       marker-width: 3;
     }
     [zoom >= 14] {
-      marker-file: url('symbols/man_made/power_tower.svg');
+      marker-file: url('symbols/power-tower-compact.svg');
       marker-width: 4;
     }
     [zoom >= 16] {
       marker-width: 7;
     }
+    marker-fill: white;
+	marker-line-color: @power-line-color;
   }
   [power = 'pole'] {
-//    marker-file: url('symbols/square.svg');
 	[zoom >= 14] { marker-width: 2; }
 	[zoom >= 16] { marker-width: 3; }
+    marker-fill: @power-line-color;
   }
-  marker-fill: @power-line-color
+  // indicate poles with transition to cable with pole of twice area
+  [power = 'transitionpole'] {
+	[zoom >= 14] { marker-width: 2.8; }
+	[zoom >= 16] { marker-width: 4.2; }
+    marker-fill: @power-line-color;
+  }
 }
