@@ -137,6 +137,7 @@
   [feature = 'highway_crossing'][zoom >= 14] {
 	marker-width: 1.5;
 	[zoom >= 16] { marker-width: 3; }
+	[zoom >= 18] { marker-width: 5; }
 	marker-fill: @amenity-brown;
   }
   
@@ -1463,12 +1464,11 @@
     }
   }
 
-// Note clear why marker-fill causes breakage
   [feature = 'barrier_gate']::barrier {
-    [zoom >= 16][access != 'no'] {
-      marker-file: url('symbols/barrier/gate.svg');
+    [zoom >= 15] {
+      marker-file: url('symbols/gate_compact.svg');
       marker-clip: false;
-//      marker-fill: @amenity-brown;
+      marker-line-color: @amenity-brown;
     }
   }
 
@@ -2499,26 +2499,30 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'amenity_hospital'][zoom >= 16],
-  [feature = 'healthcare_hospital'][zoom >= 16] {
-    text-name: "[name]";
-    text-fill: @health-color;
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
-    text-dy: 10;
-    text-face-name: @standard-font;
-    text-halo-radius: @standard-halo-radius;
-    text-halo-fill: @standard-halo-fill;
+// Use same logic for hospital as school
+  [feature = 'amenity_hospital'] {
+    [zoom >= 10][way_pixels > 3000][is_building = 'no'],
+    [zoom >= 17][is_building = 'no'] {
+		text-name: "[name]";
+		text-fill: @health-color;
+		text-size: @standard-font-size;
+		text-wrap-width: @standard-wrap-width;
+		text-line-spacing: @standard-line-spacing-size;
+		text-dy: 10;
+		text-face-name: @standard-font;
+		text-halo-radius: @standard-halo-radius;
+		text-halo-fill: @standard-halo-fill;
+	}
   }
 
 
+// healthcare items don't seem to be selected by SQL queries anyway?
   [feature = 'amenity_clinic'],
   [feature = 'amenity_pharmacy'],
   [feature = 'amenity_doctors'],
   [feature = 'amenity_dentist'],
-  [feature = 'amenity_veterinary'],
-  [feature = 'healthcare_alternative'],
+  [feature = 'amenity_veterinary']
+/*  [feature = 'healthcare_alternative'],
   [feature = 'healthcare_audiologist'],
   [feature = 'healthcare_birthing_center'],
   [feature = 'healthcare_blood_bank'],
@@ -2537,7 +2541,8 @@
   [feature = 'healthcare_psychotherapist'],
   [feature = 'healthcare_rehabilitation'],
   [feature = 'healthcare_speech_therapist'],
-  [feature = 'healthcare_yes'] {
+  [feature = 'healthcare_yes']*/
+  {
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;

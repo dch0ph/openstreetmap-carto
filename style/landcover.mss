@@ -26,7 +26,7 @@
 @retail-line: #d99c95;      // Lch(70,25,30)
 @commercial: #f2dad9;       // Lch(89,8.5,25)
 @commercial-line: #d1b2b0;  // Lch(75,12,25)
-@industrial: #ebdbe8;       // Lch(89,9,330) (Also used for railway, wastewater_plant)
+@industrial: darken(#ebdbe8, 4%);       // was Lch(89,9,330) (Also used for railway, wastewater_plant)
 @industrial-line: #c6b3c3;  // Lch(75,11,330) (Also used for railway-line, wastewater_plant-line)
 @farmland: darken(#eef0d5, 4%);         // was Lch(94,14,112)
 @farmland-line: #c7c9ae;    // Lch(80,14,112)

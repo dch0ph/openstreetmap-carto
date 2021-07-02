@@ -105,11 +105,12 @@ local roads_info = {
         living_street   = {z = 320, roads = false},
         pedestrian      = {z = 310, roads = false},
         raceway         = {z = 300, roads = false},
-        motorway_link   = {z = 240, roads = true},
-        trunk_link      = {z = 230, roads = true},
-        primary_link    = {z = 220, roads = true},
-        secondary_link  = {z = 210, roads = true},
-        tertiary_link   = {z = 200, roads = false},
+-- Boost link roads otherwise appear underneath pedestrian
+        motorway_link   = {z = 335, roads = true},
+        trunk_link      = {z = 335, roads = true},
+        primary_link    = {z = 335, roads = true},
+        secondary_link  = {z = 325, roads = true},
+        tertiary_link   = {z = 325, roads = false},
         service         = {z = 150, roads = false},
         track           = {z = 110, roads = false},
 -- Fake highway types created from route relations
@@ -286,6 +287,11 @@ function filter_tags_generic(tags)
 	if (tags['natural'] == 'wood') and (tags['leaf_type'] == 'needleleaved') then
 		tags['natural'] = nil
 		tags['landuse'] = 'forest'
+	end
+	
+	-- Merge hospital
+	if tags['healthcare'] == 'hospital' then
+		tags['amenity'] = 'hospital'
 	end
 
     -- Convert layer to an integer
@@ -523,7 +529,7 @@ function filter_highway (keyvalues)
 		keyvalues['sidewalk'] = nil
 	-- Kill off footway and treat as minor service road if decent surface present or path if not
 	elseif keyvalues['highway'] == 'footway' then
-		if isgoodsurface or (keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway') then
+		if isexcellentsurface or (keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway') then
 			keyvalues['highway'] = 'pedestrian'
 	-- For pedestrian routes, ignore shared cycleway
 			keyvalues['bicycle'] = nil
