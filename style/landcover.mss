@@ -910,9 +910,9 @@
 }
 
 #barriers {
-	line-width: 0.4;
+	line-width: 0.5;
     line-color: @barrier-color;
-  [zoom >= 16] { line-width: 0.6; }
+  [zoom >= 16] { line-width: 0.8; }
   [feature = 'barrier_ruined'] { line-dasharray: 1,2; }
   [feature = 'barrier_fence'] { line-color: @fence-color; } 
   [feature = 'barrier_retaining_wall'] {
@@ -1056,7 +1056,7 @@
   }
 }
 
-#contours-text50 {
+#contours-text {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   text-name: "[prop_value]";
   text-face-name: @book-fonts;

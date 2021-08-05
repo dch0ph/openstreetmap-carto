@@ -89,6 +89,8 @@ delete_prefixes = {
     'naptan:',
 }
 
+delete_exceptions = { 'naptan:verified' }
+
 -- Big table for z_order and roads status for certain tags. z=0 is turned into
 -- nil by the z_order function
 local roads_info = {
@@ -216,7 +218,9 @@ function filter_tags_generic(tags)
     for tag, _ in pairs (tags) do
         for _, d in ipairs(delete_prefixes) do
             if string.sub(tag, 1, string.len(d)) == d then
-                tags[tag] = nil
+				if not is_in(d, delete_exceptions) then
+					tags[tag] = nil
+				end
                 break
             end
         end
@@ -294,6 +298,11 @@ function filter_tags_generic(tags)
 		tags['amenity'] = 'hospital'
 	end
 
+-- Bodge lack of rendering of dedicated sports hall
+	if keyvalues['leisure'] == 'sports_hall' then
+		keyvalues['leisure'] = 'sports_centre'
+	end
+
     -- Convert layer to an integer
     tags['layer'] = layer(tags['layer'])
 
@@ -318,7 +327,7 @@ function filter_tags_generic(tags)
 		tags['amenity'] = nil
 	end
 
-	if (tags['ruined:building'] ~=nil) or (tags['abandoned:building'] ~= nil) then
+	if tags['ruins:building'] or tags['abandoned:building'] then
 		tags['building'] = 'ruins'
 	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes')) then
 		tags['building'] = 'ruins'
@@ -344,6 +353,12 @@ end
 -- Filtering on nodes
 function filter_tags_node (keyvalues, numberofkeys)
 
+-- Move filter_tags_generic to top for consistency with ways and relations
+    local filter, keyvalues = filter_tags_generic(keyvalues)
+    if filter == 1 then
+        return 1, keyvalues
+    end
+
 -- Suppress cairn if coincides with peak
 	if (keyvalues['natural'] == 'peak') and (keyvalues['man_made'] == 'cairn') then
 		keyvalues['man_made'] = nil
@@ -367,8 +382,6 @@ function filter_tags_node (keyvalues, numberofkeys)
 			keyvalues['power'] = 'transitionpole'
 		end
 	end
-				
-    return filter_tags_generic(keyvalues)
 end
 
 -- Filtering on relations
@@ -403,6 +416,8 @@ local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 
 local access_tags = { 'foot', 'horse', 'bicycle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
 --local bridges = { 'cantilever', 'movable', 'trestle', 'viaduct' }
+-- Note that customers and private have been rationalised to destination and private respectively
+local isprivate_keys = { 'no', 'destination' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -492,7 +507,7 @@ function filter_highway (keyvalues)
 	if keyvalues['tracktype'] == nil then
 		if isbadsurface or (keyvalues['trail_visibility'] == 'bad') then
 			keyvalues['tracktype'] = 'grade5'
-		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface then
+		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface or (keyvalues['highway'] == 'footway') then
 	-- In the absence of other evidence, assume service roads and cycleways are asphalt
 			keyvalues['tracktype'] = 'grade1'
 		elseif ishardunsealedsurface or (keyvalues['trail_visibility'] == 'excellent') then
@@ -521,15 +536,16 @@ function filter_highway (keyvalues)
 	if keyvalues['footway'] == 'sidewalk' then
 		keyvalues['name'] = nil
 	end
-
+	
 	-- Kill off track and extend service to include tracktype
 	if keyvalues['highway'] == 'track' then
 		keyvalues['highway'] = 'service'
 		-- Kill any sidewalk tag from tracks
 		keyvalues['sidewalk'] = nil
 	-- Kill off footway and treat as minor service road if decent surface present or path if not
+	-- In the absence of contrary surface information, highway=footway will be promoted to highway=pedestrian
 	elseif keyvalues['highway'] == 'footway' then
-		if isexcellentsurface or (keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway') then
+		if ((keyvalues['tracktype'] == 'grade1') or (keyvalues['designation'] == 'adopted_footway')) and not is_in(keyvalues['access'], isprivate_keys) then
 			keyvalues['highway'] = 'pedestrian'
 	-- For pedestrian routes, ignore shared cycleway
 			keyvalues['bicycle'] = nil
@@ -647,6 +663,13 @@ function filter_tags_way (keyvalues, numberofkeys)
 	-- Hide religious buildings that are not active i.e. will not be tagged with place of worship
 		keyvalues['building'] = 'yes'
 	end
+	
+	-- Remove building tag for ways with other formatting that would be otherwise obscured
+	if keyvalues['building'] then
+		if (keyvalues['leisure'] == 'sports_centre') or (keyvalues['power'] == 'substation') then
+			keyvalues['building'] = nil
+		end
+	end
 		
 	-- Promote bridge/tunnel:name if possible
 	if (keyvalues['bridge:name'] ~= nil) and (keyvalues['name'] == nil) then
@@ -657,7 +680,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 	
 	-- Introduce general category of ruined barrier
-	if keyvalues['ruined:barrier'] or (keyvalues['barrier'] == 'ruins') then
+	if keyvalues['abandoned:barrier'] or (keyvalues['barrier'] == 'ruins') or ((keyvalues['barrier'] == 'wall') and (keyvalues['ruins'] == 'yes')) then
 		keyvalues['barrier'] = 'ruined'
 	end 
 	

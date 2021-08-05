@@ -277,6 +277,8 @@
       text-placement: line;
       text-repeat-distance: @waterway-text-repeat-distance;
       [zoom >= 13] { text-size: 10; }
+	  [zoom >= 16] { text-size: 12; }
+	  [zoom >= 18] { text-size: 15; }
     }
 
     [waterway = 'canal'][zoom >= 12] {
@@ -311,10 +313,15 @@
       [zoom >= 13] {
 //		debug-mode: collision;
         text-name: "[name]";
-        text-size: 7;
         text-face-name: @oblique-fonts;
+        text-size: 7;
 		text-wrap-width: 42; // 6.0 em
 		text-line-spacing: -0.35; // -0.05 em
+		[zoom >= 16] {
+			text-size: 9;
+			text-wrap-width: 63; // 6.0 em
+			text-line-spacing: -0.45; // -0.05 em
+		}
 		text-placement-type: simple;
 		text-placements: "N,S,E,W,NE,SE,NW,SW";
         text-fill: @water-text;

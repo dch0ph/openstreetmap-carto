@@ -501,6 +501,7 @@ Layer:
             access,
             sidewalk,
             trail_visibility,
+            lit,
             construction,
             service,
             link,
@@ -524,6 +525,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                tags->'lit' AS lit,
                 construction,
                 CASE
                   WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text
@@ -557,6 +559,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                'null',
                 construction,
                 CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
                 'no' AS link,
@@ -763,6 +766,7 @@ Layer:
             access,
             sidewalk,
             trail_visibility,
+            lit,
             construction,
             service,
             link,
@@ -786,6 +790,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                tags->'lit' AS lit,
                 construction,
                 CASE
                   WHEN service IN ('parking_aisle', 'drive-through', 'driveway') OR leisure IN ('slipway') THEN 'INT-minor'::text
@@ -822,6 +827,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                'null',
                 construction,
                 CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') OR leisure IN ('slipway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
                 'no' AS link,
@@ -1004,6 +1010,7 @@ Layer:
             access,
             sidewalk,
             trail_visibility,
+            lit,
             construction,
             service,
             link,
@@ -1027,6 +1034,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                tags->'lit' AS lit,
                 construction,
                 CASE
                   WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text
@@ -1061,6 +1069,7 @@ Layer:
                 END AS access,
                 sidewalk,
                 trail_visibility,
+                'null',
                 construction,
                 CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
                 'no' AS link,
@@ -1374,7 +1383,7 @@ Layer:
     properties:
       cache-features: true
       minzoom: 4
-      maxzoom: 15
+      maxzoom: 16
   - id: placenames-small
     geometry: point
     <<: *extents
@@ -1667,6 +1676,7 @@ Layer:
               tags->'information' as information,
               tags->'memorial' as memorial,
               tags->'artwork_type' as artwork_type,
+              tags->'naptan:verified' as "naptan:verified",
               tags->'vending' as vending,
               CASE WHEN shop IN ('supermarket', 'bag', 'bakery', 'beauty', 'bed', 'bookmaker', 'books', 'butcher', 'carpet', 'clothes', 'computer',
                                 'confectionery', 'fashion', 'convenience', 'department_store', 'doityourself', 'hardware', 'fabric', 'fishmonger', 'florist',
@@ -2348,7 +2358,7 @@ Layer:
     properties:
       cache-features: true
       minzoom: 14
-  - id: contours-text50
+  - id: contours-text
     geometry: linestring
     <<: *extents
     Datasource:
