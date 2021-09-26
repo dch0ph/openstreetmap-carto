@@ -1015,16 +1015,17 @@
           [zoom >= 17] { line-width: @service-width-z17; }
           [zoom >= 18] { line-width: @service-width-z18; }
           line-color: @steps-casing;
-		  [lit = 'yes'] { line-color: @pedestrian-lit; }
-		  [lit = 'no'] { line-color: @pedestrian-dark; }
+// Only show lit/dark at higher zoom (not helpful/relevant for distance walking)
+		  [zoom >= 16][lit = 'yes'] { line-color: @pedestrian-lit; }
+		  [zoom >= 16][lit = 'no'] { line-color: @pedestrian-dark; }
           line-join: round;
         }
       }
       #tunnels {
         [zoom >= 14] {
           line-color: @steps-casing;
-		  [lit = 'yes'] { line-color: @pedestrian-lit; }
-		  [lit = 'no'] { line-color: @pedestrian-dark; }
+		  [zoom >= 16][lit = 'yes'] { line-color: @pedestrian-lit; }
+		  [zoom >= 16][lit = 'no'] { line-color: @pedestrian-dark; }
           line-cap: round;
           line-join: round;
           line-width: @service-width-z14;
@@ -1917,8 +1918,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         [zoom >= 18] { line-width: @pedestrian-width-z18 - 2 * @casing-width-z18; }
         [zoom >= 19] { line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
         line-color: @pedestrian-fill;
-		[lit = 'no'] { line-color: @pedestrian-dark; }
-		[lit = 'yes'] { line-color: @pedestrian-lit; }
+		[zoom >= 16][lit = 'no'] { line-color: @pedestrian-dark; }
+		[zoom >= 16][lit = 'yes'] { line-color: @pedestrian-lit; }
         #bridges {
           line-width: @pedestrian-width-z14 - 2 * @casing-width-z14;
           [zoom >= 15] { line-width: @pedestrian-width-z15 - 2 * @casing-width-z15; }
@@ -2001,8 +2002,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom >= 15] {
         #roads-fill[zoom >= 15] {
           background/line-color: @steps-casing;
-		  [lit = 'yes'] { background/line-color: @pedestrian-lit; }
-		  [lit = 'no'] { background/line-color: @pedestrian-dark; }
+		  [zoom >= 16][lit = 'yes'] { background/line-color: @pedestrian-lit; }
+		  [zoom >= 16][lit = 'no'] { background/line-color: @pedestrian-dark; }
           background/line-cap: round;
           background/line-join: round;
           background/line-width: @service-width-z15;
@@ -3455,6 +3456,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  }
 	  symbol/marker-file: url('symbols/lozenge.svg');
 	  symbol/marker-placement: line;
+	  [zoom >= 15] { symbol/marker-width: 8; } 
       text-name: "[name]";
       text-fill: @wn-fill;
 	  text-wrap-width: 80;

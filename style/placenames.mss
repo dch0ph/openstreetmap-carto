@@ -336,24 +336,25 @@
       text-margin: 8.4; // 0.7 em
     }
     [zoom >= 14] {
-      text-size: 14;
-      text-wrap-width: 70; // 5.0 em
-      text-line-spacing: -0.70; // -0.05 em
-      text-margin: 9.8; // 0.7 em
+      text-size: 13;
+      text-wrap-width: 65; // 5.0 em
+      text-line-spacing: -0.65; // -0.05 em
+      text-margin: 9.1; // 0.7 em
       text-fill: @placenames-light;
       text-halo-fill: white;
     }
     [zoom >= 16] {
-      text-size: 15;
-      text-wrap-width: 75; // 5.0 em
-      text-line-spacing: -0.75; // -0.05 em
-      text-margin: 10.5; // 0.7 em
+      text-size: 14;
+      text-wrap-width: 70; // 5.0 em
+      text-line-spacing: -0.7; // -0.05 em
+      text-margin: 9.8; // 0.7 em
     }
   }
 }
 
 #placenames-small::village {
-  [place = 'village'] {
+  [place = 'village'],
+  [place = 'quarter'] {
     [zoom >= 12][zoom < 17] {
       text-name: "[name]";
       text-size: 10;
@@ -394,8 +395,8 @@
   }
 }
 
-#placenames-small::quarter {
-  [place = 'quarter'] {
+#placenames-small::hamlet {
+/* [place = 'quarter'] {
     [zoom >= 14][zoom < 17] {
       text-name: "[name]";
       text-fill: @placenames;
@@ -423,8 +424,9 @@
         text-margin: 9.8; // 0.7 em
       }
     }
-  }
-  [place = 'hamlet'] {
+  }*/
+  [place = 'hamlet'],
+  [place = 'neighbourhood'] {
     [zoom >= 14][zoom < 18] {
       text-name: "[name]";
       text-fill: @placenames;
@@ -462,8 +464,8 @@
   }
 }
 
-#placenames-small::neighborhood {
-  [place = 'neighbourhood'][zoom >= 15][zoom < 20],
+#placenames-small::locality {
+//  [place = 'neighbourhood'][zoom >= 15][zoom < 20],
   [place = 'isolated_dwelling'][zoom >= 14],
   [place = 'locality'][zoom >= 14],
   [place = 'farm'][zoom >= 14] {

@@ -299,8 +299,8 @@ function filter_tags_generic(tags)
 	end
 
 -- Bodge lack of rendering of dedicated sports hall
-	if keyvalues['leisure'] == 'sports_hall' then
-		keyvalues['leisure'] = 'sports_centre'
+	if tags['leisure'] == 'sports_hall' then
+		tags['leisure'] = 'sports_centre'
 	end
 
     -- Convert layer to an integer
@@ -528,9 +528,10 @@ function filter_highway (keyvalues)
     end
  
    -- Remove no access if PRoW and not explicitly tagged with foot=no
-   if ((keyvalues['access'] == 'no') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
-		keyvalues['access'] = nil
-	end
+   -- Suppress this, as common to use access = no to indicate that route is barred
+--   if ((keyvalues['access'] == 'no') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
+--		keyvalues['access'] = nil
+--	end
 
 -- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for).	
 	if keyvalues['footway'] == 'sidewalk' then
