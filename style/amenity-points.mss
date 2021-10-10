@@ -334,7 +334,7 @@
   [feature = 'tourism_information'][zoom >= 16],
   [feature = 'tourism_information']["information"='office'][zoom >= 14],
   [feature = 'tourism_information']["information"='map'][zoom >= 14] {
-    marker-file: url('symbols/tourism/information.svg');
+//    marker-file: url('symbols/tourism/information.svg');
     [information = 'audioguide'] {
       marker-file: url('symbols/tourism/audioguide.svg');
     }
