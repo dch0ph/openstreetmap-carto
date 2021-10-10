@@ -61,7 +61,7 @@ class Table:
         with self._conn.cursor() as cur:
             cur.execute('''DROP TABLE IF EXISTS "{temp_schema}"."{name}"'''
                         .format(name=self._name, temp_schema=self._temp_schema))
-        self._conn.commit()
+            self._conn.commit()
 
     # get the last modified date from the metadata table
     def last_modified(self):
@@ -71,6 +71,7 @@ class Table:
             results = cur.fetchone()
             if results is not None:
                 return results[0]
+            self._conn.commit()
 
     def add_way_area(self):
         with self._conn.cursor() as cur:
@@ -113,7 +114,7 @@ class Table:
             # matter since it'll never need a vacuum.
             cur.execute('''ALTER TABLE "{temp_schema}"."{name}" RESET ( autovacuum_enabled );'''
                         .format(name=self._name, temp_schema=self._temp_schema))
-        self._conn.commit()
+            self._conn.commit()
 
         # VACUUM can't be run in transaction, so autocommit needs to be turned on
         old_autocommit = self._conn.autocommit
@@ -291,6 +292,8 @@ def main():
         logging.basicConfig(level=logging.INFO)
     ignore_spurious = opts.ignore_errors
 
+    logging.info("Starting load of external data into database")
+
     with open(opts.config) as config_file:
         config = yaml.safe_load(config_file)
         data_dir = opts.data or config["settings"]["data_dir"]
@@ -311,7 +314,7 @@ def main():
             psycopg2.connect(database=database,
                              host=host, port=port,
                              user=user,
-                             password=password) as conn:
+                             password=password)
 
             s.headers.update({'User-Agent': 'get-external-data.py/osm-carto'})
 
@@ -373,6 +376,7 @@ def main():
 
                     ogrcommand += [ogrpg, sourcefile]
 
+                    logging.info("  Importing into database")
                     logging.debug("running {}".format(
                         subprocess.list2cmdline(ogrcommand)))
                     # ogr2ogr can raise errors here, so they need to be caught
@@ -404,6 +408,15 @@ def main():
                     if renderuser is not None:
                         this_table.grant_access(renderuser)
                     this_table.replace(new_last_modified)
+                elif download.status_code == requests.codes.not_modified:
+                    logging.info("  Table {} did not require updating".format(name))
+                else:
+                    logging.critical("  Unexpected response code ({}".format(download.status_code))
+                    logging.critical("  Table {} was not updated".format(name))
+
+            if conn:
+                conn.close()
+
 
 if __name__ == '__main__':
     main()
