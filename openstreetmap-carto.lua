@@ -403,8 +403,8 @@ end
 -- These will also be treated as 'bad'
 local poor_visibility_tags = { 'no', 'none', 'nil', 'horrible', 'very_bad', 'poor'}
 -- service or unclassified road with these surface tags will be demoted to track
-local bad_surface_tags = { 'unpaved', 'dirt', 'earth' }
-local hardunsealed_surface_tags = {  'compacted', 'fine_gravel', 'cobblestone' }
+local bad_surface_tags = { 'dirt', 'earth' }
+local hardunsealed_surface_tags = {  'unpaved', 'compacted', 'fine_gravel', 'cobblestone' }
 -- excellent is defined for walking rather than cycling!
 local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett' }
 local no_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
