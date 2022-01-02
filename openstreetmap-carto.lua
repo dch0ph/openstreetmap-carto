@@ -75,6 +75,10 @@ local delete_tags = {
     -- Tags generally dropped by editors, not otherwise covered
     'created_by',
     'odbl',
+    -- Lots of import tags
+    -- EUROSHA (Various countries)
+    'project:eurosha_2012',
+
     -- misc
     'import',
     'import_uuid',
