@@ -45,7 +45,7 @@
 //@parking-outline: saturate(darken(@parking, 40%), 20%);
 // make parking stand out more clearly
 @parking: white;
-@parking-outline: @residential;
+@parking-outline: #999;  // same as footway casing
 @railway: @industrial;
 @railway-line: @industrial-line;
 @rest_area: #efc8c8; // also services
@@ -652,8 +652,8 @@
       polygon-fill: @parking;
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
       [way_pixels >= 64] {
-		polygon-gamma: 0.3;
-        line/line-width: 0.3;
+		    polygon-gamma: 0.3;
+        line/line-width: 0.5;
         line/line-color: @parking-outline;
       }
     }
@@ -1027,11 +1027,9 @@
 }
 
 #gridlines {
-  [zoom >= 14] {
-	line-width: 0.5;
 	line-color: @water-color;
-  }
-  [zoom >= 16] { line-width: 0.7; }
+	line-width: 0.5;
+  [zoom >= 15] { line-width: 0.75; }
 }
 
 @contours: orange;
@@ -1045,15 +1043,8 @@
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   line-width: @contours-width;
   line-color: @contours;
-  [sub_type = 'meanHighWater'] {
-	line-color: @water-line-color;
-  }
-  [sub_type = 'meanLowWater'] {
-	line-color: @water-line-color;
-	line-dasharray: 1,2;
-  }
   line-opacity: 0.7;
-  [sub_type = 'ordinary'] { line-smooth: @contours-smooth; }
+  line-smooth: @contours-smooth;
   [zoom >= 16] { line-width: 0.7; }
   }
 }
@@ -1062,9 +1053,16 @@
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   line-width: @contours-width * @contours-multiplier;
   line-color: @contours-heavy;
+  [sub_type = 'meanHighWater'] {
+	  line-color: @water-line-color;
+  }
+  [sub_type = 'meanLowWater'] {
+	  line-color: @water-line-color;
+	  line-dasharray: 2,4;
+  }
+  [sub_type = 'ordinary'] { line-smooth: @contours-smooth; }
   line-opacity: 0.7;
-  line-smooth: @contours-smooth;
-  [zoom >= 16] { line-width: 0.7; }
+  [zoom >= 16] { line-width: 0.7 * @contours-multiplier; }
   }
 }
 

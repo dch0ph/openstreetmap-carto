@@ -312,10 +312,9 @@ Layer:
       table: |-
         (SELECT
             way,
-            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
-            sub_type
+            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
           FROM terrain50_contours
-          WHERE (prop_value::int % 50 != 0) OR (feat_type = 'LandWaterBoundary') 
+          WHERE (prop_value::int % 50 != 0) AND (feat_type = 'ordinary')
         ) AS contours10
     properties:
       minzoom: 13
@@ -327,9 +326,10 @@ Layer:
       table: |-
         (SELECT
             way,
-            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
+            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
+            sub_type
           FROM terrain50_contours
-          WHERE (prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')
+          WHERE ((prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')) OR (feat_type = 'LandWaterBoundary')
         ) AS contours50
     properties:
       minzoom: 13
