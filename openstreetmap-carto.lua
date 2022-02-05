@@ -641,7 +641,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['bridge'] = nil
 	-- Consolidate railway types
 		if railwaytype == 'abandoned' then
-			keyvalues['railway'] = 'disused'
+			keyvalues['railway'] = 'dismantled'
 		elseif (railwaytype == 'monorail') or (railwaytype == 'preserved') then
 			keyvalues['railway'] = 'rail'
 	-- Consolidate on tram as this is handled as special case

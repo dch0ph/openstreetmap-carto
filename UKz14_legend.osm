@@ -155,6 +155,7 @@
   </node>
   <node id='-839695' action='modify' lat='-24.99389535833' lon='135.02349749717'>
     <tag k='power' v='pole' />
+    <tag k='transformer' v='distribution' />
   </node>
   <node id='-839696' action='modify' lat='-24.99389685483' lon='135.02179722168'>
     <tag k='power' v='pole' />
@@ -309,7 +310,7 @@
   <node id='-839784' action='modify' lat='-24.98556181197' lon='135.03687810377' />
   <node id='-839785' action='modify' lat='-24.98527394832' lon='135.03765998122'>
     <tag k='annotation' v='text' />
-    <tag k='name' v='Meadow' />
+    <tag k='name' v='Grassland' />
   </node>
   <node id='-839786' action='modify' lat='-24.98783055495' lon='135.03761753352' />
   <node id='-839787' action='modify' lat='-24.98959562839' lon='135.03464682893' />
@@ -1191,177 +1192,177 @@
   <node id='9100014013' action='delete' timestamp='2017-04-30T10:47:08Z' uid='112' user='SomeoneElse' version='3' changeset='101464' lat='-25.007' lon='135.155' />
   <node id='9100014014' action='delete' timestamp='2017-04-30T10:47:08Z' uid='112' user='SomeoneElse' version='3' changeset='101464' lat='-25.007' lon='135.16' />
   <node id='9100014015' action='delete' timestamp='2017-04-30T10:47:08Z' uid='112' user='SomeoneElse' version='3' changeset='101464' lat='-25.007' lon='135.165' />
-  <way id='-172257' action='modify'>
+  <way id='-193042' action='modify'>
     <nd ref='-839601' />
     <nd ref='-839602' />
     <tag k='highway' v='motorway' />
     <tag k='name' v='Motorway' />
   </way>
-  <way id='-172258' action='modify'>
+  <way id='-193043' action='modify'>
     <nd ref='-839603' />
     <nd ref='-839604' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Tertiary' />
     <tag k='ref' v='Ref' />
   </way>
-  <way id='-172259' action='modify'>
+  <way id='-193044' action='modify'>
     <nd ref='-839605' />
     <nd ref='-839606' />
     <tag k='highway' v='unclassified' />
     <tag k='name' v='Unclassified' />
   </way>
-  <way id='-172260' action='modify'>
+  <way id='-193045' action='modify'>
     <nd ref='-839607' />
     <nd ref='-839608' />
     <tag k='highway' v='primary' />
     <tag k='name' v='Primary' />
   </way>
-  <way id='-172261' action='modify'>
+  <way id='-193046' action='modify'>
     <nd ref='-839609' />
     <nd ref='-839610' />
     <tag k='highway' v='secondary' />
     <tag k='name' v='Secondary' />
   </way>
-  <way id='-172262' action='modify'>
+  <way id='-193047' action='modify'>
     <nd ref='-839611' />
     <nd ref='-839612' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Verge/pavement' />
     <tag k='sidewalk' v='both' />
   </way>
-  <way id='-172263' action='modify'>
+  <way id='-193048' action='modify'>
     <nd ref='-839612' />
     <nd ref='-839685' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='No verge' />
     <tag k='sidewalk' v='no' />
   </way>
-  <way id='-172264' action='modify'>
+  <way id='-193049' action='modify'>
     <nd ref='-839614' />
     <nd ref='-839615' />
     <tag k='access' v='destination' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Destination' />
   </way>
-  <way id='-172265' action='modify'>
+  <way id='-193050' action='modify'>
     <nd ref='-839616' />
     <nd ref='-839617' />
     <tag k='highway' v='service' />
     <tag k='name' v='1' />
     <tag k='tracktype' v='grade1' />
   </way>
-  <way id='-172266' action='modify'>
+  <way id='-193051' action='modify'>
     <nd ref='-839620' />
     <nd ref='-839621' />
     <tag k='highway' v='service' />
     <tag k='name' v='5' />
     <tag k='tracktype' v='grade5' />
   </way>
-  <way id='-172267' action='modify'>
+  <way id='-193052' action='modify'>
     <nd ref='-839619' />
     <nd ref='-839620' />
     <tag k='highway' v='service' />
     <tag k='name' v='4' />
     <tag k='tracktype' v='grade4' />
   </way>
-  <way id='-172268' action='modify'>
+  <way id='-193053' action='modify'>
     <nd ref='-839618' />
     <nd ref='-839619' />
     <tag k='highway' v='service' />
     <tag k='name' v='3' />
     <tag k='tracktype' v='grade3' />
   </way>
-  <way id='-172269' action='modify'>
+  <way id='-193054' action='modify'>
     <nd ref='-839617' />
     <nd ref='-839618' />
     <tag k='highway' v='service' />
     <tag k='name' v='2' />
     <tag k='tracktype' v='grade2' />
   </way>
-  <way id='-172270' action='modify'>
+  <way id='-193055' action='modify'>
     <nd ref='-839621' />
     <nd ref='-839622' />
     <tag k='access' v='destination' />
     <tag k='highway' v='service' />
     <tag k='name' v='Dest.' />
   </way>
-  <way id='-172271' action='modify'>
+  <way id='-193056' action='modify'>
     <nd ref='-839623' />
     <nd ref='-839624' />
     <tag k='construction' v='secondary' />
     <tag k='highway' v='construction' />
     <tag k='name' v='Construction' />
   </way>
-  <way id='-172272' action='modify'>
+  <way id='-193057' action='modify'>
     <nd ref='-839629' />
     <nd ref='-839630' />
     <tag k='highway' v='path' />
     <tag k='name' v='Path' />
   </way>
-  <way id='-172273' action='modify'>
+  <way id='-193058' action='modify'>
     <nd ref='-839625' />
     <nd ref='-839626' />
     <tag k='designation' v='byway_open_to_all_traffic' />
     <tag k='highway' v='path' />
     <tag k='name' v='Byway' />
   </way>
-  <way id='-172274' action='modify'>
+  <way id='-193059' action='modify'>
     <nd ref='-839626' />
     <nd ref='-839627' />
     <tag k='designation' v='public_bridleway' />
     <tag k='highway' v='bridleway' />
     <tag k='name' v='Bridleway' />
   </way>
-  <way id='-172275' action='modify'>
+  <way id='-193060' action='modify'>
     <nd ref='-839627' />
     <nd ref='-839628' />
     <tag k='designation' v='public_footpath' />
     <tag k='highway' v='path' />
     <tag k='name' v='Footpath' />
   </way>
-  <way id='-172276' action='modify'>
+  <way id='-193061' action='modify'>
     <nd ref='-839628' />
     <nd ref='-839629' />
     <tag k='foot' v='permissive' />
     <tag k='highway' v='path' />
     <tag k='name' v='Permissive' />
   </way>
-  <way id='-172277' action='modify'>
+  <way id='-193062' action='modify'>
     <nd ref='-839636' />
     <nd ref='-839633' />
     <tag k='highway' v='path' />
     <tag k='name' v='3' />
     <tag k='tracktype' v='grade3' />
   </way>
-  <way id='-172278' action='modify'>
+  <way id='-193063' action='modify'>
     <nd ref='-839634' />
     <nd ref='-839632' />
     <tag k='highway' v='path' />
     <tag k='name' v='5' />
     <tag k='tracktype' v='grade5' />
   </way>
-  <way id='-172279' action='modify'>
+  <way id='-193064' action='modify'>
     <nd ref='-839633' />
     <nd ref='-839634' />
     <tag k='highway' v='path' />
     <tag k='name' v='4' />
     <tag k='tracktype' v='grade4' />
   </way>
-  <way id='-172280' action='modify'>
+  <way id='-193065' action='modify'>
     <nd ref='-839635' />
     <nd ref='-839636' />
     <tag k='highway' v='path' />
     <tag k='name' v='2' />
     <tag k='tracktype' v='grade2' />
   </way>
-  <way id='-172281' action='modify'>
+  <way id='-193066' action='modify'>
     <nd ref='-839631' />
     <nd ref='-839635' />
     <tag k='highway' v='path' />
     <tag k='name' v='1' />
     <tag k='tracktype' v='grade1' />
   </way>
-  <way id='-172282' action='modify'>
+  <way id='-193067' action='modify'>
     <nd ref='-839632' />
     <nd ref='-839637' />
     <tag k='access' v='no' />
@@ -1369,7 +1370,7 @@
     <tag k='name' v='Private' />
     <tag k='tracktype' v='grade3' />
   </way>
-  <way id='-172283' action='modify'>
+  <way id='-193068' action='modify'>
     <nd ref='-839637' />
     <nd ref='-839638' />
     <tag k='designation' v='public_footpath' />
@@ -1377,14 +1378,14 @@
     <tag k='highway' v='path' />
     <tag k='name' v='Closed RoW' />
   </way>
-  <way id='-172284' action='modify'>
+  <way id='-193069' action='modify'>
     <nd ref='-839622' />
     <nd ref='-839639' />
     <tag k='access' v='private' />
     <tag k='highway' v='service' />
     <tag k='name' v='Private' />
   </way>
-  <way id='-172285' action='modify'>
+  <way id='-193070' action='modify'>
     <nd ref='-839640' />
     <nd ref='-839641' />
     <tag k='designation' v='public_footpath' />
@@ -1392,31 +1393,31 @@
     <tag k='name' v='Road + PRoW' />
     <tag k='tracktype' v='grade2' />
   </way>
-  <way id='-172286' action='modify'>
+  <way id='-193071' action='modify'>
     <nd ref='-839642' />
     <nd ref='-839645' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Tunnel' />
     <tag k='tunnel' v='yes' />
   </way>
-  <way id='-172287' action='modify'>
+  <way id='-193072' action='modify'>
     <nd ref='-839646' />
     <nd ref='-839644' />
     <tag k='highway' v='tertiary' />
   </way>
-  <way id='-172288' action='modify'>
+  <way id='-193073' action='modify'>
     <nd ref='-839645' />
     <nd ref='-839663' />
     <tag k='bridge' v='yes' />
     <tag k='highway' v='tertiary' />
     <tag k='layer' v='1' />
   </way>
-  <way id='-172289' action='modify'>
+  <way id='-193074' action='modify'>
     <nd ref='-839647' />
     <nd ref='-839648' />
     <tag k='waterway' v='river' />
   </way>
-  <way id='-172290' action='modify'>
+  <way id='-193075' action='modify'>
     <nd ref='-839654' />
     <nd ref='-839653' />
     <tag k='bridge' v='yes' />
@@ -1424,51 +1425,51 @@
     <tag k='layer' v='1' />
     <tag k='name' v='Bridge' />
   </way>
-  <way id='-172291' action='modify'>
+  <way id='-193076' action='modify'>
     <nd ref='-839990' />
     <nd ref='-839991' />
     <tag k='embankment' v='yes' />
     <tag k='highway' v='path' />
     <tag k='name' v='Embankment' />
   </way>
-  <way id='-172292' action='modify'>
+  <way id='-193077' action='modify'>
     <nd ref='-839650' />
     <nd ref='-839655' />
     <tag k='waterway' v='river' />
   </way>
-  <way id='-172293' action='modify'>
+  <way id='-193078' action='modify'>
     <nd ref='-839653' />
     <nd ref='-839651' />
     <nd ref='-839649' />
     <tag k='highway' v='path' />
     <tag k='name' v='S. stones' />
   </way>
-  <way id='-172294' action='modify'>
+  <way id='-193079' action='modify'>
     <nd ref='-839649' />
     <nd ref='-839656' />
     <nd ref='-839657' />
     <tag k='highway' v='steps' />
     <tag k='name' v='Steps' />
   </way>
-  <way id='-172295' action='modify'>
+  <way id='-193080' action='modify'>
     <nd ref='-839658' />
     <nd ref='-839659' />
     <tag k='highway' v='pedestrian' />
     <tag k='name' v='Pedestrian' />
   </way>
-  <way id='-172296' action='modify'>
+  <way id='-193081' action='modify'>
     <nd ref='-839660' />
     <nd ref='-839661' />
     <tag k='designation' v='public_footpath' />
     <tag k='highway' v='path' />
   </way>
-  <way id='-172297' action='modify'>
+  <way id='-193082' action='modify'>
     <nd ref='-839661' />
     <nd ref='-839662' />
     <tag k='designation' v='public_footpath' />
     <tag k='highway' v='path' />
   </way>
-  <way id='-172298' action='modify'>
+  <way id='-193083' action='modify'>
     <nd ref='-839663' />
     <nd ref='-839646' />
     <tag k='bridge' v='yes' />
@@ -1476,28 +1477,28 @@
     <tag k='layer' v='1' />
     <tag k='name' v='Bridge' />
   </way>
-  <way id='-172299' action='modify'>
+  <way id='-193084' action='modify'>
     <nd ref='-839664' />
     <nd ref='-839669' />
     <tag k='islegend' v='yes' />
     <tag k='name' v='Railway' />
     <tag k='railway' v='rail' />
   </way>
-  <way id='-172300' action='modify'>
+  <way id='-193085' action='modify'>
     <nd ref='-839665' />
     <nd ref='-839668' />
     <tag k='islegend' v='yes' />
     <tag k='name' v='Disused' />
     <tag k='railway' v='disused' />
   </way>
-  <way id='-172301' action='modify'>
+  <way id='-193086' action='modify'>
     <nd ref='-839666' />
     <nd ref='-839667' />
     <tag k='islegend' v='yes' />
     <tag k='name' v='Dismantled' />
     <tag k='railway' v='dismantled' />
   </way>
-  <way id='-172302' action='modify'>
+  <way id='-193087' action='modify'>
     <nd ref='-839669' />
     <nd ref='-839670' />
     <tag k='islegend' v='yes' />
@@ -1505,7 +1506,7 @@
     <tag k='railway' v='rail' />
     <tag k='service' v='siding' />
   </way>
-  <way id='-172303' action='modify'>
+  <way id='-193088' action='modify'>
     <nd ref='-839673' />
     <nd ref='-839672' />
     <tag k='islegend' v='yes' />
@@ -1513,14 +1514,14 @@
     <tag k='railway' v='narrow_gauge' />
     <tag k='service' v='siding' />
   </way>
-  <way id='-172304' action='modify'>
+  <way id='-193089' action='modify'>
     <nd ref='-839671' />
     <nd ref='-839673' />
     <tag k='islegend' v='yes' />
     <tag k='name' v='Narrow gauge*' />
     <tag k='railway' v='narrow_gauge' />
   </way>
-  <way id='-172305' action='modify'>
+  <way id='-193090' action='modify'>
     <nd ref='-839677' />
     <nd ref='-839678' />
     <tag k='bridge' v='yes' />
@@ -1528,7 +1529,7 @@
     <tag k='name' v='Bridge' />
     <tag k='railway' v='rail' />
   </way>
-  <way id='-172306' action='modify'>
+  <way id='-193091' action='modify'>
     <nd ref='-839674' />
     <nd ref='-839679' />
     <nd ref='-839676' />
@@ -1536,7 +1537,7 @@
     <tag k='name' v='Disused' />
     <tag k='railway' v='rail' />
   </way>
-  <way id='-172307' action='modify'>
+  <way id='-193092' action='modify'>
     <nd ref='-839676' />
     <nd ref='-839677' />
     <tag k='islegend' v='yes' />
@@ -1544,7 +1545,7 @@
     <tag k='railway' v='rail' />
     <tag k='tunnel' v='yes' />
   </way>
-  <way id='-172308' action='modify'>
+  <way id='-193093' action='modify'>
     <nd ref='-839678' />
     <nd ref='-839684' />
     <nd ref='-839675' />
@@ -1552,63 +1553,63 @@
     <tag k='name' v='Level xing' />
     <tag k='railway' v='rail' />
   </way>
-  <way id='-172309' action='modify'>
+  <way id='-193094' action='modify'>
     <nd ref='-839680' />
     <nd ref='-839681' />
     <tag k='islegend' v='yes' />
     <tag k='waterway' v='river' />
   </way>
-  <way id='-172310' action='modify'>
+  <way id='-193095' action='modify'>
     <nd ref='-839682' />
     <nd ref='-839684' />
     <nd ref='-839683' />
     <tag k='highway' v='unclassified' />
   </way>
-  <way id='-172311' action='modify'>
+  <way id='-193096' action='modify'>
     <nd ref='-839685' />
     <nd ref='-839687' />
     <nd ref='-839686' />
     <tag k='highway' v='tertiary' />
   </way>
-  <way id='-172312' action='modify'>
+  <way id='-193097' action='modify'>
     <nd ref='-839686' />
     <nd ref='-839613' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Crossing' />
   </way>
-  <way id='-172313' action='modify'>
+  <way id='-193098' action='modify'>
     <nd ref='-839644' />
     <nd ref='-839643' />
     <tag k='highway' v='tertiary' />
     <tag k='name' v='Ford' />
   </way>
-  <way id='-172314' action='modify'>
+  <way id='-193099' action='modify'>
     <nd ref='-839691' />
     <nd ref='-839693' />
     <tag k='foot' v='yes' />
     <tag k='highway' v='cycleway' />
     <tag k='name' v='Shared cycleway' />
   </way>
-  <way id='-172315' action='modify'>
+  <way id='-193100' action='modify'>
     <nd ref='-839693' />
     <nd ref='-839692' />
     <tag k='foot' v='no' />
     <tag k='highway' v='cycleway' />
     <tag k='name' v='Cycles only' />
   </way>
-  <way id='-172316' action='modify'>
+  <way id='-193101' action='modify'>
     <nd ref='-839694' />
     <nd ref='-839696' />
     <nd ref='-839695' />
     <tag k='power' v='minor_line' />
   </way>
-  <way id='-172317' action='modify'>
+  <way id='-193102' action='modify'>
     <nd ref='-839697' />
     <nd ref='-839699' />
     <nd ref='-839698' />
     <tag k='power' v='line' />
   </way>
-  <way id='-172318' action='modify'>
+  <way id='-193103' action='modify'>
     <nd ref='-839702' />
     <nd ref='-839705' />
     <nd ref='-839704' />
@@ -1616,7 +1617,7 @@
     <nd ref='-839702' />
     <tag k='natural' v='bare_rock' />
   </way>
-  <way id='-172319' action='modify'>
+  <way id='-193104' action='modify'>
     <nd ref='-839706' />
     <nd ref='-839709' />
     <nd ref='-839708' />
@@ -1624,7 +1625,7 @@
     <nd ref='-839706' />
     <tag k='natural' v='scree' />
   </way>
-  <way id='-172320' action='modify'>
+  <way id='-193105' action='modify'>
     <nd ref='-839710' />
     <nd ref='-839713' />
     <nd ref='-839712' />
@@ -1632,7 +1633,7 @@
     <nd ref='-839710' />
     <tag k='natural' v='heath' />
   </way>
-  <way id='-172321' action='modify'>
+  <way id='-193106' action='modify'>
     <nd ref='-839722' />
     <nd ref='-839721' />
     <nd ref='-839720' />
@@ -1640,7 +1641,7 @@
     <nd ref='-839722' />
     <tag k='natural' v='mud' />
   </way>
-  <way id='-172322' action='modify'>
+  <way id='-193107' action='modify'>
     <nd ref='-839734' />
     <nd ref='-839729' />
     <nd ref='-839731' />
@@ -1648,7 +1649,7 @@
     <nd ref='-839734' />
     <tag k='natural' v='sand' />
   </way>
-  <way id='-172323' action='modify'>
+  <way id='-193108' action='modify'>
     <nd ref='-839718' />
     <nd ref='-839728' />
     <nd ref='-839736' />
@@ -1657,7 +1658,7 @@
     <tag k='natural' v='wetland' />
     <tag k='wetland' v='tidalflat' />
   </way>
-  <way id='-172324' action='modify'>
+  <way id='-193109' action='modify'>
     <nd ref='-839717' />
     <nd ref='-839732' />
     <nd ref='-839735' />
@@ -1665,7 +1666,7 @@
     <nd ref='-839717' />
     <tag k='natural' v='shingle' />
   </way>
-  <way id='-172325' action='modify'>
+  <way id='-193110' action='modify'>
     <nd ref='-839750' />
     <nd ref='-839749' />
     <nd ref='-839740' />
@@ -1674,7 +1675,7 @@
     <tag k='natural' v='wetland' />
     <tag k='wetland' v='bog' />
   </way>
-  <way id='-172326' action='modify'>
+  <way id='-193111' action='modify'>
     <nd ref='-839743' />
     <nd ref='-839753' />
     <nd ref='-839756' />
@@ -1683,7 +1684,7 @@
     <tag k='natural' v='wetland' />
     <tag k='wetland' v='marsh' />
   </way>
-  <way id='-172327' action='modify'>
+  <way id='-193112' action='modify'>
     <nd ref='-839738' />
     <nd ref='-839742' />
     <nd ref='-839744' />
@@ -1691,7 +1692,7 @@
     <nd ref='-839738' />
     <tag k='natural' v='wetland' />
   </way>
-  <way id='-172328' action='modify'>
+  <way id='-193113' action='modify'>
     <nd ref='-839746' />
     <nd ref='-839752' />
     <nd ref='-839747' />
@@ -1700,7 +1701,7 @@
     <tag k='natural' v='wetland' />
     <tag k='wetland' v='wet_meadow' />
   </way>
-  <way id='-172329' action='modify'>
+  <way id='-193114' action='modify'>
     <nd ref='-839779' />
     <nd ref='-839777' />
     <nd ref='-839952' />
@@ -1711,7 +1712,7 @@
     <tag k='leaf_type' v='mixed' />
     <tag k='natural' v='wood' />
   </way>
-  <way id='-172330' action='modify'>
+  <way id='-193115' action='modify'>
     <nd ref='-839765' />
     <nd ref='-839784' />
     <nd ref='-839790' />
@@ -1720,7 +1721,7 @@
     <tag k='leaf_type' v='broadleaved' />
     <tag k='natural' v='wood' />
   </way>
-  <way id='-172331' action='modify'>
+  <way id='-193116' action='modify'>
     <nd ref='-839767' />
     <nd ref='-839766' />
     <nd ref='-839775' />
@@ -1728,7 +1729,7 @@
     <nd ref='-839767' />
     <tag k='landuse' v='farmland' />
   </way>
-  <way id='-172332' action='modify'>
+  <way id='-193117' action='modify'>
     <nd ref='-839758' />
     <nd ref='-839764' />
     <nd ref='-839768' />
@@ -1736,7 +1737,7 @@
     <nd ref='-839758' />
     <tag k='natural' v='wood' />
   </way>
-  <way id='-172333' action='modify'>
+  <way id='-193118' action='modify'>
     <nd ref='-839771' />
     <nd ref='-839783' />
     <nd ref='-839773' />
@@ -1745,7 +1746,7 @@
     <tag k='leaf_type' v='needleleaved' />
     <tag k='natural' v='wood' />
   </way>
-  <way id='-172334' action='modify'>
+  <way id='-193119' action='modify'>
     <nd ref='-839781' />
     <nd ref='-839778' />
     <nd ref='-839760' />
@@ -1753,7 +1754,7 @@
     <nd ref='-839781' />
     <tag k='landuse' v='meadow' />
   </way>
-  <way id='-172335' action='modify'>
+  <way id='-193120' action='modify'>
     <nd ref='-839772' />
     <nd ref='-839762' />
     <nd ref='-839789' />
@@ -1762,7 +1763,7 @@
     <tag k='landuse' v='meadow' />
     <tag k='meadow' v='pasture' />
   </way>
-  <way id='-172336' action='modify'>
+  <way id='-193121' action='modify'>
     <nd ref='-839811' />
     <nd ref='-839797' />
     <nd ref='-839829' />
@@ -1770,7 +1771,7 @@
     <nd ref='-839811' />
     <tag k='landuse' v='allotments' />
   </way>
-  <way id='-172337' action='modify'>
+  <way id='-193122' action='modify'>
     <nd ref='-839809' />
     <nd ref='-839826' />
     <nd ref='-839812' />
@@ -1778,7 +1779,7 @@
     <nd ref='-839809' />
     <tag k='landuse' v='orchard' />
   </way>
-  <way id='-172338' action='modify'>
+  <way id='-193123' action='modify'>
     <nd ref='-839825' />
     <nd ref='-839801' />
     <nd ref='-839830' />
@@ -1786,7 +1787,7 @@
     <nd ref='-839825' />
     <tag k='disused:landuse' v='quarry' />
   </way>
-  <way id='-172339' action='modify'>
+  <way id='-193124' action='modify'>
     <nd ref='-839799' />
     <nd ref='-839806' />
     <nd ref='-839814' />
@@ -1794,7 +1795,7 @@
     <nd ref='-839799' />
     <tag k='landuse' v='quarry' />
   </way>
-  <way id='-172340' action='modify'>
+  <way id='-193125' action='modify'>
     <nd ref='-839813' />
     <nd ref='-839824' />
     <nd ref='-839827' />
@@ -1802,14 +1803,14 @@
     <nd ref='-839813' />
     <tag k='landuse' v='military' />
   </way>
-  <way id='-172341' action='modify'>
+  <way id='-193126' action='modify'>
     <nd ref='-839818' />
     <nd ref='-839831' />
     <nd ref='-839828' />
     <nd ref='-839817' />
     <nd ref='-839818' />
   </way>
-  <way id='-172342' action='modify'>
+  <way id='-193127' action='modify'>
     <nd ref='-839815' />
     <nd ref='-839794' />
     <nd ref='-839807' />
@@ -1818,7 +1819,7 @@
     <tag k='amenity' v='grave_yard' />
     <tag k='religion' v='christian' />
   </way>
-  <way id='-172343' action='modify'>
+  <way id='-193128' action='modify'>
     <nd ref='-839820' />
     <nd ref='-839802' />
     <nd ref='-839798' />
@@ -1826,7 +1827,7 @@
     <nd ref='-839820' />
     <tag k='landuse' v='grass' />
   </way>
-  <way id='-172344' action='modify'>
+  <way id='-193129' action='modify'>
     <nd ref='-839848' />
     <nd ref='-839834' />
     <nd ref='-839838' />
@@ -1834,7 +1835,7 @@
     <nd ref='-839848' />
     <tag k='landuse' v='recreation_ground' />
   </way>
-  <way id='-172345' action='modify'>
+  <way id='-193130' action='modify'>
     <nd ref='-839851' />
     <nd ref='-839847' />
     <nd ref='-839842' />
@@ -1842,7 +1843,7 @@
     <nd ref='-839851' />
     <tag k='leisure' v='garden' />
   </way>
-  <way id='-172346' action='modify'>
+  <way id='-193131' action='modify'>
     <nd ref='-839841' />
     <nd ref='-839849' />
     <nd ref='-839835' />
@@ -1850,7 +1851,7 @@
     <nd ref='-839841' />
     <tag k='leisure' v='pitch' />
   </way>
-  <way id='-172347' action='modify'>
+  <way id='-193132' action='modify'>
     <nd ref='-839850' />
     <nd ref='-839833' />
     <nd ref='-839845' />
@@ -1858,7 +1859,7 @@
     <nd ref='-839850' />
     <tag k='leisure' v='park' />
   </way>
-  <way id='-172348' action='modify'>
+  <way id='-193133' action='modify'>
     <nd ref='-839852' />
     <nd ref='-839855' />
     <nd ref='-839856' />
@@ -1866,7 +1867,7 @@
     <nd ref='-839852' />
     <tag k='natural' v='scrub' />
   </way>
-  <way id='-172349' action='modify'>
+  <way id='-193134' action='modify'>
     <nd ref='-839859' />
     <nd ref='-839861' />
     <nd ref='-839860' />
@@ -1874,7 +1875,7 @@
     <nd ref='-839859' />
     <tag k='landuse' v='farmyard' />
   </way>
-  <way id='-172350' action='modify'>
+  <way id='-193135' action='modify'>
     <nd ref='-839880' />
     <nd ref='-839875' />
     <nd ref='-839867' />
@@ -1882,7 +1883,7 @@
     <nd ref='-839880' />
     <tag k='landuse' v='residential' />
   </way>
-  <way id='-172351' action='modify'>
+  <way id='-193136' action='modify'>
     <nd ref='-839870' />
     <nd ref='-839865' />
     <nd ref='-839878' />
@@ -1890,7 +1891,7 @@
     <nd ref='-839870' />
     <tag k='landuse' v='retail' />
   </way>
-  <way id='-172352' action='modify'>
+  <way id='-193137' action='modify'>
     <nd ref='-839872' />
     <nd ref='-839874' />
     <nd ref='-839862' />
@@ -1898,7 +1899,7 @@
     <nd ref='-839872' />
     <tag k='landuse' v='industrial' />
   </way>
-  <way id='-172353' action='modify'>
+  <way id='-193138' action='modify'>
     <nd ref='-839879' />
     <nd ref='-839881' />
     <nd ref='-839863' />
@@ -1906,32 +1907,32 @@
     <nd ref='-839879' />
     <tag k='landuse' v='brownfield' />
   </way>
-  <way id='-172354' action='modify'>
+  <way id='-193139' action='modify'>
     <nd ref='-839883' />
     <nd ref='-839894' />
     <tag k='barrier' v='fence' />
   </way>
-  <way id='-172355' action='modify'>
+  <way id='-193140' action='modify'>
     <nd ref='-839886' />
     <nd ref='-839884' />
     <tag k='barrier' v='wall' />
   </way>
-  <way id='-172356' action='modify'>
+  <way id='-193141' action='modify'>
     <nd ref='-839891' />
     <nd ref='-839889' />
-    <tag k='ruined:barrier' v='wall' />
+    <tag k='ruins:barrier' v='wall' />
   </way>
-  <way id='-172357' action='modify'>
+  <way id='-193142' action='modify'>
     <nd ref='-839884' />
     <nd ref='-839888' />
     <tag k='barrier' v='retaining_wall' />
   </way>
-  <way id='-172358' action='modify'>
+  <way id='-193143' action='modify'>
     <nd ref='-839894' />
     <nd ref='-839892' />
     <tag k='barrier' v='ditch' />
   </way>
-  <way id='-172359' action='modify'>
+  <way id='-193144' action='modify'>
     <nd ref='-839895' />
     <nd ref='-839896' />
     <nd ref='-839897' />
@@ -1951,14 +1952,14 @@
     <tag k='name' v='Water' />
     <tag k='natural' v='water' />
   </way>
-  <way id='-172360' action='modify'>
+  <way id='-193145' action='modify'>
     <nd ref='-839907' />
     <nd ref='-839908' />
     <nd ref='-839897' />
     <tag k='name' v='Drain' />
     <tag k='waterway' v='drain' />
   </way>
-  <way id='-172361' action='modify'>
+  <way id='-193146' action='modify'>
     <nd ref='-839909' />
     <nd ref='-839910' />
     <nd ref='-839904' />
@@ -1966,7 +1967,7 @@
     <tag k='name' v='Intermittent' />
     <tag k='waterway' v='drain' />
   </way>
-  <way id='-172362' action='modify'>
+  <way id='-193147' action='modify'>
     <nd ref='-839950' />
     <nd ref='-839919' />
     <nd ref='-839918' />
@@ -1980,7 +1981,7 @@
     <tag k='name' v='River' />
     <tag k='waterway' v='river' />
   </way>
-  <way id='-172363' action='modify'>
+  <way id='-193148' action='modify'>
     <nd ref='-839901' />
     <nd ref='-839936' />
     <nd ref='-839900' />
@@ -1990,7 +1991,7 @@
     <nd ref='-839898' />
     <tag k='waterway' v='dam' />
   </way>
-  <way id='-172364' action='modify'>
+  <way id='-193149' action='modify'>
     <nd ref='-839906' />
     <nd ref='-839921' />
     <nd ref='-839922' />
@@ -2002,7 +2003,7 @@
     <tag k='name' v='Stream' />
     <tag k='waterway' v='stream' />
   </way>
-  <way id='-172365' action='modify'>
+  <way id='-193150' action='modify'>
     <nd ref='-839926' />
     <nd ref='-839927' />
     <tag k='islegend' v='yes' />
@@ -2010,26 +2011,26 @@
     <tag k='tunnel' v='culvert' />
     <tag k='waterway' v='stream' />
   </way>
-  <way id='-172366' action='modify'>
+  <way id='-193151' action='modify'>
     <nd ref='-839929' />
     <nd ref='-839930' />
     <tag k='location' v='overground' />
     <tag k='man_made' v='pipeline' />
   </way>
-  <way id='-172367' action='modify'>
+  <way id='-193152' action='modify'>
     <nd ref='-839931' />
     <nd ref='-839932' />
     <tag k='bridge' v='aqueduct' />
     <tag k='name' v='Aqueduct' />
     <tag k='waterway' v='canal' />
   </way>
-  <way id='-172368' action='modify'>
+  <way id='-193153' action='modify'>
     <nd ref='-839932' />
     <nd ref='-839933' />
     <tag k='name' v='Canal' />
     <tag k='waterway' v='canal' />
   </way>
-  <way id='-172369' action='modify'>
+  <way id='-193154' action='modify'>
     <nd ref='-839933' />
     <nd ref='-839934' />
     <tag k='islegend' v='yes' />
@@ -2037,32 +2038,32 @@
     <tag k='tunnel' v='yes' />
     <tag k='waterway' v='canal' />
   </way>
-  <way id='-172370' action='modify'>
+  <way id='-193155' action='modify'>
     <nd ref='-839944' />
     <nd ref='-839943' />
     <tag k='barrier' v='hedge' />
   </way>
-  <way id='-172371' action='modify'>
+  <way id='-193156' action='modify'>
     <nd ref='-839939' />
     <nd ref='-839942' />
     <tag k='natural' v='arete' />
   </way>
-  <way id='-172372' action='modify'>
+  <way id='-193157' action='modify'>
     <nd ref='-839938' />
     <nd ref='-839939' />
     <tag k='natural' v='cliff' />
   </way>
-  <way id='-172373' action='modify'>
+  <way id='-193158' action='modify'>
     <nd ref='-839943' />
     <nd ref='-839946' />
     <tag k='natural' v='tree_row' />
   </way>
-  <way id='-172374' action='modify'>
+  <way id='-193159' action='modify'>
     <nd ref='-839951' />
     <nd ref='-839952' />
     <tag k='man_made' v='cutline' />
   </way>
-  <way id='-172375' action='modify'>
+  <way id='-193160' action='modify'>
     <nd ref='-839954' />
     <nd ref='-839955' />
     <nd ref='-839956' />
@@ -2070,7 +2071,7 @@
     <nd ref='-839954' />
     <tag k='building' v='yes' />
   </way>
-  <way id='-172376' action='modify'>
+  <way id='-193161' action='modify'>
     <nd ref='-839958' />
     <nd ref='-839959' />
     <nd ref='-839960' />
@@ -2078,7 +2079,7 @@
     <nd ref='-839958' />
     <tag k='building' v='yes' />
   </way>
-  <way id='-172377' action='modify'>
+  <way id='-193162' action='modify'>
     <nd ref='-839965' />
     <nd ref='-839962' />
     <nd ref='-839964' />
@@ -2086,12 +2087,12 @@
     <nd ref='-839965' />
     <tag k='building' v='ruins' />
   </way>
-  <way id='-172378' action='modify'>
+  <way id='-193163' action='modify'>
     <nd ref='-839988' />
     <nd ref='-839989' />
     <tag k='highway' v='tertiary' />
   </way>
-  <way id='-172379' action='modify'>
+  <way id='-193164' action='modify'>
     <nd ref='-839652' />
     <nd ref='-839654' />
     <tag k='highway' v='path' />
@@ -2099,14 +2100,14 @@
     <tag k='name' v='Tunnel' />
     <tag k='tunnel' v='yes' />
   </way>
-  <way id='-172380' action='modify'>
+  <way id='-193165' action='modify'>
     <nd ref='-839991' />
     <nd ref='-839652' />
     <tag k='cutting' v='yes' />
     <tag k='highway' v='path' />
     <tag k='name' v='Cutting' />
   </way>
-  <way id='-172424' action='modify'>
+  <way id='-193166' action='modify'>
     <nd ref='-840111' />
     <nd ref='-840157' />
     <nd ref='-840155' />
@@ -3236,15 +3237,15 @@
     <tag k='barrier' v='door' />
     <tag k='name' v='Door' />
   </way>
-  <relation id='-99810' action='modify'>
-    <member type='way' ref='-172296' role='' />
+  <relation id='-99834' action='modify'>
+    <member type='way' ref='-193081' role='' />
     <tag k='name' v='Local route' />
     <tag k='network' v='lwn' />
     <tag k='route' v='foot' />
     <tag k='type' v='route' />
   </relation>
-  <relation id='-99811' action='modify'>
-    <member type='way' ref='-172297' role='' />
+  <relation id='-99835' action='modify'>
+    <member type='way' ref='-193082' role='' />
     <tag k='name' v='Regional' />
     <tag k='network' v='rwn' />
     <tag k='route' v='foot' />

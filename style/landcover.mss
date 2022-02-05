@@ -1,6 +1,7 @@
 // --- Parks, woods, other green things ---
 
-@grass: #cdebb0;        // Lch(90,32,128) also grassland, meadow, village_green, garden, allotments
+@grass: #cdebb0;        // Lch(90,32,128) also village_green, garden, allotments
+// grassland, meadow are a shade lighter
 @scrub: #c8d7ab;        // Lch(84,24,122)
 @wood: #add19e;       // Lch(80,30,135)
 @forest: darken(@wood, 15%);
@@ -366,7 +367,6 @@
     }
   }
 
-  [feature = 'natural_grassland'][zoom >= 5],
   [feature = 'landuse_grass'][zoom >= 5],
   [feature = 'landuse_village_green'][zoom >= 5] {
     polygon-fill: @grass;
@@ -374,9 +374,10 @@
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }
 
+  [feature = 'natural_grassland'],
   [feature = 'landuse_meadow'],
   [feature = 'landuse_pasture'] {
-    polygon-fill: lighten(@grass, 4%);
+    polygon-fill: lighten(@grass, 5%);
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }
