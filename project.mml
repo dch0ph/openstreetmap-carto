@@ -314,7 +314,7 @@ Layer:
             way,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
           FROM terrain50_contours
-          WHERE (prop_value::int % 50 != 0) AND (feat_type = 'ordinary')
+          WHERE (prop_value::int % 50 != 0) AND (feat_type = 'ContourLine')
         ) AS contours10
     properties:
       minzoom: 13
