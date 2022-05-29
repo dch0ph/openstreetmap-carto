@@ -1864,15 +1864,14 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 		
 		// line down middle for PRoW status 
  
-		[access = 'permissive'],
 		[designation != null] {
-          [access = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
+          [foot = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
           [designation = 'public_footpath'] { 
-			      prow/line-color: @footpath-fill;
-		      }
+			 prow/line-color: @footpath-fill;
+		  }
           [designation = 'public_bridleway'] { 
-			      prow/line-color: @bridleway-fill;
-		      }
+			 prow/line-color: @bridleway-fill;
+		  }
           [designation = 'byway_open_to_all_traffic'] {
             prow/line-color: @BOAT-fill;
           }
@@ -1933,7 +1932,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
 		// line down middle for PRoW status 
  
-		[access = 'permissive'],
+/* 		[access = 'permissive'],
 		[designation = 'public_footpath'] {
           [access = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
           [designation = 'public_footpath'] { 
@@ -1965,7 +1964,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
             noprow/marker-placement: line;
           }      
 		}
-
+ */
       }
     }
 

@@ -240,7 +240,7 @@ function filter_tags_generic(tags)
 		if (tags['highway'] == 'path') or (tags['highway'] == 'footway') then
 			tags['foot'] = 'permissive'
 		end
-		tags['access'] = 'yes'
+	--	tags['access'] = 'yes'
 	end
 
    -- Filter out objects that have no tags after deleting
@@ -471,6 +471,11 @@ function filter_highway (keyvalues)
     end
 	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
 	
+	-- This is a bodge to keep the XML size under 10 Mb. Force overall access = permissive for foot = permissive to be rendered
+	if (keyvalues['foot'] == 'permissive') and (keyvalues['designation'] == nil) then
+		keyvalues['designation'] = 'permissive_footpath'
+	end
+	
 	-- Filter out driveways unless designated
 	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] ~=nil) then
 		return 1, {}
@@ -484,18 +489,28 @@ function filter_highway (keyvalues)
 		keyvalues['surface'] = keyvalues['footway:surface']
 	end
 	
-	local origsurface = keyvalues['surface']
-	if origsurface ~= nil then
-		if (origsurface == 'cobblestone:flattened') or (origsurface == 'unhewn_cobblestone') then
-			keyvalues['surface'] = 'cobblestone'
-		elseif (origsurface == 'concrete:plates') or (origsurface == 'concrete:lanes') then
-			keyvalues['surface'] = 'concrete'
+	local surface = keyvalues['surface']
+	if surface then
+		if (surface == 'cobblestone:flattened') or (surface == 'unhewn_cobblestone') then
+			surface = 'cobblestone'
+		elseif (surface == 'concrete:plates') or (surface == 'concrete:lanes') then
+			surface = 'concrete'
 		end
 	end
-	local surface = keyvalues['surface']
+	-- local surface = keyvalues['surface']
 	local isbadsurface = is_in(surface, bad_surface_tags)
 	local isexcellentsurface = is_in(surface, excellent_surface_tags)
 	local ishardunsealedsurface = is_in(surface, hardunsealed_surface_tags)
+	
+	-- assume footway = surface or adopted_footway has excellent surface
+	-- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for).
+	if ((keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway')) and (surface == nil) then
+		isexcellentsurface = true
+	end
+	if keyvalues['footway'] == 'sidewalk' then			
+		keyvalues['name'] = nil
+	end
+
 		
 	local width = tonumber(keyvalues['width']) or 0
 	if keyvalues['trail_visibility'] ~= nil then
@@ -511,7 +526,7 @@ function filter_highway (keyvalues)
 	if keyvalues['tracktype'] == nil then
 		if isbadsurface or (keyvalues['trail_visibility'] == 'bad') then
 			keyvalues['tracktype'] = 'grade5'
-		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface or (keyvalues['highway'] == 'footway') then
+		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface then
 	-- In the absence of other evidence, assume service roads and cycleways are asphalt
 			keyvalues['tracktype'] = 'grade1'
 		elseif ishardunsealedsurface or (keyvalues['trail_visibility'] == 'excellent') then
@@ -536,11 +551,6 @@ function filter_highway (keyvalues)
 --   if ((keyvalues['access'] == 'no') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
 --		keyvalues['access'] = nil
 --	end
-
--- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for).	
-	if keyvalues['footway'] == 'sidewalk' then
-		keyvalues['name'] = nil
-	end
 	
 	-- Kill off track and extend service to include tracktype
 	if keyvalues['highway'] == 'track' then
@@ -550,7 +560,8 @@ function filter_highway (keyvalues)
 	-- Kill off footway and treat as minor service road if decent surface present or path if not
 	-- In the absence of contrary surface information, highway=footway will be promoted to highway=pedestrian
 	elseif keyvalues['highway'] == 'footway' then
-		if ((keyvalues['tracktype'] == 'grade1') or (keyvalues['designation'] == 'adopted_footway')) and not is_in(keyvalues['access'], isprivate_keys) then
+		--if ((keyvalues['tracktype'] == 'grade1') or (keyvalues['designation'] == 'adopted_footway')) and not is_in(keyvalues['access'], isprivate_keys) then
+		if keyvalues['tracktype'] == 'grade1' then
 			keyvalues['highway'] = 'pedestrian'
 	-- For pedestrian routes, ignore shared cycleway
 			keyvalues['bicycle'] = nil
