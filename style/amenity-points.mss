@@ -151,7 +151,7 @@
   }
 
   [feature = 'highway_bus_stop'] {
-    [zoom >= 16] {
+    [zoom >= 16][zoom < 17] {
       marker-file: url('symbols/square.svg');
       marker-fill: @transportation-icon;
       marker-width: 6;
@@ -160,7 +160,17 @@
     [zoom >= 17] {
       marker-file: url('symbols/highway/bus_stop.12.svg');
       marker-width: 12;
-	  ["naptan:verified" = 'no'] { marker-fill: @missing-data; }
+      marker-fill: @transportation-icon;
+      ["naptan:verified" = 'no'] { marker-fill: @missing-data; }
+      marker-clip: false;
+    }
+  }
+
+  [feature = 'highway_elevator'][zoom >= 18] {
+    [access = null],
+    [access = 'yes'] {
+      marker-file: url('symbols/highway/elevator.svg');
+      marker-fill: @transportation-icon;
     }
   }
 
@@ -191,8 +201,20 @@
 	marker-fill: @amenity-brown;
   }
   
+  [feature = 'amenity_parcel_locker'][zoom >= 17] {
+    marker-fill: @amenity-brown;
+    [zoom >= 17][zoom < 18] {
+      marker-width: 4;
+      marker-line-width: 0;
+    }
+    [zoom >= 18] {
+      marker-file: url('symbols/amenity/parcel_locker.svg');
+      marker-clip: false;
+    }
+  }
+
   [feature = 'highway_traffic_signals'][zoom >= 17] {
-    marker-file: url('symbols/highway/traffic_light.13.svg');
+    marker-file: url('symbols/highway/traffic_light.svg');
     marker-fill: #545454;
     marker-clip: false;
   }
@@ -570,7 +592,11 @@
     marker-clip: false;
     [religion = 'christian'] {
       marker-file: url('symbols/religion/christian.svg');
-      [denomination = 'jehovahs_witness']{
+      // Some Christian denominations do not use a cross, so reset them to the default marker
+      [denomination = 'jehovahs_witness'],
+      [denomination = 'la_luz_del_mundo'],
+      [denomination = 'iglesia_ni_cristo'],
+      [denomination = 'mormon'] {
         marker-file: url('symbols/amenity/place_of_worship.svg');
       }
     }
@@ -990,7 +1016,6 @@
 
     [shop = 'car_repair'][zoom >= 18] {
       marker-file: url('symbols/shop/car_repair.svg');
-      marker-fill: @amenity-brown;
     }
 
     [shop = 'dairy'][zoom >= 18] {
@@ -1066,7 +1091,7 @@
     }
 
     [shop = 'motorcycle'][zoom >= 18] {
-      marker-file: url('symbols/motorcycle.svg');
+      marker-file: url('symbols/shop/motorcycle.svg');
     }
 
     [shop = 'music'][zoom >= 18] {
@@ -1149,7 +1174,7 @@
   }
 
   [feature = 'advertising_column'][zoom >= 19]{
-      marker-file: url('symbols/advertising_column.svg');
+      marker-file: url('symbols/amenity/advertising_column.svg');
       marker-fill: @advertising-grey;
       marker-clip: false;
   }
@@ -1307,7 +1332,7 @@
   }
 
   [feature = 'aeroway_helipad'][zoom >= 16] {
-    marker-file: url('symbols/helipad.16.svg');
+    marker-file: url('symbols/amenity/helipad.svg');
     marker-clip: false;
     marker-fill: @airtransport;
   }
@@ -1318,7 +1343,7 @@
   [feature = 'aeroway_aerodrome']['iata' = null][zoom >= 12][zoom < 18] {
     [way_pixels <= 192000],
     [way_pixels = null] {
-      marker-file: url('symbols/aerodrome.12.svg');
+      marker-file: url('symbols/amenity/aerodrome.svg');
       marker-clip: false;
       marker-fill: @airtransport;
     }
@@ -1385,8 +1410,15 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
+  [feature = 'mountain_pass'][zoom >= 15] {
+    marker-file: url('symbols/natural/saddle.svg');
+    marker-fill: @transportation-icon;
+    marker-clip: false;
+  }
+
   [feature = 'natural_spring'][zoom >= 14] {
-    marker-file: url('symbols/spring.svg');
+    marker-file: url('symbols/natural/spring.svg');
+    marker-fill: #7abcec;
     marker-clip: false;
   }
 
@@ -1405,7 +1437,7 @@
     [zoom >= 14][height > 10],
     [zoom >= 14][name != null],
     [zoom >= 16] {
-      marker-file: url('symbols/waterfall.svg');
+      marker-file: url('symbols/natural/waterfall.svg');
       marker-clip: false;
       marker-fill: @water-text;
     }
@@ -1423,7 +1455,7 @@
     [zoom >= 14][location != 'rooftop'][location != 'roof'],
     [zoom >= 15][location = null],
     [zoom >= 19] {
-      marker-file: url('symbols/generator_wind.svg');
+      marker-file: url('symbols/man_made/generator_wind.svg');
       marker-fill: @man-made-icon;
       marker-clip: false;
     }
@@ -1512,9 +1544,11 @@
 
   [feature = 'railway_level_crossing'][zoom >= 14]::railway,
   [feature = 'railway_crossing'][zoom >= 15]::railway{
-    marker-file: url('symbols/level_crossing.svg');
+    marker-file: url('symbols/barrier/level_crossing.svg');
+    marker-fill: #4d4d4d;
+    marker-clip: false;
     [zoom >= 16] {
-      marker-file: url('symbols/level_crossing2.svg');
+      marker-file: url('symbols/barrier/level_crossing2.svg');
     }
   }
 
@@ -1889,6 +1923,7 @@
   [feature = 'natural_peak'][zoom >= 13],
   [feature = 'natural_volcano'][zoom >= 13],
   [feature = 'natural_saddle'][zoom >= 13],
+  [feature = 'mountain_pass'][zoom >= 13],
   [feature = 'tourism_viewpoint'][zoom >= 14],
   [feature = 'man_made_survey_point'][zoom >= 14] {
     text-name: "[name]";
@@ -1898,6 +1933,7 @@
     text-fill: darken(@landform-color, 30%);
 	[feature = 'man_made_survey_point'] { text-fill: cyan; }
     [feature = 'natural_volcano'] { text-fill: #d40000; }
+    [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
 //    [feature = 'tourism_viewpoint'] { text-dy: 11; }
     text-face-name: @standard-font;
@@ -2197,7 +2233,6 @@
   [feature = 'natural_wetland'],
   [feature = 'natural_mud'],
   [feature = 'leisure_park'],
-  [feature = 'leisure_recreation_ground'],
   [feature = 'landuse_recreation_ground'],
   [feature = 'landuse_village_green'],
   [feature = 'leisure_garden'],
@@ -2249,8 +2284,8 @@
   [feature = 'leisure_pitch'] {
     [zoom >= 10][way_pixels > 3000][is_building = 'no'],
     [zoom >= 17][is_building = 'no'],
-    [zoom >= 10][way_pixels > 3000][shop = 'mall'],
-    [zoom >= 17][shop = 'mall'] {
+    [zoom >= 10][way_pixels > 3000][feature = 'shop'][shop = 'mall'],
+    [zoom >= 17][feature = 'shop'][shop = 'mall'] {
       text-name: "[name]";
       text-size: @landcover-font-size;
       text-wrap-width: @landcover-wrap-width-size;
@@ -2275,7 +2310,6 @@
         text-fill: @wetland-text;
       }
       [feature = 'leisure_park'],
-      [feature = 'leisure_recreation_ground'],
       [feature = 'landuse_recreation_ground'],
       [feature = 'landuse_village_green'],
       [feature = 'leisure_garden'] {
@@ -2396,7 +2430,7 @@
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    text-dy: 6;
+    text-dy: 7;
   }
 
   [feature = 'amenity_atm'][zoom >= 19],
@@ -2591,28 +2625,7 @@
   [feature = 'amenity_pharmacy'],
   [feature = 'amenity_doctors'],
   [feature = 'amenity_dentist'],
-  [feature = 'amenity_veterinary']
-/*  [feature = 'healthcare_alternative'],
-  [feature = 'healthcare_audiologist'],
-  [feature = 'healthcare_birthing_center'],
-  [feature = 'healthcare_blood_bank'],
-  [feature = 'healthcare_blood_donation'],
-  [feature = 'healthcare_centre'],
-  [feature = 'healthcare_clinic'],
-  [feature = 'healthcare_dentist'],
-  [feature = 'healthcare_dialysis'],
-  [feature = 'healthcare_doctor'],
-  [feature = 'healthcare_laboratory'],
-  [feature = 'healthcare_midwife'],
-  [feature = 'healthcare_occupational_therapist'],
-  [feature = 'healthcare_optometrist'],
-  [feature = 'healthcare_physiotherapist'],
-  [feature = 'healthcare_podiatrist'],
-  [feature = 'healthcare_psychotherapist'],
-  [feature = 'healthcare_rehabilitation'],
-  [feature = 'healthcare_speech_therapist'],
-  [feature = 'healthcare_yes']*/
-  {
+  [feature = 'amenity_veterinary'] {
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2667,9 +2680,6 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: rgba(255, 255, 255, 0.6);
-      [shop = 'car_repair'] {
-        text-fill: @amenity-brown;
-      }
       [shop = 'massage'] {
         text-fill: @leisure-green;
       }
@@ -3043,6 +3053,18 @@
       [feature = 'amenity_motorcycle_parking'] { text-dy: 12; }
     }
   }
+
+  [feature = 'amenity_parcel_locker'][zoom >= 18] {
+    text-name: "[name]";
+    text-dy: 10;
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: @amenity-brown;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+  }
 }
 
 /* Currently only used for additional legend text */
@@ -3162,7 +3184,7 @@
 
   [zoom >= 16] {
   ::canopy {
-    opacity: 0.3;
+    opacity: 0.6;
     [natural = 'tree_row'] {
       line-color: green;
 	  opacity: 0.7;
@@ -3185,11 +3207,17 @@
       }
     }
     [natural = 'tree'] {
+      marker-fill: darken(@forest,10%);
+      marker-allow-overlap: true;
+      marker-line-width: 0;
+      marker-ignore-placement: true;
+      marker-width: 2.5;
+      marker-height: 2.5;
+      [zoom >= 17] {
+        marker-width: 5;
+        marker-height: 5;
+      }
       [zoom >= 18] {
-        marker-fill: green;
-        marker-allow-overlap: true;
-        marker-line-width: 0;
-        marker-ignore-placement: true;
         marker-width: 10;
         marker-height: 10;
       }
@@ -3205,7 +3233,8 @@
   }
   [natural = 'tree']::trunk {
     [zoom >= 18] {
-      trunk/marker-fill: #b27f36;
+      trunk/opacity: 0.4;
+      trunk/marker-fill: #6b8d5e; // Same opacity and color as forest svg patterns
       trunk/marker-allow-overlap: true;
       trunk/marker-line-width: 0;
       trunk/marker-width: 2;
