@@ -1443,7 +1443,7 @@
 
   [feature = 'military_bunker'][zoom >= 14] {
 	[zoom < 16 ] { marker-width: 8; }
-    marker-file: url('symbols/bunker.svg');
+    marker-file: url('symbols/man_made/bunker.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
   }
