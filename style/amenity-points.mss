@@ -159,7 +159,7 @@
       marker-clip: false;
     }
     [zoom >= 17] {
-      marker-file: url('symbols/highway/bus_stop.12.svg');
+      marker-file: url('symbols/highway/bus_stop.svg');
       marker-width: 12;
       marker-fill: @transportation-icon;
       ["naptan:verified" = 'no'] { marker-fill: @missing-data; }
