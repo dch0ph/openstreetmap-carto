@@ -2073,7 +2073,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-    #roads-fill[feature = 'highway_service'][int_surface = 'unpaved'],
+/*     #roads-fill[feature = 'highway_service'][int_surface = 'unpaved'],
     #bridges[feature = 'highway_service'][int_surface = 'unpaved'] {
       [zoom >= 16][service = 'INT-normal'],
       [zoom >= 17][service = 'INT-minor'] {
@@ -2116,7 +2116,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
       }
     }
-
+ */
 // Bit wasteful, since only care about highway = service with non-null designation!
 	#PRoW-overlay[feature = 'highway_service'][designation != null],
 	#bridges[feature = 'highway_service'][designation != null][zoom >= 14],
@@ -3905,7 +3905,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [highway = 'residential'],
     [highway = 'unclassified'],
 //    [highway = 'living_street'],
-    [highway = 'road'],
+//    [highway = 'road'],
     [highway = 'service'],
     [highway = 'pedestrian'],
     [highway = 'raceway'] {
