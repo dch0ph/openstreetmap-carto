@@ -893,6 +893,15 @@ Layer:
     properties:
       cache-features: true
       minzoom: 14  
+#  - id: PRoW-overlay
+#    geometry: linestring
+#    <<: *extents
+#    Datasource:
+#      <<: *osm2pgsql
+#      table: *roads_sql
+#    properties:
+#      cache-features: true
+#      minzoom: 14  
   - id: turning-circle-fill
     geometry: point
     <<: *extents

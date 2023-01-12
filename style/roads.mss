@@ -1461,17 +1461,17 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			  [foot = 'permissive'] { line/line-color: @permissive-footpath-fill; }
 			  [designation = 'byway_open_to_all_traffic'] { line/line-color: @BOAT-fill; }
 			  [designation = 'public_footpath'] { line/line-color: @footpath-fill; }
-              [access = 'no'], [foot = 'no'], [access = 'destination'] { line/line-color: @path-fill-noaccess; }			
+              [foot = 'no'] { line/line-color: @path-fill-noaccess; }			
             }
 			
 			[feature = 'highway_cycleway'] {
 			  line/line-color: @cycleway-fill;
 // cycleways should have explicit foot = yes
-			  [access = 'no'], [foot != 'yes'] { line/line-color: @cycleway-fill-noaccess; }
+			  [foot != 'yes'] { line/line-color: @cycleway-fill-noaccess; }
 			}
-			[feature = 'highway_bridleway'], [designation = 'public_bridleway'] {
+			[feature = 'highway_bridleway'] {
 			  line/line-color: @bridleway-fill;
-			  [access = 'no'], [foot='no'] { line/line-color: @path-fill-noaccess; }
+			  [foot='no'] { line/line-color: @path-fill-noaccess; }
 			}
 			line/line-dasharray: 10,2;
 			[tracktype = 'grade2'] { line/line-dasharray: 7.5,2.5; }
@@ -1630,11 +1630,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           line-pattern-join: round;
         }
       }
-    }
+    } */
 
-    #roads-low-zoom[feature = 'highway_primary'][int_surface != 'unpaved'],
-    #roads-fill[feature = 'highway_primary'][int_surface != 'unpaved'],
-    #bridges[feature = 'highway_primary'][int_surface != 'unpaved'],
+//    #roads-low-zoom[feature = 'highway_primary'],
+    #roads-fill[feature = 'highway_primary'],
+    #bridges[feature = 'highway_primary'],
     #tunnels[feature = 'highway_primary'] {
       [zoom >= 8][link != 'yes'],
       [zoom >= 12] {
@@ -1684,6 +1684,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
+/*
     #roads-low-zoom[feature = 'highway_primary'][int_surface = 'unpaved'],
     #roads-fill[feature = 'highway_primary'][int_surface = 'unpaved'],
     #bridges[feature = 'highway_primary'][int_surface = 'unpaved'] {
@@ -2117,9 +2118,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
  */
-// Bit wasteful, since only care about highway = service with non-null designation!
-	#PRoW-overlay[feature = 'highway_service'][designation != null],
-	#bridges[feature = 'highway_service'][designation != null][zoom >= 14],
+	/*#bridges[feature = 'highway_service'][designation != null][zoom >= 14],
 	#tunnels[feature = 'highway_service'][designation != null][zoom >= 14] {
          [foot = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
           [designation = 'public_footpath'] { 
@@ -2160,7 +2159,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
             noprow/marker-spacing: 10;
             noprow/marker-placement: line;
           }      
-	}
+	}*/
 
     #roads-fill[feature = 'highway_pedestrian'],
     #bridges[feature = 'highway_pedestrian'],
@@ -3004,10 +3003,10 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   [feature = 'highway_service'] {
     [zoom >= 14] {
       polygon-fill: #fff;
-      [int_surface = 'unpaved'] {
+/*      [int_surface = 'unpaved'] {
         polygon-pattern-file: url('symbols/unpaved/unpaved_residential-fill.svg');
         polygon-pattern-alignment: global;
-      }
+      } */
     }
   }
 
@@ -3187,9 +3186,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_service'][service = 'INT-normal'] {
       [zoom >= 14] {
         access/line-color: @access-marking;
-        [int_surface = 'unpaved'] {
+/*        [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        }
+        } */
  //       [feature = 'highway_road'] {
  //         access/line-color: @access-marking-road;
  //       }
@@ -3210,9 +3209,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_service'][service = 'INT-minor'] {
       [zoom >= 17] {
         access/line-color: @access-marking;
-        [int_surface = 'unpaved'] {
+     /*   [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        }
+        }*/
         access/line-join: round;
         access/line-cap: round;
         access/line-width: 1;
@@ -3255,9 +3254,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_service'][service = 'INT-normal'] {
       [zoom >= 14] {
         access/line-color: @access-marking;
-        [int_surface = 'unpaved'] {
+       /* [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        }
+        } */
  //       [feature = 'highway_road'] {
  //         access/line-color: @access-marking-road;
  //       }
@@ -3277,9 +3276,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
     [feature = 'highway_service'][service = 'INT-minor'][zoom >= 17] {
       access/line-color: @access-marking;
-        [int_surface = 'unpaved'] {
+    /*    [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        }
+        } */
       access/line-join: round;
       access/line-cap: round;
       access/line-width: 1;
@@ -3289,6 +3288,56 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
   } 
+}
+
+// Bit wasteful, since only care about highway = service with non-null designation!
+//#PRoW-overlay[feature = 'highway_service'][designation != null] {
+	
+
+#tunnels::PRoW,
+#roads-fill::PRoW,
+#bridges::PRoW {
+	[feature = 'highway_service'][designation != null] {
+	 [foot = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
+	  [designation = 'public_footpath'] { 
+		 prow/line-color: @footpath-fill;
+	  }
+	  [designation = 'public_bridleway'] { 
+		 prow/line-color: @bridleway-fill;
+	  }
+	  [designation = 'byway_open_to_all_traffic'] {
+		prow/line-color: @BOAT-fill;
+	  }
+	  [access = 'no'],[foot = 'no'] { prow/line-color: @path-fill-noaccess; }
+		  prow/line-dasharray: 10,2;
+	  [tracktype = 'grade2'] { prow/line-dasharray: 7.5,2.5; }
+	  [tracktype = 'grade3'] { prow/line-dasharray: 5.0,4.0; }
+	  [tracktype = 'grade4'] { prow/line-dasharray: 3.2,3.8; }
+	  [tracktype = 'grade5'] { prow/line-dasharray: 2.5,4.5; }
+		  prow/line-width: @cycleway-width-z13;
+		  [zoom >= 14] {
+			  prow/line-width: @cycleway-width-z14;
+	  }
+	  [zoom >= 15] {
+		prow/line-width: @cycleway-width-z15;
+	  }
+	  [zoom >= 16] {
+		prow/line-width: @cycleway-width-z16;
+	  }
+	  [zoom >= 18] {
+		prow/line-width: @cycleway-width-z18;
+	  }
+	  [zoom >= 19] {
+		prow/line-width: @cycleway-width-z19;
+	  }
+
+	  [foot = 'no'], [access = 'no'] {
+		noprow/marker-file: url('symbols/Cross.svg');
+		noprow/marker-line-color: red;
+		noprow/marker-spacing: 10;
+		noprow/marker-placement: line;
+	  }
+	}      
 }
 
 #guideways {

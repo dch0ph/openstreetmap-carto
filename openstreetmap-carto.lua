@@ -570,9 +570,21 @@ function filter_highway (keyvalues)
 		end
 	end
 	
-	-- Paths with cycle access must really be cycleways
-	if (keyvalues['highway'] == 'path') and (keyvalues['bicycle'] == 'yes') then
-		keyvalues['highway'] = 'cycleway'
+	-- Explicitly set foot = no if accessed blocked (to avoid multiple checks when styling)
+	if keyvalues['access'] == 'no' then
+		keyvalues['foot'] = 'no'
+	end
+	if keyvalues['highway'] == 'path' then
+	-- Upgrade paths with cycle access
+		if keyvalues['bicycle'] == 'yes' then
+			keyvalues['highway'] = 'cycleway'
+		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'public_bridleway') then
+			keyvalues['highway'] = 'bridleway'
+		end
+	-- Normalise access tagging (destination only access is effectively foot = no)
+		if keyvalues['access'] == 'destination' then
+			keyvalues['foot'] = 'no'
+		end
 	end
 	
 	if is_in(keyvalues['highway'], pathtypes) then
