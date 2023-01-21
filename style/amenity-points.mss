@@ -1242,7 +1242,7 @@
     marker-file: url('symbols/leisure/golf.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
-	[zoom < 16] { marker-width: 8; }
+	[zoom < 15] { marker-width: 9; }
   }
 
   [feature = 'tourism_picnic_site'][zoom >= 14] {
@@ -1252,6 +1252,7 @@
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
     }
+	[zoom < 16] { marker-width: 9; }
   }
 
   [feature = 'leisure_picnic_table'][zoom >= 15] {
@@ -1504,6 +1505,7 @@
       [feature = 'amenity_parking_entrance']["parking"='multi-storey'] { marker-file: url('symbols/amenity/parking_entrance_multistorey.svg'); }
       marker-clip: false;
       marker-fill: @transportation-icon;
+	  [zoom < 16] { marker-width: 6; }
       [int_access = 'restricted'] { marker-opacity: @private-opacity; }
     }
   }
