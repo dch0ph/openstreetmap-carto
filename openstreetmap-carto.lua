@@ -411,7 +411,7 @@ local bad_surface_tags = { 'dirt', 'earth' }
 local hardunsealed_surface_tags = {  'unpaved', 'compacted', 'fine_gravel', 'cobblestone' }
 -- excellent is defined for walking rather than cycling!
 local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett' }
-local no_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
+local private_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
 --- Note not trying to distinguish between restricted_byway and byway
 --- Also treating ORPAs as BOATs
 local BOAT_alternative_tags = { 'byway', 'public_byway', 'orpa', 'unclassified_country_road', 'unclassified_county_road', 'restricted_byway', 'unclassified_highway' }
@@ -433,7 +433,7 @@ function filter_highway (keyvalues)
 		keyvalues['highway'] = 'unclassified'
 	end
 -- Demote narrow unclassified road to service road 
-	if (keyvalues['highway'] == 'unclassified') and (lanes == 1) then
+	if (keyvalues['highway'] == 'unclassified') and (keyvalues['lanes'] == 1) then
 		keyvalues['highway'] = 'service'
 -- Mark driveways as private if reasonable
 	elseif (keyvalues['service'] == 'driveway') and (keyvalues['designation'] == nil) and (keyvalues['access'] == nil) then
@@ -447,13 +447,14 @@ function filter_highway (keyvalues)
 
 -- Consolidate access tags
 -- Note the SQL query also looks to "compact" private -> no
+-- Keep distinction between private and no for now, since these have different significance for PRoW
 -- First - lose "access=designated", which is meaningless.
 -- Keep permissive for time being. Merge customers -> destination
 	if keyvalues['access'] == 'designated' then
 		keyvalues['access'] = nil
 	elseif keyvalues['access'] ~= nil then
-		if is_in(keyvalues['access'], no_access_tags) then
-			keyvalues['access'] = 'no'
+		if is_in(keyvalues['access'], private_access_tags) then
+			keyvalues['access'] = 'private'
 		elseif keyvalues['access'] == 'customers' then
 			keyvalues['access'] = 'destination'
 		end
@@ -536,21 +537,22 @@ function filter_highway (keyvalues)
 		end
 	end
 		
--- Consolidate access tags to remove private->no and designated->yes
+-- Consolidate access tags: designated->yes
  
     for index, access_tag in ipairs (access_tags) do
-		if keyvalues[access_tag] == 'private' then
-			keyvalues[access_tag] = 'no'
-		elseif keyvalues[access_tag] == 'designated' then
+--		if keyvalues[access_tag] == 'private' then
+--			keyvalues[access_tag] = 'no'
+--		else
+		if keyvalues[access_tag] == 'designated' then
 			keyvalues[access_tag] = 'yes'
 		end
     end
  
-   -- Remove no access if PRoW and not explicitly tagged with foot=no
-   -- Suppress this, as common to use access = no to indicate that route is barred
---   if ((keyvalues['access'] == 'no') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
---		keyvalues['access'] = nil
---	end
+   -- Remove private access if PRoW and not explicitly tagged with foot=no
+   -- Does not affect access = no (which generally means way is barred)
+   if ((keyvalues['access'] == 'private') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
+		keyvalues['access'] = nil
+	end
 	
 	-- Kill off track and extend service to include tracktype
 	if keyvalues['highway'] == 'track' then
@@ -581,9 +583,9 @@ function filter_highway (keyvalues)
 		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'public_bridleway') then
 			keyvalues['highway'] = 'bridleway'
 		end
-	-- Normalise access tagging (destination only access is effectively foot = no)
+	-- Normalise access tagging (destination only access is effectively foot = private)
 		if keyvalues['access'] == 'destination' then
-			keyvalues['foot'] = 'no'
+			keyvalues['foot'] = 'private'
 		end
 	end
 	
