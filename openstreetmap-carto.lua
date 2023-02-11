@@ -407,7 +407,7 @@ end
 -- These will also be treated as 'bad'
 local poor_visibility_tags = { 'no', 'none', 'nil', 'horrible', 'very_bad', 'poor'}
 -- service or unclassified road with these surface tags will be demoted to track
-local bad_surface_tags = { 'dirt', 'earth' }
+local bad_surface_tags = { 'dirt', 'earth', 'ground' }
 local hardunsealed_surface_tags = {  'unpaved', 'compacted', 'fine_gravel', 'cobblestone' }
 -- excellent is defined for walking rather than cycling!
 local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett' }
@@ -530,7 +530,7 @@ function filter_highway (keyvalues)
 		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface then
 	-- In the absence of other evidence, assume service roads and cycleways are asphalt
 			keyvalues['tracktype'] = 'grade1'
-		elseif ishardunsealedsurface or (keyvalues['trail_visibility'] == 'excellent') then
+		elseif ishardunsealedsurface then
 			keyvalues['tracktype'] = 'grade2'
 		else
 			keyvalues['tracktype'] = 'grade3'
