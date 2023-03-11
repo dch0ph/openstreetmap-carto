@@ -5,9 +5,22 @@ settings:
   database: gis
   metadata_table: external_data
 sources:
+  os_1km_gridlines:
+    url: https://github.com/charlesroper/OSGB_Grids/archive/master.zip
+    file: OSGB_Grids-master/GeoJSON/OSGB_Grid_1km.geojson
+    ogropts:
+      - "-explodecollections"
+      # needs reprojecting
+      - '-t_srs'
+      - 'EPSG:3857'
+    archive:
+      format: zip
+      files:
+        - OSGB_Grids-master/GeoJSON/OSGB_Grid_1km.geojson
   terrain50_contours:
     sourcefile: "../OSTerrain50/data/*/*.zip"
     file: "*_line.shp"
+    area: true
     ogropts:
       - "-explodecollections"
       # needs reprojecting

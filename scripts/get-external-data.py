@@ -11,25 +11,22 @@ Some implicit assumptions are
     normally likely because the script is likely to be called daily or less,
     not minutely.
 - Usage patterns will be similar to typical map rendering
-
-Local modification to support
-- Working with locally downloaded data
-- Merging multiple data sets into a single table
 '''
 
 import yaml
+import sys
+import glob
 import fnmatch
+from urllib.parse import urlparse
 import os
 import re
 import argparse
 import shutil
-import glob
 
 # modules for getting data
 import zipfile
 import requests
 import io
-import sys
 
 # modules for converting and postgres loading
 import subprocess
@@ -79,7 +76,6 @@ class Table:
                         '''UPDATE "{temp_schema}"."{name}" SET way_area=CASE WHEN ST_IsClosed(way) THEN ST_Area(ST_MakePolygon(way)) ELSE 0 END;'''
                         .format(name=self._name, temp_schema=self._temp_schema))
             self._conn.commit()
-
 
     def grant_access(self, user):
         with self._conn.cursor() as cur:
@@ -150,100 +146,193 @@ class Table:
 
 
 # Generator returning files to read
-def filesources(s, source, name, workingdir, lastmodified =None, force=False):
-    sourceurl = source.get("url")
+def filesources(source, name, workingdir, lastmodified=None, force=False):
     sourcefile = source.get("sourcefile")
-    sourcecount = (1 if sourceurl else 0) + (1 if sourcefile else 0)
-    if sourcecount != 1:
-        raise RuntimeError("Need to specify exactly one source using url: or sourcefile:")
+    if not sourcefile:
+        raise RuntimeError("Missing source either specified as url: or sourcefile:")
 
     if ("archive" in source) and (source["archive"]["format"] != "zip"):
         raise RuntimeError("archive form at is not zip - don't know what to do!")
     expectingzip = ("archive" in source)
 
-    if sourcefile:
 # Could in principle check against modification time
-        if expectingzip ^ sourcefile.endswith(".zip"):
-            print("Mismatch between use of archive and filename ending with .zip", file=sys.stderr)
-        if lastmodified and not force:
-            logging.info(
-                "Table {} did not require updating. Use --force to force reload.".format(name))
-            return
+    if expectingzip ^ sourcefile.endswith(".zip"):
+        print("Mismatch between use of archive and filename ending with .zip", file=sys.stderr)
+    if lastmodified and not force:
+        logging.info(
+            "Table {} did not require updating. Use --force to force reload.".format(name))
+        return
 # Again could be smarter here
-        new_last_modified = None
+    new_last_modified = None
 
-        allfiles = glob.glob(sourcefile)
+    allfiles = glob.glob(sourcefile)
 
-        if not allfiles:
-            print("Warning: {} did not correspond to any files - nothing will be uploaded".format(sourcefile))
+    if not allfiles:
+        print("Warning: {} did not correspond to any files - nothing will be uploaded".format(sourcefile))
 
-        if len(allfiles) == 1:
-            sourcefile = allfiles[0]
-            sourcedir, leafname = os.path.split(sourcefile)
-            print("Single file match: {}".format(sourcefile))
-            if expectingzip:
-                if leafname.endswith(".zip"):
-                    zip = zipfile.ZipFile(sourcefile)
-                    for member in source["archive"]["files"]:
+    if len(allfiles) == 1:
+        sourcefile = allfiles[0]
+        sourcedir, leafname = os.path.split(sourcefile)
+        print("Single file match: {}".format(sourcefile))
+        if expectingzip:
+            if leafname.endswith(".zip"):
+                zip = zipfile.ZipFile(sourcefile)
+                for member in source["archive"]["files"]:
 # should trap failure to find member
-                        zip.extract(member, workingdir)
-                        yield sourcefile, new_last_modified
-            else:
-                if leafname == source["file"]:
+                    zip.extract(member, workingdir)
                     yield sourcefile, new_last_modified
-                else:
-                    raise RuntimeError("sourcefile: refers to single file that doesn't match file:")
-            return
-
-        if expectingzip:
-            targetfile = source.get("file")
-            archivematches = source["archive"]["files"]
-            if not targetfile or (targetfile not in archivematches):
-                raise RuntimeError("Expecting file: that matches one of the files: extracted from archive")
         else:
-            if ("file" in source) and (source["file"] != leafname):
-                raise RuntimeError("If file: specified, needs to be compatible with sourcefile:")
-
-        for file in allfiles:
-            print("Processing {}".format(file))
-            if expectingzip:
-                zip = zipfile.ZipFile(file)
-                finalfile = None
-                for member in zip.namelist():
-                    for archivematch in archivematches:
-                        if fnmatch.fnmatch(member, archivematch):
-                            zip.extract(member, workingdir)
-                            if archivematch == targetfile:
-                                finalfile = os.path.join(workingdir, member)
-                yield finalfile, new_last_modified
+            if leafname == source["file"]:
+                yield sourcefile, new_last_modified
             else:
-                yield file, new_last_modified
+                raise RuntimeError("sourcefile: refers to single file that doesn't match file:")
+        return
+
+    if expectingzip:
+        targetfile = source.get("file")
+        archivematches = source["archive"]["files"]
+        if not targetfile or (targetfile not in archivematches):
+            raise RuntimeError("Expecting file: that matches one of the files: extracted from archive")
     else:
-        sourcefile = os.path.join(workingdir, source["file"])
-        if not force:
-            headers = {'If-Modified-Since': lastmodified}
-        else:
-            headers = {}
+        if ("file" in source) and (source["file"] != leafname):
+            raise RuntimeError("If file: specified, needs to be compatible with sourcefile:")
 
-        download = s.get(sourceurl, headers=headers)
-        download.raise_for_status()
-
-        if (download.status_code != 200):
-            logging.info(
-                "Table {} did not require updating. Use --force to force reload.".format(name))
-            return
-
-        if "Last-Modified" in download.headers:
-            new_last_modified = download.headers["Last-Modified"]
-        else:
-            new_last_modified = None
-
+    for file in allfiles:
+        print("Processing {}".format(file))
         if expectingzip:
-            zip = zipfile.ZipFile(io.BytesIO(download.content))
-            for member in source["archive"]["files"]:
-# should trap failure to find member
-                zip.extract(member, workingdir)
-        yield sourcefile, new_last_modified
+            zip = zipfile.ZipFile(file)
+            finalfile = None
+            for member in zip.namelist():
+                for archivematch in archivematches:
+                    if fnmatch.fnmatch(member, archivematch):
+                        zip.extract(member, workingdir)
+                        if archivematch == targetfile:
+                            finalfile = os.path.join(workingdir, member)
+            yield finalfile, new_last_modified
+        else:
+            yield file, new_last_modified
+#     else:
+#         sourcefile = os.path.join(workingdir, source["file"])
+#         if not force:
+#             headers = {'If-Modified-Since': lastmodified}
+#         else:
+#             headers = {}
+
+#         download = s.get(sourceurl, headers=headers)
+#         download.raise_for_status()
+
+#         if (download.status_code != 200):
+#             logging.info(
+#                 "Table {} did not require updating. Use --force to force reload.".format(name))
+#             return
+
+#         if "Last-Modified" in download.headers:
+#             new_last_modified = download.headers["Last-Modified"]
+#         else:
+#             new_last_modified = None
+
+#         if expectingzip:
+#             zip = zipfile.ZipFile(io.BytesIO(download.content))
+#             for member in source["archive"]["files"]:
+# # should trap failure to find member
+#                 zip.extract(member, workingdir)
+#         yield sourcefile, new_last_modified
+
+
+class Downloader:
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({'User-Agent': 'get-external-data.py/osm-carto'})
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        self.session.close()
+
+    def _download(self, url, headers=None):
+        if url.startswith('file://'):
+            filename = url[7:]
+            if headers and 'If-Modified-Since' in headers:
+                if str(os.path.getmtime(filename)) == headers['If-Modified-Since']:
+                    return DownloadResult(status_code = requests.codes.not_modified)
+            with open(filename, 'rb') as fp:
+                return DownloadResult(status_code=200, content = fp.read(),
+                                      last_modified=str(os.fstat(fp.fileno()).st_mtime))
+        response = self.session.get(url, headers=headers)
+        response.raise_for_status()
+        return DownloadResult(status_code = response.status_code, content = response.content,
+                              last_modified = response.headers.get('Last-Modified', None))
+
+    def download(self, url, name, opts, data_dir, table_last_modified):
+        filename = os.path.join(data_dir, os.path.basename(urlparse(url).path))
+        filename_lastmod = filename + '.lastmod'
+        if os.path.exists(filename) and os.path.exists(filename_lastmod):
+            with open(filename_lastmod, 'r') as fp:
+                lastmod_cache = fp.read()
+            with open(filename, 'rb') as fp:
+                cached_data = DownloadResult(status_code=200, content = fp.read(),
+                                             last_modified=lastmod_cache)
+        else:
+            cached_data = None
+            lastmod_cache = None
+
+        result = None
+        # Variable used to tell if we downloaded something
+        download_happened = False
+
+        if opts.no_update and (cached_data or table_last_modified):
+            # It is ok if this returns None, because for this to be None,
+            # we need to have something in table and therefore need not import (since we are opts.no-update)
+            result = cached_data
+        else:
+            if opts.force:
+                headers = {}
+            else:
+                # If none of those 2 exist, value will be None and it will have the same effect as not having If-Modified-Since set
+                headers = {'If-Modified-Since': table_last_modified or lastmod_cache}
+
+            response = self._download(url, headers)
+            # Check status codes
+            if response.status_code == requests.codes.ok:
+                logging.info("  Download complete ({} bytes)".format(len(response.content)))
+                download_happened = True
+                if opts.cache:
+                    # Write to cache
+                    with open(filename, 'wb') as fp:
+                        fp.write(response.content)
+                    if response.last_modified:
+                        with open(filename_lastmod, 'w') as fp:
+                            fp.write(response.last_modified)
+                result = response
+            elif response.status_code == requests.codes.not_modified:
+                # Now we need to figure out if our not modified data came from table or cache
+                if os.path.exists(filename) and os.path.exists(filename_lastmod):
+                    logging.info("  Cached file {} did not require updating".format(url))
+                    result = cached_data
+                else:
+                    result = None
+            else:
+                logging.critical("  Unexpected response code ({}".format(response.status_code))
+                logging.critical("  Content {} was not downloaded".format(name))
+                return None
+
+
+        if opts.delete_cache or (not opts.cache and download_happened):
+            try:
+                os.remove(filename)
+                os.remove(filename_lastmod)
+            except FileNotFoundError:
+                pass
+
+        return result
+
+
+class DownloadResult:
+    def __init__(self, status_code, content=None, last_modified=None):
+        self.status_code = status_code
+        self.content = content
+        self.last_modified = last_modified
 
 
 def main():
@@ -252,7 +341,16 @@ def main():
         description="Load external data into a database")
 
     parser.add_argument("-f", "--force", action="store_true",
-                        help="Download new data, even if not required")
+                        help="Download and import new data, even if not required.")
+    parser.add_argument("-C", "--cache", action="store_true",
+                        help="Cache downloaded data. Useful if you'll have your database volume deleted in the future")
+    parser.add_argument("--no-update", action="store_true",
+                        help="Don't download newer data than what is locally available (either in cache or table). Overridden by --force")
+
+    parser.add_argument("--delete-cache", action="store_true",
+                        help="Execute as usual, but delete cached data")
+    parser.add_argument("--force-import", action="store_true",
+                        help="Import data into table even if may not be needed")
 
     parser.add_argument("-c", "--config", action="store", default="external-data.yml",
                         help="Name of configuration file (default external-data.yml)")
@@ -273,12 +371,11 @@ def main():
                         help="Only report serious problems")
     parser.add_argument("-w", "--password", action="store",
                         help="Override database password")
-    parser.add_argument("--ignore-errors", action="store_true", dest="ignore_errors",
-                        help="Ignore likely spurious exit codes from ogr2gr")
+
     parser.add_argument("-R", "--renderuser", action="store",
                         help="User to grant access for rendering")
-    parser.add_argument("--add-area", action="store_true", dest="way_area",
-                        help="Add way_area column")
+#    parser.add_argument("--add-area", action="store_true", dest="way_area",
+#                        help="Add way_area column")
     parser.add_argument("--noexecute", action="store_true",
                         help="Show ogr2gr commands but do not execute")
 
@@ -290,7 +387,10 @@ def main():
         logging.basicConfig(level=logging.WARNING)
     else:
         logging.basicConfig(level=logging.INFO)
-    ignore_spurious = opts.ignore_errors
+
+    if opts.force and opts.no_update:
+        opts.no_update = False
+        logging.warning("Force (-f) flag overrides --no-update flag")
 
     logging.info("Starting load of external data into database")
 
@@ -309,14 +409,12 @@ def main():
 
         renderuser = opts.renderuser or config["settings"].get("renderuser")
 
-# Don't actually need this for local files ...
-        with requests.Session() as s, \
-            psycopg2.connect(database=database,
+        with Downloader() as d:
+            conn = None
+            conn = psycopg2.connect(database=database,
                              host=host, port=port,
                              user=user,
                              password=password)
-
-            s.headers.update({'User-Agent': 'get-external-data.py/osm-carto'})
 
             # DB setup
             database_setup(conn, config["settings"]["temp_schema"],
@@ -331,14 +429,6 @@ def main():
                 if not re.match('''^[a-zA-Z0-9_]+$''', name):
                     raise RuntimeError(
                         "Only ASCII alphanumeric table are names supported")
-                if re.match('''[A-Z]+''', name):
-                    print("Warning: table name contains capitals which much might be converted to lower case", file=sys.stderr)
-
-                workingdir = os.path.join(data_dir, name)
-                # Clean up anything left over from an aborted run
-                shutil.rmtree(workingdir, ignore_errors=True)
-
-                os.makedirs(workingdir, exist_ok=True)
 
                 this_table = Table(name, conn,
                                    config["settings"]["temp_schema"],
@@ -346,10 +436,7 @@ def main():
                                    config["settings"]["metadata_table"])
                 this_table.clean_temp()
 
-                firstfile = True
-                for sourcefile, new_last_modified in filesources(s, source, name, workingdir,
-                            lastmodified=this_table.last_modified(), force=opts.force):
-
+                def doimport(fullsourcefile, firstfile=True):
                     ogrpg = "PG:dbname={}".format(database)
 
                     if port is not None:
@@ -362,11 +449,11 @@ def main():
                         ogrpg = ogrpg + " password={}".format(password)
 
                     ogrcommand = ["ogr2ogr",
-                                  '-f', 'PostgreSQL',
-                                  '-lco', 'GEOMETRY_NAME=way',
-                                  '-lco', 'SPATIAL_INDEX=FALSE',
-                                  '-lco', 'EXTRACT_SCHEMA_FROM_LAYER_NAME=YES',
-                                  '-nln', "{}.{}".format(config["settings"]["temp_schema"], name)]
+                                    '-f', 'PostgreSQL',
+                                    '-lco', 'GEOMETRY_NAME=way',
+                                    '-lco', 'SPATIAL_INDEX=FALSE',
+                                    '-lco', 'EXTRACT_SCHEMA_FROM_LAYER_NAME=YES',
+                                    '-nln', "{}.{}".format(config["settings"]["temp_schema"], name)]
 
                     if not firstfile:
                         ogrcommand.append("-append")
@@ -374,11 +461,12 @@ def main():
                     if "ogropts" in source:
                         ogrcommand += source["ogropts"]
 
-                    ogrcommand += [ogrpg, sourcefile]
+                    ogrcommand += [ogrpg, fullsourcefile]
 
                     logging.info("  Importing into database")
                     logging.debug("running {}".format(
                         subprocess.list2cmdline(ogrcommand)))
+
                     # ogr2ogr can raise errors here, so they need to be caught
                     if not opts.noexecute:
                         try:
@@ -390,29 +478,52 @@ def main():
                                 "ogr2ogr returned {} with layer {}".format(e.returncode, name))
                             logging.critical("Command line was {}".format(
                                 subprocess.list2cmdline(e.cmd)))
-                            if (e.returncode == -6) and ignore_spurious:
-                                logging.critical("Ignore this!")
-                            else:
-                                logging.critical("Output was\n{}".format(e.output))
-                                raise RuntimeError(
-                                    "ogr2ogr error when loading table {}".format(name))
+                            logging.critical("Output was\n{}".format(e.output))
+                            logging.critical("Error was\n{}".format(e.stderr))
+                            raise RuntimeError(
+                                "ogr2ogr error when loading table {}".format(name))
 
-                    firstfile = False
+                workingdir = os.path.join(data_dir, name)
+                if "url" in source:
+                    # This will fetch data needed for import
+                    download = d.download(source["url"], name, opts, data_dir, this_table.last_modified())
 
-                if opts.way_area:
-                    logging.debug("Adding way_area column")
-                    this_table.add_way_area()
-                logging.debug("Granting user access and renaming table")
-                if not opts.noexecute:
-                    this_table.index()
-                    if renderuser is not None:
-                        this_table.grant_access(renderuser)
-                    this_table.replace(new_last_modified)
-                elif download.status_code == requests.codes.not_modified:
-                    logging.info("  Table {} did not require updating".format(name))
+                    # Check if there is need to import
+                    if download == None or (not opts.force and not opts.force_import and this_table.last_modified() == download.last_modified):
+                        logging.info("  Table {} did not require updating".format(name))
+                        continue
+
+                    shutil.rmtree(workingdir, ignore_errors=True)
+                    os.makedirs(workingdir, exist_ok=True)
+                    if "archive" in source and source["archive"]["format"] == "zip":
+                        logging.info("  Decompressing file")
+                        zip = zipfile.ZipFile(io.BytesIO(download.content))
+                        for member in source["archive"]["files"]:
+                            zip.extract(member, workingdir)
+
+                    fullsourcefile = os.path.join(workingdir, source["file"])
+                    doimport(fullsourcefile)
                 else:
-                    logging.critical("  Unexpected response code ({}".format(download.status_code))
-                    logging.critical("  Table {} was not updated".format(name))
+                    firstfile = True
+                    for fullsourcefile, new_last_modified in filesources(source, name, workingdir,
+                                lastmodified=this_table.last_modified(), force=opts.force):
+                        doimport(fullsourcefile, firstfile)
+                        firstfile = False
+
+                logging.info("  Import complete")
+
+                if source["area"]:
+                    logging.info("  Adding way_area column")
+                    this_table.add_way_area()
+
+                logging.info("  Indexing table")
+                this_table.index()
+                if renderuser is not None:
+                    logging.debug("Granting access to render user")
+                    this_table.grant_access(renderuser)
+                this_table.replace(download.last_modified)
+
+                shutil.rmtree(workingdir, ignore_errors=True)
 
             if conn:
                 conn.close()
