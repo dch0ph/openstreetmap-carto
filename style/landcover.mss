@@ -847,7 +847,7 @@
 //	[zoom < 16] { polygon-pattern-geometry-transform: scale(0.5); }
   }
   
-  [landuse = 'pasture'][zoom >= 13] {
+  [landuse = 'pasture'][zoom >= 14] {
 	polygon-pattern-file: url('symbols/browncows.svg'); 
     opacity: 0.5;	
  //   polygon-pattern-alignment: global;

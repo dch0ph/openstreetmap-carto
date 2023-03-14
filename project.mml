@@ -1255,7 +1255,7 @@ Layer:
           WHERE power = 'line'
         ) AS power_line
     properties:
-      minzoom: 14
+      minzoom: 13
   - id: tourism-boundary
     geometry: polygon
     <<: *extents

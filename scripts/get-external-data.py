@@ -512,7 +512,7 @@ def main():
 
                 logging.info("  Import complete")
 
-                if source["area"]:
+                if source.get("area", False):
                     logging.info("  Adding way_area column")
                     this_table.add_way_area()
 

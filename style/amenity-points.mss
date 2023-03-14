@@ -423,7 +423,7 @@
   }
 
 /* Any sized mast is useful orientation */
-  [feature = 'man_made_mast']["tower:type" != 'lighting'],
+  [feature = 'man_made_mast']["tower:type" != 'lighting'][zoom >= 14],
   [feature = 'man_made_mast']["tower:type" = 'lighting'][zoom >= 18]   {
       marker-file: url('symbols/man_made/mast.svg');
       marker-fill: @mast-color;
@@ -442,7 +442,7 @@
   [feature = 'man_made_tower']["tower:type" = 'lighting'][zoom >= 18],
   [feature = 'man_made_tower']["tower:type" = 'bell_tower'][zoom >= 18],
   [feature = 'man_made_tower']["tower:type" = 'watchtower'][zoom >= 18],
-  [feature = 'man_made_tower']["tower:type" != 'cooling']["tower:type" != 'lighting']["tower:type" != 'bell_tower']["tower:type" != 'watchtower'] {
+  [feature = 'man_made_tower']["tower:type" != 'cooling']["tower:type" != 'lighting']["tower:type" != 'bell_tower']["tower:type" != 'watchtower'][zoom >= 14] {
       marker-file: url('symbols/man_made/tower_generic.svg');
       marker-fill: @mast-color;
       marker-clip: false;
@@ -1430,7 +1430,7 @@
     marker-clip: false;
   }
 
-  [feature = 'waterway_waterfall'] {
+  [feature = 'waterway_waterfall'][zoom >= 13] {
     [zoom >= 13][height > 20],
     [zoom >= 14][height > 10],
     [zoom >= 14][name != null],
@@ -1438,8 +1438,8 @@
       marker-file: url('symbols/natural/waterfall.svg');
       marker-clip: false;
       marker-fill: @water-text;
+	  [zoom < 16] { marker-width: 8; }
     }
-	[zoom < 16] { marker-width: 8; }
   }
 
   [feature = 'military_bunker'][zoom >= 14] {

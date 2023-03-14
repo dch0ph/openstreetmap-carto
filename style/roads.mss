@@ -585,11 +585,13 @@
     [feature = 'highway_tertiary'] {
       [zoom >= 12] {
         line-color: @unknown-casing;
-		[sidewalk = 'no'] { line-color: @dangerous-casing; }
-		[sidewalk != 'no'][sidewalk != null] { line-color: @safe-casing; }
         line-width: @tertiary-width-z12;
         [zoom >= 13] { line-width: @tertiary-width-z13; }
-        [zoom >= 14] { line-width: @tertiary-width-z14; }
+        [zoom >= 14] { 
+			[sidewalk = 'no'] { line-color: @dangerous-casing; }
+			[sidewalk != 'no'][sidewalk != null] { line-color: @safe-casing; }
+			line-width: @tertiary-width-z14;
+		}
         [zoom >= 15] { line-width: @tertiary-width-z15; }
         [zoom >= 16] { line-width: @tertiary-width-z16; }
         [zoom >= 17] { line-width: @tertiary-width-z17; }
@@ -623,10 +625,12 @@
     [feature = 'highway_unclassified'] {
       [zoom >= 13] {
 		line-color: @unknown-casing;
-		[sidewalk = 'no'] { line-color: @dangerous-casing; }
-		[sidewalk != 'no'][sidewalk != null]  { line-color: @safe-casing; }
         line-width: @residential-width-z13;
-        [zoom >= 14] { line-width: @residential-width-z14; }
+        [zoom >= 14] { 
+			line-width: @residential-width-z14;
+			[sidewalk = 'no'] { line-color: @dangerous-casing; }
+			[sidewalk != 'no'][sidewalk != null]  { line-color: @safe-casing; }
+		}
         [zoom >= 15] { line-width: @residential-width-z15; }
         [zoom >= 16] { line-width: @residential-width-z16; }
         [zoom >= 17] { line-width: @residential-width-z17; }
@@ -651,7 +655,6 @@
    /* [feature = 'highway_road'] {
       [zoom >= 14] {
         line-color: @road-casing;
-		[sidewalk = 'no'] { line-color: @dangerous-casing; }
         line-width: @road-width-z14;
         [zoom >= 16] { line-width: @road-width-z16; }
         [zoom >= 17] { line-width: @road-width-z17; }
@@ -1986,8 +1989,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom >= 14][service = 'INT-normal'],
       [zoom >= 16][service = 'INT-minor'] {
         line-color: @service-fill;		
-		[lit = 'yes'] { line-color: @pedestrian-lit; }
-		[lit = 'no'] { line-color: @pedestrian-dark; }
+		[zoom >= 16][lit = 'yes'] { line-color: @pedestrian-lit; }
+		[zoom >= 16][lit = 'no'] { line-color: @pedestrian-dark; }
         [service = 'INT-normal'] {
           line-width: @service-width-z14 - 2 * @casing-width-z14;
           [zoom >= 15] { line-width: @service-width-z15 - 2 * @casing-width-z15; }
