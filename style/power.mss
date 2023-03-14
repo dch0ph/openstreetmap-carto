@@ -54,8 +54,8 @@
 	marker-allow-overlap: true;
   }
   // indicate poles with transition to cable with pole of twice area
-  [power = 'transitionpole'][zoom >= 13] {
-	marker-width: 2.8;
+  [power = 'transitionpole'][zoom >= 14] {
+	marker-width: 3;
 	[zoom >= 16] { marker-width: 4.2; }
     marker-fill: @power-line-color;
 	marker-allow-overlap: true;
