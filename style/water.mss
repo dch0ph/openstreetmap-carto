@@ -37,7 +37,8 @@
 		polygon-smooth: @water-smooth;
      	line-smooth: @water-smooth;
 	  }
-	  line-width: 0.8;
+	  line-width: 0.4;
+	  [zoom >= 13] { line-width: 0.8; }
 	  line-color: @water-line-color;
       [way_pixels >= 4] { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.6; }
