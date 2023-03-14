@@ -170,7 +170,7 @@
     }*/
 	
 	[int_intermittent != 'yes'] {
-		[zoom >= 13] {
+		[zoom >= 14] {
 			marker-file: url('symbols/oneway.svg');
 			marker-fill: @water-line-color;
 			marker-max-error: 0.3;
