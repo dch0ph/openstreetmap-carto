@@ -187,6 +187,7 @@
 //@track-grade2-width-z13:          1.0;
 
 // bump down at z14
+@trunk-width-z14:				  5.5;
 @primary-width-z14:				  4.5;
 @primary-link-width-z14:		  3.5;
 @primary-link-width-z14:		  3.5;
@@ -481,6 +482,7 @@
         }
         line-width: @trunk-width-z12;
         [zoom >= 13] { line-width: @trunk-width-z13; }
+        [zoom >= 14] { line-width: @trunk-width-z14; }
         [zoom >= 15] { line-width: @trunk-width-z15; }
         [zoom >= 17] { line-width: @trunk-width-z17; }
         [zoom >= 18] { line-width: @trunk-width-z18; }
@@ -1544,6 +1546,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           line-color: @trunk-fill;
           line-width: @trunk-width-z12 - 2 * @major-casing-width-z12;
           [zoom >= 13] { line-width: @trunk-width-z13 - 2 * @major-casing-width-z13; }
+          [zoom >= 14] { line-width: @trunk-width-z14 - 2 * @major-casing-width-z14; }
           [zoom >= 15] { line-width: @trunk-width-z15 - 2 * @major-casing-width-z15; }
           [zoom >= 17] { line-width: @trunk-width-z17 - 2 * @major-casing-width-z17; }
           [zoom >= 18] { line-width: @trunk-width-z18 - 2 * @major-casing-width-z18; }
@@ -1562,6 +1565,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           #bridges {
             line-width: @trunk-width-z12 - 2 * @major-bridge-casing-width-z12;
             [zoom >= 13] { line-width: @trunk-width-z13 - 2 * @major-bridge-casing-width-z13; }
+            [zoom >= 14] { line-width: @trunk-width-z14 - 2 * @major-bridge-casing-width-z14; }
             [zoom >= 15] { line-width: @trunk-width-z15 - 2 * @major-bridge-casing-width-z15; }
             [zoom >= 17] { line-width: @trunk-width-z17 - 2 * @major-bridge-casing-width-z17; }
             [zoom >= 18] { line-width: @trunk-width-z18 - 2 * @major-bridge-casing-width-z18; }
@@ -1601,6 +1605,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           line-pattern-file: url("symbols/unpaved/unpaved_trunk-fill.svg");
           line-pattern-width: @trunk-width-z12 - 2 * @major-casing-width-z12;
           [zoom >= 13] { line-pattern-width: @trunk-width-z13 - 2 * @major-casing-width-z13; }
+          [zoom >= 14] { line-pattern-width: @trunk-width-z14 - 2 * @major-casing-width-z14; }
           [zoom >= 15] { line-pattern-width: @trunk-width-z15 - 2 * @major-casing-width-z15; }
           [zoom >= 17] { line-pattern-width: @trunk-width-z17 - 2 * @major-casing-width-z17; }
           [zoom >= 18] { line-pattern-width: @trunk-width-z18 - 2 * @major-casing-width-z18; }
@@ -1616,6 +1621,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           #bridges {
             line-pattern-width: @trunk-width-z12 - 2 * @major-bridge-casing-width-z12;
             [zoom >= 13] { line-pattern-width: @trunk-width-z13 - 2 * @major-bridge-casing-width-z13; }
+            [zoom >= 14] { line-pattern-width: @trunk-width-z14 - 2 * @major-bridge-casing-width-z14; }
             [zoom >= 15] { line-pattern-width: @trunk-width-z15 - 2 * @major-bridge-casing-width-z15; }
             [zoom >= 17] { line-pattern-width: @trunk-width-z17 - 2 * @major-bridge-casing-width-z17; }
             [zoom >= 18] { line-pattern-width: @trunk-width-z18 - 2 * @major-bridge-casing-width-z18; }
