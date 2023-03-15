@@ -301,6 +301,7 @@ Layer:
         ) AS contours10
     properties:
       minzoom: 13
+      maxzoom: 17
   - id: contours50
     geometry: multilinestring
     <<: *extents
@@ -316,6 +317,7 @@ Layer:
         ) AS contours50
     properties:
       minzoom: 13
+      maxzoom: 17
   - id: landcover-area-symbols
     geometry: polygon
     <<: *extents
@@ -456,7 +458,7 @@ Layer:
           WHERE man_made = 'bridge'
         ) AS bridge
     properties:
-      minzoom: 12
+      minzoom: 14
   - id: buildings
     geometry: polygon
     <<: *extents
@@ -2431,7 +2433,8 @@ Layer:
           WHERE (prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')
         ) AS contours_text50
     properties:
-      minzoom: 13
+      minzoom: 14
+      maxzoom: 17
   - id: text-annotation
     geometry: point
     <<: *extents
@@ -2446,6 +2449,7 @@ Layer:
         ) AS text_annotation
     properties:
       minzoom: 14
+      maxzoom: 17
   - id: text-low-priority
     geometry: point
     <<: *extents

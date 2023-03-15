@@ -102,7 +102,7 @@
 
 @tertiary-shield: #3b3b3b;
 
-@unimportant-road: @residential-casing;
+@unimportant-road: #ccc;
 
 @minor-construction: #aaa;
 @service-construction: #aaa;
@@ -152,6 +152,7 @@
 @primary-width-z11:               1.8;
 @secondary-width-z11:             1.1;
 @tertiary-width-z11:              0.7;
+@unclassified-width-z11:		  0.5;
 
 @motorway-width-z12:              3.5;
 @motorway-link-width-z12:         1.5;
@@ -163,8 +164,8 @@
 @secondary-link-width-z12:        1.5;
 @tertiary-width-z12:              2.5;
 @tertiary-link-width-z12:         1.5;
-@residential-width-z12:           0.5;
-@unclassified-width-z12:          0.8;
+@residential-width-z12:           1.5;
+//@unclassified-width-z12:          0.8;
 
 @motorway-width-z13:              6;
 @motorway-link-width-z13:         4;
@@ -242,7 +243,7 @@
 @road-width-z16:                  @service-width-z16;
 @minor-service-width-z16:         2;
 //@footway-width-z16:               1.3;
-@cycleway-width-z16:              0.9;
+@cycleway-width-z16:              1.8;
 
 @motorway-width-z17:             18;
 @motorway-link-width-z17:        12;
@@ -258,6 +259,7 @@
 @service-width-z17:               7;
 //@living-street-width-z17:        12;
 @pedestrian-width-z17:           @service-width-z17;
+@cycleway-width-z17:			 1.8;
 @road-width-z17:                  @service-width-z17;
 @minor-service-width-z17:         3.5;
 
@@ -278,7 +280,7 @@
 @pedestrian-width-z18:           @service-width-z18;
 @minor-service-width-z18:         4.75;
 //@footway-width-z18:               1.3;
-@cycleway-width-z18:              1;
+@cycleway-width-z18:              2;
 
 @motorway-width-z19:             27;
 @motorway-link-width-z19:        16;
@@ -297,7 +299,7 @@
 @service-width-z19:              11;
 @minor-service-width-z19:         5.5;
 //@footway-width-z19:               1.6;
-@cycleway-width-z19:              1.3;
+@cycleway-width-z19:              2.5;
 
 @motorway-width-z20:             33;
 @motorway-link-width-z20:        17;
@@ -578,7 +580,6 @@
       [zoom >= 12] {
         line-color: @tertiary-casing;
         line-width: @tertiary-width-z12;
-      }
         [zoom >= 13] { line-width: @tertiary-width-z13; }
         [zoom >= 14] { 
         line-color: @unknown-casing;
@@ -599,10 +600,10 @@
           [zoom >= 18] { line-width: @tertiary-link-width-z18; }
           [zoom >= 19] { line-width: @tertiary-link-width-z19; }
         }
-        line-join: round;
         #roads-casing {
           line-cap: round;
-        
+          line-join: round;
+        }
         #tunnels {
           line-dasharray: 4,2;
         }
@@ -617,9 +618,10 @@
 
     [feature = 'highway_residential'],
     [feature = 'highway_unclassified'] {
-      [zoom >= 13] {
-		    line-color: @residential-casing;
-        line-width: @residential-width-z13;
+      [zoom >= 12] {
+		line-color: @residential-casing;
+		line-width: @residential-width-z12; 
+        [zoom >= 13] { line-width: @residential-width-z13; }
         [zoom >= 14] { 
           line-color: @unknown-casing;
           line-width: @residential-width-z14;
@@ -800,22 +802,23 @@
     }
 
 //    [feature = 'highway_footway'],
-    [feature = 'highway_cycleway'][zoom >= 13],
+    [feature = 'highway_cycleway'][zoom >= 14],
     [feature = 'highway_bridleway'][zoom >= 14],
     [feature = 'highway_path'][zoom >= 14] {
       #bridges {
 	    [bridge != 'embankment'][bridge != 'cutting'] {
-          line-width: @cycleway-width-z13 + 2 * (@paths-background-width + @casing-width-z13);
+ //         line-width: @cycleway-width-z13 + 2 * (@paths-background-width + @casing-width-z13);
           [zoom >= 14] { line-width: @cycleway-width-z14 + 2 * (@paths-background-width + @casing-width-z14); }
           [zoom >= 15] { line-width: @cycleway-width-z15 + 2 * (@paths-background-width + @casing-width-z15); }
           [zoom >= 16] { line-width: @cycleway-width-z16 + 2 * (@paths-background-width + @casing-width-z16); }
+          [zoom >= 17] { line-width: @cycleway-width-z17 + 2 * (@paths-background-width + @casing-width-z17); }
           [zoom >= 18] { line-width: @cycleway-width-z18 + 2 * (@paths-background-width + @casing-width-z18); }
           [zoom >= 19] { line-width: @cycleway-width-z19 + 2 * (@paths-background-width + @casing-width-z19); }
           line-color: @bridge-casing;
           line-join: round;
 		}
-		[bridge = 'embankment'],
-        [bridge = 'cutting'] {
+		[bridge = 'embankment'][zoom >= 14],
+        [bridge = 'cutting'][zoom >= 14] {
 			top/marker-file: url('symbols/sidebump.svg');
 			top/marker-fill: @earthworks-color;
 			top/marker-placement: line;
@@ -839,13 +842,14 @@
 		}
       }
       #tunnels {  // Hole for z14/15 handled differently
-	      [zoom < 14] {
+/*	      [zoom < 14] {
 			line-width: @cycleway-width-z13 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width);
 			line-color: @tunnel-casing;
 			line-dasharray: 4,2;
-		  }
+		  }*/
 		  [zoom >= 16] {
 			line-width: @cycleway-width-z16 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); 
+			[zoom >= 17] { line-width: @cycleway-width-z17 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); }
 			[zoom >= 18] { line-width: @cycleway-width-z18 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); }
 			[zoom >= 19] { line-width: @cycleway-width-z19 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); }
 			line-color: @tunnel-casing;
@@ -990,6 +994,7 @@
 		  line-width: @cycleway-width-z14 + 2 * @paths-background-width;
 		  [zoom >= 15] { line-width: @cycleway-width-z15 + 2 * @paths-background-width; }
 		  [zoom >= 16] { line-width: @cycleway-width-z16 + 2 * @paths-background-width; }
+		  [zoom >= 17] { line-width: @cycleway-width-z17 + 2 * @paths-background-width; }
 		  [zoom >= 18] { line-width: @cycleway-width-z18 + 2 * @paths-background-width; }
 		  [zoom >= 19] { line-width: @cycleway-width-z19 + 2 * @paths-background-width; }
 		  line-color: @cycleway-casing;
@@ -1004,6 +1009,7 @@
           line-width: @cycleway-width-z14 + 2 * @paths-background-width;
           [zoom >= 15] { line-width: @cycleway-width-z15 + 2 * @paths-background-width; }
           [zoom >= 16] { line-width: @cycleway-width-z16 + 2 * @paths-background-width; }
+          [zoom >= 17] { line-width: @cycleway-width-z17 + 2 * @paths-background-width; }
           [zoom >= 18] { line-width: @cycleway-width-z18 + 2 * @paths-background-width; }
           [zoom >= 19] { line-width: @cycleway-width-z19 + 2 * @paths-background-width; }
         }
@@ -1123,16 +1129,15 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 #roads-fill[zoom >= 10],
 #bridges[zoom >= 10],
 #tunnels[zoom >= 10] {
-  /* Comment out as haven't set low zoom colours
   ::halo {
-    [zoom = 9][feature = 'highway_secondary'] {
+  /*  [zoom = 9][feature = 'highway_secondary'] {
       line-color: @halo-color-for-minor-road;
       line-width: 2.2;
       line-opacity: 0.4;
       line-join: round;
       //Missing line-cap: round; is intentional. It would cause rendering glow multiple times in some places - what as result of partial transparency would cause differences in rendering
       //Also, bridges - including bridge casings - are rendered on top of roads. Enabling line-cap: round would result in glow from bridges rendered on top of road around bridges.
-    }
+    }*/
     [zoom = 10][feature = 'highway_secondary'],
     [zoom = 11][feature = 'highway_secondary'] {
       line-color: @halo-color-for-minor-road;
@@ -1144,9 +1149,10 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
     [zoom = 10][feature = 'highway_tertiary'],
     [zoom = 11][feature = 'highway_tertiary'],
-    [zoom = 12][feature = 'highway_unclassified'] {
+    [zoom = 11][feature = 'highway_unclassified'] {
       line-color: @halo-color-for-minor-road;
       line-width: 2.2;
+	  [feature = 'highway_unclassified'] { line-width: 1.1; }
       line-opacity: 0.3;
       line-join: round;
       //Missing line-cap: round; is intentional. It would cause rendering glow multiple times in some places - what as result of partial transparency would cause differences in rendering
@@ -1185,7 +1191,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       line-opacity: .4;
     }
   }
-*/
 
   ::fill {
     /*
@@ -1399,16 +1404,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         [zoom >= 7] { line-width: @motorway-width-z7; }
         [zoom >= 8] { line-width: @motorway-width-z8; }
         [zoom >= 9] { line-width: @motorway-width-z9; }
-        [zoom >= 10] { line-width: @motorway-width-z10; }
-        [zoom >= 11] { line-width: @motorway-width-z11; }*/
-        [zoom >= 12] {
+        [zoom >= 10] { line-width: @motorway-width-z10; } */
+        [zoom >= 11] {
+		  line-width: @motorway-width-z11;
           line-color: @motorway-fill;
-          line-width: @motorway-width-z12 - 2 * @major-casing-width-z12;
+          [zoom >= 12] { line-width: @motorway-width-z12 - 2 * @major-casing-width-z12; }
           [zoom >= 13] { line-width: @motorway-width-z13 - 2 * @major-casing-width-z13; }
           [zoom >= 15] { line-width: @motorway-width-z15 - 2 * @major-casing-width-z15; }
           [zoom >= 17] { line-width: @motorway-width-z17 - 2 * @major-casing-width-z17; }
           [zoom >= 18] { line-width: @motorway-width-z18 - 2 * @major-casing-width-z18; }
-//          [zoom >= 19] { line-width: @motorway-width-z19 - 2 * @major-casing-width-z19; }
+          [zoom >= 19] { line-width: @motorway-width-z19 - 2 * @major-casing-width-z19; }
 //          [zoom >= 20] { line-width: @motorway-width-z20 - 2 * @major-casing-width-z20; }
           [link = 'yes'] {
             line-width: @motorway-link-width-z12 - 2 * @casing-width-z12;
@@ -1416,7 +1421,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
             [zoom >= 15] { line-width: @motorway-link-width-z15 - 2 * @casing-width-z15; }
             [zoom >= 17] { line-width: @motorway-link-width-z17 - 2 * @casing-width-z17; }
             [zoom >= 18] { line-width: @motorway-link-width-z18 - 2 * @casing-width-z18; }
-//            [zoom >= 19] { line-width: @motorway-link-width-z19 - 2 * @casing-width-z19; }
+            [zoom >= 19] { line-width: @motorway-link-width-z19 - 2 * @casing-width-z19; }
 //            [zoom >= 20] { line-width: @motorway-link-width-z20 - 2 * @casing-width-z20; }
           }
           #tunnels {
@@ -1504,12 +1509,15 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[zoom >= 16] {
 			  line/line-width: @cycleway-width-z16;
 			}
+			[zoom >= 17] {
+			  line/line-width: @cycleway-width-z17;
+			}
 			[zoom >= 18] {
 			  line/line-width: @cycleway-width-z18;
 			}
-//			[zoom >= 19] {
-//			  line/line-width: @cycleway-width-z19;
-//			}
+			[zoom >= 19] {
+			  line/line-width: @cycleway-width-z19;
+			}
 		
 		    [designation = 'public_footpath'],
 		    [designation = 'public_bridleway'],
@@ -1887,16 +1895,17 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
     [feature = 'highway_residential'],
     [feature = 'highway_unclassified'] {
-      [zoom = 12][feature = 'highway_residential'] {
+    /*  [zoom = 12][feature = 'highway_residential'] {
         line-color: @unimportant-road;
         line-width: @residential-width-z12;
-      }
-      [zoom = 12][feature = 'highway_unclassified'] {
+      }*/
+      [zoom = 11][feature = 'highway_unclassified'] {
         line-color: @unimportant-road;
-        line-width: @unclassified-width-z12;
+        line-width: @unclassified-width-z11;
       }
-      [zoom >= 13] {
-        line-width: @residential-width-z13 - 2 * @residential-casing-width-z13;
+      [zoom >= 12] {
+        line-width: @residential-width-z12 - 2 * @casing-width-z12;
+        [zoom >= 13] { line-width: @residential-width-z13 - 2 * @casing-width-z13; }
         [zoom >= 14] { line-width: @residential-width-z14 - 2 * @casing-width-z14; }
         [zoom >= 15] { line-width: @residential-width-z15 - 2 * @casing-width-z15; }
         [zoom >= 16] { line-width: @residential-width-z16 - 2 * @casing-width-z16; }
@@ -1962,7 +1971,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom >= 14] {
         line-width: @road-width-z14 - 2 * @casing-width-z14;
         [zoom >= 16] { line-width: @road-width-z16 - 2 * @casing-width-z16; }
-        [zoom >= 17] { line-width: @road-width-z17 - 2 * @casing-width-z17; }
+        [zoom >= 17] { line-width: @road-width-z17 - 2 * @casinlsdg-width-z17; }
         [zoom >= 18] { line-width: @road-width-z18 - 2 * @casing-width-z18; }
         [zoom >= 19] { line-width: @road-width-z19 - 2 * @casing-width-z19; }
         #roads-fill {
@@ -2102,6 +2111,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           [zoom >= 16] {
             prow/line-width: @cycleway-width-z16;
           }
+          [zoom >= 17] {
+            prow/line-width: @cycleway-width-z17;
+          }
           [zoom >= 18] {
             prow/line-width: @cycleway-width-z18;
           }
@@ -2160,6 +2172,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           }
           [zoom >= 16] {
             prow/line-width: @cycleway-width-z16;
+          }
+          [zoom >= 16] {
+            prow/line-width: @cycleway-width-z17;
           }
           [zoom >= 18] {
             prow/line-width: @cycleway-width-z18;
@@ -3253,7 +3268,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 #tunnels::PRoW,
 #roads-fill::PRoW,
 #bridges::PRoW {
-	[feature = 'highway_service'][designation != null][zoom >= 13] {
+	[feature = 'highway_service'][designation != null][zoom >= 14] {
 	 [foot = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
 	  [designation = 'public_footpath'] { 
 		 prow/line-color: @footpath-fill;
@@ -3279,6 +3294,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  }
 	  [zoom >= 16] {
 		prow/line-width: @cycleway-width-z16;
+	  }
+	  [zoom >= 17] {
+		prow/line-width: @cycleway-width-z17;
 	  }
 	  [zoom >= 18] {
 		prow/line-width: @cycleway-width-z18;

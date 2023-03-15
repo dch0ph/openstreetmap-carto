@@ -27,9 +27,10 @@
 
   [waterway = 'dock'],
   [landuse = 'basin'],
-  [natural = 'water'],
+  [natural = 'water'][water != 'river'],
+  [natural = 'water'][zoom >=12],
   [landuse = 'reservoir'],
-  [waterway = 'riverbank'] {
+  [waterway = 'riverbank'][zoom >= 12] {
     [int_intermittent = 'no'] {
 	  [ water = 'wastewater'] { polygon-fill: @wastewater-color; }
 	  [ water != 'wastewater'] {
@@ -121,7 +122,7 @@
     }
 
     water/line-color: @water-line-color;
-    water/line-width: 2;
+    water/line-width: 1.5;
     water/line-cap: round;
     water/line-join: round;
     [bridge != 'yes'][int_tunnel != 'yes'] { water/line-smooth: @water-smooth; }
@@ -131,7 +132,7 @@
         bridgefill/line-color: white;
         bridgefill/line-join: round;
         bridgefill/line-width: 2;
-
+        [zoom >= 13] { water/line-width: 2; }
         [zoom >= 15] { bridgefill/line-width: 3; }
         [zoom >= 17] { bridgefill/line-width: 6; }
         [zoom >= 18] { bridgefill/line-width: 9; }

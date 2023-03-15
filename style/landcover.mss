@@ -85,7 +85,7 @@
 
 #landcover-low-zoom[zoom < 10],
 #landcover[zoom >= 10] {
-  ::low-zoom[zoom < 12] {
+  ::low-zoom[zoom < 11] {
     // Increase the lightness of the map by scaling color lightness to be in the 20%-100% range
     image-filters: scale-hsla(0,1, 0,1, 0.2,1, 0,1);
   }
@@ -132,17 +132,17 @@
   [feature = 'landuse_quarry'][zoom >= 10] {
  //   polygon-fill: @quarry;
 	polygon-fill: @rocky_ground;
-    polygon-pattern-file: url('symbols/mine_patterncompact.svg');
+    [zoom >= 12] { polygon-pattern-file: url('symbols/mine_patterncompact.svg'); }
 	[historic != null] { 
 		polygon-fill: @scrub;
-		polygon-pattern-file: url('symbols/disusedmine_patterncompact.svg');
+		[zoom >= 12] { polygon-pattern-file: url('symbols/disusedmine_patterncompact.svg'); }
 	}
  /*   [zoom >= 13] {
       line-width: 0.5;
       line-color: darken(@quarry, 10%);
     }*/
-    [way_pixels >= 4]  { polygon-pattern-gamma: 0.75; }
-    [way_pixels >= 64] { polygon-pattern-gamma: 0.3;  }
+    [way_pixels >= 4][zoom >= 12] { polygon-pattern-gamma: 0.75; }
+    [way_pixels >= 64][zoom >= 12] { polygon-pattern-gamma: 0.3;  }
   }
 
   [feature = 'landuse_vineyard'] {
@@ -1033,26 +1033,29 @@
 }
 
 @contours: orange;
-@contours-heavy: orange;
 @contours-text: @contours;
 @contours-multiplier: 1.75;
 @contours-smooth: 0.5;
 @contours-width: 0.5;
+@contours-width-highzoom: 0.7;
+@contours-opacity: 0.7;
 
 #contours10 {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   line-width: @contours-width;
   line-color: @contours;
-  line-opacity: 0.7;
+  line-opacity: @contours-opacity;
   line-smooth: @contours-smooth;
-  [zoom >= 16] { line-width: 0.7; }
+  [zoom >= 16] { line-width: @contours-width-highzoom; }
   }
 }
 
 #contours50 {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
-  line-width: @contours-width * @contours-multiplier;
-  line-color: @contours-heavy;
+  line-width: @contours-width;
+  [zoom >= 14] { line-width: @contours-width * @contours-multiplier; }
+  [zoom >= 16] { line-width: @contours-width-highzoom * @contours-multiplier; }
+  line-color: @contours;
   [sub_type = 'meanHighWater'] {
 	  line-color: @water-line-color;
   }
@@ -1061,8 +1064,7 @@
 	  line-dasharray: 2,4;
   }
   [sub_type = 'ordinary'] { line-smooth: @contours-smooth; }
-  line-opacity: 0.7;
-  [zoom >= 16] { line-width: 0.7 * @contours-multiplier; }
+  line-opacity: @contours-opacity;
   }
 }
 

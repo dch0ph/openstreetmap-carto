@@ -353,9 +353,9 @@
 }
 
 #placenames-small::village {
-  [place = 'village'],
-  [place = 'quarter'] {
-    [zoom >= 12][zoom < 17] {
+  [place = 'village'][zoom >= 11],
+  [place = 'quarter'][zoom >= 12] {
+    [zoom >= 11][zoom < 17] {
       text-name: "[name]";
       text-size: 10;
       text-fill: @placenames;
@@ -367,7 +367,7 @@
       text-wrap-width: 50; // 5.0 em
       text-line-spacing: -0.50; // -0.05 em
       text-margin: 7.0; // 0.7 em
-      [zoom >= 13] {
+      [zoom >= 12] {
         text-size: 11;
         text-wrap-width: 55; // 5.0 em
         text-line-spacing: -0.55; // -0.05 em
