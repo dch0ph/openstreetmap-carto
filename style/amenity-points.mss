@@ -39,16 +39,22 @@
 @landcover-line-spacing-size-bigger: -1.8; // -0.15 em
 @landcover-face-name: @oblique-fonts;
 
+@small-font-size: 8;
+@small-wrap-width: 32; // 4 em
+@small-line-spacing-size: -1.2; // -0.15 em
+
+@standard-font: @book-fonts;
+
 // shrink from 10
-@standard-font-size: 8;
-@standard-wrap-width: 32; // 4 em
-@standard-line-spacing-size: -1.2; // -0.15 em
+@standard-font-size: 10;
+@standard-wrap-width: 40; // 4 em
+@standard-line-spacing-size: -1.5; // -0.15 em
 @standard-font: @book-fonts;
 
 // larger font size
-@larger-font-size: 10;
-@larger-wrap-width: 40; // 4 em
-@larger-line-spacing-size: -1.5; // -0.15 em
+//@larger-font-size: 10;
+//@larger-wrap-width: 40; // 4 em
+//@larger-line-spacing-size: -1.5; // -0.15 em
 
 @private-opacity: 0.33;
 
@@ -180,7 +186,7 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_vending_machine'][zoom >= 16] {
+  [feature = 'amenity_vending_machine'][zoom >= 17] {
     [vending = 'excrement_bags'] {
       marker-file: url('symbols/amenity/excrement_bags.svg');
     }
@@ -194,7 +200,7 @@
     marker-clip: false;
   }
 
-  [feature = 'highway_crossing'][zoom >= 14] {
+  [feature = 'highway_crossing'][zoom >= 15] {
 	marker-width: 1.5;
 	[zoom >= 16] { marker-width: 3; }
 	[zoom >= 18] { marker-width: 5; }
@@ -423,7 +429,7 @@
   }
 
 /* Any sized mast is useful orientation */
-  [feature = 'man_made_mast']["tower:type" != 'lighting'][zoom >= 14],
+  [feature = 'man_made_mast']["tower:type" != 'lighting'][zoom >= 15],
   [feature = 'man_made_mast']["tower:type" = 'lighting'][zoom >= 18]   {
       marker-file: url('symbols/man_made/mast.svg');
       marker-fill: @mast-color;
@@ -1491,7 +1497,7 @@
   [feature = 'amenity_bicycle_parking'][way_pixels > 750],
   [feature = 'amenity_motorcycle_parking'][way_pixels > 750],
   [feature = 'amenity_parking_entrance'] {
-    [zoom >= 14][int_access = 'yes'],
+    [zoom >= 15][int_access = 'yes'],
     [zoom >= 17][feature = 'amenity_parking']["parking" != 'street_side']["parking" != 'lane'],
     [zoom >= 18] {
       [feature = 'amenity_parking'] { marker-file: url('symbols/amenity/parking.svg'); }
@@ -1546,47 +1552,47 @@
     }
   }
 
-  [feature = 'barrier_lift_gate'][zoom >= 17]::barrier,
-  [feature = 'barrier_swing_gate'][zoom >= 17]::barrier {
+  [feature = 'barrier_lift_gate'][zoom >= 16]::barrier,
+  [feature = 'barrier_swing_gate'][zoom >= 16]::barrier {
     marker-file: url('symbols/barrier/lift_gate.svg');
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
 
-  [feature = 'barrier_cattle_grid'][zoom >= 17]::barrier {
+  [feature = 'barrier_cattle_grid'][zoom >= 16]::barrier {
     marker-file: url('symbols/barrier/cattle_grid.svg');
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
 
-  [feature = 'barrier_stile'][zoom >= 14]::barrier {
+  [feature = 'barrier_stile'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/stile.svg');
 	[zoom < 16] { marker-width: 4;}
     marker-fill: @amenity-brown;
     marker-clip: false;
   }
 
-  [feature = 'barrier_motorcycle_barrier'][zoom >= 14]::barrier {
+  [feature = 'barrier_motorcycle_barrier'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/motorcycle_barrier.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'barrier_cycle_barrier'][zoom >= 14]::barrier {
+  [feature = 'barrier_cycle_barrier'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/cycle_barrier.svg');
     marker-clip: false;
     marker-fill: @amenity-brown;
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'barrier_full-height_turnstile'][zoom >= 17]::barrier {
+  [feature = 'barrier_full-height_turnstile'][zoom >= 16]::barrier {
     marker-file: url('symbols/barrier/full-height_turnstile.svg');
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
 
-  [feature = 'barrier_kissing_gate'][zoom >= 14]::barrier {
+  [feature = 'barrier_kissing_gate'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/kissing_gate.svg');
     marker-clip: false;
     marker-fill: @amenity-brown;
@@ -1597,7 +1603,7 @@
   [feature = 'barrier_block'],
   [feature = 'barrier_log'],
   [feature = 'barrier_turnstile'] {
-    [zoom >= 17] {
+    [zoom >= 16] {
       marker-width: 3;
       marker-line-width: 0;
       marker-fill: #7d7c7c;
@@ -1615,7 +1621,7 @@
       marker-opacity: @private-opacity;
     }
   }*/
- [feature = 'amenity_bench'][zoom >= 14]::amenity {
+ [feature = 'amenity_bench'][zoom >= 15]::amenity {
     marker-file: url('symbols/bench-compact.svg');
     marker-line-color: @amenity-brown;
     [int_access = 'restricted'] { marker-opacity: 0.33; }
@@ -1715,13 +1721,14 @@
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
-	text-dy: 8;
+	text-dy: 11;
 	[feature = 'amenity_cafe'][zoom >= 16],
-	[feature = 'amenity_pub'][zoom >= 16] {
-		text-size: @larger-font-size;
-		text-wrap-width: @larger-wrap-width;
-		text-line-spacing: @larger-line-spacing-size;
-		text-dy: 11;
+	[feature = 'amenity_pub'][zoom >= 16],
+	[zoom < 17] {
+		text-size: @small-font-size;
+		text-wrap-width: @small-wrap-width;
+		text-line-spacing: @small-line-spacing-size;
+		text-dy: 8;
 	}
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
@@ -1740,14 +1747,19 @@
   [feature = 'historic_archaeological_site'],
   [feature = 'amenity_nightclub'] {
     [zoom >= 17],
-	[feature = 'historic_archaeological_site'][zoom >= 14] {
+	[feature = 'historic_archaeological_site'][zoom >= 15] {
       text-name: "[name]";
       text-size: @standard-font-size;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
-      text-fill: @culture;
       text-dy: 11;
-	  [zoom < 16] { text-dy: 8; }
+	  [ zoom < 17] {
+		  text-size: @small-font-size;
+		  text-wrap-width: @small-wrap-width;
+		  text-line-spacing: @small-line-spacing-size;
+		  text-dy: 8; 
+	  }
+      text-fill: @culture;
       [feature = 'amenity_community_centre'] { text-dy: 10; }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;

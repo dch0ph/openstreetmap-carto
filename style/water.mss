@@ -280,7 +280,9 @@
       text-placement: line;
       text-repeat-distance: @waterway-text-repeat-distance;
       [zoom >= 13] { text-size: 10; }
+      [zoom >= 14] { text-size: 11; }
 	  [zoom >= 16] { text-size: 12; }
+	  [zoom >= 17] { text-size: 13.5; }
 	  [zoom >= 18] { text-size: 15; }
     }
 

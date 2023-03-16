@@ -205,7 +205,7 @@
 @service-width-z14:               2.25;
 @major-access-width-z14:		  2;
 @minor-access-width-z14:		  1.2;
-@cycleway-width-z14:              1.0;
+@cycleway-width-z14:              0.9;
 
 // bump down at z15
 @motorway-width-z15:             7;
@@ -238,12 +238,12 @@
 @tertiary-width-z16:             10;
 @residential-width-z16:           6;
 //@living-street-width-z16:         6;
-@service-width-z16:               3.5;
+@service-width-z16:               4;
 @pedestrian-width-z16:            @service-width-z16;
 @road-width-z16:                  @service-width-z16;
-@minor-service-width-z16:         2;
+@minor-service-width-z16:         2.8;
 //@footway-width-z16:               1.3;
-@cycleway-width-z16:              1.8;
+@cycleway-width-z16:              2;
 
 @motorway-width-z17:             18;
 @motorway-link-width-z17:        12;
@@ -259,9 +259,9 @@
 @service-width-z17:               7;
 //@living-street-width-z17:        12;
 @pedestrian-width-z17:           @service-width-z17;
-@cycleway-width-z17:			 1.8;
+@cycleway-width-z17:			 2.5;
 @road-width-z17:                  @service-width-z17;
-@minor-service-width-z17:         3.5;
+@minor-service-width-z17:         4.5;
 
 @motorway-width-z18:             21;
 @motorway-link-width-z18:        13;
@@ -683,18 +683,10 @@
         [tracktype = 'grade5'] { line-dasharray: 2.5,4.5; }
 
         [zoom >= 16] {
-          [tracktype = 'grade2'] {
-            line-dasharray: 11,4;
-          }
-          [tracktype = 'grade3'] {
-            line-dasharray: 7,5;
-          }
-          [tracktype = 'grade4'] {
-            line-dasharray: 4,6;
-          }
-          [tracktype = 'grade5'] {
-            line-dasharray: 2,8;
-          }
+          [tracktype = 'grade2'] { line-dasharray: 11,4; }
+          [tracktype = 'grade3'] { line-dasharray: 7,5; }
+          [tracktype = 'grade4'] { line-dasharray: 4,6; }
+          [tracktype = 'grade5'] { line-dasharray: 2,8; }
 		}
 
         [service = 'INT-normal'] {
@@ -3285,9 +3277,15 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  [tracktype = 'grade3'] { prow/line-dasharray: 5.0,4.0; }
 	  [tracktype = 'grade4'] { prow/line-dasharray: 3.2,3.8; }
 	  [tracktype = 'grade5'] { prow/line-dasharray: 2.5,4.5; }
-		  prow/line-width: @cycleway-width-z13;
-		  [zoom >= 14] {
-			  prow/line-width: @cycleway-width-z14;
+	  [zoom >= 16] {
+          [tracktype = 'grade2'] { prow/line-dasharray: 11,4; }
+          [tracktype = 'grade3'] { prow/line-dasharray: 7,5; }
+          [tracktype = 'grade4'] { prow/line-dasharray: 4,6; }
+          [tracktype = 'grade5'] { prow/line-dasharray: 2,8; }
+	  }
+      prow/line-width: @cycleway-width-z13;
+      [ zoom >= 14] {
+	    prow/line-width: @cycleway-width-z14;
 	  }
 	  [zoom >= 15] {
 		prow/line-width: @cycleway-width-z15;
@@ -3714,7 +3712,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   [highway = 'construction'][construction = 'residential'],
   [highway = 'construction'][construction = 'unclassified'],
   [highway = 'construction'][construction = 'road'] {
-    [zoom >= 14] {
+    [zoom >= 15] {
       text-name: "[name]";
       text-size: 8;
       text-fill: black;
