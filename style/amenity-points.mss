@@ -52,9 +52,9 @@
 @standard-font: @book-fonts;
 
 // larger font size
-//@larger-font-size: 10;
-//@larger-wrap-width: 40; // 4 em
-//@larger-line-spacing-size: -1.5; // -0.15 em
+@larger-font-size: 12;
+@larger-wrap-width: 48; // 4 em
+@larger-line-spacing-size: -1.8; // -0.15 em
 
 @private-opacity: 0.33;
 
@@ -121,6 +121,7 @@
       marker-file: url('symbols/amenity/cafe.svg');
       marker-fill: @amenity-blue;
 	  [zoom < 16] { marker-width: 9; }
+	  [zoom >= 16] { marker-width: 12; }
 /*	  [zoom < 16] {
 		marker-width: 8;
 		glow/marker-fill: white;
@@ -143,6 +144,7 @@
       marker-fill: @amenity-blue;
       marker-file: url('symbols/amenity/pub.svg');
 	  [zoom < 16] { marker-width: 9; }
+	  [zoom >= 16] { marker-width: 12; }
     }
 	marker-max-error: 2.0;
   }
@@ -1309,7 +1311,7 @@
      marker-clip: false;
    }
 
-  [feature = 'leisure_amusement_arcade'][zoom >= 17] {
+  [feature = 'leisure_amusement_arcade'][zoom >= 18] {
      marker-file: url('symbols/leisure/amusement_arcade.svg');
      marker-fill: @leisure-green;
      marker-clip: false;
@@ -1614,19 +1616,15 @@
     }
   }
 
- /* [feature = 'amenity_bench'][zoom >= 19]::amenity {
-    marker-file: url('symbols/amenity/bench.svg');
-    marker-fill: @man-made-icon;
-    [int_access = 'restricted'] {
-      marker-opacity: @private-opacity;
-    }
-  }*/
  [feature = 'amenity_bench'][zoom >= 15]::amenity {
     marker-file: url('symbols/bench-compact.svg');
-    marker-line-color: @amenity-brown;
-    [int_access = 'restricted'] { marker-opacity: 0.33; }
 	[zoom < 16] { marker-width: 4; }
-	[zoom >= 18] { marker-width: 8; }
+	[zoom = 17] { marker-width: 8; }
+	[zoom >= 18] {
+		marker-file: url('symbols/amenity/bench.svg');
+	}
+    marker-line-color: @amenity-brown;
+    [int_access = 'restricted'] { marker-opacity: @private-opacity; }
   }
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
@@ -1723,12 +1721,11 @@
     text-line-spacing: @standard-line-spacing-size;
 	text-dy: 11;
 	[feature = 'amenity_cafe'][zoom >= 16],
-	[feature = 'amenity_pub'][zoom >= 16],
-	[zoom < 17] {
-		text-size: @small-font-size;
-		text-wrap-width: @small-wrap-width;
-		text-line-spacing: @small-line-spacing-size;
-		text-dy: 8;
+	[feature = 'amenity_pub'][zoom >= 16] {
+		text-size: @larger-font-size;
+		text-wrap-width: @larger-wrap-width;
+		text-line-spacing: @larger-line-spacing-size;
+		text-dy: 13;
 	}
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
@@ -1843,7 +1840,7 @@
   [feature = 'leisure_bowling_alley'][zoom >= 17],
   [feature = 'leisure_beach_resort'][zoom >= 17],
   [feature = 'leisure_bird_hide'][zoom >= 17],
-  [feature = 'leisure_amusement_arcade'][zoom >= 17],
+  [feature = 'leisure_amusement_arcade'][zoom >= 18],
   [feature = 'leisure_outdoor_seating'][zoom >= 19],
   [feature = 'leisure_fishing'][zoom >= 17] {
     text-name: "[name]";

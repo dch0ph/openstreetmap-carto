@@ -828,6 +828,7 @@
 	// Just use scrub colour for wet scrub
     [natural = 'scrub'][wetland = null] {
       polygon-pattern-file: url('symbols/scrub-compact.svg');
+//	  [zoom >= 17] { polygon-pattern-file: url('symbols/scrub.svg'); }
       polygon-pattern-alignment: global;
     }
   }
@@ -1029,7 +1030,7 @@
 #gridlines {
 	line-color: @water-color;
 	line-width: 0.5;
-  [zoom >= 15] { line-width: 0.75; }
+  [zoom >= 15] { line-width: 0.8; }
 }
 
 @contours: orange;

@@ -286,7 +286,8 @@ Layer:
           FROM os_1km_gridlines
         ) AS gridlines
     properties:
-      minzoom: 14
+      minzoom: 13
+      maxzoom: 16
   - id: contours10
     geometry: multilinestring
     <<: *extents
@@ -2220,19 +2221,19 @@ Layer:
         ) AS building_text
     properties:
       minzoom: 14
-  - id: interpolation
-    geometry: linestring
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way
-          FROM planet_osm_line
-          WHERE "addr:interpolation" IS NOT NULL
-        ) AS interpolation
-    properties:
-      minzoom: 17
+#  - id: interpolation
+#    geometry: linestring
+#    <<: *extents
+#    Datasource:
+#      <<: *osm2pgsql
+#      table: |-
+#        (SELECT
+#            way
+#          FROM planet_osm_line
+#          WHERE "addr:interpolation" IS NOT NULL
+#        ) AS interpolation
+#    properties:
+#      minzoom: 17
   - id: addresses
     geometry: point
     <<: *extents
