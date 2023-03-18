@@ -30,10 +30,10 @@
 //@primary-fill: #fcd6a4;
 //@secondary-fill: #f7fabf;
 
-@motorway-shield: @motorway-fill;
-@trunk-shield: @trunk-fill;
-@primary-shield: @primary-fill;
-@secondary-shield: @secondary-fill;
+@motorway-shield: @motorway-casing;
+@trunk-shield: @trunk-casing;
+@primary-shield: @primary-casing;
+@secondary-shield: @secondary-casing;
 //@motorway-shield: #620728;
 //@trunk-shield: #5f1c0c;
 //@primary-shield: #503000;
@@ -3449,8 +3449,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   [highway = 'motorway'],
   [highway = 'trunk'],
   [highway = 'primary'],
-  [highway = 'secondary'],
-  [highway = 'tertiary'] {
+  [highway = 'secondary'] {
     [zoom >= 13] {
       shield-name: "[refs]";
       shield-size: @shield-size;
