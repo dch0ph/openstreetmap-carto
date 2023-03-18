@@ -1,6 +1,6 @@
 @water-text: @water-line-color;
 // Darken rivers and streams
-@water-smooth: 0.5;
+@water-smooth: 0.4;
 @glacier: #ddecec;
 @glacier-line: #9cf;
 
@@ -35,8 +35,10 @@
 	  [ water = 'wastewater'] { polygon-fill: @wastewater-color; }
 	  [ water != 'wastewater'] {
         polygon-fill: @water-color;
-		polygon-smooth: @water-smooth;
-     	line-smooth: @water-smooth;
+		[zoom < 18] { 
+			polygon-smooth: @water-smooth;
+			line-smooth: @water-smooth;
+		}
 	  }
 	  line-width: 0.4;
 	  [zoom >= 13] { line-width: 0.8; }
@@ -125,7 +127,7 @@
     water/line-width: 1.5;
     water/line-cap: round;
     water/line-join: round;
-    [bridge != 'yes'][int_tunnel != 'yes'] { water/line-smooth: @water-smooth; }
+    [bridge != 'yes'][int_tunnel != 'yes'][zoom < 18] { water/line-smooth: @water-smooth; }
 
     [int_intermittent = 'yes'] {
       [bridge = 'yes'][zoom >= 14] {
@@ -138,7 +140,7 @@
         [zoom >= 18] { bridgefill/line-width: 9; }
       }
       water/line-dasharray: 4,3;
-	  [bridge != 'yes'][int_tunnel != 'yes'] { water/line-smooth: @water-smooth; }
+	  [bridge != 'yes'][int_tunnel != 'yes'][zoom < 18] { water/line-smooth: @water-smooth; }
       water/line-cap: butt;
       water/line-join: round;
       water/line-clip: false;
@@ -226,7 +228,7 @@
       water/line-width: @stream-width-z14;
       water/line-color: @water-line-color;
 	  [int_tunnel = 'yes'] { water/line-color: lighten(@water-line-color, 20%); }
-	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'] { water/line-smooth: @water-smooth; }
+	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'][zoom < 18] { water/line-smooth: @water-smooth; }
 
       [waterway = 'stream'][zoom >= 15] { water/line-width: @stream-width-z15plus; }
 

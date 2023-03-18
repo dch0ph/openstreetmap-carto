@@ -673,7 +673,7 @@
     }
   }
 
-  [feature = 'amenity_telephone'][zoom >= 17] {
+  [feature = 'amenity_telephone'][zoom >= 18] {
     marker-file: url('symbols/amenity/telephone.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -1473,15 +1473,15 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_hunting_stand'][zoom >= 14] {
+  [feature = 'amenity_hunting_stand'][zoom >= 16] {
     marker-file: url('symbols/amenity/hunting_stand.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
-	[zoom < 16] { marker-width: 8 }
   }
 
   [feature = 'amenity_grouse_butt'][zoom >= 14] {
     marker-file: url('symbols/grousebutt_compact.svg');
+	[zoom >= 17] { url('symbols/amenity/hunting_stand.svg'); }
     marker-line-color: @amenity-brown;
     marker-clip: false;
 //	[zoom < 16] { marker-width: 8 }

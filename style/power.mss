@@ -43,12 +43,16 @@
     [zoom >= 16] {
       marker-width: 7;
     }
+	[zoom >= 18] {
+		marker-width: 9;
+	}
     marker-fill: white;
 	marker-line-color: @power-line-color;
   }
   [power = 'pole'][zoom >= 14] {
 	marker-width: 2;
 	[zoom >= 16] { marker-width: 3; }
+	[zoom >= 18] { marker-width: 4; }
     marker-fill: @power-line-color;
   // allow overlap of poles - common for poles for to be close together and odd if one disappears
 	marker-allow-overlap: true;
@@ -56,7 +60,8 @@
   // indicate poles with transition to cable with pole of twice area
   [power = 'transitionpole'][zoom >= 14] {
 	marker-width: 3;
-	[zoom >= 16] { marker-width: 4.2; }
+	[zoom >= 16] { marker-width: 4.5; }
+	[zoom >= 18] { marker-width: 6; }
     marker-fill: @power-line-color;
 	marker-allow-overlap: true;
   }

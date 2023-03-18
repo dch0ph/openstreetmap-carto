@@ -333,17 +333,17 @@
 @secondary-casing-width-z15:      0.85;
 @major-casing-width-z15:          0.85;
 
-@casing-width-z16:                0.9;
-@secondary-casing-width-z16:      0.9;
-@major-casing-width-z16:          0.9;
+@casing-width-z16:                1;
+@secondary-casing-width-z16:      1;
+@major-casing-width-z16:          1;
 
-@casing-width-z17:                1;
-@secondary-casing-width-z17:      1;
-@major-casing-width-z17:          1;
+@casing-width-z17:                1.1;
+@secondary-casing-width-z17:      1.1;
+@major-casing-width-z17:          1.1;
 
-@casing-width-z18:                1.1;
-@secondary-casing-width-z18:      1.1;
-@major-casing-width-z18:          1.1;
+@casing-width-z18:                1.2;
+@secondary-casing-width-z18:      1.2;
+@major-casing-width-z18:          1.2;
 
 @casing-width-z19:                1.3;
 @secondary-casing-width-z19:      1.3;
@@ -678,7 +678,8 @@
     [feature = 'highway_service'] {
       [zoom >= 13][service = 'INT-normal'][access != 'no'],
       [zoom >= 14][service = 'INT-normal'],
-      [zoom >= 16][service = 'INT-minor'] {
+      [zoom >= 16][service = 'INT-minor'][access != 'no'],
+	  [zoom >= 17][service = 'INT-minor'] {
         line-color: @service-casing;
 		//[access = 'no'] { line-color: @private-casing; }
         [tracktype = 'grade2'] { line-dasharray: 7.5,2.5; }
@@ -690,7 +691,7 @@
           [tracktype = 'grade2'] { line-dasharray: 11,4; }
           [tracktype = 'grade3'] { line-dasharray: 7,5; }
           [tracktype = 'grade4'] { line-dasharray: 4,6; }
-          [tracktype = 'grade5'] { line-dasharray: 2,8; }
+          [tracktype = 'grade5'] { line-dasharray: 3,8; }
 		}
 
         [service = 'INT-normal'] {
@@ -1990,7 +1991,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_service'] {
 	  [zoom >= 13][service = 'INT-normal'][access != 'no'],
       [zoom >= 14][service = 'INT-normal'],
-      [zoom >= 16][service = 'INT-minor'] {
+      [zoom >= 16][service = 'INT-minor'][access != 'no'],
+	  [zoom >= 17][service = 'INT-minor'] {
         line-color: @service-fill;		
 		[zoom >= 16][lit = 'yes'] { line-color: @pedestrian-lit; }
 		[zoom >= 16][lit = 'no'] { line-color: @pedestrian-dark; }
@@ -3153,9 +3155,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_service'][service = 'INT-normal'] {
       [zoom >= 14] {
         access/line-color: @access-marking;
-/*        [int_surface = 'unpaved'] {
+        [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        } */
+        }
  //       [feature = 'highway_road'] {
  //         access/line-color: @access-marking-road;
  //       }
@@ -3174,11 +3176,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
     [feature = 'highway_service'][service = 'INT-minor'] {
+	  [zoom >= 16][access != 'no'],
       [zoom >= 17] {
         access/line-color: @access-marking;
-     /*   [int_surface = 'unpaved'] {
+        [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
-        }*/
+        }
         access/line-join: round;
         access/line-cap: round;
         access/line-width: 1;
@@ -3241,11 +3244,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
       }
     }
-    [feature = 'highway_service'][service = 'INT-minor'][zoom >= 17] {
+    [feature = 'highway_service'][service = 'INT-minor'][zoom >= 16][access != 'no'],
+    [feature = 'highway_service'][service = 'INT-minor'][zoom >= 17]
+	{
       access/line-color: @access-marking;
-    /*    [int_surface = 'unpaved'] {
-          access/line-color: @access-marking-white-unpaved;
-        } */
+      [int_surface = 'unpaved'] {
+        access/line-color: @access-marking-white-unpaved;
+      }
       access/line-join: round;
       access/line-cap: round;
       access/line-width: 1;
@@ -3285,7 +3290,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           [tracktype = 'grade2'] { prow/line-dasharray: 11,4; }
           [tracktype = 'grade3'] { prow/line-dasharray: 7,5; }
           [tracktype = 'grade4'] { prow/line-dasharray: 4,6; }
-          [tracktype = 'grade5'] { prow/line-dasharray: 2,8; }
+          [tracktype = 'grade5'] { prow/line-dasharray: 3,8; }
 	  }
       prow/line-width: @cycleway-width-z13;
       [ zoom >= 14] {

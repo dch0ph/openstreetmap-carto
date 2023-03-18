@@ -1,7 +1,9 @@
 // --- Parks, woods, other green things ---
 
 @grass: #cdebb0;        // Lch(90,32,128) also village_green, garden, allotments
+@meadow: lighten(@grass, 5%);
 // grassland, meadow are a shade lighter
+@meadow-line: @grass;
 @scrub: #c8d7ab;        // Lch(84,24,122)
 @wood: #add19e;       // Lch(80,30,135)
 @forest: darken(@wood, 15%);
@@ -18,8 +20,10 @@
 
 // --- "Base" landuses ---
 
-@built-up-lowzoom: #d0d0d0;
-@built-up-z12: #dddddd;
+@built-up-z12: #c6c6c6;
+//@built-up-z12: #dddddd;
+//@built-up-lowzoom: #d0d0d0;
+@built-up-lowzoom: @built-up-z12;
 //@residential: #e0dfdf;      // Lch(89,0,0)
 @residential: #c6c6c6;		// Lch(80,0,0)  A bit darker
 @residential-line: #b9b9b9; // Lch(75,0,0)
@@ -85,10 +89,10 @@
 
 #landcover-low-zoom[zoom < 10],
 #landcover[zoom >= 10] {
-  ::low-zoom[zoom < 11] {
+/*  ::low-zoom[zoom < 11] {
     // Increase the lightness of the map by scaling color lightness to be in the 20%-100% range
     image-filters: scale-hsla(0,1, 0,1, 0.2,1, 0,1);
-  }
+  }*/
 
   ::low-zoom[zoom < 12],
   ::high-zoom[zoom >= 12] {
@@ -357,7 +361,7 @@
   [feature = 'landuse_greenhouse_horticulture'] {
     [zoom >= 5] {
       polygon-fill: @farmland;
-      [zoom >= 16] {
+      [zoom >= 15] {
         line-width: .5;
         line-color: @farmland-line;
       }
@@ -376,9 +380,13 @@
   [feature = 'natural_grassland'],
   [feature = 'landuse_meadow'],
   [feature = 'landuse_pasture'] {
-    polygon-fill: lighten(@grass, 5%);
+    polygon-fill: @meadow;
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
+	[feature != 'natural_grassland'][zoom >= 15] {
+        line-width: .5;
+        line-color: @meadow-line;
+    }
   }
 
   [feature = 'landuse_retail'],
@@ -1078,7 +1086,8 @@
   text-halo-fill: @standard-halo-fill;
   text-halo-radius: @standard-halo-radius;
   text-spacing: 600;
-  text-size: 7;
+  [zoom < 15] { text-size: 7; }
+  text-size: 8;
   }
 }
 
