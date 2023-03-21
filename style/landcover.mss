@@ -35,6 +35,7 @@
 @industrial-line: #c6b3c3;  // Lch(75,11,330) (Also used for railway-line, wastewater_plant-line)
 @farmland: darken(#eef0d5, 4%);         // was Lch(94,14,112)
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
+@farmland-linewidth: 0.6;
 @farmyard: #f5dcba;         // Lch(89,20,80)
 @farmyard-line: brown;
 //@farmyard-line: #d1b48c;    // Lch(75,25,80)
@@ -362,7 +363,7 @@
     [zoom >= 5] {
       polygon-fill: @farmland;
       [zoom >= 15] {
-        line-width: .5;
+        line-width: @farmland-linewidth;
         line-color: @farmland-line;
       }
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
@@ -384,7 +385,7 @@
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
 	[feature != 'natural_grassland'][zoom >= 15] {
-        line-width: .5;
+        line-width: @farmland-linewidth;
         line-color: @meadow-line;
     }
   }

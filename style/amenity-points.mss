@@ -685,6 +685,12 @@
     marker-clip: false;
   }
 
+  [feature = 'emergency_defibrillator'][zoom >= 18] {
+    marker-file: url('symbols/amenity/defibrillator.svg');
+ //   marker-fill: @amenity-brown;
+    marker-clip: false;
+  }
+
   [feature = 'amenity_theatre'][zoom >= 16] {
     marker-file: url('symbols/amenity/theatre.svg');
     marker-fill: @culture;
@@ -1481,7 +1487,7 @@
 
   [feature = 'amenity_grouse_butt'][zoom >= 14] {
     marker-file: url('symbols/grousebutt_compact.svg');
-	[zoom >= 17] { url('symbols/amenity/hunting_stand.svg'); }
+	[zoom >= 17] { marker-file: url('symbols/amenity/hunting_stand.svg'); }
     marker-line-color: @amenity-brown;
     marker-clip: false;
 //	[zoom < 16] { marker-width: 8 }
