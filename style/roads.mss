@@ -3827,15 +3827,15 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 //  [highway = 'service'][service = 'INT-normal'],
   [highway = 'track'],
   [highway = 'construction'][construction = 'track'][zoom >= 16] {
-  // bump this down so see named tracks
-    [zoom >= 14] {
+  // bump this down so see named tracks from z15
+    [zoom >= 15] {
       text-name: "[name]";
 	  [zoom >= 17][prow_ref != null] { text-name: [name] + " (" + [prow_ref] + ")"; }
       text-fill: black;
 	  [designation = 'public_footpath'] { text-fill: @footpath-fill; }
 	  [designation = 'public_bridleway'] { text-fill: @bridleway-fill; }
-      text-size: 7;
-      text-halo-radius: @standard-halo-radius * 0.7;
+      text-size: 8;
+      text-halo-radius: @standard-halo-radius * 0.8;
       text-halo-fill: @standard-halo-fill;
       text-spacing: 300;
       text-clip: false;

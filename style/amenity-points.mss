@@ -403,10 +403,10 @@
     marker-fill: @accommodation-icon;
   }
 
-// Shows map boards from z14
+// Shows map boards from z15
   [feature = 'tourism_information'][zoom >= 16],
   [feature = 'tourism_information']["information"='office'][zoom >= 14],
-  [feature = 'tourism_information']["information"='map'][zoom >= 14] {
+  [feature = 'tourism_information']["information"='map'][zoom >= 15] {
 //    marker-file: url('symbols/tourism/information.svg');
     [information = 'audioguide'] {
       marker-file: url('symbols/tourism/audioguide.svg');
@@ -493,7 +493,7 @@
   [feature = 'man_made_tower']["tower:type" = 'lighting'][zoom >= 18],
   [feature = 'man_made_tower']["tower:type" = 'bell_tower'][zoom >= 18],
   [feature = 'man_made_tower']["tower:type" = 'watchtower'][zoom >= 18],
-  [feature = 'man_made_tower']["tower:type" != 'cooling']["tower:type" != 'lighting']["tower:type" != 'bell_tower']["tower:type" != 'watchtower'][zoom >= 14] {
+  [feature = 'man_made_tower']["tower:type" != 'cooling']["tower:type" != 'lighting']["tower:type" != 'bell_tower']["tower:type" != 'watchtower'][zoom >= 15] {
       marker-file: url('symbols/man_made/tower_generic.svg');
       marker-fill: @mast-color;
       marker-clip: false;
@@ -730,7 +730,11 @@
 
   [feature = 'emergency_defibrillator'][zoom >= 18] {
     marker-file: url('symbols/amenity/defibrillator.svg');
- //   marker-fill: @amenity-brown;
+    marker-clip: false;
+  }
+
+  [feature = 'emergency_life_ring'][zoom >= 18] {
+    marker-file: url('symbols/amenity/life_ring.svg');
     marker-clip: false;
   }
 
@@ -881,7 +885,7 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'historic_archaeological_site'][zoom >= 14] {
+  [feature = 'historic_archaeological_site'][zoom >= 15] {
     marker-file: url('symbols/historic/archaeological_site.svg');
     marker-fill: @culture;
     marker-clip: false;
@@ -1433,7 +1437,7 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'man_made_mineshaft'][zoom >= 14] {
+  [feature = 'man_made_mineshaft'][zoom >= 15] {
     marker-file: url('symbols/mine_compact.svg');
 	marker-fill: #222;
 	marker-line-color: #222;
@@ -1461,7 +1465,7 @@
 	marker-width: 8;
   }
 
-  [feature = 'man_made_sheepfold'][zoom >= 14] {
+  [feature = 'man_made_sheepfold'][zoom >= 15] {
     marker-file: url('symbols/sheepfold.svg');
 	marker-line-color: black;
     marker-clip: false;
@@ -1487,18 +1491,18 @@
     marker-clip: false;
   }
 
-  [feature = 'natural_spring'][zoom >= 14] {
+  [feature = 'natural_spring'][zoom >= 15] {
     marker-file: url('symbols/natural/spring.svg');
     marker-fill: #7abcec;
     marker-clip: false;
   }
 
-  [feature = 'natural_cave_entrance'][zoom >= 14] {
+  [feature = 'natural_cave_entrance'][zoom >= 15] {
     marker-file: url('symbols/natural/cave.svg');
     marker-clip: false;
   }
 
-  [feature = 'natural_sinkhole'][zoom >= 14] {
+  [feature = 'natural_sinkhole'][zoom >= 15] {
     marker-file: url('symbols-otm/sinkhole.png');
     marker-clip: false;
   }
@@ -1523,7 +1527,7 @@
   }
 
   [feature = 'power_generator']['generator:source' = 'wind'] {
-    [zoom >= 14][location != 'rooftop'][location != 'roof'],
+    [zoom >= 15][location != 'rooftop'][location != 'roof'],
     [zoom >= 15][location = null],
     [zoom >= 19] {
       marker-file: url('symbols/man_made/generator_wind.svg');
@@ -1532,7 +1536,7 @@
     }
   }
 
-  [feature = 'man_made_windmill'][zoom >= 14] {
+  [feature = 'man_made_windmill'][zoom >= 15] {
     marker-file: url('symbols/man_made/windmill.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
@@ -1544,7 +1548,7 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_grouse_butt'][zoom >= 14] {
+  [feature = 'amenity_grouse_butt'][zoom >= 15] {
     marker-file: url('symbols/grousebutt_compact.svg');
 	[zoom >= 17] { marker-file: url('symbols/amenity/hunting_stand.svg'); }
     marker-line-color: @amenity-brown;
@@ -1587,14 +1591,14 @@
 
 #amenity-low-priority {
   [feature = 'man_made_cross'][zoom >= 16],
-  [feature = 'historic_wayside_cross'][zoom >= 14] {
+  [feature = 'historic_wayside_cross'][zoom >= 16] {
     marker-file: url('symbols/man_made/cross.svg');
     marker-fill: @religious-icon;
     marker-clip: false;
-	[zoom < 16] { marker-width: 8; }
+	marker-width: 8; // only 5 px wide
   }
 
-  [feature = 'historic_wayside_shrine'][zoom >= 15] {
+  [feature = 'historic_wayside_shrine'][zoom >= 17] {
     marker-file: url('symbols/historic/shrine.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
@@ -1767,10 +1771,10 @@
     text-margin: 7.0; // 0.7 em
   }
 
-  [feature = 'amenity_pub'][zoom >= 14],
+  [feature = 'amenity_pub'][zoom >= 15],
   [feature = 'amenity_restaurant'][zoom >= 18],
   [feature = 'amenity_food_court'][zoom >= 17],
-  [feature = 'amenity_cafe'][zoom >= 14],
+  [feature = 'amenity_cafe'][zoom >= 15],
   [feature = 'amenity_fast_food'][zoom >= 18],
   [feature = 'amenity_biergarten'][zoom >= 18],
   [feature = 'amenity_bar'][zoom >= 18],
@@ -1980,8 +1984,8 @@
   [feature = 'natural_volcano'][zoom >= 13],
   [feature = 'natural_saddle'][zoom >= 13],
   [feature = 'mountain_pass'][zoom >= 13],
-  [feature = 'tourism_viewpoint'][zoom >= 14],
-  [feature = 'man_made_survey_point'][zoom >= 14] {
+  [feature = 'tourism_viewpoint'][zoom >= 15],
+  [feature = 'man_made_survey_point'][zoom >= 15] {
     text-name: "[name]";
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
@@ -3065,7 +3069,7 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'man_made_mineshaft'][zoom >= 14] {
+  [feature = 'man_made_mineshaft'][zoom >= 15] {
     text-name: "[name]";
     text-fill: @man-made-icon;
     text-size: @standard-font-size;
@@ -3136,7 +3140,7 @@
 
 #text-low-priority {
   [feature = 'man_made_cross'][zoom >= 17],
-  [feature = 'historic_wayside_cross'][zoom >= 17],
+  [feature = 'historic_wayside_cross'][zoom >= 16],
   [feature = 'historic_wayside_shrine'][zoom >= 17] {
     text-name: "[name]";
     text-size: @standard-font-size;
@@ -3233,14 +3237,15 @@
 
 #trees [zoom >= 14] {
 // at low zooms, draw tree_row as wide hedge
-  [zoom < 16][natural = 'tree_row'] {
+  [zoom < 17][natural = 'tree_row'] {
 	line-width: 2 * @hedge-width-z14;
+	[zoom = 16] { line-width: 2 * @hedge-width-z16; }
 	line-color: @hedge;
 	line-smooth: 0.5;
 	line-cap: round;
   }
 
-  [zoom >= 16] {
+  [zoom >= 17] {
   ::canopy {
     opacity: 0.6;
     [natural = 'tree_row'] {

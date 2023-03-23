@@ -1,0 +1,15 @@
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="14.2" height="14" viewBox="0 0 14.2 14">
+  <circle cx="7.11" cy="6.95" r="6.59" style="fill: #fff"/>
+  <path d="M.9,4.87A6.52,6.52,0,0,1,5,.8" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M4.91,13.17a6.54,6.54,0,0,1-4-4" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M13.26,9.17a6.55,6.55,0,0,1-4,4" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M9.22.81a6.55,6.55,0,0,1,4,4" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M8.33,3.9a3.19,3.19,0,0,0-1.24-.24,3.24,3.24,0,0,0-1.25.24L5,.8A6.48,6.48,0,0,1,7.09.46,6.56,6.56,0,0,1,9.22.81Z" style="fill: red;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M4,5.77A3.32,3.32,0,0,1,5.84,3.9" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M4,5.77A3.27,3.27,0,0,0,4,8.23L.92,9.2A6.68,6.68,0,0,1,.55,7,6.47,6.47,0,0,1,.9,4.87Z" style="fill: red;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M5.84,10.1A3.32,3.32,0,0,1,4,8.23" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M5.84,10.1a3.24,3.24,0,0,0,1.25.24,3.27,3.27,0,0,0,1.25-.24l.88,3.09a6.63,6.63,0,0,1-4.31,0Z" style="fill: red;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M10.2,8.23A3.35,3.35,0,0,1,8.34,10.1" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M10.2,5.77a3.4,3.4,0,0,1,0,2.46l3.06.94a6.55,6.55,0,0,0,0-4.34Z" style="fill: red;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+  <path d="M8.33,3.9A3.37,3.37,0,0,1,10.2,5.77" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+</svg>

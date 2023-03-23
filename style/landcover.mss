@@ -14,6 +14,7 @@
 @orchard: #aedfa3; // also vineyard, plant_nursery
 @hedge: @forest;       // Lch(80,30,135)
 @hedge-width-z14: 0.8;
+@hedge-width-z16: 1.5;
 @barrier-color: #333;   // darker than original #444
 @contour-cutoff: 50;    // minimum number of pixels to display contour
 @water-line-color: #4d80b3; // Also used for high/low water contours
@@ -35,7 +36,7 @@
 @industrial-line: #c6b3c3;  // Lch(75,11,330) (Also used for railway-line, wastewater_plant-line)
 @farmland: darken(#eef0d5, 4%);         // was Lch(94,14,112)
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
-@farmland-linewidth: 0.6;
+@farmland-linewidth: 0.7;
 @farmyard: #f5dcba;         // Lch(89,20,80)
 @farmyard-line: brown;
 //@farmyard-line: #d1b48c;    // Lch(75,25,80)
@@ -947,8 +948,8 @@
 	marker-allow-overlap: true;
   }
   [feature = 'barrier_hedge'][zoom >= 14] {
-	line-width: 0.8;
-    [zoom >=16] { line-width: 1.5; }
+	line-width: @hedge-width-z14;
+    [zoom >=16] { line-width: @hedge-width-z16; }
     line-color: @hedge;
     [zoom >= 17] {
       line-width: 2;
