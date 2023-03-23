@@ -837,7 +837,7 @@
 	// Just use scrub colour for wet scrub
     [natural = 'scrub'][wetland = null] {
       polygon-pattern-file: url('symbols/scrub-compact.svg');
-//	  [zoom >= 17] { polygon-pattern-file: url('symbols/scrub.svg'); }
+	  [zoom >= 17] { polygon-pattern-file: url('symbols/scrub.png'); }
       polygon-pattern-alignment: global;
     }
   }

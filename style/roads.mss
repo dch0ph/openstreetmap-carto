@@ -691,7 +691,7 @@
           [tracktype = 'grade2'] { line-dasharray: 11,4; }
           [tracktype = 'grade3'] { line-dasharray: 7,5; }
           [tracktype = 'grade4'] { line-dasharray: 4,6; }
-          [tracktype = 'grade5'] { line-dasharray: 3,8; }
+          [tracktype = 'grade5'] { line-dasharray: 4,8; }
 		}
 
         [service = 'INT-normal'] {
@@ -3290,7 +3290,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           [tracktype = 'grade2'] { prow/line-dasharray: 11,4; }
           [tracktype = 'grade3'] { prow/line-dasharray: 7,5; }
           [tracktype = 'grade4'] { prow/line-dasharray: 4,6; }
-          [tracktype = 'grade5'] { prow/line-dasharray: 3,8; }
+          [tracktype = 'grade5'] { prow/line-dasharray: 4,8; }
 	  }
       prow/line-width: @cycleway-width-z13;
       [ zoom >= 14] {
@@ -3830,7 +3830,10 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   // bump this down so see named tracks
     [zoom >= 14] {
       text-name: "[name]";
+	  [zoom >= 17][prow_ref != null] { text-name: [name] + " (" + [prow_ref] + ")"; }
       text-fill: black;
+	  [designation = 'public_footpath'] { text-fill: @footpath-fill; }
+	  [designation = 'public_bridleway'] { text-fill: @bridleway-fill; }
       text-size: 7;
       text-halo-radius: @standard-halo-radius * 0.7;
       text-halo-fill: @standard-halo-fill;
@@ -3842,12 +3845,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       text-dy: 7;
       text-repeat-distance: @major-highway-text-repeat-distance;
       [highway = 'steps'] { text-repeat-distance: @minor-highway-text-repeat-distance; }
-    }
-    [zoom >= 16] {
-      text-halo-fill: @standard-halo-fill;
-      text-size: 10;
-      text-dy: 8;
-    }
+      [zoom >= 16] {
+		text-halo-fill: @standard-halo-fill;
+		text-size: 10;
+		text-dy: 8;
+	  }
+	}
   }
   
   // arguably the symbols should go on a separate layer

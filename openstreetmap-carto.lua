@@ -350,6 +350,11 @@ function filter_tags_generic(tags)
 			tags['name'] = stripname
 		end
 	end
+	
+	-- As craft is now rendered, prioritise craft over shop when they duplicate
+	if tags['craft'] and (tags['craft'] == tags['shop']) then
+		tags['shop'] = nil
+	end
 		
     return 0, tags
 end
@@ -699,6 +704,12 @@ function filter_tags_way (keyvalues, numberofkeys)
 		if (keyvalues['leisure'] == 'sports_centre') or (keyvalues['power'] == 'substation') then
 			keyvalues['building'] = nil
 		end
+	end
+	
+	-- Retag courtyards or squares into pedestrian areas
+	if ((keyvalues['place'] == 'square') or (keyvalues['man_made'] == 'courtyard')) and (keyvalues['highway'] == nil) then
+		keyvalues['highway'] = 'pedestrian'
+		keyvalues['area'] = 'yes'
 	end
 		
 	-- Promote bridge/tunnel:name if possible
