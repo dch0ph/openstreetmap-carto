@@ -238,10 +238,11 @@
 @major-access-width-z15:		  2.5;
 @minor-access-width-z15:		  1.3;
 
-@secondary-width-z16:            10;
-@tertiary-width-z16:             10;
-@residential-width-z16:           6;
-//@living-street-width-z16:         6;
+// Note that primary width at z16 = z15 (7)
+@secondary-width-z16:            7;
+@tertiary-width-z16:             7;
+@residential-width-z16:           5.5;
+//@living-street-width-z16:         5.5;
 @service-width-z16:               4;
 @pedestrian-width-z16:            @service-width-z16;
 //@road-width-z16:                  @service-width-z16;

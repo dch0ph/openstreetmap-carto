@@ -23,7 +23,8 @@
 @barrier-icon: #3f3f3f;
 @landform-color: #d08f55;
 @leisure-green: darken(@park, 60%);
-@protected-area: #008000;
+//@protected-area: #008000;
+@protected-area: @amenity-brown;
 @aboriginal: #82643a;
 @religious-icon: #000000;
 //@missing-data: red;
@@ -63,6 +64,7 @@
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
   [feature = 'amenity_shelter'][zoom >= 14] {
+    marker-fill: @accommodation-icon;
     marker-file: url('symbols/amenity/shelter.svg');
     [feature = 'tourism_wilderness_hut'] {
       marker-file: url('symbols/tourism/wilderness_hut.svg');
@@ -71,9 +73,9 @@
       marker-file: url('symbols/tourism/alpinehut.svg');
     }
     [feature = 'amenity_shelter'] {
-      marker-fill: @man-made-icon;
+//      marker-fill: @man-made-icon;
+      marker-fill: @amenity-brown;
     }
-    marker-fill: @accommodation-icon;
     marker-clip: false;
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
@@ -1329,12 +1331,13 @@
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
     }
-	[zoom < 16] { marker-width: 9; }
+	[zoom < 17] { marker-width: 10; }
   }
 
-  [feature = 'leisure_picnic_table'][zoom >= 15] {
+  [feature = 'leisure_picnic_table'][zoom >= 16] {
     marker-file: url('symbols/tourism/picnic.svg');
-    marker-fill: @man-made-icon;
+    marker-fill: @amenity-brown;
+	[zoom < 17] { marker-width: 10; }
     marker-clip: false;
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
@@ -1572,9 +1575,12 @@
     [zoom >= 17][feature = 'amenity_parking']["parking" != 'street_side']["parking" != 'lane'],
     [zoom >= 18] {
       [feature = 'amenity_parking'] { marker-file: url('symbols/amenity/parking.svg'); }
+	  [zoom < 18] { marker-width: 8; }
+	  [zoom < 16] { marker-width: 6; }
       [feature = 'amenity_parking']["parking" = 'street_side'],
       [feature = 'amenity_parking']["parking" = 'lane'] { 
         marker-file: url('symbols/amenity/parking_subtle.svg'); 
+		marker-width: 6;
       }
       [feature = 'amenity_bicycle_parking'] { marker-file: url('symbols/amenity/bicycle_parking.svg'); }
       [feature = 'amenity_motorcycle_parking'] { marker-file: url('symbols/amenity/motorcycle_parking.svg'); }
@@ -1582,7 +1588,6 @@
       [feature = 'amenity_parking_entrance']["parking"='multi-storey'] { marker-file: url('symbols/amenity/parking_entrance_multistorey.svg'); }
       marker-clip: false;
       marker-fill: @transportation-icon;
-	  [zoom < 16] { marker-width: 6; }
       [int_access = 'restricted'] { marker-opacity: @private-opacity; }
     }
   }
@@ -1630,7 +1635,8 @@
     marker-clip: false;
   }
 
-  [feature = 'barrier_cattle_grid'][zoom >= 16]::barrier {
+// current symbol is too heavy to render at lower zoom
+  [feature = 'barrier_cattle_grid'][zoom >= 17]::barrier {
     marker-file: url('symbols/barrier/cattle_grid.svg');
     marker-fill: @barrier-icon;
     marker-clip: false;
@@ -2550,7 +2556,8 @@
     }
     [feature = 'leisure_picnic_table'][zoom >= 17],
     [feature = 'amenity_shelter'] {
-      text-fill: @man-made-icon;
+//      text-fill: @man-made-icon;
+		text-fill: @amenity-brown;
     }
     [feature = 'tourism_alpine_hut'],
     [feature = 'tourism_wilderness_hut'],
