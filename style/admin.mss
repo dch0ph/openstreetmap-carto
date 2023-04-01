@@ -525,8 +525,8 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
         line-offset: -0.75;
 		opacity: 0.3;
         [zoom >= 16] {
-		  opacity: 0.15;
-          line-width: 6;
+		  opacity: 0.2;
+          line-width: 5;
           line-offset: -2;
         }
       }
@@ -540,9 +540,9 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
         }
         line-join: round;
         line-cap: round;
-        [zoom >= 15] {
+        [zoom >= 16] {
             line-width: 2;
-			opacity: 0.2
+//			opacity: 0.2
         }
       }
     }

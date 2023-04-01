@@ -141,7 +141,9 @@
   [feature = 'landuse_quarry'][zoom >= 10] {
  //   polygon-fill: @quarry;
 	polygon-fill: @rocky_ground;
-    [zoom >= 12] { polygon-pattern-file: url('symbols/mine_patterncompact.svg'); }
+    [zoom >= 12] { 
+		polygon-pattern-file: url('symbols/mine_patterncompact.svg');
+	}
 	[historic != null] { 
 		polygon-fill: @scrub;
 		[zoom >= 12] { polygon-pattern-file: url('symbols/disusedmine_patterncompact.svg'); }
