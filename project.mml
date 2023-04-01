@@ -39,7 +39,7 @@ Stylesheet:
 # style.mss has only limited effects (halo around text?)
   - style/style.mss
 # font.mss only sets typefaces to be used
-  - style/fonts.mss
+  - style/fonts-GilliusNo1.mss
 # Relate to externally loaded shapefiles (e.g. oceans)
   - style/shapefiles.mss
 # land cover, barrier?, cliffs etc., plus gridlines

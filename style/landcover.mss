@@ -28,10 +28,13 @@
 //@residential: #e0dfdf;      // Lch(89,0,0)
 @residential: #c6c6c6;		// Lch(80,0,0)  A bit darker
 @residential-line: #b9b9b9; // Lch(75,0,0)
-@retail: #ffd6d1;           // Lch(89,16,30)
-@retail-line: #d99c95;      // Lch(70,25,30)
+//@retail: #ffd6d1;           // Lch(89,16,30)
+//@retail-line: #d99c95;      // Lch(70,25,30)
 @commercial: #f2dad9;       // Lch(89,8.5,25)
 @commercial-line: #d1b2b0;  // Lch(75,12,25)
+// Use same flatter colour for commercial vs. retail
+@retail: @commercial;
+@retail-line: @commercial-line;
 @industrial: darken(#ebdbe8, 4%);       // was Lch(89,9,330) (Also used for railway, wastewater_plant)
 @industrial-line: #c6b3c3;  // Lch(75,11,330) (Also used for railway-line, wastewater_plant-line)
 @farmland: darken(#eef0d5, 4%);         // was Lch(94,14,112)
