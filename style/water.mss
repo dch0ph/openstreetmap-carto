@@ -317,8 +317,7 @@
     [waterway = 'drain'],
     [waterway = 'ditch'],
 	[waterway = 'stream'] {
-      [zoom >= 13] {
-//		debug-mode: collision;
+      [zoom >= 14] {
         text-name: "[name]";
         text-face-name: @oblique-fonts;
         text-size: 7;
