@@ -2,14 +2,14 @@
 @wetland-text: darken(#4aa5fa, 25%); /* Also for mud */
 @shop-icon: #ac39ac;
 @shop-text: #939;
-@transportation-icon: #0092da;
+@amenity-blue: #0092da;
+@transportation-icon: @amenity-blue;
 @transportation-text: #0066ff;
 @accommodation-icon: @transportation-icon;
 @accommodation-text: @transportation-text;
 @airtransport: #8461C4; //also ferry_terminal
 @health-color: #BF0000;
 @amenity-brown: #734a08;
-@amenity-blue: cyan;
 @craft: orange;
 @gastronomy-icon: #C77400;
 @gastronomy-text: darken(@gastronomy-icon, 5%);
@@ -63,7 +63,7 @@
 #amenity-points {
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
-  [feature = 'amenity_shelter'][zoom >= 14] {
+  [feature = 'amenity_shelter'][zoom >= 15] {
     marker-fill: @accommodation-icon;
     marker-file: url('symbols/amenity/shelter.svg');
     [feature = 'tourism_wilderness_hut'] {
@@ -848,21 +848,21 @@
     marker-clip: false;
   }
 
-  [feature = 'historic_monument'][zoom >= 14] {
+  [feature = 'historic_monument'][zoom >= 15] {
     marker-file: url('symbols/historic/monument.svg');
     marker-fill: @memorials;
     marker-clip: false;
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'historic_fort'][zoom >= 14] {
+  [feature = 'historic_fort'][zoom >= 15] {
     marker-file: url('symbols/historic/fort.svg');
     marker-fill: @memorials;
     marker-clip: false;
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'historic_castle'][castle_type != 'stately'][castle_type != 'manor'][zoom >= 14],
+  [feature = 'historic_castle'][castle_type != 'stately'][castle_type != 'manor'][zoom >= 15],
   [feature = 'historic_castle'][castle_type = 'stately'][zoom >= 15],
   [feature = 'historic_castle'][castle_type = 'manor'][zoom >= 15],
   [feature = 'historic_manor'][zoom >= 15] {
@@ -884,7 +884,7 @@
     [castle_type = 'kremlin'] {
       marker-file: url('symbols/historic/fortress.svg');
     }
-	[zoom < 16] { marker-width: 8; }
+	[zoom < 16] { marker-width: 9; }
   }
 
   [feature = 'historic_archaeological_site'][zoom >= 15] {
@@ -1543,6 +1543,7 @@
     marker-file: url('symbols/man_made/windmill.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
+	[zoom < 16] { marker-width: 9 }
   }
 
   [feature = 'amenity_hunting_stand'][zoom >= 16] {
@@ -2101,10 +2102,10 @@
   [feature = 'historic_memorial'][memorial = 'blue_plaque'][zoom >= 19],
   [feature = 'historic_memorial'][memorial = 'plaque'][zoom >= 19],
   [feature = 'man_made_obelisk'][zoom >= 17],
-  [feature = 'historic_monument'][zoom >= 14],
-  [feature = 'historic_fort'][zoom >= 14],
-  [feature = 'historic_castle'][zoom >= 14],
-  [feature = 'historic_manor'][zoom >= 14] {
+  [feature = 'historic_monument'][zoom >= 16],
+  [feature = 'historic_fort'][zoom >= 15],
+  [feature = 'historic_castle'][zoom >= 15],
+  [feature = 'historic_manor'][zoom >= 16] {
     text-name: "[name]";
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;

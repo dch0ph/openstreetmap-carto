@@ -301,7 +301,7 @@ Layer:
           WHERE (prop_value::int % 50 != 0) AND (feat_type = 'ContourLine')
         ) AS contours10
     properties:
-      minzoom: 13
+      minzoom: 12
       maxzoom: 17
   - id: contours50
     geometry: multilinestring
@@ -317,7 +317,7 @@ Layer:
           WHERE ((prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')) OR (feat_type = 'LandWaterBoundary')
         ) AS contours50
     properties:
-      minzoom: 13
+      minzoom: 12
       maxzoom: 17
   - id: landcover-area-symbols
     geometry: polygon
