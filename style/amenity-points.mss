@@ -249,7 +249,7 @@
     marker-fill: @memorials;
   }
 
-  [feature = 'tourism_camp_site'][zoom >= 14] {
+  [feature = 'tourism_camp_site'][zoom >= 15] {
     marker-file: url('symbols/tourism/camping.svg');
     marker-fill: @accommodation-icon;
     marker-clip: false;
@@ -257,14 +257,14 @@
   }
 
   // Ford tagging on points - ford on lines is defined later
-  [feature = 'highway_ford'][zoom >= 14] {
+  [feature = 'highway_ford'][zoom >= 15] {
     marker-file: url('symbols/highway/ford.svg');
 	[zoom < 16] { marker-width: 8; }
     marker-fill: @amenity-brown;
     marker-clip: false;
   }
 
-  [feature = 'tourism_caravan_site'][zoom >= 14] {
+  [feature = 'tourism_caravan_site'][zoom >= 15] {
     marker-file: url('symbols/tourism/caravan_park.svg');
     marker-clip: false;
     marker-fill: @accommodation-icon;
@@ -393,7 +393,7 @@
     marker-fill: @accommodation-icon;
   }
 
-  [feature = 'tourism_hotel'][zoom >= 17] {
+  [feature = 'tourism_hotel'][zoom >= 15] {
     marker-file: url('symbols/tourism/hotel.svg');
     marker-clip: false;
     marker-fill: @accommodation-icon;
@@ -1462,8 +1462,8 @@
 
   [feature = 'man_made_survey_point'][zoom >= 14] {
     marker-file: url('symbols/trigpoint_compact.svg');
-    marker-fill: cyan;
-	marker-line-color: cyan;
+    marker-fill: @amenity-blue;
+	marker-line-color: @amenity-blue;
     marker-clip: false;
 	marker-width: 8;
   }
@@ -1481,14 +1481,14 @@
     marker-clip: false;
   }
 
-  [feature = 'natural_saddle'][zoom >= 14] {
+  [feature = 'natural_saddle'][zoom >= 13] {
     marker-file: url('symbols/natural/saddle.svg');
     marker-fill: @landform-color;
     marker-clip: false;
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'mountain_pass'][zoom >= 15] {
+  [feature = 'mountain_pass'][zoom >= 14] {
     marker-file: url('symbols/natural/saddle.svg');
     marker-fill: @transportation-icon;
     marker-clip: false;
@@ -1990,7 +1990,7 @@
   [feature = 'natural_peak'][zoom >= 13],
   [feature = 'natural_volcano'][zoom >= 13],
   [feature = 'natural_saddle'][zoom >= 13],
-  [feature = 'mountain_pass'][zoom >= 13],
+  [feature = 'mountain_pass'][zoom >= 14],
   [feature = 'tourism_viewpoint'][zoom >= 15],
   [feature = 'man_made_survey_point'][zoom >= 15] {
     text-name: "[name]";
@@ -1998,7 +1998,7 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: darken(@landform-color, 30%);
-	[feature = 'man_made_survey_point'] { text-fill: cyan; }
+	[feature = 'man_made_survey_point'] { text-fill: @amenity-blue; }
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
@@ -2530,15 +2530,15 @@
   [feature = 'tourism_alpine_hut'][zoom >= 14],
   [feature = 'amenity_shelter'][zoom >= 15],
   [feature = 'leisure_picnic_table'][zoom >= 17],
-  [feature = 'tourism_hotel'][zoom >= 17],
+  [feature = 'tourism_hotel'][zoom >= 15],
   [feature = 'tourism_motel'][zoom >= 17],
   [feature = 'tourism_hostel'][zoom >= 17],
   [feature = 'tourism_chalet'][zoom >= 17],
   [feature = 'tourism_guest_house'][zoom >= 17],
   [feature = 'tourism_apartment'][zoom >= 18],
   [feature = 'tourism_wilderness_hut'][zoom >= 14],
-  [feature = 'tourism_camp_site'][zoom >= 17],
-  [feature = 'tourism_caravan_site'][zoom >= 17], {
+  [feature = 'tourism_camp_site'][zoom >= 16],
+  [feature = 'tourism_caravan_site'][zoom >= 16], {
     text-name: "[name]";
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
@@ -3165,7 +3165,7 @@
 
 #amenity-line {
   // Ford tagging on ways
-  [feature = 'highway_ford'][zoom >= 14] {
+  [feature = 'highway_ford'][zoom >= 15] {
     marker-file: url('symbols/highway/ford.svg');
     [zoom < 16] { marker-width: 8; }
     marker-fill: @amenity-brown;
