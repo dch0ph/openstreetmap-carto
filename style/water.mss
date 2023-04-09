@@ -5,6 +5,7 @@
 @glacier-line: #9cf;
 
 @tunnel-color: #505050;
+@stream-width-z13: 0.8;
 @stream-width-z14: 1.1;
 @stream-width-z15plus: 1.4;
 
@@ -37,14 +38,17 @@
         polygon-fill: @water-color;
 		[zoom < 18] { 
 			polygon-smooth: @water-smooth;
-			line-smooth: @water-smooth;
+			[zoom >= 12] { line-smooth: @water-smooth; }
 		}
 	  }
-	  line-width: 0.4;
+	  [zoom >= 12] {
+		line-width: 0.4;
+		line-color: @water-line-color;
+	  }
 	  [zoom >= 13] { line-width: 0.8; }
-	  line-color: @water-line-color;
       [way_pixels >= 4] { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.6; }
+	  [zoom < 12] { line: none; }
     }
     [int_intermittent = 'yes'] {
       polygon-pattern-file: url('patterns/intermittent_water.svg');
@@ -71,9 +75,9 @@
 
 #water-lines::casing {
   [waterway = 'stream'],
-  [waterway = 'ditch'],
-  [waterway = 'drain'] {
-    [zoom >= 14],
+  [waterway = 'ditch'][zoom >= 14],
+  [waterway = 'drain'][zoom >= 14] {
+    [zoom >= 13],
     [int_intermittent = 'yes'][zoom >= 15] {
       // the additional line of land color is used to provide a background for dashed casings
 		  [int_tunnel = 'yes'] {
@@ -186,10 +190,10 @@
 	}
   }
 
-  [waterway = 'stream'],
-  [waterway = 'ditch'],
-  [waterway = 'drain'] {
-    [int_intermittent != 'yes'][zoom >= 14],
+  [waterway = 'stream'][zoom >= 13],
+  [waterway = 'ditch'][zoom >= 14],
+  [waterway = 'drain'][zoom >= 14] {
+    [int_intermittent != 'yes'],
     [zoom >= 15] {
 		[int_tunnel = 'yes'] {
 		  tunnelcasing/line-color: @tunnel-color;
@@ -226,6 +230,7 @@
         water/line-clip: false;
       }
       water/line-width: @stream-width-z14;
+	  [zoom < 14] { water/line-width: @stream-width-z13; }
       water/line-color: @water-line-color;
 	  [int_tunnel = 'yes'] { water/line-color: lighten(@water-line-color, 20%); }
 	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'][zoom < 18] { water/line-smooth: @water-smooth; }
@@ -314,10 +319,10 @@
 //    }
 
 // Combined stream into drain and ditch, shrunk text slightly
-    [waterway = 'drain'],
-    [waterway = 'ditch'],
+    [waterway = 'drain'][zoom >= 14],
+    [waterway = 'ditch'][zoom >= 14],
 	[waterway = 'stream'] {
-      [zoom >= 14] {
+      [zoom >= 13] {
         text-name: "[name]";
         text-face-name: @oblique-fonts;
         text-size: 7;

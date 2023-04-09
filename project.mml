@@ -302,7 +302,7 @@ Layer:
         ) AS contours10
     properties:
       minzoom: 12
-      maxzoom: 17
+      maxzoom: 16
   - id: contours50
     geometry: multilinestring
     <<: *extents
@@ -318,7 +318,7 @@ Layer:
         ) AS contours50
     properties:
       minzoom: 12
-      maxzoom: 17
+      maxzoom: 16
   - id: landcover-area-symbols
     geometry: polygon
     <<: *extents
@@ -380,7 +380,7 @@ Layer:
           WHERE waterway IN ('dam', 'weir', 'lock_gate')
         ) AS water_barriers_line
     properties:
-      minzoom: 13
+      minzoom: 12
   - id: water-barriers-poly
     geometry: polygon
     <<: *extents
@@ -394,7 +394,7 @@ Layer:
           WHERE waterway IN ('dam', 'weir', 'lock_gate')
         ) AS water_barriers_poly
     properties:
-      minzoom: 13
+      minzoom: 12
   - id: piers-poly
     geometry: polygon
     <<: *extents
@@ -1284,6 +1284,7 @@ Layer:
         (SELECT
             way,
             boundary,
+            leisure,
             tags->'protect_class' AS protect_class,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
           FROM planet_osm_polygon
@@ -1654,6 +1655,7 @@ Layer:
                 'emergency_' || CASE WHEN tags->'emergency' IN ('phone', 'defibrillator', 'life_ring') AND way_area IS NULL THEN tags->'emergency' END,
                 'shop' || CASE WHEN shop IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR shop IS NULL THEN NULL ELSE '' END,
                 'craft' || CASE WHEN tags->'craft' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'craft') IS NULL THEN NULL ELSE '' END,
+                'club' || CASE WHEN tags->'club' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'club') IS NULL THEN NULL ELSE '' END,
                 'leisure_' || CASE WHEN leisure IN ('amusement_arcade', 'beach_resort', 'bird_hide', 'bowling_alley', 'dog_park', 'firepit', 'fishing',
                                                     'fitness_centre', 'fitness_station', 'garden', 'golf_course', 'ice_rink', 'marina', 'miniature_golf',
                                                     'outdoor_seating', 'park', 'picnic_table', 'pitch', 'playground',
@@ -1727,6 +1729,7 @@ Layer:
               tags->'iata' as iata,
               tags->'office' as office,
               tags->'craft' as craft,
+              tags->'club' as club,
               tags->'recycling_type' as recycling_type,
               tags->'tower:construction' as "tower:construction",
               tags->'tower:type' as "tower:type",
@@ -1756,6 +1759,7 @@ Layer:
                                 ELSE 'other' END AS shop,
               CASE WHEN building = 'no' OR building IS NULL THEN 'no' ELSE 'yes' END AS is_building,
               tags->'operator' AS operator,
+              tags->'ford' AS ford,
               ref,
               way_area,
               COALESCE(way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0), 0) AS way_pixels
@@ -1837,7 +1841,8 @@ Layer:
            'highway_' || CASE WHEN tags @> 'ford=>yes' OR tags @> 'ford=>stepping_stones' THEN 'ford' END,
            'leisure_' || CASE WHEN leisure IN ('slipway', 'track') THEN leisure END,
            'attraction_' || CASE WHEN tags @> 'attraction=>water_slide' THEN 'water_slide' END
-            ) AS feature
+            ) AS feature,
+          tags->'ford' AS ford
           FROM planet_osm_line
           -- The upcoming where clause is needed for performance only, as the CASE statements would end up doing the equivalent filtering
           WHERE tags @> 'ford=>yes' OR tags @> 'ford=>stepping_stones'
@@ -2441,7 +2446,7 @@ Layer:
         ) AS contours_text50
     properties:
       minzoom: 14
-      maxzoom: 17
+      maxzoom: 16
   - id: text-annotation
     geometry: point
     <<: *extents

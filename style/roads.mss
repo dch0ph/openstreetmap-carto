@@ -9,14 +9,15 @@
 @trunk-fill: #dd9f9f;
 //@trunk-fill-alternative: #dd9f9f;
 @primary-fill: #dd9f9f;
-@secondary-fill: #f9d6aa;
+@secondary-fill: darken(#f9d6aa, 10%);
 @tertiary-fill: #f8f8ba;
 
-@motorway-casing: darken(@motorway-fill, 30%); // originally #7788a1;
+@motorway-casing: darken(@motorway-fill, 30%); // originally #7788a1
 @trunk-casing: #800000;
-@primary-casing: darken(@primary-fill, 30%); // originally #c57b7e;
+@primary-casing: darken(@primary-fill, 30%); // originally #c57b7e
 // actually secondary-sidewalk-casing
-@secondary-casing: #cca16a;
+//@secondary-casing: #cca16a;
+@secondary-casing: darken(@secondary-fill, 30%); // originally #cca16a
 
 @railway-text-color: #444444;
 @earthworks-color: #d08f55; // matches landform-color
@@ -145,15 +146,16 @@
 @primary-width-z9:                1.4;
 @secondary-width-z9:              1;
 
-@motorway-width-z10:              1.9;
-@trunk-width-z10:                 1.9;
+// slightly boost widths at z10/11 to improve visibilty
+@motorway-width-z10:              2.1;
+@trunk-width-z10:                 2.0;
 @primary-width-z10:               1.8;
 @secondary-width-z10:             1.1;
 @tertiary-width-z10:              0.7;
 
-@motorway-width-z11:              2.0;
-@trunk-width-z11:                 1.9;
-@primary-width-z11:               1.8;
+@motorway-width-z11:              2.5;
+@trunk-width-z11:                 2.3;
+@primary-width-z11:               2.1;
 @secondary-width-z11:             1.1;
 @tertiary-width-z11:              0.7;
 @unclassified-width-z11:		  0.5;
@@ -1401,11 +1403,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-width: @motorway-width-z6;
         [zoom >= 7] { line-width: @motorway-width-z7; }
         [zoom >= 8] { line-width: @motorway-width-z8; }
-        [zoom >= 9] { line-width: @motorway-width-z9; }
-        [zoom >= 10] { line-width: @motorway-width-z10; } */
+        [zoom >= 9] { line-width: @motorway-width-z9; } */
+        line-color: @motorway-fill;
+        [zoom >= 10] { line-width: @motorway-width-z10; }
         [zoom >= 11] {
 		  line-width: @motorway-width-z11;
-          line-color: @motorway-fill;
           [zoom >= 12] { line-width: @motorway-width-z12 - 2 * @major-casing-width-z12; }
           [zoom >= 13] { line-width: @motorway-width-z13 - 2 * @major-casing-width-z13; }
           [zoom >= 15] { line-width: @motorway-width-z15 - 2 * @major-casing-width-z15; }
@@ -2319,8 +2321,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom < 13] {
         line-color: #787878;
         line-width: 0.5;
-        [zoom >= 8] { line-width: 0.8; }
-        [zoom >= 12] { line-width: 0.9; }
+        [zoom >= 8] { line-width: 0.9; }
         line-join: round;
         #roads_low_zoom[int_tunnel = 'yes'], #tunnels {
           line-dasharray: 5,2;

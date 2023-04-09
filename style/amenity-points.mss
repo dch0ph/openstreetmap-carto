@@ -2,9 +2,10 @@
 @wetland-text: darken(#4aa5fa, 25%); /* Also for mud */
 @shop-icon: #ac39ac;
 @shop-text: #939;
-@amenity-blue: #0092da;
+//@amenity-blue: #0092da;
+@amenity-blue: #0066ff;
 @transportation-icon: @amenity-blue;
-@transportation-text: #0066ff;
+@transportation-text: @amenity-blue;
 @accommodation-icon: @transportation-icon;
 @accommodation-text: @transportation-text;
 @airtransport: #8461C4; //also ferry_terminal
@@ -30,15 +31,15 @@
 //@missing-data: red;
 
 // scale down landcover text from 10, 12, 15
-@landcover-font-size: 8;
-@landcover-wrap-width-size: 24; // 3 em
-@landcover-line-spacing-size: -1.2; // -0.15 em
-@landcover-font-size-big: 10;
-@landcover-wrap-width-size-big: 30; // 3 em
-@landcover-line-spacing-size-big: -1.5; // -0.15 em
-@landcover-font-size-bigger: 12;
-@landcover-wrap-width-size-bigger: 36; // 3 em
-@landcover-line-spacing-size-bigger: -1.8; // -0.15 em
+@landcover-font-size: 9;
+@landcover-wrap-width-size: 27; // 3 em
+@landcover-line-spacing-size: -1.35; // -0.15 em
+@landcover-font-size-big: 11;
+@landcover-wrap-width-size-big: 33; // 3 em
+@landcover-line-spacing-size-big: -1.65; // -0.15 em
+@landcover-font-size-bigger: 13;
+@landcover-wrap-width-size-bigger: 39; // 3 em
+@landcover-line-spacing-size-bigger: -1.95; // -0.15 em
 @landcover-face-name: @oblique-fonts;
 
 @small-font-size: 8;
@@ -102,7 +103,7 @@
 
   [feature = 'amenity_bar'][zoom >= 17],
   [feature = 'amenity_biergarten'][zoom >= 17],
-  [feature = 'amenity_cafe'][zoom >= 14],
+  [feature = 'amenity_cafe'][zoom >= 15],
   [feature = 'amenity_fast_food'][zoom >= 17],
   [feature = 'amenity_food_court'][zoom >= 17],
   [feature = 'amenity_ice_cream'][zoom >= 17],
@@ -146,8 +147,8 @@
     [feature = 'amenity_pub'] {
       marker-fill: @amenity-blue;
       marker-file: url('symbols/amenity/pub.svg');
-	  [zoom < 16] { marker-width: 9; }
-	  [zoom >= 16] { marker-width: 12; }
+	  marker-width: 9;
+	  [zoom >= 17] { marker-width: 12; }
     }
 	marker-max-error: 2.0;
   }
@@ -163,13 +164,13 @@
   }
 
   [feature = 'highway_bus_stop'] {
-    [zoom >= 16][zoom < 17] {
+    [zoom >= 16][zoom < 18] {
       marker-file: url('symbols/square.svg');
       marker-fill: @transportation-icon;
-      marker-width: 6;
+      marker-width: 5;
       marker-clip: false;
     }
-    [zoom >= 17] {
+    [zoom >= 18] {
       marker-file: url('symbols/highway/bus_stop.svg');
       marker-width: 12;
       marker-fill: @transportation-icon;
@@ -257,10 +258,13 @@
   }
 
   // Ford tagging on points - ford on lines is defined later
-  [feature = 'highway_ford'][zoom >= 15] {
+  [feature = 'highway_ford'][zoom >= 15][ford = 'yes'],
+  [feature = 'highway_ford'][zoom >= 17],
+  {
     marker-file: url('symbols/highway/ford.svg');
-	[zoom < 16] { marker-width: 8; }
     marker-fill: @amenity-brown;
+	[zoom < 16] { marker-width: 8; }
+	[zoom < 17] { marker-fill: red; }
     marker-clip: false;
   }
 
@@ -348,7 +352,7 @@
     }
   }
 
-  [feature = 'amenity_fuel'][zoom >= 17] {
+  [feature = 'amenity_fuel'][zoom >= 16] {
     marker-file: url('symbols/amenity/fuel.svg');
     marker-fill: @transportation-icon;
     marker-clip: false;
@@ -2209,7 +2213,7 @@
   [feature = 'natural_wood'],
   [feature = 'landuse_forest'],
   [feature = 'boundary_national_park'],
-  [feature = 'leisure_nature_reserve'],
+  [feature = 'leisure_nature_reserve'][zoom >= 12],
   [feature = 'boundary_aboriginal_lands'],
   [feature = 'boundary_protected_area'] {
     [zoom >= 8][way_pixels > 2000][is_building = 'no'],
@@ -2757,64 +2761,29 @@
   }
 
   [feature = 'office'] {
+    [way_pixels > 3000][zoom >= 17],
     [zoom >= 18] {
-      [office = 'accountant'],
-      [office = 'adoption_agency'],
-      [office = 'advertising_agency'],
-      [office = 'architect'],
-      [office = 'association'],
-      [office = 'charity'],
-      [office = 'company'],
-      [office = 'educational_institution'],
-      [office = 'diplomatic'],
-      [office = 'employment_agency'],
-      [office = 'energy_supplier'],
-      [office = 'estate_agent'],
-      [office = 'financial'],
-      [office = 'forestry'],
-      [office = 'foundation'],
-      [office = 'government'],
-      [office = 'guide'],
-      [office = 'insurance'],
-      [office = 'it'],
-      [office = 'lawyer'],
-      [office = 'logistics'],
-      [office = 'moving_company'],
-      [office = 'newspaper'],
-      [office = 'ngo'],
-      [office = 'notary'],
-      [office = 'political_party'],
-      [office = 'private_investigator'],
-      [office = 'property_management'],
-      [office = 'quango'],
-      [office = 'religion'],
-      [office = 'research'],
-      [office = 'surveyor'],
-      [office = 'tax'],
-      [office = 'tax_advisor'],
-      [office = 'telecommunication'],
-      [office = 'travel_agent'],
-      [office = 'water_utility'] {
-        text-name: "[name]";
-        text-size: @standard-font-size;
-        text-wrap-width: @standard-wrap-width;
-        text-line-spacing: @standard-line-spacing-size;
-        text-dy: 8;
-        text-fill: @office;
-        text-face-name: @standard-font;
-        text-halo-radius: @standard-halo-radius;
-        text-halo-fill: rgba(255, 255, 255, 0.6);
-      }
-    }
-
-    // all other offices
-    [zoom >= 19] {
       text-name: "[name]";
       text-size: @standard-font-size;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 8;
       text-fill: @office;
+      text-face-name: @standard-font;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  [feature = 'club'] {
+    [way_pixels > 3000][zoom >= 17],
+    [zoom >= 18] {
+      text-name: "[name]";
+      text-size: @standard-font-size;
+      text-wrap-width: @standard-wrap-width;
+      text-line-spacing: @standard-line-spacing-size;
+      text-dy: 8;
+      text-fill: @leisure-green;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: rgba(255, 255, 255, 0.6);
@@ -3165,10 +3134,13 @@
 
 #amenity-line {
   // Ford tagging on ways
-  [feature = 'highway_ford'][zoom >= 15] {
+  [feature = 'highway_ford'][zoom >= 15][ford = 'yes'],
+  [feature = 'highway_ford'][zoom >= 17]
+    {
     marker-file: url('symbols/highway/ford.svg');
     [zoom < 16] { marker-width: 8; }
     marker-fill: @amenity-brown;
+	[zoom < 17] { marker-fill: red; }
   }
   // Slipway tagging on ways
   [feature = 'leisure_slipway'][zoom >= 17] {

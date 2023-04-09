@@ -505,7 +505,8 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
         line-width: 1.5;
       }
     }
-    [zoom >= 10] {
+    [zoom >= 10][leisure != 'nature_reserve'],
+    [zoom >= 12] {
       // inner line
       ::wideline {
         // Unlike planet_osm_line, planet_osm_polygon does not preserves the

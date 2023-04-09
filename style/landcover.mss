@@ -1048,12 +1048,13 @@
   [zoom >= 15] { line-width: 0.8; }
 }
 
-@contours: orange;
+@contours: darken(orange, 5%);
 @contours-text: @contours;
 @contours-multiplier: 1.75;
 @contours-smooth: 0.5;
 @contours-width: 0.5;
 @contours-width-highzoom: 0.7;
+@contours-width-z12: 0.3;
 @contours-opacity: 0.7;
 
 #contours10 {
@@ -1062,6 +1063,7 @@
   line-color: @contours;
   line-opacity: @contours-opacity;
   line-smooth: @contours-smooth;
+  [zoom = 12] { line-width: @contours-width-z12; }
   [zoom >= 16] { line-width: @contours-width-highzoom; }
   }
 }
@@ -1069,6 +1071,7 @@
 #contours50 {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   line-width: @contours-width;
+  [zoom = 12] { line-width: @contours-width-z12; }
   [zoom >= 14] { line-width: @contours-width * @contours-multiplier; }
   [zoom >= 16] { line-width: @contours-width-highzoom * @contours-multiplier; }
   line-color: @contours;

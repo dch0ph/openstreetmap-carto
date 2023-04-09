@@ -7,15 +7,17 @@
 
 #water-barriers-point, #water-barriers-line, #water-barriers-poly {
   [waterway = 'dam'] {
-    #water-barriers-poly[zoom >= 13] {
+    #water-barriers-poly[zoom >= 12] {
       line-width: 2;
+	  [zoom = 12] { line-width: 1.5; }
       line-color: @dam-line;
       line-join: round;
       line-cap: round;
       polygon-fill: @dam;
     }
-    #water-barriers-line[zoom >= 13] {
+    #water-barriers-line[zoom >= 12] {
       line-width: 2;
+	  [zoom = 12] { line-width: 1.5; }
       line-color: @dam-line;
       line-join: round;
       line-cap: round;
