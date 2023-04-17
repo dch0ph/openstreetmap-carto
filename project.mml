@@ -180,6 +180,23 @@ Layer:
 #        ) AS icesheet_polygons
 #    properties:
 #      minzoom: 5
+  - id: landcontours
+    geometry: multilinestring
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
+            sub_type,
+            CASE WHEN prop_value::int % 50 = 0 THEN 'yes' ELSE 'no' END is_major
+          FROM terrain50_contours
+          WHERE feat_type != 'LandWaterBoundary'
+        ) AS landcontours
+    properties:
+      minzoom: 12
+      maxzoom: 16
   - id: water-lines-low-zoom
     geometry: linestring
     <<: *extents
@@ -288,22 +305,7 @@ Layer:
     properties:
       minzoom: 13
       maxzoom: 16
-  - id: contours10
-    geometry: multilinestring
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way,
-            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
-          FROM terrain50_contours
-          WHERE (prop_value::int % 50 != 0) AND (feat_type = 'ContourLine')
-        ) AS contours10
-    properties:
-      minzoom: 12
-      maxzoom: 16
-  - id: contours50
+  - id: watercontours
     geometry: multilinestring
     <<: *extents
     Datasource:
@@ -314,8 +316,8 @@ Layer:
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
             sub_type
           FROM terrain50_contours
-          WHERE ((prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')) OR (feat_type = 'LandWaterBoundary')
-        ) AS contours50
+          WHERE feat_type = 'LandWaterBoundary'
+        ) AS watercontours
     properties:
       minzoom: 12
       maxzoom: 16

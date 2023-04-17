@@ -1057,32 +1057,30 @@
 @contours-width-z12: 0.3;
 @contours-opacity: 0.7;
 
-#contours10 {
+#landcontours {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
   line-width: @contours-width;
-  line-color: @contours;
-  line-opacity: @contours-opacity;
-  line-smooth: @contours-smooth;
   [zoom = 12] { line-width: @contours-width-z12; }
   [zoom >= 16] { line-width: @contours-width-highzoom; }
+  [is_major = 'yes'][zoom >=14] {
+	line-width: @contours-width * @contours-multiplier;
+	[zoom >= 16] { line-width: @contours-width-highzoom * @contours-multiplier; }
+  }
+  line-color: @contours;
+  line-smooth: @contours-smooth;
+  line-opacity: @contours-opacity;
   }
 }
 
-#contours50 {
+#watercontours {
   [way_pixels = 0], [way_pixels > @contour-cutoff] {
-  line-width: @contours-width;
+  
+  line-width: @contours-width * @contours-multiplier;
   [zoom = 12] { line-width: @contours-width-z12; }
   [zoom >= 14] { line-width: @contours-width * @contours-multiplier; }
   [zoom >= 16] { line-width: @contours-width-highzoom * @contours-multiplier; }
-  line-color: @contours;
-  [sub_type = 'meanHighWater'] {
-	  line-color: @water-line-color;
-  }
-  [sub_type = 'meanLowWater'] {
-	  line-color: @water-line-color;
-	  line-dasharray: 2,4;
-  }
-  [sub_type = 'ordinary'] { line-smooth: @contours-smooth; }
+  line-color: @water-line-color;
+  [sub_type = 'meanLowWater'] { line-dasharray: 2,4; }
   line-opacity: @contours-opacity;
   }
 }
