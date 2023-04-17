@@ -201,6 +201,7 @@ end
 
 local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
 local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit' }
+local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doctors', 'dentist', 'veterinary'}
 
 --- If tagged with disused, turn into 'historic=yes'
 
@@ -229,7 +230,21 @@ function filter_tags_generic(tags)
             end
         end
     end
-
+	
+	-- Consolidate key contact tags
+	if tags['contact:website'] then
+		if tags['website'] == nil
+			tags['website'] = tags['contact:website']
+		end
+		tags['contact:website'] = nil
+	end
+	if tags['contact:facebook'] then
+		if tags['facebook'] == nil
+			tags['facebook'] = tags['contact:facebook']
+		end
+		tags['contact:facebook'] = nil
+	end
+	
 	-- Suppress admin boundaries
    if (tags["boundary"] == "administrative") then
       tags["boundary"] = nil
@@ -297,9 +312,14 @@ function filter_tags_generic(tags)
 		tags['landuse'] = 'forest'
 	end
 	
-	-- Merge hospital
-	if tags['healthcare'] == 'hospital' then
-		tags['amenity'] = 'hospital'
+	if tags['healthcare'] then
+		-- Merge hospital
+		if tags['healthcare'] == 'hospital' then
+			tags['amenity'] = 'hospital'
+		elseif tags['amenity'] and is_in(tags['amenity'], healthcarestrip_tags) then
+		--  As healthcare now rendered, remove any double-tagging
+			tags['healthcare'] = nil
+		end		
 	end
 
 -- Bodge lack of rendering of dedicated sports hall
@@ -351,9 +371,27 @@ function filter_tags_generic(tags)
 		end
 	end
 	
+	-- Remove bar/bar tagging for social clubs now that club is rendered
+	if tags['club'] == 'social' then
+		if (tags['amenity'] == 'bar') or (tags['amenity'] == 'pub') then
+			tags['amenity'] = nil
+		end
+	end
+	
+	if (tags['amenity'] == 'social_facility') and (tags['social_facility'] == 'hospice') then
+		tags['amenity'] = nil
+		tags['healthcare'] = 'hospice'
+	end
+		
 	-- As craft is now rendered, prioritise craft over shop when they duplicate
 	if tags['craft'] and (tags['craft'] == tags['shop']) then
 		tags['shop'] = nil
+	end
+	
+	-- Normalise swimming pools. Outdoor pools rendered as water areas
+	if (tags['leisure'] == 'swimming_pool') and (tags['indoor'] == 'yes') then
+		tags['leisure'] = 'sports_centre'
+		tags['sport'] = 'swimming'
 	end
 		
     return 0, tags
@@ -424,9 +462,8 @@ local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 
 --local keepbridges = { 'cycleway', 'path', 'bridleway' }
 local access_tags = { 'foot', 'horse', 'bicycle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
---local bridges = { 'cantilever', 'movable', 'trestle', 'viaduct' }
 -- Note that customers and private have been rationalised to destination and private respectively
-local isprivate_keys = { 'no', 'destination' }
+--local isprivate_keys = { 'no', 'destination' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -478,9 +515,9 @@ function filter_highway (keyvalues)
 	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
 	
 	-- This is a bodge to keep the XML size under 10 Mb. Force overall access = permissive for foot = permissive to be rendered
-	if (keyvalues['foot'] == 'permissive') and (keyvalues['designation'] == nil) then
-		keyvalues['designation'] = 'permissive_footpath'
-	end
+	--if (keyvalues['foot'] == 'permissive') and (keyvalues['designation'] == nil) then
+	--	keyvalues['designation'] = 'permissive_footpath'
+	--end
 	
 	-- Filter out driveways unless designated
 	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] ~=nil) then
@@ -699,11 +736,9 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['building'] = 'yes'
 	end
 	
-	-- Remove building tag for ways with other formatting that would be otherwise obscured
-	if keyvalues['building'] then
-		if (keyvalues['leisure'] == 'sports_centre') or (keyvalues['power'] == 'substation') then
-			keyvalues['building'] = nil
-		end
+	-- Remove building tag for ways with other formatting that would be otherwise obscured (NB leisure now handled differently)
+	if keyvalues['building'] and (keyvalues['power'] == 'substation') then
+		keyvalues['building'] = nil
 	end
 	
 	-- Retag courtyards or squares into pedestrian areas

@@ -921,6 +921,25 @@
     marker-clip: false;
   }
 
+  // clubs
+  [feature = 'club'] {
+	[way_pixels > 3000][zoom >= 17],
+  	[zoom >= 18] {
+      marker-width: 6;
+      marker-line-width: 0;
+	  marker-fill: @leisure-green;
+      marker-clip: false;
+	}
+  }
+
+  // healthcare
+  [feature = 'healthcare'][zoom >= 17] {
+      marker-width: 6;
+      marker-line-width: 0;
+	  marker-fill: @health-color;
+      marker-clip: false;
+  }
+
   [feature = 'shop'] {
     [shop != 'mall'][shop != 'massage'][zoom >= 17],
     [shop = 'supermarket'][zoom >= 16],
@@ -2145,9 +2164,12 @@
     text-halo-fill: @standard-halo-fill;
     text-dy: 13;
   }
+  
+  // Bodging on labelling of indoor sports centres
 
   [feature = 'leisure_water_park'],
   [feature = 'leisure_sports_centre'][sport = 'swimming'],
+  [feature = 'leisure_sports_centre'][is_building = 'yes'],
   [feature = 'leisure_swimming_area'] {
     [zoom >= 14][way_pixels > 3000],
     [zoom >= 17] {
@@ -2156,14 +2178,17 @@
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @leisure-green;
-      text-dy: 11;
+      [feature != 'leisure_sports_centre'],
+	  [sport != 'swimming'] {
+		text-dy: 11;
+	  }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
     }
   }
 
-  [feature = 'leisure_swimming_pool'][is_building = 'no'] {
+  [feature = 'leisure_swimming_pool'][is_building = 'no'][indoor != 'yes'] {
     [zoom >= 14][way_pixels > 3000],
     [zoom >= 17] {
       text-name: "[name]";
@@ -2201,12 +2226,17 @@
       text-fill: @leisure-green;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
+      [feature = 'leisure_dog_park'] {
+        text-halo-radius: @standard-halo-radius * 1.5; /* Extra halo needed to stand out from paw pattern. */
+      }
       text-halo-fill: @standard-halo-fill;
       [int_access = 'restricted'] {
-        text-fill: darken(@park, 50%);
+        text-opacity: @private-opacity;
+        text-halo-radius: 0;
       }
     }
   }
+
 
 // scale labelling range by 2/3 reflecting tighter font size
   [feature = 'landuse_military'],
@@ -2345,12 +2375,12 @@
   [feature = 'natural_beach'],
   [feature = 'natural_shoal'],
   [feature = 'natural_reef'],
-  [feature = 'leisure_fitness_centre'],
-  [feature = 'leisure_fitness_station'],
-  [feature = 'leisure_sports_centre'],
+ // [feature = 'leisure_fitness_centre'],
+ // [feature = 'leisure_fitness_station'],
+  [feature = 'leisure_sports_centre'][sport != 'swimming'],
   [feature = 'leisure_stadium'],
   [feature = 'leisure_track'],
-  [feature = 'leisure_dog_park'],
+ // [feature = 'leisure_dog_park'],
   [feature = 'leisure_ice_rink'],
   [feature = 'leisure_pitch'] {
     [zoom >= 10][way_pixels > 3000][is_building = 'no'],
@@ -2468,19 +2498,6 @@
       [feature = 'leisure_sports_centre'],
       [feature = 'leisure_stadium'] {
         text-fill: darken(@stadium, 70%);
-      }
-      [feature = 'leisure_fitness_centre'],
-      [feature = 'leisure_fitness_station'] {
-        text-fill: @leisure-green;
-        [int_access = 'restricted'] {
-          text-opacity: @private-opacity;
-          text-halo-radius: 0;
-        }
-      }
-      [feature = 'leisure_dog_park'] {
-        text-fill: @leisure-green;
-        text-halo-radius: @standard-halo-radius * 1.5; /* Extra halo needed to stand out from paw pattern. */
-        text-halo-fill: @standard-halo-fill;
       }
       [feature = 'leisure_track'] {
         text-fill: darken(@track, 40%);
@@ -2676,7 +2693,8 @@
   }
 
 // Use same logic for hospital as school
-  [feature = 'amenity_hospital'] {
+  [feature = 'amenity_hospital'],
+  [feature = 'healthcare'][healthcare = 'hospice'] {
     [zoom >= 10][way_pixels > 3000][is_building = 'no'],
     [zoom >= 17][is_building = 'no'] {
 		text-name: "[name]";
@@ -2691,19 +2709,19 @@
 	}
   }
 
-
-// healthcare items don't seem to be selected by SQL queries anyway?
   [feature = 'amenity_clinic'],
   [feature = 'amenity_pharmacy'],
   [feature = 'amenity_doctors'],
   [feature = 'amenity_dentist'],
-  [feature = 'amenity_veterinary'] {
+  [feature = 'amenity_veterinary'],
+  [feature = 'healthcare']  {
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 12;
+	  [feature = 'healthcare'] { text-dy: 8; }
       text-fill: @health-color;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
@@ -3058,7 +3076,7 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'tourism_attraction'][zoom >= 17][is_building = 'no'] {
+  [feature = 'tourism_attraction'][zoom >= 16][is_building = 'no'] {
     text-name: "[name]";
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
