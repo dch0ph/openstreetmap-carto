@@ -2384,9 +2384,10 @@ Layer:
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross') AND way_area IS NULL THEN man_made END,
               'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
-              'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate') AND way_area IS NULL THEN 'pipeline' END 
+              'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate') AND way_area IS NULL THEN 'pipeline' END
             )  AS feature,
             CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
+            CASE WHEN tags->'orienteering' = 'marker' AND amenity = 'bench' THEN 'yes' ELSE 'no' END AS offset,
             way_area,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
             FROM

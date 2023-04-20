@@ -942,7 +942,6 @@
 
   [feature = 'marker_orienteering'][zoom >= 17] {
     marker-file: url('symbols/orienteering_marker.svg');
-//    marker-fill: @man-made-icon;
     marker-clip: false;
   }
 
@@ -1735,6 +1734,7 @@
 	}
     marker-line-color: @amenity-brown;
     [int_access = 'restricted'] { marker-opacity: @private-opacity; }
+	[offset = 'yes'] { marker-transform: translate(12,0); }  
   }
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {

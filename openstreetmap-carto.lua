@@ -608,6 +608,8 @@ function filter_highway (keyvalues)
 	
 	-- Kill off track and extend service to include tracktype
 	if keyvalues['highway'] == 'track' then
+	-- Kill off any lit tagging as wouldn't expect tracks to be lit
+		keyvalues['lit'] = nil
 		keyvalues['highway'] = 'service'
 		-- Kill any sidewalk tag from tracks
 		keyvalues['sidewalk'] = nil
