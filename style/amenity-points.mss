@@ -940,6 +940,12 @@
       marker-clip: false;
   }
 
+  [feature = 'marker_orienteering'][zoom >= 17] {
+    marker-file: url('symbols/orienteering_marker.svg');
+//    marker-fill: @man-made-icon;
+    marker-clip: false;
+  }
+
   [feature = 'shop'] {
     [shop != 'mall'][shop != 'massage'][zoom >= 17],
     [shop = 'supermarket'][zoom >= 16],
@@ -1631,7 +1637,12 @@
     marker-file: url('symbols/historic/shrine.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
-	[zoom < 16] { marker-width: 8; }
+  }
+
+  [feature = 'marker_pipeline'][zoom >= 17] {
+    marker-file: url('symbols/man_made/pipeline_marker.svg');
+    marker-fill: @man-made-icon;
+    marker-clip: false;
   }
 
   [feature = 'railway_level_crossing'][zoom >= 14]::railway,
@@ -3063,6 +3074,17 @@
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
   }
+
+  [feature = 'marker_orienteering'][zoom >= 17][ref != null] {
+    text-name: "[ref]";
+    text-fill: red;
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-dy: 8;
+    text-face-name: @standard-font;
+  }
+
 
   [feature = 'man_made_mineshaft'][zoom >= 15] {
     text-name: "[name]";

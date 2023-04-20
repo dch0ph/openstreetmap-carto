@@ -429,6 +429,16 @@ function filter_tags_node (keyvalues, numberofkeys)
 			keyvalues['power'] = 'transitionpole'
 		end
 	end
+	
+-- Best efforts at updating pipeline marker tagging (post vs plate has no impact on rendering)
+	if (keyvalues['pipeline'] == 'marker') and keyvalues['substance'] then
+		if (keyvalues['support'] == 'wall_mounted') or (keyvalues['support'] = 'ground'] then
+			keyvalues['marker'] = 'plate'
+		else
+			keyvalues['marker'] = 'post'
+		end
+		keyvalues['utility'] = keyvalues['substance']
+	end
 end
 
 -- Filtering on relations

@@ -1,0 +1,5 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+  <polygon points="9 1 1 9 1 1 9 1" style="fill: #fff"/>
+  <polygon points="1 9 9 1 9 9 1 9" style="fill: red"/>
+  <rect x="1" y="1" width="8" height="8" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+</svg>

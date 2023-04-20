@@ -1658,7 +1658,8 @@ Layer:
                 'shop' || CASE WHEN shop IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR shop IS NULL THEN NULL ELSE '' END,
                 'craft' || CASE WHEN tags->'craft' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'craft') IS NULL THEN NULL ELSE '' END,
                 'club' || CASE WHEN tags->'club' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'club') IS NULL THEN NULL ELSE '' END,
-                'healthcare' || CASE WHEN tags->'healthcare' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'healthcare') IS NULL THEN NULL ELSE '' END,                'leisure_' || CASE WHEN leisure IN ('amusement_arcade', 'beach_resort', 'bird_hide', 'bowling_alley', 'dog_park', 'firepit', 'fishing',
+                'healthcare' || CASE WHEN tags->'healthcare' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'healthcare') IS NULL THEN NULL ELSE '' END,
+                'leisure_' || CASE WHEN leisure IN ('amusement_arcade', 'beach_resort', 'bird_hide', 'bowling_alley', 'dog_park', 'firepit', 'fishing',
                                                     'fitness_centre', 'fitness_station', 'garden', 'golf_course', 'ice_rink', 'marina', 'miniature_golf',
                                                     'outdoor_seating', 'park', 'picnic_table', 'pitch', 'playground',
                                                     'sauna', 'slipway', 'sports_centre', 'stadium', 'swimming_area', 'swimming_pool', 'track', 'water_park') THEN leisure END,
@@ -1688,6 +1689,7 @@ Layer:
                 'leisure_' || CASE WHEN leisure IN ('nature_reserve') THEN leisure END,
                 'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('audioguide', 'board', 'guidepost', 'office', 'map', 'tactile_map', 'terminal') THEN tourism END,
                 'office' || CASE WHEN tags->'office' IN ('no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'office') IS NULL THEN NULL ELSE '' END,
+                'marker_' || CASE WHEN tags->'orienteering' = 'marker' THEN 'orienteering' END, 
                 'barrier_' || CASE WHEN barrier IN ('toll_booth') AND way_area IS NULL THEN barrier END,
                 'waterway_' || CASE WHEN waterway IN ('dam', 'weir', 'dock') THEN waterway END,
                 'amenity_' || CASE WHEN amenity IN ('bicycle_parking', 'motorcycle_parking') THEN amenity END,
@@ -2381,7 +2383,8 @@ Layer:
               'amenity_' || CASE WHEN amenity IN ('bench', 'waste_basket', 'waste_disposal') AND way_area IS NULL THEN amenity END,
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross') AND way_area IS NULL THEN man_made END,
-              'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END
+              'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
+              'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate') AND way_area IS NULL THEN 'pipeline' END 
             )  AS feature,
             CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
             way_area,
@@ -2421,6 +2424,7 @@ Layer:
             WHERE railway IN ('level_crossing', 'crossing')
                OR amenity IN ('bench', 'waste_basket', 'waste_disposal')
                OR historic IN ('wayside_cross', 'wayside_shrine')
+               OR (tags->'marker' IN ('post', 'plate') AND tags->'utility' IS NOT NULL)
                OR man_made IN ('cross')
                OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate')
             ORDER BY
