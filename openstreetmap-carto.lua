@@ -233,13 +233,13 @@ function filter_tags_generic(tags)
 	
 	-- Consolidate key contact tags
 	if tags['contact:website'] then
-		if tags['website'] == nil
+		if tags['website'] == nil then
 			tags['website'] = tags['contact:website']
 		end
 		tags['contact:website'] = nil
 	end
 	if tags['contact:facebook'] then
-		if tags['facebook'] == nil
+		if tags['facebook'] == nil then
 			tags['facebook'] = tags['contact:facebook']
 		end
 		tags['contact:facebook'] = nil
@@ -353,7 +353,7 @@ function filter_tags_generic(tags)
 
 	if tags['ruins:building'] or tags['abandoned:building'] then
 		tags['building'] = 'ruins'
-	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes')) then
+	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes') or (tags['historic'] == 'ruins')) then
 		tags['building'] = 'ruins'
 	end
 	
@@ -432,7 +432,7 @@ function filter_tags_node (keyvalues, numberofkeys)
 	
 -- Best efforts at updating pipeline marker tagging (post vs plate has no impact on rendering)
 	if (keyvalues['pipeline'] == 'marker') and keyvalues['substance'] then
-		if (keyvalues['support'] == 'wall_mounted') or (keyvalues['support'] = 'ground'] then
+		if (keyvalues['support'] == 'wall_mounted') or (keyvalues['support'] == 'ground') then
 			keyvalues['marker'] = 'plate'
 		else
 			keyvalues['marker'] = 'post'

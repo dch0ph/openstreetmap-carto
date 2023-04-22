@@ -46,6 +46,7 @@
 		line-color: @water-line-color;
 	  }
 	  [zoom >= 13] { line-width: 0.8; }
+	  [zoom >= 17] { line-width: 1.3; }
       [way_pixels >= 4] { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.6; }
 	  [zoom < 12] { line: none; }
