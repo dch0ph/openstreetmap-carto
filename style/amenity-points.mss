@@ -1840,9 +1840,8 @@
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    [feature = 'amenity_bar'] {
-      text-dy: 13;
-    }
+	[feature = 'amenity_cafe'] { text-dy: 8; }
+    [feature = 'amenity_bar'] { text-dy: 13; }
   }
 
   [feature = 'amenity_library'],

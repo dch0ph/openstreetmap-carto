@@ -473,23 +473,28 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
   }
 }
 
-#protected-areas-text[zoom >= 13][way_pixels > 192000] {
-  text-name: "[name]";
-  text-face-name: @book-fonts;
-  text-fill: @protected-area;
-  [boundary='aboriginal_lands'] {
-    text-fill: @aboriginal;
-  }
-  text-halo-radius: @standard-halo-radius;
-  text-halo-fill: @standard-halo-fill;
-  text-largest-bbox-only: false;
-  text-placement: line;
-  text-spacing: 750;
-  text-repeat-distance: 250;
-  text-margin: 10;
-  text-clip: true;
-  text-vertical-alignment: middle;
-  text-dy: -10;
+// shrinking area needed to show name
+#protected-areas-text[way_pixels > 80000] 
+{
+	[zoom >= 16],
+	[protect_class != '7'] {
+	  text-name: "[name]";
+	  text-face-name: @book-fonts;
+	  text-fill: @protected-area;
+	  [boundary='aboriginal_lands'] {
+		text-fill: @aboriginal;
+	  }
+	  text-halo-radius: @standard-halo-radius;
+	  text-halo-fill: @standard-halo-fill;
+	  text-largest-bbox-only: false;
+	  text-placement: line;
+	  text-spacing: 500;
+	  text-repeat-distance: 200;
+	  text-margin: 10;
+	  text-clip: true;
+	  text-vertical-alignment: middle;
+	  text-dy: -10;
+	}
 }
 
 #protected-areas {
@@ -548,4 +553,27 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
       }
     }
   }
+}
+
+#minor-protected-areas {
+// can show at lower pixel count due to lighter marking
+  [way_pixels > 400] {
+      // inner line
+      ::wideline {
+        line-color: @protected-area;
+        line-join: round;
+        line-cap: round;
+        line-width: 3;
+        line-offset: -0.75;
+		opacity: 0.3;
+      }
+      // outer line
+      ::narrowline {
+        opacity: 0.7;
+        line-color: @protected-area;
+        line-join: round;
+        line-cap: round;
+        line-width: 1;
+      }
+    }
 }

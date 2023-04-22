@@ -202,7 +202,8 @@ end
 local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
 local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit' }
 local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doctors', 'dentist', 'veterinary'}
-
+local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
+ 
 --- If tagged with disused, turn into 'historic=yes'
 
 --- Generic filtering of OSM tags
@@ -336,14 +337,20 @@ function filter_tags_generic(tags)
     end
 	
 
--- Render national parks and AONBs as such no matter how they are tagged.
-	if (( tags["boundary"]      == "protected_area"                      ) and
-       (( tags["designation"]   == "national_park"                      )  or 
-        ( tags["designation"]   == "area_of_outstanding_natural_beauty" )  or
-        ( tags["designation"]   == "Area of Outstanding Natural Beauty" )  or
-        ( tags["protect_class"] == "5"                                  ))) then
-      tags["boundary"] = "national_park"
-   end
+-- Ensure national parks and AONBs are rendered by explictly setting a protect class (up to 6 rendered)
+-- protect_class = 7 often used for local nature reserves
+	if tags["boundary"] == "protected_area" then
+		if is_in(tags["designation"], important_protected_tags) then
+			tags["protect_class"] = "5"
+		else
+			if tags["designation"] == 'SSSI' then
+				tags["designation"] = 'site_of_special_scientific_interest'
+			end
+			if (tags["designation"] == 'site_of_special_scientific_interest') and (tags["leisure"] != "nature_reserve"]) then
+				tags["protect_class"] = '7'
+			end
+		end
+    end
 
 	-- Normalise use of common
 	if (tags['designation'] == 'common') and (tags['leisure'] ~= nil) then
