@@ -288,6 +288,11 @@ function filter_tags_generic(tags)
 		tags['natural'] = 'scree'
 	end
 	
+	-- Possibly useful more generally, but common for fuel
+	if (tags['amenity'] == 'fuel') and (tags['name'] == nil) then
+		tags['name'] = tags['brand']
+	end
+	
 	if tags['landuse'] == 'farmland' then
 		if is_in(tags['farmland'], meadow_tags) or (tags['animal'] ~= nil) then
 			if (tags['farmland'] ~= 'meadow') or (tags['animal'] ~= nil) then
@@ -346,7 +351,7 @@ function filter_tags_generic(tags)
 			if tags["designation"] == 'SSSI' then
 				tags["designation"] = 'site_of_special_scientific_interest'
 			end
-			if (tags["designation"] == 'site_of_special_scientific_interest') and (tags["leisure"] != "nature_reserve"]) then
+			if (tags["designation"] == 'site_of_special_scientific_interest') and (tags["leisure"] ~= "nature_reserve") then
 				tags["protect_class"] = '7'
 			end
 		end
@@ -535,18 +540,18 @@ function filter_highway (keyvalues)
 	--if (keyvalues['foot'] == 'permissive') and (keyvalues['designation'] == nil) then
 	--	keyvalues['designation'] = 'permissive_footpath'
 	--end
-	
-	-- Filter out driveways unless designated
-	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] ~=nil) then
-		return 1, {}
-	end
-		
+			
 	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
 	keyvalues['railway'] = nil
 
     -- Prioritise any explicit footway surface
 	if keyvalues['footway:surface'] then
 		keyvalues['surface'] = keyvalues['footway:surface']
+	end
+
+	-- Assume building passages / indoor routes are paved in absence of contrary information
+	if ((keyvalues['tunnel'] == 'building_passage') or (keyvalues['indoor'] == 'yes')) and (keyvalues['surface'] == nil) then
+		keyvalues['surface'] = 'paved'
 	end
 	
 	local surface = keyvalues['surface']
@@ -570,8 +575,7 @@ function filter_highway (keyvalues)
 	if keyvalues['footway'] == 'sidewalk' then			
 		keyvalues['name'] = nil
 	end
-
-		
+	
 	local width = tonumber(keyvalues['width']) or 0
 	if keyvalues['trail_visibility'] ~= nil then
 		if width >= 2 then	
@@ -623,9 +627,8 @@ function filter_highway (keyvalues)
 		-- Kill any sidewalk tag from tracks
 		keyvalues['sidewalk'] = nil
 	-- Kill off footway and treat as minor service road if decent surface present or path if not
-	-- In the absence of contrary surface information, highway=footway will be promoted to highway=pedestrian
+	-- Where possible, highway=footway will be promoted to highway=pedestrian
 	elseif keyvalues['highway'] == 'footway' then
-		--if ((keyvalues['tracktype'] == 'grade1') or (keyvalues['designation'] == 'adopted_footway')) and not is_in(keyvalues['access'], isprivate_keys) then
 		if keyvalues['tracktype'] == 'grade1' then
 			keyvalues['highway'] = 'pedestrian'
 	-- For pedestrian routes, ignore shared cycleway

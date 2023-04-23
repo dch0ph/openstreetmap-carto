@@ -455,8 +455,7 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way,
-            man_made
+            way
           FROM planet_osm_polygon
           WHERE man_made = 'bridge'
         ) AS bridge
