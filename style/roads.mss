@@ -718,6 +718,7 @@
         }
         #roads-casing {
           line-join: round;
+		  [tracktype != 'grade4'][tracktype != 'grade5'] { line-cap: round; }
         }
         #tunnels {
           line-dasharray: 4,2;

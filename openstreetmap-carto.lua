@@ -341,27 +341,26 @@ function filter_tags_generic(tags)
 		tags['name'] = tags['name:en']
     end
 	
+	-- Normalise use of common
+	if (tags['leisure'] == 'common') and (tags['designation'] == nil) then
+		tags['designation'] = 'common'
+	end
 
 -- Ensure national parks and AONBs are rendered by explictly setting a protect class (up to 6 rendered)
 -- protect_class = 7 often used for local nature reserves
+-- Similarly show common land as 'minor protected area'
 	if tags["boundary"] == "protected_area" then
 		if is_in(tags["designation"], important_protected_tags) then
 			tags["protect_class"] = "5"
 		else
 			if tags["designation"] == 'SSSI' then
-				tags["designation"] = 'site_of_special_scientific_interest'
+				tags["designation"] = 'site_of_special_scientific_interest'				
 			end
-			if (tags["designation"] == 'site_of_special_scientific_interest') and (tags["leisure"] ~= "nature_reserve") then
+			if ((tags["designation"] == 'site_of_special_scientific_interest') and (tags["leisure"] ~= "nature_reserve")) or (tags["designation"] == 'common') then
 				tags["protect_class"] = '7'
 			end
 		end
     end
-
-	-- Normalise use of common
-	if (tags['designation'] == 'common') and (tags['leisure'] ~= nil) then
-		tags['leisure'] = 'common'
-		tags['amenity'] = nil
-	end
 
 	if tags['ruins:building'] or tags['abandoned:building'] then
 		tags['building'] = 'ruins'

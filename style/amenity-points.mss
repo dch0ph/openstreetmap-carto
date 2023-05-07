@@ -2544,6 +2544,18 @@
     text-face-name: @standard-font;
   }
 
+  [feature = 'amenity_post_box'][zoom >= 19][ref != null] {
+    text-name: "[ref]";
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-dy: 10;
+    text-fill: @amenity-brown;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+    text-face-name: @standard-font;
+  }
+
   [feature = 'amenity_bureau_de_change'][zoom >= 17],
   [feature = 'amenity_public_bookcase'][zoom >= 19],
   [feature = 'tourism_gallery'][zoom >= 17] {

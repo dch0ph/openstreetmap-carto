@@ -103,7 +103,7 @@ Layer:
       table: |-
         (SELECT
             way, name, historic, religion, way_pixels, is_building, wetland,
-            COALESCE(aeroway, amenity, power, landuse, leisure, man_made, "natural", shop, tourism, highway, railway) AS feature
+            COALESCE(aeroway, golf, amenity, power, landuse, leisure, man_made, "natural", shop, tourism, highway, railway) AS feature
           FROM (SELECT
               way, COALESCE(name, '') AS name,
               ('aeroway_' || (CASE WHEN aeroway IN ('apron', 'aerodrome') THEN aeroway END)) AS aeroway,
