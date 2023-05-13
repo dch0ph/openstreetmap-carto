@@ -2052,7 +2052,7 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'tourism_information'][information != 'board'][zoom >= 19],
+  [feature = 'tourism_information'][zoom >= 19],
   [feature = 'tourism_information'][information = 'office'][zoom >= 17] {
     text-name: "[name]";
     text-size: @standard-font-size;
