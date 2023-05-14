@@ -117,7 +117,8 @@ local roads_info = {
         primary_link    = {z = 335, roads = true},
         secondary_link  = {z = 325, roads = true},
         tertiary_link   = {z = 325, roads = false},
-        service         = {z = 150, roads = false},
+-- Boost service so appears before pedestrian
+        service         = {z = 315, roads = false},
         track           = {z = 110, roads = false},
 -- Fake highway types created from route relations
 		rwn             = {z = 110, roads = false},
