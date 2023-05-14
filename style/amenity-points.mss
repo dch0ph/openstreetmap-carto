@@ -1656,9 +1656,12 @@
 
   [feature = 'barrier_gate']::barrier {
     [zoom >= 15] {
-      marker-file: url('symbols/gate_compact.svg');
+	  marker-file: url('symbols/barrier/gate.svg');
       marker-clip: false;
-      marker-line-color: @amenity-brown;
+      [zoom < 17]  { 
+		marker-file: url('symbols/gate_compact.svg');
+		marker-line-color: @amenity-brown;
+	  }
     }
   }
 
