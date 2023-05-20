@@ -1615,6 +1615,22 @@ Layer:
         ) AS county_names
     properties:
       minzoom: 8
+  - id: orienteering
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            ref
+        FROM planet_osm_point
+        WHERE tags @> 'orienteering=>marker'
+        ORDER BY
+          ref
+        ) AS orienteering_markers
+    properties:
+      minzoom: 17
   - id: amenity-points
     geometry: point
     <<: *extents
@@ -1705,7 +1721,6 @@ Layer:
                 'leisure_' || CASE WHEN leisure IN ('nature_reserve') THEN leisure END,
                 'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('audioguide', 'board', 'guidepost', 'office', 'map', 'tactile_map', 'terminal') THEN tourism END,
                 'office' || CASE WHEN tags->'office' IN ('no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'office') IS NULL THEN NULL ELSE '' END,
-                'marker_' || CASE WHEN tags->'orienteering' = 'marker' THEN 'orienteering' END, 
                 'barrier_' || CASE WHEN barrier IN ('toll_booth') AND way_area IS NULL THEN barrier END,
                 'waterway_' || CASE WHEN waterway IN ('dam', 'weir', 'dock') THEN waterway END,
                 'amenity_' || CASE WHEN amenity IN ('bicycle_parking', 'motorcycle_parking') THEN amenity END,
@@ -1720,6 +1735,7 @@ Layer:
                 'golf_' || CASE WHEN tags->'golf' IN ('hole', 'pin') THEN tags->'golf' END
               ) AS feature,
               CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
+              CASE WHEN tags->'orienteering' = 'marker' AND (tags->'information' IN ('board', 'map', 'guidepost')) THEN 'yes' ELSE 'no' END AS offset,
               CASE
                 WHEN "natural" IN ('peak', 'volcano', 'saddle') 
                      OR tags->'mountain_pass' = 'yes' THEN
@@ -1731,6 +1747,7 @@ Layer:
                     WHEN tags->'height' ~ '^\d{1,3}(\.\d+)?( m)?$' THEN (SUBSTRING(tags->'height', '^(\d{1,3}(\.\d+)?)( m)?$'))::NUMERIC
                   END
                 WHEN tags->'emergency' IN ('phone', 'defibrillator', 'life_ring') THEN 1000.0
+                WHEN tags->'orienteering' = 'marker' THEN 500.0
                 WHEN "amenity" IN ('cafe', 'pub') THEN 1000.0
               END AS score,
               religion,
@@ -2401,10 +2418,10 @@ Layer:
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross') AND way_area IS NULL THEN man_made END,
               'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
-              'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate') AND way_area IS NULL THEN 'pipeline' END
+              'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate', 'pedestal') AND way_area IS NULL THEN 'pipeline' END
             )  AS feature,
             CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
-            CASE WHEN tags->'orienteering' = 'marker' AND amenity = 'bench' THEN 'yes' ELSE 'no' END AS offset,
+            CASE WHEN tags->'orienteering' = 'marker' AND (amenity = 'bench') THEN 'yes' ELSE 'no' END AS offset,
             way_area,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
             FROM
@@ -2442,7 +2459,7 @@ Layer:
             WHERE railway IN ('level_crossing', 'crossing')
                OR amenity IN ('bench', 'waste_basket', 'waste_disposal')
                OR historic IN ('wayside_cross', 'wayside_shrine')
-               OR (tags->'marker' IN ('post', 'plate') AND tags->'utility' IS NOT NULL)
+               OR (tags->'marker' IN ('post', 'plate', 'pedestal') AND tags->'utility' IS NOT NULL)
                OR man_made IN ('cross')
                OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate')
             ORDER BY

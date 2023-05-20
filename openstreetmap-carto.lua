@@ -423,6 +423,13 @@ function filter_tags_node (keyvalues, numberofkeys)
 		keyvalues['man_made'] = nil
 	end
 	
+-- Suppress tree if coincides with marker (both appear from z17)
+-- Note that overlap of name/ref is handled by scoring in project.mml
+	if (keyvalues['orienteering'] == 'marker') and (keyvalues['sport'](keyvalues['natural'] == 'tree') then
+		keyvalues['natural'] = nil
+	end
+	
+	
 -- Separate out grouse butt from generic hunting stand
 	if keyvalues['hunting_stand'] == 'grouse_butt' then
 		keyvalues['amenity'] = 'grouse_butt'
@@ -471,11 +478,15 @@ end
 
 -- These will also be treated as 'bad'
 local poor_visibility_tags = { 'no', 'none', 'nil', 'horrible', 'very_bad', 'poor'}
--- service or unclassified road with these surface tags will be demoted to track
-local bad_surface_tags = { 'dirt', 'earth', 'ground' }
-local hardunsealed_surface_tags = {  'unpaved', 'compacted', 'fine_gravel', 'cobblestone' }
+-- service or unclassified road with these surface tags will be demoted to (grade4) track
+local poor_surface_tags = { 'dirt', 'earth', 'ground' }
+-- Positively bad surfaces
+local bad_surface_tags = { 'mud' }
+-- likely to be decent surfaces for walking -> grade2
+local goodunsealed_surface_tags = { 'unpaved', 'compacted', 'fine_gravel', 'cobblestone', 'woodchips', 'stepping_stones', 'rock', 'grass_paver' }
 -- excellent is defined for walking rather than cycling!
-local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett' }
+local excellent_surface_tags = { 'asphalt', 'concrete', 'paved', 'paving_stones', 'sett', 'metal'}
+-- other surfaces, such as grass and sand, default to grade3
 local private_access_tags = { 'private', 'permit', 'delivery', 'forestry', 'military' }
 --- Note not trying to distinguish between restricted_byway and byway
 --- Also treating ORPAs as BOATs
@@ -535,12 +546,7 @@ function filter_highway (keyvalues)
 		keyvalues['horse'] = 'permissive'
     end
 	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
-	
-	-- This is a bodge to keep the XML size under 10 Mb. Force overall access = permissive for foot = permissive to be rendered
-	--if (keyvalues['foot'] == 'permissive') and (keyvalues['designation'] == nil) then
-	--	keyvalues['designation'] = 'permissive_footpath'
-	--end
-			
+				
 	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
 	keyvalues['railway'] = nil
 
@@ -560,41 +566,45 @@ function filter_highway (keyvalues)
 			surface = 'cobblestone'
 		elseif (surface == 'concrete:plates') or (surface == 'concrete:lanes') then
 			surface = 'concrete'
+		elseif surface == 'chipseal' then
+			surface = 'asphalt'
+		elseif surface == 'pebblestone' then
+			surface = 'compacted'
 		end
 	end
-	-- local surface = keyvalues['surface']
-	local isbadsurface = is_in(surface, bad_surface_tags)
 	local isexcellentsurface = is_in(surface, excellent_surface_tags)
-	local ishardunsealedsurface = is_in(surface, hardunsealed_surface_tags)
 	
 	-- assume footway = surface or adopted_footway has excellent surface
-	-- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for).
-	if ((keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway')) and (surface == nil) then
-		isexcellentsurface = true
+	-- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for)
+	if surface == nil then
+		if ((keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway')) or (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or keyvalues['bridge'] then
+			isexcellentsurface = true
+		end
 	end
 	if keyvalues['footway'] == 'sidewalk' then			
 		keyvalues['name'] = nil
 	end
 	
-	local width = tonumber(keyvalues['width']) or 0
-	if keyvalues['trail_visibility'] ~= nil then
-		if width >= 2 then	
-			keyvalues['trail_visibility'] = 'excellent'
-		elseif keyvalues['informal'] == 'yes' then
-			keyvalues['trail_visibility'] = 'bad'
-		end
-	end
+--	local width = tonumber(keyvalues['width']) or 0
+--	if keyvalues['highway'] == 'footway' and (keyvalues['trail_visibility'] == nil) then
+--		if width >= 2 then	
+--			keyvalues['trail_visibility'] = 'excellent'
+--		elseif (keyvalues['informal'] == 'yes') and (surface == nil) then
+--			keyvalues['trail_visibility'] = 'bad'
+--		end
+--	end
 	
 	-- Create a tracktype based on surface if none exists
 	-- Default tracktype is 3 for track, and 1 for service
 	if keyvalues['tracktype'] == nil then
-		if isbadsurface or (keyvalues['trail_visibility'] == 'bad') then
-			keyvalues['tracktype'] = 'grade5'
-		elseif (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or isexcellentsurface then
-	-- In the absence of other evidence, assume service roads and cycleways are asphalt
+		if isexcellentsurface then
 			keyvalues['tracktype'] = 'grade1'
-		elseif ishardunsealedsurface then
+		elseif is_in(surface, bad_surface_tags) or (keyvalues['trail_visibility'] == 'bad') then
+			keyvalues['tracktype'] = 'grade5'
+		elseif is_in(surface, goodunsealed_surface_tags) then
 			keyvalues['tracktype'] = 'grade2'
+		elseif is_in(surface, poor_surface_tags) or (keyvalues['informal'] == 'yes') then
+			keyvalues['tracktype'] = 'grade4'
 		else
 			keyvalues['tracktype'] = 'grade3'
 		end

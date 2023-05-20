@@ -61,6 +61,20 @@
 
 @private-opacity: 0.33;
 
+#orienteering {
+  marker-file: url('symbols/orienteering_marker.svg');
+  marker-clip: false;
+  [ref != null] {
+    ref/text-name: "[ref]";
+    ref/text-fill: red;
+    ref/text-size: @standard-font-size;
+    ref/text-wrap-width: @standard-wrap-width;
+    ref/text-line-spacing: @standard-line-spacing-size;
+    ref/text-dy: 8;
+    ref/text-face-name: @standard-font;
+  }
+}
+
 #amenity-points {
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
@@ -264,7 +278,7 @@
     marker-file: url('symbols/highway/ford.svg');
     marker-fill: @amenity-brown;
 	[zoom < 16] { marker-width: 8; }
-	[zoom < 17] { marker-fill: red; }
+	[ford != 'stepping_stones'] { marker-fill: red; }
     marker-clip: false;
   }
 
@@ -409,12 +423,12 @@
     marker-fill: @accommodation-icon;
   }
 
-// Shows map boards from z15
-  [feature = 'tourism_information'][zoom >= 16],
-  [feature = 'tourism_information']["information"='office'][zoom >= 14],
-  [feature = 'tourism_information']["information"='map'][zoom >= 15] {
+  [feature = 'tourism_information'][zoom >= 18],
+  [feature = 'tourism_information'][information = 'office'][zoom >= 16],
+  [feature = 'tourism_information'][information = 'guidepost'][zoom >= 17],
+  [feature = 'tourism_information'][information = 'map'][zoom >= 17] {
 //    marker-file: url('symbols/tourism/information.svg');
-    [information = 'audioguide'] {
+    [zoom >= 19][information = 'audioguide'] {
       marker-file: url('symbols/tourism/audioguide.svg');
     }
     [information = 'board'] {
@@ -430,14 +444,13 @@
     [information = 'map'],
     [information = 'tactile_map'] {
       marker-file: url('symbols/tourism/map.svg');
-	  [zoom < 16] { marker-width: 8; }
     }
-    [information = 'terminal'] {
+    [zoom >= 19][information = 'terminal'] {
       marker-file: url('symbols/tourism/terminal.svg');
     }
     marker-fill: @man-made-icon;
     marker-clip: false;
-	[zoom < 16] { marker-width: 8; }
+	[offset = 'yes'] { marker-transform: translate(16,0); }
   }
 
   [feature = 'amenity_library'][zoom >= 16] {
@@ -940,11 +953,6 @@
       marker-clip: false;
   }
 
-  [feature = 'marker_orienteering'][zoom >= 17] {
-    marker-file: url('symbols/orienteering_marker.svg');
-    marker-clip: false;
-  }
-
   [feature = 'shop'] {
     [shop != 'mall'][shop != 'massage'][zoom >= 17],
     [shop = 'supermarket'][zoom >= 16],
@@ -1090,7 +1098,7 @@
       marker-file: url('symbols/shop/florist.svg');
     }
 
-    [shop = 'garden_centre'][zoom >= 18] {
+    [shop = 'garden_centre'][zoom >= 17] {
       marker-file: url('symbols/shop/garden_centre.svg');
     }
 
@@ -1737,7 +1745,7 @@
 	}
     marker-line-color: @amenity-brown;
     [int_access = 'restricted'] { marker-opacity: @private-opacity; }
-	[offset = 'yes'] { marker-transform: translate(12,0); }  
+	[zoom >= 17][offset = 'yes'] { marker-transform: translate(12,0); }  
   }
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
@@ -2067,6 +2075,8 @@
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
     text-dy: 11;
+	// half marker offset (in most cases marker ref will take priority)
+	[offset = 'yes'] { marker-transform: translate(7,0); }
   }
 
   [feature = 'waterway_waterfall'] {
@@ -3089,17 +3099,6 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'marker_orienteering'][zoom >= 17][ref != null] {
-    text-name: "[ref]";
-    text-fill: red;
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
-    text-dy: 8;
-    text-face-name: @standard-font;
-  }
-
-
   [feature = 'man_made_mineshaft'][zoom >= 15] {
     text-name: "[name]";
     text-fill: @man-made-icon;
@@ -3194,7 +3193,7 @@
     marker-file: url('symbols/highway/ford.svg');
     [zoom < 16] { marker-width: 8; }
     marker-fill: @amenity-brown;
-	[zoom < 17] { marker-fill: red; }
+	[ford != 'stepping_stones'] { marker-fill: red; }
   }
   // Slipway tagging on ways
   [feature = 'leisure_slipway'][zoom >= 17] {

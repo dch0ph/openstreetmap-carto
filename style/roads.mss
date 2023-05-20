@@ -695,7 +695,7 @@
 			[zoom >= 16] {
 			  [tracktype = 'grade2'] { line-dasharray: 11,4; }
 			  [tracktype = 'grade3'] { line-dasharray: 7,5; }
-			  [tracktype = 'grade4'] { line-dasharray: 4,6; }
+			  [tracktype = 'grade4'] { line-dasharray: 5.5,6.5; }
 			  [tracktype = 'grade5'] { line-dasharray: 4,8; }
 			}
 		  [tracktype != 'grade4'][tracktype != 'grade5'] { line-cap: round; }
@@ -1446,7 +1446,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 				line/line-dasharray: 7,5;
 			  }
 			  [tracktype = 'grade4'] {
-				line/line-dasharray: 4,6;
+				line/line-dasharray: 5.5,6.5;
 			  }
 			  [tracktype = 'grade5'] {
 				line/line-dasharray: 4,8;
@@ -3178,7 +3178,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  [zoom >= 16] {
           [tracktype = 'grade2'] { prow/line-dasharray: 11,4; }
           [tracktype = 'grade3'] { prow/line-dasharray: 7,5; }
-          [tracktype = 'grade4'] { prow/line-dasharray: 4,6; }
+          [tracktype = 'grade4'] { prow/line-dasharray: 5.5,6.5; }
           [tracktype = 'grade5'] { prow/line-dasharray: 4,8; }
 	  }
       prow/line-width: @cycleway-width-z13;
