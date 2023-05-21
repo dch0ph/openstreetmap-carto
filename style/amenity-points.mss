@@ -1605,12 +1605,12 @@
   }
 
   [feature = 'amenity_parking'],
-  [feature = 'amenity_bicycle_parking'][way_pixels > 750],
-  [feature = 'amenity_motorcycle_parking'][way_pixels > 750],
+  [feature = 'amenity_bicycle_parking'],
+  [feature = 'amenity_motorcycle_parking'],
   [feature = 'amenity_parking_entrance'] {
-    [zoom >= 15][int_access = 'yes'],
-    [zoom >= 17][feature = 'amenity_parking']["parking" != 'street_side']["parking" != 'lane'],
-    [zoom >= 18] {
+     [zoom >= 15][int_access = 'yes'][feature = 'amenity_parking']["parking" != 'street_side']["parking" != 'lane'],
+     [zoom >= 16][way_pixels > 750]["parking" != 'street_side']["parking" != 'lane'],
+     [zoom >= 18] {
       [feature = 'amenity_parking'] { marker-file: url('symbols/amenity/parking.svg'); }
 	  [zoom < 18] { marker-width: 8; }
 	  [zoom < 16] { marker-width: 6; }
@@ -1664,12 +1664,13 @@
 
   [feature = 'barrier_gate']::barrier {
     [zoom >= 15] {
-	  marker-file: url('symbols/barrier/gate.svg');
+//	  marker-file: url('symbols/barrier/gate.svg');
       marker-clip: false;
-      [zoom < 17]  { 
+//      [zoom < 17]  { 
 		marker-file: url('symbols/gate_compact.svg');
 		marker-line-color: @amenity-brown;
-	  }
+//	  }
+	  [zoom >= 18] { marker-width: 12; }
     }
   }
 

@@ -425,10 +425,9 @@ function filter_tags_node (keyvalues, numberofkeys)
 	
 -- Suppress tree if coincides with marker (both appear from z17)
 -- Note that overlap of name/ref is handled by scoring in project.mml
-	if (keyvalues['orienteering'] == 'marker') and (keyvalues['sport'](keyvalues['natural'] == 'tree') then
+	if (keyvalues['orienteering'] == 'marker') and (keyvalues['natural'] == 'tree') then
 		keyvalues['natural'] = nil
 	end
-	
 	
 -- Separate out grouse butt from generic hunting stand
 	if keyvalues['hunting_stand'] == 'grouse_butt' then
