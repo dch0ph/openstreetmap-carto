@@ -276,7 +276,7 @@
   [feature = 'highway_ford'][zoom >= 17],
   {
     marker-file: url('symbols/highway/ford.svg');
-    marker-fill: @amenity-brown;
+    marker-fill: @transportation-icon;
 	[zoom < 16] { marker-width: 8; }
 	[ford != 'stepping_stones'] { marker-fill: red; }
     marker-clip: false;
@@ -3193,7 +3193,7 @@
     {
     marker-file: url('symbols/highway/ford.svg');
     [zoom < 16] { marker-width: 8; }
-    marker-fill: @amenity-brown;
+    marker-fill: @transportation-icon;
 	[ford != 'stepping_stones'] { marker-fill: red; }
   }
   // Slipway tagging on ways

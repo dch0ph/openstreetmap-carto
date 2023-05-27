@@ -1,6 +1,7 @@
 @building-fill: #d9d0c9;  // Lch(84, 5, 68)
 @building-line: black;
-//@building-low-zoom: darken(@building-fill, 4%);
+@building-low-zoom: #333;
+//darken(@building-fill, 4%);
 
 @building-major-fill: darken(@building-fill, 15%); 
 //@building-major-line: darken(@building-major-fill, 15%);  // Lch(61, 13, 65)
@@ -20,7 +21,7 @@
 		[building = 'mosque'] {
 			polygon-fill: @building-major-fill;
 		}
-		[way_pixels < 50][zoom < 16] { polygon-fill: @building-line; }
+		[way_pixels < 50][zoom < 16] { polygon-fill: @building-low-zoom; }
 	}
 	[building = 'ruins'] {
 		polygon-fill: white;
@@ -30,6 +31,7 @@
 		casing/line-opacity: 0.8;
 	}
 	line/line-color: @building-line;
+	[way_pixels < 50][zoom < 16] { line/line-color: @building-low-zoom; }
 	line/line-width: 0.8;
 	[building = 'ruins'] { line/line-dasharray: 1.5,1; }  
     line/line-clip: false;

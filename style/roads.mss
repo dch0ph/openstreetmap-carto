@@ -1491,7 +1491,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
     [feature = 'highway_trunk'] {
       [zoom >= 6][link != 'yes'],
-      [zoom >= 12] {
+      [zoom >= 10] {
         line-width: @trunk-width-z6;
         line-color: @trunk-fill;
         [zoom >= 7] { line-width: @trunk-width-z7; }
@@ -1602,7 +1602,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     #bridges[feature = 'highway_primary'],
     #tunnels[feature = 'highway_primary'] {
       [zoom >= 8][link != 'yes'],
-      [zoom >= 12] {
+      [zoom >= 10] {
           line-width: @primary-width-z8;
           line-color: @primary-fill;
           [zoom >= 9] { line-width: @primary-width-z9; }
