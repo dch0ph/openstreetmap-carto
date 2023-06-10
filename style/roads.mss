@@ -792,8 +792,7 @@
     [feature = 'highway_bridleway'][zoom >= 14],
     [feature = 'highway_path'][zoom >= 14] {
       #bridges {
-	    [bridge != 'embankment'][bridge != 'cutting'],
-		[zoom = 14] {
+	    [bridge != 'embankment'][bridge != 'cutting'] {
 		// Note using normal casing width for foot/cycle bridges (not bridge-casing)
           line-width: @cycleway-width-z14 + 2 * (@paths-background-width-below-z16 + @casing-width-z14);
           [zoom >= 15] { line-width: @cycleway-width-z15 + 2 * (@paths-background-width-below-z16 + @casing-width-z15); }
