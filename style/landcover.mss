@@ -943,6 +943,12 @@
   [zoom >= 16] { line-width: 0.8; }
   [feature = 'barrier_ruined'] { line-dasharray: 1,2; }
   [feature = 'barrier_fence'] { line-color: @fence-color; } 
+  // barrier=ditch follows logic of wayerway=ditch, but with grey colour
+  [feature = 'barrier_ditch'] {
+		line-color: #aaa;
+		line-width: @stream-width-z13;
+		[zoom > 14] { line-width: @stream-width-z14; }
+  }
   [feature = 'barrier_retaining_wall'] {
 	marker-file: url('symbols/sidebump.svg');
 	marker-fill: @barrier-color;
