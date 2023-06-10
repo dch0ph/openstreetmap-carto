@@ -2250,7 +2250,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           }
           [feature = 'railway_INT-spur-siding-yard'] {
             dark/line-width: 2;
-            dark/line-color: #aaa;
+            dark/line-color: @railway-color;
             light/line-width: 0.8;
             light/line-dasharray: 0,8,8,1;
             [zoom >= 18] {
@@ -2425,9 +2425,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	[feature = 'railway_dismantled'][zoom >= 14] {
 		line-color: #aaa;
 		line-width: 2;
-		line-dasharray: 1,4;
-		line-join: round;
-		line-cap: round;
+		line-dasharray: 3,6,2,4;
+//		line-join: round;
+//		line-cap: round;
 	}
 		
     [feature = 'railway_platform'] {
