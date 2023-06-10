@@ -5,8 +5,8 @@
 @glacier-line: #9cf;
 
 @tunnel-color: #505050;
-@stream-width-z13: 0.8;
-@stream-width-z14: 1.1;
+@stream-width-z13: 0.75;
+@stream-width-z14: 1.0;
 @stream-width-z15plus: 1.4;
 
 @wastewater-color: desaturate(@water-color, 40%);
@@ -231,7 +231,7 @@
         water/line-clip: false;
       }
       water/line-width: @stream-width-z14;
-	  [zoom < 14] { water/line-width: @stream-width-z13; }
+	  [zoom < 14],[waterway != 'stream'] { water/line-width: @stream-width-z13; }
       water/line-color: @water-line-color;
 	  [int_tunnel = 'yes'] { water/line-color: lighten(@water-line-color, 20%); }
 	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'][zoom < 18] { water/line-smooth: @water-smooth; }
