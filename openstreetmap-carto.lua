@@ -664,6 +664,14 @@ function filter_highway (keyvalues)
 		end
 	end
 	
+	-- permissive only relevant to highway=path. Normalise rest
+	-- similarly, segregated=yes implies foot=yes
+	if (keyvalues['highway'] ~= 'path') and (keyvalues['foot'] == 'permissive') then
+		keyvalues['foot'] = 'yes'
+	elseif (keyvalues['highway'] == 'cycleway') and (keyvalues['segregated'] == 'yes') then
+		keyvalues['foot'] = 'yes'
+	end
+	
 	if is_in(keyvalues['highway'], pathtypes) then
 		if keyvalues['embankment'] == 'yes' then
 			keyvalues['bridge'] = 'embankment'
@@ -736,6 +744,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 
 -- Don't render railway bridges.
 -- Note that paths on dismantled railways are handled as highways
+-- Note that disused:railway etc. not handled, since these all seem to be dual-tagged with railway=disused
 	local railwaytype = keyvalues['railway']
 	if railwaytype then
 		keyvalues['bridge'] = nil

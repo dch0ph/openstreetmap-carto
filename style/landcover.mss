@@ -6,7 +6,7 @@
 @meadow-line: @grass;
 @scrub: #c8d7ab;        // Lch(84,24,122)
 @wood: #add19e;       // Lch(80,30,135)
-@forest: darken(@wood, 15%);
+@forest: darken(@wood, 15%); // calculated to be #8dbf78
 @forest-text: #46673b;  // Lch(40,30,135)
 @park: #c8facc;         // Lch(94,30,145)
 @allotments: #c9e1bf;   // Lch(87,20,135)
@@ -864,9 +864,9 @@
   }
   
   [landuse = 'pasture'][zoom >= 14] {
-	polygon-pattern-file: url('symbols/browncows.svg'); 
-    opacity: 0.5;	
+	polygon-pattern-file: url('symbols/cows.svg'); 
  //   polygon-pattern-alignment: global;
+	polygon-pattern-opacity: 0.25;
   }
 }
 
