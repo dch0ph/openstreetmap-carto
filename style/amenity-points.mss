@@ -1553,7 +1553,7 @@
     [zoom >= 16] {
       marker-file: url('symbols/natural/waterfall.svg');
       marker-clip: false;
-      marker-fill: @water-text;
+      marker-fill: @dark-water-color; // water-text;
 	  [zoom < 16] { marker-width: 8; }
     }
   }

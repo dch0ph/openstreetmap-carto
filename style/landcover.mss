@@ -17,7 +17,8 @@
 @hedge-width-z16: 1.5;
 @barrier-color: #333;   // darker than original #444
 @contour-cutoff: 50;    // minimum number of pixels to display contour
-@water-line-color: #4d80b3; // Also used for high/low water contours
+@water-line-color: lighten(#4d80b3, 5%); // Also used for high/low water contours
+@dark-water-color: darken(#4d80b3, 5%); // Water features e.g. waterfalls 
 
 // --- "Base" landuses ---
 

@@ -559,6 +559,15 @@ function filter_highway (keyvalues)
 		keyvalues['surface'] = 'paved'
 	end
 	
+	-- Normalise covered tag, e.g. covered=arcade
+	if keyvalues['covered'] then
+		if keyvalues['covered'] == 'no' then
+			keyvalues['covered'] = nil
+		else
+			keyvalues['covered'] = 'yes'
+		end
+	end
+	
 	local surface = keyvalues['surface']
 	if surface then
 		if (surface == 'cobblestone:flattened') or (surface == 'unhewn_cobblestone') then
