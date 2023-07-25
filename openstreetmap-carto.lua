@@ -405,6 +405,11 @@ function filter_tags_generic(tags)
 		tags['leisure'] = 'sports_centre'
 		tags['sport'] = 'swimming'
 	end
+	
+	-- No good tagging for outdoor centre. Just treat as community centre
+	if tags['amenity'] == 'outdoor_education_centre'] then
+		tags['amenity'] = 'community_centre'
+	end
 		
     return 0, tags
 end
