@@ -3159,7 +3159,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 #tunnels::PRoW,
 #roads-fill::PRoW,
 #bridges::PRoW {
-	[feature = 'highway_service'][designation != null][zoom >= 14] {
+	[designation != null][zoom >= 14] {
+	[feature = 'highway_service'],
+	[feature = 'highway_pedestrian'] {
 	 [foot = 'permissive'] { prow/line-color: @permissive-footpath-fill; }
 	  [designation = 'public_footpath'] { 
 		 prow/line-color: @footpath-fill;
@@ -3208,7 +3210,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 		noprow/marker-spacing: 10;
 		noprow/marker-placement: line;
 	  }
-	}      
+	} 
+  }
 }
 
 #guideways {

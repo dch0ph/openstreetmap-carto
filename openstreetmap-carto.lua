@@ -406,9 +406,14 @@ function filter_tags_generic(tags)
 		tags['sport'] = 'swimming'
 	end
 	
-	-- No good tagging for outdoor centre. Just treat as community centre
+	-- No good tagging for outdoor centre. 
 	if tags['amenity'] == 'outdoor_education_centre'] then
 		tags['amenity'] = 'community_centre'
+	end
+
+	-- Retagging for renderer!
+	if keyvalues['man_made'] == 'pumping_station' then
+		keyvalues['made_made'] = 'wastewater_plant'
 	end
 		
     return 0, tags
@@ -511,11 +516,16 @@ function filter_highway (keyvalues)
 	elseif keyvalues['highway'] == 'road' then
 		keyvalues['highway'] = 'unclassified'
 	end
--- Demote narrow unclassified road to service road 
-	if (keyvalues['highway'] == 'unclassified') and (keyvalues['lanes'] == 1) then
-		keyvalues['highway'] = 'service'
+-- Demote narrow roads to give better visual indication of importance / traffic levels 
+	if keyvalues['lanes'] == 1 then
+		if keyvalues['highway'] == 'unclassified' then
+			keyvalues['highway'] = 'service'
+		elseif keyvalues['highway'] == 'tertiary' then
+			keyvalues['highway'] = 'unclassified'
+		end
+	end
 -- Mark driveways as private if reasonable
-	elseif (keyvalues['service'] == 'driveway') and (keyvalues['designation'] == nil) and (keyvalues['access'] == nil) then
+	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] == nil) and (keyvalues['access'] == nil) then
 		keyvalues['access'] = 'private'
 	end
 			
@@ -701,14 +711,15 @@ function filter_highway (keyvalues)
 	if (keyvalues['verge'] ~= 'no') and (keyvalues['verge'] ~= nil) and (keyvalues['sidewalk'] == 'no') then
 		keyvalues['sidewalk'] = 'verge'
 	end
+			
+    -- Not sure what this accomplished in highway section. Commenting out
+	--if keyvalues['made_made'] == 'spillway' then
+	--	keyvalues['natural'] = 'water'
+	--end
 	
-	-- Retagging for renderer!
-	if keyvalues['man_made'] == 'pumping_station' then
-		keyvalues['made_made'] = 'wastewater_plant'
-	end
-		
-	if keyvalues['made_made'] == 'spillway' then
-		keyvalues['natural'] = 'water'
+	-- For highway types where oneway:foot could be different, use oneway:foot 
+	if (keyvalues['oneway:foot'] ~= nil) and ((keyvalues['highway'] == 'pedestrian') or (keyvalues['highway'] == 'cycleway'))
+		keyvalues['oneway'] = keyvalues['oneway:foot']
 	end
 	
 	return 0, keyvalues
@@ -919,10 +930,15 @@ function filter_tags_relation_member (keyvalues, keyvaluemembers, roles, memberc
 	-- Find walking routes and add fake highway tag so they are picked out
 		local network = keyvalues['network']
 		if network ~= nil then
-			if is_in(network, major_walking_tags) then
-				keyvalues['highway'] = 'rwn'
-			elseif contains(network, 'lwn') then
+			if contains(network, 'lwn') then
 				keyvalues['highway'] = 'lwn'
+			else
+				for major_walking in major_walking_tags do
+					if contains(network, major_walking) then
+						keyvalues['highway'] = 'rwn'
+						break
+					end
+				end
 			end
 			if (keyvalues['name'] == nil) and (keyvalues['ref'] ~= nil) then
 				keyvalues['name'] = keyvalues['ref']
