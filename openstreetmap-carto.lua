@@ -407,13 +407,13 @@ function filter_tags_generic(tags)
 	end
 	
 	-- No good tagging for outdoor centre. 
-	if tags['amenity'] == 'outdoor_education_centre'] then
+	if tags['amenity'] == 'outdoor_education_centre' then
 		tags['amenity'] = 'community_centre'
 	end
 
 	-- Retagging for renderer!
-	if keyvalues['man_made'] == 'pumping_station' then
-		keyvalues['made_made'] = 'wastewater_plant'
+	if tags['man_made'] == 'pumping_station' then
+		tags['made_made'] = 'wastewater_plant'
 	end
 		
     return 0, tags
@@ -718,7 +718,7 @@ function filter_highway (keyvalues)
 	--end
 	
 	-- For highway types where oneway:foot could be different, use oneway:foot 
-	if (keyvalues['oneway:foot'] ~= nil) and ((keyvalues['highway'] == 'pedestrian') or (keyvalues['highway'] == 'cycleway'))
+	if (keyvalues['oneway:foot'] ~= nil) and ((keyvalues['highway'] == 'pedestrian') or (keyvalues['highway'] == 'cycleway')) then
 		keyvalues['oneway'] = keyvalues['oneway:foot']
 	end
 	
@@ -933,7 +933,7 @@ function filter_tags_relation_member (keyvalues, keyvaluemembers, roles, memberc
 			if contains(network, 'lwn') then
 				keyvalues['highway'] = 'lwn'
 			else
-				for major_walking in major_walking_tags do
+				for _, major_walking in ipairs(major_walking_tags) do
 					if contains(network, major_walking) then
 						keyvalues['highway'] = 'rwn'
 						break
