@@ -264,20 +264,32 @@ function filter_tags_generic(tags)
     if next(tags) == nil then
         return 1, {}
     end
+	
+	-- Normalise to disused:man_made but abandoned:landuse
+	if tags['abandoned:man_made'] then
+		tags['disused:man_made'] = tags['abandoned:man_made']
+		tags['abandoned:man_made'] = nil
+	end
+	
+	if tags['disused:landuse'] then
+		tags['abandoned:landuse'] = tags['disused:landuse']
+		tags['disused:landuse'] = nil
+	end
 
 	--- Fudge disused status into historic = yes
 	--- Combine mine, mineshaft and adit (often poorly distinguished)
 	if tags['disused:man_made'] then
 		tags['man_made'] = tags['disused:man_made']
 		tags['historic'] = 'yes'
-	elseif tags['disused:landuse'] then
-		tags['landuse'] = tags['disused:landuse']
+	end
+	if tags['abandoned:landuse'] == 'quarry' then
+		tags['landuse'] = 'quarry'
 		tags['historic'] = 'yes'
 	end
 	if tags['man_made'] == 'adit' then
 		tags['man_made'] = 'mineshaft'
 	end
-	if tags['disused'] == 'yes' then
+	if (tags['disused'] == 'yes') or (tags['abandoned'] == 'yes') then
 		tags['historic'] = 'yes'
 	end
 	if is_in(tags['historic'], mine_tags) then
