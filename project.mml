@@ -1784,6 +1784,7 @@ Layer:
                   END
                 WHEN tags->'emergency' IN ('phone', 'defibrillator', 'life_ring') THEN 1000.0
                 WHEN tags->'orienteering' = 'marker' THEN 500.0
+				WHEN "amenity" IN ('hotel', 'museum') THEN 2000.0 
                 WHEN "amenity" IN ('cafe', 'pub') THEN 1000.0
               END AS score,
               religion,
