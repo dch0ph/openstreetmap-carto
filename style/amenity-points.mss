@@ -1842,13 +1842,13 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
 	text-dy: 11;
-	[feature = 'amenity_cafe'][zoom >= 16],
-	[feature = 'amenity_pub'][zoom >= 16] {
-		text-size: @larger-font-size;
-		text-wrap-width: @larger-wrap-width;
-		text-line-spacing: @larger-line-spacing-size;
-		text-dy: 13;
-	}
+	//[feature = 'amenity_cafe'][zoom >= 16],
+	//[feature = 'amenity_pub'][zoom >= 16] {
+	//	text-size: @larger-font-size;
+	//	text-wrap-width: @larger-wrap-width;
+	//	text-line-spacing: @larger-line-spacing-size;
+	//	text-dy: 13;
+	//}
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
