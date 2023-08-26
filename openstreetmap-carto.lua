@@ -828,8 +828,8 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 	
 	-- Introduce general category of ruined barrier
-	if keyvalues['abandoned:barrier'] or (keyvalues['barrier'] == 'ruins') or ((keyvalues['barrier'] == 'wall') and (keyvalues['ruins'] == 'yes')) then
-		keyvalues['barrier'] = 'ruined'
+	if keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
+		keyvalues['barrier'] = 'ruins'
 	end 
 	
 	local natural = keyvalues['natural']

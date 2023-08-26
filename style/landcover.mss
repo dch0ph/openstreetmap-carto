@@ -942,7 +942,7 @@
 	line-width: 0.5;
     line-color: @barrier-color;
   [zoom >= 16] { line-width: 0.8; }
-  [feature = 'barrier_ruined'] { line-dasharray: 1,2; }
+  [feature = 'barrier_ruins'] { line-dasharray: 1,2; }
   [feature = 'barrier_fence'] { line-color: @fence-color; } 
   // barrier=ditch follows logic of wayerway=ditch, but with grey colour
   [feature = 'barrier_ditch'] {
