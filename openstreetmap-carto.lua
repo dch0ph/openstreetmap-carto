@@ -439,6 +439,11 @@ function filter_tags_node (keyvalues, numberofkeys)
 		keyvalues['natural'] = nil
 	end
 	
+-- Almost certainly mistake to have both defib and phone
+	if (keyvalues['emergency'] == 'defibrillator') and (keyvalues['amenity'] == 'telephone') then
+		keyvalues['amenity'] = nil
+	end
+	
 -- Separate out grouse butt from generic hunting stand
 	if keyvalues['hunting_stand'] == 'grouse_butt' then
 		keyvalues['amenity'] = 'grouse_butt'
