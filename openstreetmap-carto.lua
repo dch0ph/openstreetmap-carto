@@ -720,6 +720,8 @@ function filter_highway (keyvalues)
 
 	if keyvalues['sidewalk'] == 'none' then
 		keyvalues['sidewalk'] = 'no'
+	elseif (keyvalues['sidewalk:left'] == 'yes') or (keyvalues['sidewalk:right'] == 'yes') then
+		keyvalues['sidewalk'] = 'yes'
 	end
 	-- Flag if verges present. This will disable a road being flagged as dangerous for walking
 	if (keyvalues['verge'] ~= 'no') and (keyvalues['verge'] ~= nil) and (keyvalues['sidewalk'] == 'no') then
