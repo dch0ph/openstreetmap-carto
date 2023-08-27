@@ -375,8 +375,9 @@ function filter_tags_generic(tags)
 		end
     end
 
-	if tags['ruins:building'] or tags['abandoned:building'] then
+	if tags['ruins:building'] then
 		tags['building'] = 'ruins'
+		tags['ruins:building'] = nil
 	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes') or (tags['historic'] == 'ruins')) then
 		tags['building'] = 'ruins'
 	end
@@ -521,8 +522,6 @@ local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 
 --local keepbridges = { 'cycleway', 'path', 'bridleway' }
 local access_tags = { 'foot', 'horse', 'bicycle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
--- Note that customers and private have been rationalised to destination and private respectively
---local isprivate_keys = { 'no', 'destination' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -555,14 +554,12 @@ function filter_highway (keyvalues)
 -- Note the SQL query also looks to "compact" private -> no
 -- Keep distinction between private and no for now, since these have different significance for PRoW
 -- First - lose "access=designated", which is meaningless.
--- Keep permissive for time being. Merge customers -> destination
-	if keyvalues['access'] == 'designated' then
-		keyvalues['access'] = nil
-	elseif keyvalues['access'] ~= nil then
-		if is_in(keyvalues['access'], private_access_tags) then
+-- Keep permissive for time being. Remove customers access to reduce clutter (more logically indicated elsewhere)
+	if keyvalues['access'] then
+		if (keyvalues['access'] == 'designated') or (keyvalues['access'] == 'customers') then
+			keyvalues['access'] = nil
+		elseif is_in(keyvalues['access'], private_access_tags) then
 			keyvalues['access'] = 'private'
-		elseif keyvalues['access'] == 'customers' then
-			keyvalues['access'] = 'destination'
 		end
 	end
 
