@@ -573,7 +573,6 @@ function filter_highway (keyvalues)
 		keyvalues['bicycle'] = 'permissive'
 		keyvalues['horse'] = 'permissive'
     end
-	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
 				
 	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
 	keyvalues['railway'] = nil
@@ -658,6 +657,8 @@ function filter_highway (keyvalues)
 		end
     end
  
+ 	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
+
    -- Remove private access if PRoW and not explicitly tagged with foot=no
    -- Does not affect access = no (which generally means way is barred)
    if ((keyvalues['access'] == 'private') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
@@ -693,7 +694,7 @@ function filter_highway (keyvalues)
 	-- Upgrade paths with cycle access
 		if keyvalues['bicycle'] == 'yes' then
 			keyvalues['highway'] = 'cycleway'
-		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'public_bridleway') then
+		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'permissive_bridleway') then
 			keyvalues['highway'] = 'bridleway'
 		end
 	-- Normalise access tagging (destination only access is effectively foot = private)
@@ -727,7 +728,12 @@ function filter_highway (keyvalues)
 	if (keyvalues['verge'] ~= 'no') and (keyvalues['verge'] ~= nil) and (keyvalues['sidewalk'] == 'no') then
 		keyvalues['sidewalk'] = 'verge'
 	end
-			
+	
+	-- Kill remaining designation tags to simplify rendering
+	if keyvalues['designation'] and not isPROW then
+		keyvalues['designation'] = nil
+	end
+
     -- Not sure what this accomplished in highway section. Commenting out
 	--if keyvalues['made_made'] == 'spillway' then
 	--	keyvalues['natural'] = 'water'
