@@ -247,6 +247,10 @@ function filter_tags_generic(tags)
 		tags['contact:facebook'] = nil
 	end
 	
+	if tags["name:en"] and (tags["name"] == nil) then
+		tags["name"] = tags["name:en"]
+	end
+	
 	-- Suppress admin boundaries
    if (tags["boundary"] == "administrative") then
       tags["boundary"] = nil
@@ -544,7 +548,7 @@ function filter_highway (keyvalues)
 	if (keyvalues['service'] == 'driveway') and (keyvalues['designation'] == nil) and (keyvalues['access'] == nil) then
 		keyvalues['access'] = 'private'
 	end
-			
+	
 	-- Consolidate tags relating to poor trail visibility (these will be desaturated)
 	if is_in(keyvalues['trail_visibility'], poor_visibility_tags) or (keyvalues['foot:physical'] == 'no') or (keyvalues['overgrown'] == 'yes') then
 		keyvalues['trail_visibility'] = 'bad'
@@ -683,6 +687,18 @@ function filter_highway (keyvalues)
 			keyvalues['bicycle'] = nil
 		else
 			keyvalues['highway'] = 'path'
+		end
+	end
+	
+	-- Treat highway=busway as highway=service
+	-- Normalisation of access tags not strictly necessary as will not affect rendering
+	if keyvalues['highway'] == 'busway' then
+		keyvalues['highway'] = 'service'
+		if keyvalues['motor_vehicle'] == nil then
+			keyvalues['motor_vehicle'] = 'no'
+		end
+		if keyvalues['bus'] == nil then
+			keyvalues['bus'] = 'yes'
 		end
 	end
 	
@@ -848,6 +864,12 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
 		keyvalues['barrier'] = 'ruins'
 	end 
+	
+	-- Turn flowerbeds into gardens
+	if keyvalues["landuse"] == "flowerbed" then
+		keyvalues["leisure"] = "garden"
+		keyvalues["landuse"] = nil
+	end
 	
 	local natural = keyvalues['natural']
 	local wetland = keyvalues['wetland']
