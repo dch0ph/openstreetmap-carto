@@ -201,7 +201,8 @@ function roads(tags)
 end
 
 local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
-local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit' }
+local known_rentals = { 'car_rental', 'bicycle_rental' }
+local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit', 'mine_level', 'mine_adit' }
 local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doctors', 'dentist', 'veterinary'}
 local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
  
@@ -301,6 +302,10 @@ function filter_tags_generic(tags)
 		tags['historic'] = 'yes'
 	end
 	
+	if tags['historic'] == 'pinfold' then
+		tags['man_made'] = 'sheepfold'
+	end
+	
 	if (tags['man_made'] == 'spoil_heap') or (tags['disused:man_made'] == 'spoil_heap') then
 		tags['natural'] = 'scree'
 	end
@@ -379,9 +384,8 @@ function filter_tags_generic(tags)
 		end
     end
 
-	if tags['ruins:building'] then
+	if tags['ruins:building'] or tags['ruined:building'] or (tags['building'] == 'collapsed') then
 		tags['building'] = 'ruins'
-		tags['ruins:building'] = nil
 	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes') or (tags['historic'] == 'ruins')) then
 		tags['building'] = 'ruins'
 	end
@@ -407,6 +411,22 @@ function filter_tags_generic(tags)
 		end
 	end
 	
+	if (tags["railway"] == "platform") and tags["ref"] then
+		tags["name"] = "Platform " .. tags["ref"]
+        tags["ref"]  = nil
+    end
+
+	-- Remove double tagging for known rental types
+	if (tags["shop"] == "rental") and is_in(tags["amenity"], known_rentals) then
+		tags["shop"] = nil
+	end
+	
+	-- Convert incorrect beer gardens into outdoor_seating
+    if (tags["amenity"] == "biergarten") and (tags["name"] == nil) and (tags["leisure"] == nil) then
+		tags["leisure"] = "outdoor_seating"
+		tags["amenity"] = nil
+	end
+	
 	if (tags['amenity'] == 'social_facility') and (tags['social_facility'] == 'hospice') then
 		tags['amenity'] = nil
 		tags['healthcare'] = 'hospice'
@@ -415,6 +435,10 @@ function filter_tags_generic(tags)
 	-- As craft is now rendered, prioritise craft over shop when they duplicate
 	if tags['craft'] and (tags['craft'] == tags['shop']) then
 		tags['shop'] = nil
+	end
+	
+	if tags['shop'] == 'car;car_repair' then
+		tags['shop'] = 'car'
 	end
 	
 	-- Normalise swimming pools. Outdoor pools rendered as water areas
@@ -428,10 +452,20 @@ function filter_tags_generic(tags)
 		tags['amenity'] = 'community_centre'
 	end
 
+	if (tags['waterway'] == 'sluice_gate') or (tags['waterway'] == 'floating_barrier') then
+		tags['waterway'] = 'weir'
+	end
+
 	-- Retagging for renderer!
-	if tags['man_made'] == 'pumping_station' then
+	if (tags['man_made'] == 'pumping_station') and (tags['building'] ~= nil) then
 		tags['made_made'] = 'wastewater_plant'
 	end
+	
+	-- historic=monument takes precedence over man_made=tower
+    if (tags["man_made"] == "tower") and (tags["historic"] == "monument") then
+		tags["man_made"] = nil
+    end
+	
 		
     return 0, tags
 end
@@ -448,6 +482,10 @@ function filter_tags_node (keyvalues, numberofkeys)
 -- Suppress cairn if coincides with peak
 	if (keyvalues['natural'] == 'peak') and (keyvalues['man_made'] == 'cairn') then
 		keyvalues['man_made'] = nil
+	end
+	
+	if (keyvalues['historic'] == 'market_cross') or (keyvalues['historic'] == 'cross') then
+		keyvalues['man_made'] = 'cross'
 	end
 	
 -- Suppress tree if coincides with marker (both appear from z17)
@@ -472,12 +510,22 @@ function filter_tags_node (keyvalues, numberofkeys)
             keyvalues['height'] = '40'
         end
     end
+	
+	-- For some reason NCN mileposts often lack guidepost tagging
+	if keyvalues['ncn_milepost'] and (keyvalues['tourism'] == nil) then
+		keyvalues['tourism'] = 'information'
+		keyvalues['information'] = 'guidepost'
+	end
 
 -- Mark transitions, including distribution transformers, with larger pole
 	if keyvalues['power'] == 'pole' then
 		if (keyvalues['location:transition'] == 'yes') or (keyvalues['transformer'] == 'distribution') then
 			keyvalues['power'] = 'transitionpole'
 		end
+	end
+	
+    if keyvalues["highway"] == "passing_place" then
+		keyvalues["highway"] = "turning_circle"
 	end
 	
 -- Best efforts at updating pipeline marker tagging (post vs plate has no impact on rendering)
@@ -489,6 +537,14 @@ function filter_tags_node (keyvalues, numberofkeys)
 		end
 		keyvalues['utility'] = keyvalues['substance']
 	end
+	
+	-- Unnamed farm shop selling distinct produce better indicating as vending_machine
+   if (keyvalues["shop"] == "farm" ) and (keyvalues["name"] == nil) and keyvalues["produce"] then
+      keyvalues["amenity"] = "vending_machine"
+      keyvalues["vending"] = keyvalues["produce"]
+      keyvalues["shop"] = nil
+   end
+	
 end
 
 -- Filtering on relations
@@ -535,6 +591,8 @@ function filter_highway (keyvalues)
 		keyvalues['highway'] = 'residential'
 	elseif keyvalues['highway'] == 'road' then
 		keyvalues['highway'] = 'unclassified'
+	elseif keyvalues['highway'] == 'escape' then
+		keyvalues['highway'] = 'service'
 	end
 -- Demote narrow roads to give better visual indication of importance / traffic levels 
 	if keyvalues['lanes'] == 1 then
@@ -781,6 +839,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if keyvalues['man_made'] == 'sheepfold' then
 		keyvalues['barrier'] = nil
 	end
+	
+	if keyvalues['tourism'] == 'holiday_park' then
+		keyvalues['landuse'] = 'residential'
+	end
 
 	-- Consolidate name:left / right
 	-- Probably don't need this for walking map
@@ -797,12 +859,31 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if keyvalues['bridge'] then
 		keyvalues['bridge'] = 'yes'
 	end
-
-	if keyvalues['highway'] then
+	
+	-- In the absence of specific icons, at least render leisure=bandstand etc. as buildings
+	if (keyvalues['leisure'] == 'bandstand') or (keyvalues['animal'] == 'horse_walker') then
+		if (keyvalues['building'] == nil) and (keyvalues['disused:building'] ~= nil) then
+			keyvalues['building'] = 'yes'
+		end
+	end
+		
+	-- Consolidated highway = rest_area with roadside parking
+	if keyvalues['highway'] == 'rest_area' then
+		keyvalues['highway'] = nil
+		keyvalues['amenity'] = 'parking'
+	elseif keyvalues['highway'] then
 		filter, keyvalues = filter_highway(keyvalues)
 		if filter == 1 then
 			return filter, keyvalues, polygon, roads(keyvalues)
 		end
+	end
+	
+	if (keyvalues["man_made"] == "goods_conveyor") then
+		keyvalues["railway"] = "miniature"
+    end
+   
+	if keyvalues['natural'] == 'tree_group' then
+		keyvalues['natural'] = 'wood'
 	end
 
 -- Don't render railway bridges.
@@ -871,6 +952,16 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues["landuse"] = nil
 	end
 	
+	-- Treat narrow canal-like waterways as drain
+	if (keyvalues["waterway"] == "spillway") or (keyvalues["waterway"] == "fish_pass") or
+       ((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "spillway"))) then
+		keyvalues["waterway"] = "drain"
+	end
+	
+	if keyvalues['man_made'] == 'gasometer' then
+		keyvalues['building'] = 'industrial'
+	end
+
 	local natural = keyvalues['natural']
 	local wetland = keyvalues['wetland']
 	local tidal = keyvalues['tidal']
