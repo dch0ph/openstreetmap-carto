@@ -202,9 +202,15 @@ end
 
 local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
 local known_rentals = { 'car_rental', 'bicycle_rental' }
+local tradeshop_tags = { 'builders_merchant', 'plumbers_merchant', 'building_materials' }
+local sportshop_tags = { 'scuba_diving', 'water_sports', 'fishing' }
 local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit', 'mine_level', 'mine_adit' }
+local promotetocraft_tags = { 'tailor', 'computer_repair', 'photo_studio', 'shoe_repair' }
 local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doctors', 'dentist', 'veterinary'}
 local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
+local communitycentre_tags = { 'village_hall', 'social_centre', 'scout_hut' }
+local ford_tags = { 'stream', 'intermittent', 'tidal', 'seasonal' }
+ 
  
 --- If tagged with disused, turn into 'historic=yes'
 
@@ -216,6 +222,10 @@ function filter_tags_generic(tags)
     if next(tags) == nil then
         return 1, {}
     end
+
+	if (tags['opening_hours'] == 'closed') and (tags['amenity'] or tags['shop']) then
+		return 1, {}
+	end
 
     -- Delete tags listed in delete_tags
     for _, d in ipairs(delete_tags) do
@@ -270,6 +280,10 @@ function filter_tags_generic(tags)
         return 1, {}
     end
 	
+	if is_in(tags['ford'], ford_tags) then
+		tags['ford'] = 'yes'
+	end
+
 	-- Normalise to disused:man_made but abandoned:landuse
 	if tags['abandoned:man_made'] then
 		tags['disused:man_made'] = tags['abandoned:man_made']
@@ -311,8 +325,12 @@ function filter_tags_generic(tags)
 	end
 	
 	-- Possibly useful more generally, but common for fuel
-	if (tags['amenity'] == 'fuel') and (tags['name'] == nil) then
-		tags['name'] = tags['brand']
+	if ((tags['amenity'] == 'fuel') or tags['shop']) and (tags['name'] == nil) then
+		if tags['brand'] then
+			tags['name'] = tags['brand']
+		else
+			tags['name'] = tags['operator']
+		end
 	end
 	
 	if tags['landuse'] == 'farmland' then
@@ -354,7 +372,7 @@ function filter_tags_generic(tags)
 	if tags['leisure'] == 'sports_hall' then
 		tags['leisure'] = 'sports_centre'
 	end
-
+	
     -- Convert layer to an integer
     tags['layer'] = layer(tags['layer'])
 
@@ -410,15 +428,31 @@ function filter_tags_generic(tags)
 			tags['amenity'] = nil
 		end
 	end
+	-- Render scout buildings as community centre
+	if (tags['club'] == 'scout') and tags['building'] then
+		tags['amenity'] = 'community_centre'
+		tags['club'] = nil
+	end
+	
+	if is_in(tags['amenity'], communitycentre_tags) then
+		tags['amenity'] = 'community_centre'
+	elseif tags['amenity'] == 'social_club' then
+		tags['club'] = 'social'
+		tags['amenity'] = nil
+	end
+	
+	if tags['leisure'] == 'social_club' then
+		tags['club'] = 'social'
+		tags['leisure'] = nil
+	end
 	
 	if (tags["railway"] == "platform") and tags["ref"] then
 		tags["name"] = "Platform " .. tags["ref"]
         tags["ref"]  = nil
     end
 
-	-- Remove double tagging for known rental types
-	if (tags["shop"] == "rental") and is_in(tags["amenity"], known_rentals) then
-		tags["shop"] = nil
+	if (tags['aeroway'] == 'aerodrome') and tags['name'] and tags['iata'] then
+        tags["name"] = tags["name"] .. " (" .. tags["iata"] .. ")"
 	end
 	
 	-- Convert incorrect beer gardens into outdoor_seating
@@ -431,14 +465,44 @@ function filter_tags_generic(tags)
 		tags['amenity'] = nil
 		tags['healthcare'] = 'hospice'
 	end
+	
 		
 	-- As craft is now rendered, prioritise craft over shop when they duplicate
 	if tags['craft'] and (tags['craft'] == tags['shop']) then
 		tags['shop'] = nil
+	elseif (tags['craft'] == nil) and is_in(tags['shop'], promotetocraft_tags) then
+		tags['craft'] = tags['shop']
+		tags['shop'] = nil
 	end
 	
-	if tags['shop'] == 'car;car_repair' then
-		tags['shop'] = 'car'
+	if tags['shop'] then
+		if tags['shop'] == 'car;car_repair' then
+			tags['shop'] = 'car'
+		elseif tags['shop'] == 'appliance' then
+			tags['shop'] = 'electronics'
+		elseif tags['shop'] == 'wedding' then
+			tags['shop'] = 'clothes'
+			tags['clothes'] = 'bridal'
+		elseif is_in(tags['shop'], tradeshop_tags) then
+			tags['shop'] = 'trade'
+		elseif is_in(tags['shop'], sportshop_tags) then
+			tags['shop'] = 'sports'		
+		-- Remove double tagging for known rental types
+		elseif (tags["shop"] == "rental") and is_in(tags["amenity"], known_rentals) then
+			tags["shop"] = nil
+		elseif tags['shop'] == 'chair' then
+			tags['shop'] = 'furniture'
+		elseif tags['shop'] == 'decorating' then
+			tags['shop'] = 'paint'
+		elseif tags['shop'] == 'flooring' then
+			tags['shop'] = 'carpet'
+		elseif tags['shop'] == 'car_accessories' then
+			tags['shop'] = 'car_parts'
+		elseif (tags['shop'] == 'pet_supplies') or (tags['shop'] == 'pet_food') then
+			tags['shop'] = 'pet'
+		elseif (tags['shop'] == 'curtains') or (tags['shop'] == 'linen') then
+			tags['shop'] = 'fabric'
+		end
 	end
 	
 	-- Normalise swimming pools. Outdoor pools rendered as water areas
@@ -524,8 +588,17 @@ function filter_tags_node (keyvalues, numberofkeys)
 		end
 	end
 	
+	if (keyvalues['man_made'] == 'water_tap') and (keyvalues['drinking_water'] == 'yes') and (tags['amenity'] == nil) then
+		keyvalues['amenity'] = 'drinking_water'
+	end
+		
     if keyvalues["highway"] == "passing_place" then
 		keyvalues["highway"] = "turning_circle"
+	end
+	
+	-- Suppress the dubious natural=hill tag
+	if keyvalues["natural"] == "hill" then
+		keyvalues["natural"] = "peak"
 	end
 	
 -- Best efforts at updating pipeline marker tagging (post vs plate has no impact on rendering)
@@ -544,7 +617,13 @@ function filter_tags_node (keyvalues, numberofkeys)
       keyvalues["vending"] = keyvalues["produce"]
       keyvalues["shop"] = nil
    end
-	
+   
+    -- Render memorial benches as benches not memorials
+    if keyvalues["memorial"] == "bench" then
+		keyvalues['amenity'] = 'bench'
+		keyvalues['historic'] = nil
+	end
+ 	
 end
 
 -- Filtering on relations
@@ -823,6 +902,7 @@ end
 
 local religionbuilding_tags = { 'church', 'mosque' }
 local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
+local gate_tags = { 'wicket_gate', 'hampshire_gate', 'lych_gate' }
 
 -- Filtering on ways
 function filter_tags_way (keyvalues, numberofkeys)
@@ -946,6 +1026,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['barrier'] = 'ruins'
 	end 
 	
+	if keyvalues['barrier'] == 'jersey_barrier' then
+		keyvalues['barrier'] = 'wall'
+	end
+	
 	-- Turn flowerbeds into gardens
 	if keyvalues["landuse"] == "flowerbed" then
 		keyvalues["leisure"] = "garden"
@@ -961,7 +1045,16 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if keyvalues['man_made'] == 'gasometer' then
 		keyvalues['building'] = 'industrial'
 	end
-
+	
+	-- render barrier=ditch as intermittent waterway=ditch
+    if keyvalues["barrier"] == "ditch" then
+       keyvalues["waterway"] = "ditch"
+	   keyvalues["intermittent"] = "yes"
+       keyvalues["barrier"] = nil
+    elseif is_in(keyvalues["barrier"], gate_tags) then
+		keyvalues["barrier"] = "gate"
+	end
+	
 	local natural = keyvalues['natural']
 	local wetland = keyvalues['wetland']
 	local tidal = keyvalues['tidal']
