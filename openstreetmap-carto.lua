@@ -817,9 +817,11 @@ function filter_highway (keyvalues)
 		keyvalues['sidewalk'] = nil
 	-- Kill off footway and treat as minor service road if decent surface present or path if not
 	-- Where possible, highway=footway will be promoted to highway=pedestrian
+	-- But add service = driveway so that rendering can be narrower
 	elseif keyvalues['highway'] == 'footway' then
 		if keyvalues['tracktype'] == 'grade1' then
 			keyvalues['highway'] = 'pedestrian'
+			keyvalues['service'] = 'driveway'
 	-- For pedestrian routes, ignore shared cycleway
 			keyvalues['bicycle'] = nil
 		else
