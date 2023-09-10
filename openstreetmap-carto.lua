@@ -736,6 +736,9 @@ function filter_highway (keyvalues)
 			keyvalues['covered'] = 'yes'
 		end
 	end
+	if keyvalues['indoor'] == 'yes' then
+		keyvalues['covered'] = 'yes'
+	end
 	
 	local surface = keyvalues['surface']
 	if surface then
@@ -1038,10 +1041,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues["landuse"] = nil
 	end
 	
-	-- Treat narrow canal-like waterways as drain
+	-- Treat narrow canal-like waterways as stream
 	if (keyvalues["waterway"] == "spillway") or (keyvalues["waterway"] == "fish_pass") or
-       ((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "spillway"))) then
-		keyvalues["waterway"] = "drain"
+       ((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "tailrace") or (keyvalues["usage"] == "spillway"))) then
+		keyvalues["waterway"] = "stream"
 	end
 	
 	if keyvalues['man_made'] == 'gasometer' then
