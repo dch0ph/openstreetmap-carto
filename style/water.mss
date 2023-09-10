@@ -1,6 +1,6 @@
 @water-text: @water-line-color;
 // Darken rivers and streams
-@water-smooth: 0.4;
+@water-smooth: 0.3;
 @glacier: #ddecec;
 @glacier-line: #9cf;
 
