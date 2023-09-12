@@ -1505,6 +1505,7 @@
   [feature = 'natural_peak'][zoom >= 13] {
     marker-file: url('symbols/natural/peak.svg');
     marker-fill: @landform-color;
+	[survey_point = 'yes'] { marker-fill: @amenity-blue; }
     marker-clip: false;
   }
 
@@ -2055,7 +2056,8 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: darken(@landform-color, 30%);
-	[feature = 'man_made_survey_point'] { text-fill: @amenity-blue; }
+	[feature = 'man_made_survey_point'],
+	[feature = 'natural_peak'][survey_point = 'yes'] { text-fill: @amenity-blue; }
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;

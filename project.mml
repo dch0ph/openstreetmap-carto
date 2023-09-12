@@ -1800,6 +1800,7 @@ Layer:
               historic,
               tags->'location' as location,
               tags->'indoor' as indoor,
+              tags->'survey_point' as survey_point,
               tags->'icao' as icao,
               tags->'iata' as iata,
               tags->'office' as office,

@@ -73,7 +73,7 @@ class Table:
     def add_way_area(self):
         with self._conn.cursor() as cur:
             cur.execute('''ALTER TABLE "{temp_schema}"."{name}" ADD COLUMN way_area double precision;'''
-                        '''UPDATE "{temp_schema}"."{name}" SET way_area=CASE WHEN ST_IsClosed(way) THEN ST_Area(ST_MakePolygon(way)) ELSE 0 END;'''
+                        '''UPDATE "{temp_schema}"."{name}" SET way_area=CASE WHEN ST_IsClosed(way) AND (ST_NPoints(way) > 3) THEN ST_Area(ST_MakePolygon(way)) ELSE 0 END;'''
                         .format(name=self._name, temp_schema=self._temp_schema))
             self._conn.commit()
 

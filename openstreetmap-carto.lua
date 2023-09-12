@@ -543,8 +543,16 @@ function filter_tags_node (keyvalues, numberofkeys)
         return 1, keyvalues
     end
 
--- Suppress cairn if coincides with peak
-	if (keyvalues['natural'] == 'peak') and (keyvalues['man_made'] == 'cairn') then
+	-- Suppress the dubious natural=hill tag
+	if keyvalues["natural"] == "hill" then
+		keyvalues["natural"] = "peak"
+	end
+
+-- Suppress cairn / survey_point etc. if coincides with peak
+	if (keyvalues['natural'] == 'peak') and keyvalues['man_made'] then
+		if keyvalues['man_made'] == 'survey_point' then
+			keyvalues['survey_point'] = 'yes'
+		end
 		keyvalues['man_made'] = nil
 	end
 	
@@ -588,19 +596,14 @@ function filter_tags_node (keyvalues, numberofkeys)
 		end
 	end
 	
-	if (keyvalues['man_made'] == 'water_tap') and (keyvalues['drinking_water'] == 'yes') and (tags['amenity'] == nil) then
+	if (keyvalues['man_made'] == 'water_tap') and (keyvalues['drinking_water'] == 'yes') and (keyvalues['amenity'] == nil) then
 		keyvalues['amenity'] = 'drinking_water'
 	end
 		
     if keyvalues["highway"] == "passing_place" then
 		keyvalues["highway"] = "turning_circle"
 	end
-	
-	-- Suppress the dubious natural=hill tag
-	if keyvalues["natural"] == "hill" then
-		keyvalues["natural"] = "peak"
-	end
-	
+		
 -- Best efforts at updating pipeline marker tagging (post vs plate has no impact on rendering)
 	if (keyvalues['pipeline'] == 'marker') and keyvalues['substance'] then
 		if (keyvalues['support'] == 'wall_mounted') or (keyvalues['support'] == 'ground') then
