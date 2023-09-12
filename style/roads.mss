@@ -67,7 +67,7 @@
 @cycleway-fill: blue;
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
 @cycleway-fill-noaccess: #9999ff;
-@bridleway-fill: limegreen;
+@bridleway-fill: darken(limegreen, 5%);
 @BOAT-fill: purple;
 //@bridleway-fill-noaccess: lighten(@bridleway-fill, 30%);
 //@track-fill: #996600;
@@ -216,9 +216,8 @@
 @major-access-width-z14:		  2;
 // Value below not used as don't show highway=service with access restrictions below Z15
 //@minor-access-width-z14:		  1.2;
-@cycleway-width-z14:              0.9;
+@cycleway-width-z14:              1;
 
-// bump down at z15
 @motorway-width-z15:             7;
 @motorway-link-width-z15:         5.5;
 @trunk-width-z15:                @motorway-width-z15;
@@ -1430,7 +1429,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom >= 14] {
         #roads-fill {
           background/line-color: @cycleway-casing;
-          background/line-opacity: 0.5;
+          background/line-opacity: 0.6;
         }
 			line/line-color: @path-fill;
 			[feature = 'highway_path'] {
