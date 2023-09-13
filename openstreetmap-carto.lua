@@ -548,6 +548,11 @@ function filter_tags_node (keyvalues, numberofkeys)
 		keyvalues["natural"] = "peak"
 	end
 
+	-- Render jersey barrier as block if node
+	if keyvalues['barrier'] == 'jersey_barrier' then
+		keyvalues['barrier'] = 'wall'
+	end
+
 -- Suppress cairn / survey_point etc. if coincides with peak
 	if (keyvalues['natural'] == 'peak') and keyvalues['man_made'] then
 		if keyvalues['man_made'] == 'survey_point' then
