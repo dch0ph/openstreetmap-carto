@@ -916,12 +916,12 @@
     }*/
   }
   /* More usefully covered by contours and/or naming */
-  [natural = 'ridge'][zoom >= 15] {
+//  [natural = 'ridge'][zoom >= 15] {
 //    line-pattern-file: url('symbols/ridge-mid.svg');
-    [zoom >= 15] {
-      line-pattern-file: url('symbols/ridge2.svg');
-    }
-  }
+//    [zoom >= 15] {
+//      line-pattern-file: url('symbols/ridge2.svg');
+//    }
+//  }
   [natural = 'arete'][zoom >= 14] {
 	line/line-width: 0.7;
 	marker-file: url('symbols/sidetriangles.svg');
