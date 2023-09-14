@@ -1043,7 +1043,7 @@
     text-size: 8;
     text-face-name: @book-fonts;
     text-placement: line;
-    text-dy: 6;
+    [feature != 'natural_ridge'] { text-dy: 6; }
     text-vertical-alignment: middle;
     text-spacing: 400;
   }
