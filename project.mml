@@ -653,7 +653,7 @@ Layer:
         ) AS cliffs
     properties:
       cache-features: true
-      minzoom: 13
+      minzoom: 14
   - id: ferry-routes
     geometry: linestring
     <<: *extents

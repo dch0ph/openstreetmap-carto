@@ -901,7 +901,7 @@
 }
 
 #cliffs {
-  [natural = 'cliff'][zoom >= 13] {
+  [natural = 'cliff'][zoom >= 14] {
 	line/line-width: 0.7;
 	marker-file: url('symbols/sidetriangle.svg');
 	marker-placement: line;
