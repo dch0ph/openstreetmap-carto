@@ -1696,10 +1696,11 @@ Layer:
                     CASE
                       WHEN (tags ? 'height') AND tags->'height' ~ '^\d{1,3}(\.\d+)?$'
                         AND waterway = 'waterfall'
-                      THEN CONCAT(ROUND((tags->'height')::NUMERIC)::TEXT, U&'\00A0', 'm') END
+                      THEN CONCAT('(', ROUND((tags->'height')::NUMERIC)::TEXT, U&'\00A0', 'm)') END
                     )
                   )
                 END AS name,
+              name AS origname,
               tags->'parking' as "parking",
               COALESCE(
                 'aeroway_' || CASE WHEN aeroway IN ('gate', 'apron', 'helipad', 'aerodrome') THEN aeroway END,
@@ -1731,7 +1732,7 @@ Layer:
                                                     'outdoor_seating', 'park', 'picnic_table', 'pitch', 'playground',
                                                     'sauna', 'slipway', 'sports_centre', 'stadium', 'swimming_area', 'swimming_pool', 'track', 'water_park') THEN leisure END,
                 'power_' || CASE WHEN power IN ('plant', 'generator', 'substation') THEN power END,
-                'man_made_' || CASE WHEN (man_made IN ('chimney', 'communications_tower', 'crane', 'lighthouse', 'mast', 'mineshaft', 'obelisk', 'silo', 'storage_tank', 'survey_point', 'cairn', 'sheepfold',
+                'man_made_' || CASE WHEN (man_made IN ('chimney', 'communications_tower', 'crane', 'lighthouse', 'mast', 'mineshaft', 'obelisk', 'silo', 'storage_tank', 'survey_point', 'sheepfold',
                                                        'telescope', 'tower', 'wastewater_plant', 'water_tower', 'water_works', 'windmill', 'works')
                                             AND (tags->'location' NOT IN ('roof', 'rooftop') OR NOT (tags ? 'location'))) THEN man_made END,
                 'landuse_' || CASE WHEN landuse IN ('reservoir', 'basin', 'recreation_ground', 'village_green', 'quarry', 'vineyard', 'orchard', 'cemetery',
@@ -2454,7 +2455,7 @@ Layer:
               'railway_' || CASE WHEN railway IN ('level_crossing', 'crossing') AND way_area IS NULL THEN railway END,
               'amenity_' || CASE WHEN amenity IN ('bench', 'waste_basket', 'waste_disposal') AND way_area IS NULL THEN amenity END,
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
-              'man_made_' || CASE WHEN man_made IN ('cross') AND way_area IS NULL THEN man_made END,
+              'man_made_' || CASE WHEN man_made IN ('cross', 'cairn') AND way_area IS NULL THEN man_made END,
               'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
               'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate', 'pedestal') AND way_area IS NULL THEN 'pipeline' END
             )  AS feature,

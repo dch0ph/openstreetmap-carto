@@ -1652,6 +1652,13 @@
     marker-clip: false;
 	marker-width: 8; // only 5 px wide
   }
+  
+  [feature = 'man_made_cairn'][zoom >= 14] {
+    marker-file: url('symbols/natural/peak.svg');
+	marker-line-color: black;
+    marker-clip: false;
+	marker-width: 6;
+  }
 
   [feature = 'historic_wayside_shrine'][zoom >= 17] {
     marker-file: url('symbols/historic/shrine.svg');
@@ -2057,7 +2064,6 @@
     text-line-spacing: @standard-line-spacing-size;
     text-fill: darken(@landform-color, 30%);
 	[feature = 'man_made_survey_point'],
-	[feature = 'natural_peak'][survey_point = 'yes'] { text-fill: @amenity-blue; }
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
@@ -2094,10 +2100,9 @@
 	[offset = 'yes'] { marker-transform: translate(7,0); }
   }
 
-  [feature = 'waterway_waterfall'] {
+  [feature = 'waterway_waterfall'][origname != null] {
     [zoom >= 13][height > 20],
     [zoom >= 14][height > 10],
-    [zoom >= 15][name != null],
     [zoom >= 16] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2105,6 +2110,7 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @water-text;
       text-dy: 10;
+	  [zoom < 16] { text-name: "[origname]"; }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
