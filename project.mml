@@ -36,11 +36,11 @@ maxzoom: 22
 srs: *srs
 
 Stylesheet:
-# style.mss has only limited effects (halo around text?)
+# style.mss has only limited effects (e.g. halo around text)
   - style/style.mss
 # font.mss only sets typefaces to be used
   - style/fonts-GilliusNo1.mss
-# Relate to externally loaded shapefiles (e.g. oceans)
+# Externally loaded shapefiles (e.g. oceans)
   - style/shapefiles.mss
 # land cover, barrier?, cliffs etc., plus gridlines
   - style/landcover.mss
@@ -50,7 +50,6 @@ Stylesheet:
   - style/water-features.mss
 # Auto-generated road colours. Could use more UK colours
 #  - style/road-colors-generated.mss
-# Important one!
   - style/roads.mss
 # Power lines
   - style/power.mss
@@ -191,7 +190,8 @@ Layer:
             way,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
             sub_type,
-            CASE WHEN prop_value::int % 50 = 0 THEN 'yes' ELSE 'no' END is_major
+            CASE WHEN prop_value::int % 50 = 0 THEN 'yes' ELSE 'no' END is_major,
+            CASE WHEN prop_value::int % 20 = 0 THEN 'yes' ELSE 'no' END is_20
           FROM terrain50_contours
           WHERE feat_type != 'LandWaterBoundary'
         ) AS landcontours
@@ -436,6 +436,7 @@ Layer:
         ) AS piers_line
     properties:
       minzoom: 12
+# Note that point barriers allow overlap and are not cached
   - id: water-barriers-point
     geometry: point
     <<: *extents

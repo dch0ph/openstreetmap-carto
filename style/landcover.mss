@@ -1071,7 +1071,7 @@
 
 #landcontours {
   [way_pixels = 0], [way_pixels > @contour-cutoff]  {
-	[is_major = 'yes'], [zoom >= 13] {
+	[is_20 = 'yes'], [zoom >= 13] {
 	  line-width: @contours-width;
 	  [zoom = 11] { line-width: @contours-width-z11; }
 	  [zoom = 12] { line-width: @contours-width-z12; }
