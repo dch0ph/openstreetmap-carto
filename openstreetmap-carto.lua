@@ -467,10 +467,10 @@ function filter_tags_generic(tags)
 	end
 	
 		
-	-- As craft is now rendered, prioritise craft over shop when they duplicate
-	if tags['craft'] and (tags['craft'] == tags['shop']) then
+	-- As craft is now rendered, prioritise craft over shop 
+	if tags['craft'] then
 		tags['shop'] = nil
-	elseif (tags['craft'] == nil) and is_in(tags['shop'], promotetocraft_tags) then
+	elseif is_in(tags['shop'], promotetocraft_tags) then
 		tags['craft'] = tags['shop']
 		tags['shop'] = nil
 	end

@@ -940,6 +940,7 @@
 	[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
 	[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
     [craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
+    [craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
     [craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
     [craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
     marker-clip: false;
