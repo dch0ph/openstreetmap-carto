@@ -2229,7 +2229,7 @@ Layer:
       table: |-
         (SELECT
           way,
-            NULL as way_pixels,
+            ST_Length(way)/NULLIF(!scale_denominator!*0.001*0.28,0) AS way_pixels,
             COALESCE('aerialway_' || aerialway, 'attraction_' || CASE WHEN tags @> 'attraction=>water_slide' THEN 'water_slide' END, 'leisure_' || leisure, 'man_made_' || man_made, 'waterway_' || waterway, 'natural_' || "natural", 'golf_' || (tags->'golf')) AS feature,
             access,
             name,
@@ -2246,12 +2246,12 @@ Layer:
               OR aerialway IN ('cable_car', 'gondola', 'mixed_lift', 'goods', 'chair_lift', 'drag_lift', 't-bar', 'j-bar', 'platter', 'rope_tow', 'zip_line')
               OR leisure IN ('slipway', 'track')
               OR waterway IN ('dam', 'weir')
-              OR "natural" IN ('arete', 'cliff', 'ridge'))
+              OR "natural" IN ('arete', 'cliff', 'ridge', 'valley'))
             AND name IS NOT NULL)
             OR (tags @> 'golf=>hole' AND ref IS NOT NULL)
         ) AS text_line
     properties:
-      minzoom: 10
+      minzoom: 11
   - id: text-point
     geometry: point
     <<: *extents

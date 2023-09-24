@@ -3814,6 +3814,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  symbol/marker-file: url('symbols/lozenge.svg');
 	  symbol/marker-placement: line;
 	  [zoom >= 15] { symbol/marker-width: 8; } 
+	  symbol/marker-ignore-placement: true;
+
       text-name: "[name]";
       text-fill: @wn-fill;
 	  text-wrap-width: 80;

@@ -23,6 +23,7 @@
 @advertising-grey: @man-made-icon;
 @barrier-icon: #3f3f3f;
 @landform-color: #d08f55;
+@landform-color-text: darken(@landform-color, 30%);
 @leisure-green: darken(@park, 60%);
 //@protected-area: #008000;
 @protected-area: @amenity-brown;
@@ -2061,7 +2062,7 @@
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
-    text-fill: darken(@landform-color, 30%);
+    text-fill: @landform-color-text;
 	[feature = 'man_made_survey_point'],
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }

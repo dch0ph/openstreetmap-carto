@@ -1035,6 +1035,17 @@
 }
 
 #text-line {
+  [feature = 'natural_valley'][zoom < 13] {
+    text-name: "[name]";
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+    text-size: 10;
+	[way_pixels > 200] { text-size: 13; }
+    text-face-name: @oblique-fonts;
+    text-placement: line;
+	text-fill: @landform-color-text;
+    text-vertical-alignment: middle;
+  }
   [feature = 'natural_arete'][zoom >= 14],
   [feature = 'natural_cliff'][zoom >= 14],
   [feature = 'natural_ridge'][zoom >= 14],
@@ -1042,7 +1053,7 @@
     text-name: "[name]";
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    text-fill: #999;
+    text-fill: #aaa;
     text-size: 8;
     text-face-name: @book-fonts;
     text-placement: line;
@@ -1067,7 +1078,7 @@
 @contours-width-z11: 0.25;
 @contours-width-z12: 0.4;
 @contours-opacity: 0.7;
-@contours-opacity-z11: 0.5;
+@contours-opacity-z11: 0.7;
 
 #landcontours {
   [way_pixels = 0], [way_pixels > @contour-cutoff]  {
