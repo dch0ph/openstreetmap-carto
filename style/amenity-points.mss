@@ -48,7 +48,6 @@
 
 @standard-font: @book-fonts;
 
-// shrink from 10
 @standard-font-size: 10;
 @standard-wrap-width: 40; // 4 em
 @standard-line-spacing-size: -1.5; // -0.15 em
@@ -1562,7 +1561,7 @@
   [feature = 'waterway_waterfall'][zoom >= 13] {
     [zoom >= 13][height > 20],
     [zoom >= 14][height > 10],
-    [zoom >= 14][name != null],
+    [zoom >= 15][origname != null],
     [zoom >= 16] {
       marker-file: url('symbols/natural/waterfall.svg');
       marker-clip: false;
@@ -2110,10 +2109,16 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @water-text;
       text-dy: 10;
-	  [zoom < 16] { text-name: "[origname]"; }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
+	  [zoom < 16] {
+		text-name: "[origname]";
+		text-size: @small-font-size;
+		text-line-spacing: @small-line-spacing-size;
+        text-wrap-width: @small-wrap-width;
+        text-dy: 8;
+	  }
     }
   }
 

@@ -908,6 +908,7 @@
 	marker-spacing: 7;
 	marker-offset: 1.5;
 	marker-allow-overlap: true;
+	marker-ignore-placement: true;
 /*    line-pattern-file: url('symbols/cliff.svg');
 	[zoom = 14] { line-pattern-file: url('symbols-otm/cliff_z14.png'); }
 	[zoom = 14] { line-pattern-file: url('symbols/cliff-compact.svg'); }
@@ -928,6 +929,7 @@
 	marker-placement: line;
 	marker-spacing: 10;
 	marker-allow-overlap: true;
+	marker-ignore-placement: true;
 /*    line-pattern-file: url('symbols/arete-mid.svg');
     [zoom >= 15] {
       line-pattern-file: url('symbols/arete2.svg');
@@ -958,6 +960,7 @@
 	marker-transform: translate(0,-0.8); 
 	marker-offset: 1.5;
 	marker-allow-overlap: true;
+	marker-ignore-placement: true;
   }
   [feature = 'barrier_hedge'][zoom >= 14] {
 	line-width: @hedge-width-z14;
@@ -1106,7 +1109,7 @@
   text-fill: @contours-text;
   text-halo-fill: @standard-halo-fill;
   text-halo-radius: @standard-halo-radius;
-  text-spacing: 600;
+  text-spacing: 400;
   [zoom < 15] { text-size: 7; }
   text-size: 8;
   }
