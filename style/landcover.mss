@@ -1057,9 +1057,15 @@
     text-size: 8;
     text-face-name: @book-fonts;
     text-placement: line;
-    [feature != 'natural_ridge'] { text-dy: 6; }
+    [feature != 'natural_ridge'] {
+		text-dy: 6;
+		text-spacing: 400;
+	}
+	[feature = 'natural_ridge'] {
+		text-face-name: @oblique-fonts;
+		text-fill: @landform-color-text;
+	}
     text-vertical-alignment: middle;
-    text-spacing: 400;
   }
 }
 
