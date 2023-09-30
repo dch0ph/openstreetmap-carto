@@ -1770,6 +1770,12 @@
 	[zoom >= 17][offset = 'yes'] { marker-transform: translate(12,0); }  
   }
 
+[feature = 'amenity_route_marker'][zoom >= 17]::amenity {
+    marker-file: url('symbols/tourism/route_marker.svg');
+    marker-fill: @man-made-icon;
+    marker-clip: false;
+}
+
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
     marker-file: url('symbols/amenity/waste_basket.svg');
     marker-fill: @man-made-icon;

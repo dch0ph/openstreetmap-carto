@@ -407,6 +407,10 @@ function filter_tags_generic(tags)
 	elseif tags['building'] and ((tags['ruined'] == 'yes') or (tags['ruins'] == 'yes') or (tags['historic'] == 'ruins')) then
 		tags['building'] = 'ruins'
 	end
+	-- Kill off tagging to make ruins buildings show up as walls
+	if (tags['buildings'] == 'ruins') and (tags['barrier'] == 'wall') then
+		tags['barrier'] = nil
+	end
 	
 	-- Create place=farm if farmyard is named. Creates a higher priority (and uniform) label for farms
 	if (tags['landuse'] == 'farmyard') and (tags['name'] ~= nil) then
