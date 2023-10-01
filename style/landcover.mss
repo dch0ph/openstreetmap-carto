@@ -19,6 +19,7 @@
 @contour-cutoff: 50;    // minimum number of pixels to display contour
 @water-line-color: lighten(#4d80b3, 5%); // Also used for high/low water contours
 @dark-water-color: darken(#4d80b3, 5%); // Water features e.g. waterfalls 
+@cliff-color: #333;
 
 // --- "Base" landuses ---
 
@@ -389,6 +390,8 @@
   [feature = 'landuse_meadow'],
   [feature = 'landuse_pasture'] {
     polygon-fill: @meadow;
+	[feature = 'landuse_pasture'][pasture = 'rough'],
+	[feature = 'natural_grassland'] { polygon-fill: @scrub; }
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
 	[feature != 'natural_grassland'][zoom >= 15] {
@@ -903,7 +906,9 @@
 #cliffs {
   [natural = 'cliff'][zoom >= 14] {
 	line/line-width: 0.7;
+	line/line-color: @cliff-color;
 	marker-file: url('symbols/sidetriangle.svg');
+	marker-fill: @cliff-color;
 	marker-placement: line;
 	marker-spacing: 7;
 	marker-offset: 1.5;
@@ -1053,12 +1058,13 @@
     text-name: "[name]";
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    text-fill: #aaa;
-    text-size: 8;
+    text-fill: @cliff-color;
+    text-size: @small-font-size;
+	[zoom >= 16] { text-size: @standard-font-size; }
     text-face-name: @book-fonts;
     text-placement: line;
     [feature != 'natural_ridge'] {
-		text-dy: 6;
+		text-dy: 8;
 		text-spacing: 400;
 	}
 	[feature = 'natural_ridge'] {

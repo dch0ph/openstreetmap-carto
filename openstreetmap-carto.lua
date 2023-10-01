@@ -352,6 +352,9 @@ function filter_tags_generic(tags)
 	if (tags['landuse'] == 'meadow') and (tags['meadow'] == 'pasture') then
 	-- Fake new landuse to distinguish animal grazing
 		tags['landuse'] = 'pasture'
+		if tags['pasture'] == 'unimproved' then
+			tags['pasture'] = 'rough'
+		end
 	end
 	if (tags['natural'] == 'wood') and (tags['leaf_type'] == 'needleleaved') then
 		tags['natural'] = nil
@@ -636,6 +639,11 @@ function filter_tags_node (keyvalues, numberofkeys)
 		keyvalues['historic'] = nil
 	end
  	
+	-- Kill off details like route markers on stiles etc. in favour of rendering barrier
+	if keyvalues['barrier'] and (keyvalues['tourism'] == 'information') then
+		keyvalues['tourism'] = nil
+		keyvalues['information'] = nil
+	end
 end
 
 -- Filtering on relations

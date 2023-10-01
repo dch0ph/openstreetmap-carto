@@ -1656,7 +1656,7 @@
   
   [feature = 'man_made_cairn'][zoom >= 14] {
     marker-file: url('symbols/natural/peak.svg');
-	marker-line-color: black;
+	marker-fill: black;
     marker-clip: false;
 	marker-width: 6;
   }
@@ -1770,7 +1770,7 @@
 	[zoom >= 17][offset = 'yes'] { marker-transform: translate(12,0); }  
   }
 
-[feature = 'amenity_route_marker'][zoom >= 17]::amenity {
+[feature = 'tourism_route_marker'][zoom >= 17]::amenity {
     marker-file: url('symbols/tourism/route_marker.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;

@@ -102,7 +102,7 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, name, historic, religion, way_pixels, is_building, wetland,
+            way, name, historic, religion, way_pixels, is_building, wetland, pasture,
             COALESCE(aeroway, golf, amenity, power, landuse, leisure, man_made, "natural", shop, tourism, highway, railway) AS feature
           FROM (SELECT
               way, COALESCE(name, '') AS name,
@@ -132,6 +132,7 @@ Layer:
               way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
               CASE WHEN building = 'no' OR building IS NULL THEN 'no' ELSE 'yes' END AS is_building,
               tags->'wetland' AS wetland,
+              tags->'pasture' AS pasture,
               way_area
             FROM planet_osm_polygon
             WHERE (landuse IS NOT NULL
@@ -2455,7 +2456,7 @@ Layer:
             COALESCE(
               'railway_' || CASE WHEN railway IN ('level_crossing', 'crossing') AND way_area IS NULL THEN railway END,
               'amenity_' || CASE WHEN amenity IN ('bench', 'waste_basket', 'waste_disposal') AND way_area IS NULL THEN amenity END,
-              'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('route_marker') AND way_area IS NULL THEN tourism END,
+              'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('route_marker') AND way_area IS NULL THEN tags->'information' END,
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross', 'cairn') AND way_area IS NULL THEN man_made END,
               'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
