@@ -1654,9 +1654,9 @@
 	marker-width: 8; // only 5 px wide
   }
   
-  [feature = 'man_made_cairn'][zoom >= 14] {
+  [feature = 'man_made_cairn'][zoom >= 15] {
     marker-file: url('symbols/natural/peak.svg');
-	marker-fill: black;
+	marker-fill: @man-made-icon;
     marker-clip: false;
 	marker-width: 6;
   }
@@ -1758,6 +1758,12 @@
     }
   }
 
+[feature = 'tourism_route_marker'][zoom >= 17]::tourism {
+    marker-file: url('symbols/tourism/route_marker.svg');
+    marker-fill: @man-made-icon;
+    marker-clip: false;
+}
+
  [feature = 'amenity_bench'][zoom >= 15]::amenity {
     marker-file: url('symbols/bench-compact.svg');
 	[zoom < 16] { marker-width: 4; }
@@ -1769,12 +1775,6 @@
     [int_access = 'restricted'] { marker-opacity: @private-opacity; }
 	[zoom >= 17][offset = 'yes'] { marker-transform: translate(12,0); }  
   }
-
-[feature = 'tourism_route_marker'][zoom >= 17]::amenity {
-    marker-file: url('symbols/tourism/route_marker.svg');
-    marker-fill: @man-made-icon;
-    marker-clip: false;
-}
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
     marker-file: url('symbols/amenity/waste_basket.svg');

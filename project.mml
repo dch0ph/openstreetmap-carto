@@ -2504,7 +2504,8 @@ Layer:
                OR amenity IN ('bench', 'waste_basket', 'waste_disposal')
                OR historic IN ('wayside_cross', 'wayside_shrine')
                OR (tags->'marker' IN ('post', 'plate', 'pedestal') AND tags->'utility' IS NOT NULL)
-               OR man_made IN ('cross')
+               OR man_made IN ('cross', 'cairn')
+               OR (tourism IN ('information') AND tags->'information' IN ('route_marker'))
                OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate')
             ORDER BY
               CASE amenity
