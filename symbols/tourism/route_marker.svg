@@ -1,4 +1,7 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="2.82mm" height="2.47mm" viewBox="0 0 8 7">
-  <path d="M1,.25A.72.72,0,0,0,.25,1V7h1.5V1A.72.72,0,0,0,1,.25Z"/>
-  <polygon points="2 2 2 5 6 5 8 3.5 6 2 2 2"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 8 7" style="enable-background:new 0 0 8 7;" xml:space="preserve">
+<path d="M0.2,0v7h1.5V0"/>
+<polygon points="2,1 2,6 6,6 8,3.5 6,1 "/>
 </svg>

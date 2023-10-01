@@ -3803,6 +3803,18 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 		symbol/marker-fill: green;
 		symbol/marker-line-color: green;
 	  }
+	  [colour = 'orange'] {
+		symbol/marker-fill: orange; 
+		symbol/marker-line-color: black;
+	  }
+	  [colour = 'purple'] {
+		symbol/marker-fill: purple;
+		symbol/marker-line-color: purple;
+	  }
+	  [colour = 'brown'] {
+		symbol/marker-fill: brown;
+		symbol/marker-line-color: brown;
+	  }
 	  [colour = 'red'] {
 		symbol/marker-fill: red;
 		symbol/marker-line-color: red;
@@ -3824,9 +3836,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  [colour = 'blue'] { text-fill: blue; }
 	  [colour = 'green'] { text-fill: green; }
 	  [colour = 'red'] { text-fill: red; }
-	  [colour = 'yellow'] {
-		text-fill: yellow;
-		text-halo-fill: #808080;
+	  [colour = 'orange'] { text-fill: orange; }
+	  [colour = 'purple'] { text-fill: purple; }
+	  [colour = 'brown'] { text-fill: brown; }
+	  [colour = 'yellow'] { text-fill: yellow; }
+	  [colour = 'yellow'],
+	  [colour = 'orange'] {
+		text-halo-fill: #606060;
 	  }
 	  text-size: 9;
       [highway = 'lwn'] { text-size: 7; }
