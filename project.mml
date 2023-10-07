@@ -77,14 +77,14 @@ Layer:
             COALESCE(landuse, "natural") AS feature
           FROM (SELECT
               way,
-              ('landuse_' || (CASE WHEN landuse IN ('forest', 'farmland', 'residential', 'commercial', 'retail', 'industrial',
+              ('landuse_' || (CASE WHEN landuse IN ('forest', 'farmland', 'residential', 'trailer_park', 'commercial', 'retail', 'industrial',
                                                     'meadow', 'pasture', 'grass', 'village_green', 'vineyard', 'orchard') THEN landuse END)) AS landuse,
               ('natural_' || (CASE WHEN "natural" IN ('wood', 'sand', 'scree', 'shingle', 'bare_rock', 'heath', 'grassland', 'scrub') THEN "natural" END)) AS "natural",
               ('wetland_' || (CASE WHEN "natural" IN ('wetland', 'mud') THEN (CASE WHEN "natural" IN ('mud') THEN "natural" ELSE tags->'wetland' END) END)) AS wetland,
               way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
               way_area
             FROM planet_osm_polygon
-            WHERE (landuse IN ('forest', 'farmland', 'residential', 'commercial', 'retail', 'industrial', 'meadow', 'pasture', 'grass', 'village_green', 'vineyard', 'orchard')
+            WHERE (landuse IN ('forest', 'farmland', 'residential', 'trailer_park', 'commercial', 'retail', 'industrial', 'meadow', 'pasture', 'grass', 'village_green', 'vineyard', 'orchard')
               OR "natural" IN ('wood', 'wetland', 'mud', 'sand', 'scree', 'shingle', 'bare_rock', 'heath', 'grassland', 'scrub'))
               AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
               AND building IS NULL
@@ -113,7 +113,7 @@ Layer:
                                                     'marketplace', 'community_centre', 'social_facility', 'arts_centre', 'parking_space', 'bus_station',
                                                     'fire_station', 'police')
                               OR amenity IN ('parking') AND (tags->'parking' NOT IN ('underground') OR (tags->'parking') IS NULL) THEN amenity END)) AS amenity,
-              ('landuse_' || (CASE WHEN landuse IN ('quarry', 'vineyard', 'orchard', 'cemetery', 'residential', 'garages', 'meadow', 'pasture', 'grass',
+              ('landuse_' || (CASE WHEN landuse IN ('quarry', 'vineyard', 'orchard', 'cemetery', 'residential', 'trailer_park', 'garages', 'meadow', 'pasture', 'grass',
                                                     'allotments', 'forest', 'farmyard', 'farmland', 'greenhouse_horticulture',
                                                     'recreation_ground', 'village_green', 'retail', 'industrial', 'railway', 'commercial',
                                                     'brownfield', 'landfill', 'salt_pond', 'construction', 'plant_nursery', 'religious') THEN landuse END)) AS landuse,
@@ -198,7 +198,7 @@ Layer:
         ) AS landcontours
     properties:
       minzoom: 11
-      maxzoom: 16
+      maxzoom: 17
   - id: water-lines-low-zoom
     geometry: linestring
     <<: *extents
@@ -614,7 +614,7 @@ Layer:
             way, COALESCE(historic, barrier) AS feature
           FROM
             (SELECT way,
-              ('barrier_' || (CASE WHEN barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruined',
+              ('barrier_' || (CASE WHEN barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
                     'handrail', 'hedge', 'retaining_wall', 'wall') THEN barrier END)) AS barrier,
               ('historic_' || (CASE WHEN historic = 'citywalls' THEN historic END)) AS historic
               FROM
@@ -634,7 +634,7 @@ Layer:
                   FROM planet_osm_line
                   WHERE way && !bbox!
                 ) _
-              WHERE barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruined',
+              WHERE barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
                   'handrail', 'hedge', 'retaining_wall', 'wall')
               OR historic = 'citywalls'
               AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'stream', 'drain', 'ditch'))
@@ -1738,7 +1738,7 @@ Layer:
                                                        'telescope', 'tower', 'wastewater_plant', 'water_tower', 'water_works', 'windmill', 'works')
                                             AND (tags->'location' NOT IN ('roof', 'rooftop') OR NOT (tags ? 'location'))) THEN man_made END,
                 'landuse_' || CASE WHEN landuse IN ('reservoir', 'basin', 'recreation_ground', 'village_green', 'quarry', 'vineyard', 'orchard', 'cemetery',
-                                                    'residential', 'garages', 'meadow', 'pasture', 'grass', 'allotments', 'forest', 'farmyard', 'farmland',
+                                                    'residential', 'trailer_park', 'garages', 'meadow', 'pasture', 'grass', 'allotments', 'forest', 'farmyard', 'farmland',
                                                     'greenhouse_horticulture', 'retail', 'industrial', 'railway', 'commercial', 'brownfield', 'landfill',
                                                     'construction', 'salt_pond', 'military', 'plant_nursery') THEN landuse END,
                 'natural_' || CASE WHEN "natural" IN ('peak', 'volcano', 'saddle', 'cave_entrance', 'sinkhole') AND way_area IS NULL THEN "natural" END,
@@ -2534,7 +2534,7 @@ Layer:
         ) AS contours_text50
     properties:
       minzoom: 14
-      maxzoom: 16
+      maxzoom: 17
   - id: text-annotation
     geometry: point
     <<: *extents

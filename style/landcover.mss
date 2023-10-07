@@ -67,6 +67,7 @@
 @bare_ground: #eee5dc;
 @rocky_ground: #d0d0d0; // base colour for rock features e.g. scree
 @campsite: #def6c0; // also caravan_site, picnic_site
+@campsite-line: saturate(darken(@campsite, 60%), 30%);
 @cemetery: #aacbaf; // also grave_yard
 @construction: #c7c7b4; // also brownfield
 @heath: #d6d99f;
@@ -132,7 +133,7 @@
     [zoom >= 10] {
       polygon-fill: @campsite;
       [zoom >= 13] {
-        line-color: saturate(darken(@campsite, 60%), 30%);
+        line-color: @campsite-line;
         line-width: 0.3;
       }
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
@@ -258,7 +259,8 @@
     line-opacity: 0.329;
   }
 
-  [feature = 'landuse_residential'][zoom >= 8] {
+  [feature = 'landuse_residential'][zoom >= 8],
+  [feature = 'landuse_trailer_park'][zoom >= 8] {
     polygon-fill: @built-up-lowzoom;
     [zoom >= 12] { polygon-fill: @built-up-z12; }
     [zoom >= 13] { polygon-fill: @residential; }
@@ -269,6 +271,13 @@
         line-width: 0.7;
       }
     }
+	[feature = 'landuse_trailer_park'][zoom >= 12] {
+      polygon-fill: @campsite;
+      [zoom >= 13] {
+        line-color: @campsite-line;
+        [zoom < 16] { line-width: 0.3; }
+      }
+	}
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }
@@ -949,7 +958,10 @@
 	line-width: 0.5;
     line-color: @barrier-color;
   [zoom >= 16] { line-width: 0.8; }
-  [feature = 'barrier_ruins'] { line-dasharray: 1,2; }
+  [feature = 'barrier_ruins'] {
+	line-dasharray: 1,2;
+	[zoom >= 17] { line-dasharray: 2,4; }
+  }
   [feature = 'barrier_fence'] { line-color: @fence-color; } 
   // barrier=ditch follows logic of wayerway=ditch, but with grey colour
   [feature = 'barrier_ditch'] {

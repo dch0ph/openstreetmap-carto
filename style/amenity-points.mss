@@ -2401,6 +2401,7 @@
   [feature = 'landuse_cemetery'],
   [feature = 'amenity_grave_yard'],
   [feature = 'landuse_residential'],
+  [feature = 'landuse_trailer_park'],
   [feature = 'landuse_meadow'],
   [feature = 'natural_grassland'],
   [feature = 'landuse_grass'],
@@ -2486,8 +2487,9 @@
         text-fill: darken(@cemetery, 50%);
         text-halo-radius: @standard-halo-radius * 1.5; /* extra halo needed to overpower the cemetery polygon pattern */
       }
-      [feature = 'landuse_residential'] {
-        text-fill: darken(@residential, 50%);
+      [feature = 'landuse_residential'],
+	  [feature = 'landuse_trailer_park'] {
+        text-fill: darken(@residential, 60%);
       }
       [feature = 'landuse_meadow'],
       [feature = 'natural_grassland'],
