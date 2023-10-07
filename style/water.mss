@@ -320,19 +320,19 @@
 //    }
 
 // Combined stream into drain and ditch, shrunk text slightly
-    [waterway = 'drain'][zoom >= 14],
-    [waterway = 'ditch'][zoom >= 14],
+    [waterway = 'drain'],
+    [waterway = 'ditch'],
 	[waterway = 'stream'] {
-      [zoom >= 13] {
+      [zoom >= 14] {
         text-name: "[name]";
         text-face-name: @oblique-fonts;
-        text-size: 7;
-		text-wrap-width: 42; // 6.0 em
-		text-line-spacing: -0.35; // -0.05 em
+        text-size: 8;
+		text-wrap-width: 48; // 6.0 em
+		text-line-spacing: -0.4; // -0.05 em
 		[zoom >= 16] {
-			text-size: 9;
-			text-wrap-width: 63; // 6.0 em
-			text-line-spacing: -0.45; // -0.05 em
+			text-size: 10;
+			text-wrap-width: 60; // 6.0 em
+			text-line-spacing: -0.5; // -0.05 em
 		}
 		text-placement-type: simple;
 		text-placements: "N,S,E,W,NE,SE,NW,SW";
@@ -341,7 +341,7 @@
         text-halo-fill: @standard-halo-fill;
         text-placement: line;
         text-vertical-alignment: middle;
-        text-dy: 6;
+        text-dy: 8;
         text-repeat-distance: @waterway-text-repeat-distance;
       }
     }
