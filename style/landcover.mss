@@ -46,7 +46,7 @@
 //@farmyard-line: brown;
 //@farmyard-line: #d1b48c;    // Lch(75,25,80)
 
-@fence-color: @brown;
+@fence-color: brown;
 
 // --- Transport ----
 

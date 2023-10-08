@@ -1071,7 +1071,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 	-- Normalise residential caravan site to new landuse type
 	if (keyvalues['landuse'] == "residential") and (keyvalues['residential'] == 'trailer_park') then
 		keyvalues['landuse'] = 'trailer_park'
-	elseif ((keyvalues['tourism'] == 'caravan_site') and (keyvalues['static_caravans'] == 'only')) or (keyvalues['tourism'] == 'holiday_park']) then
+	elseif ((keyvalues['tourism'] == 'caravan_site') and (keyvalues['static_caravans'] == 'only')) or (keyvalues['tourism'] == 'holiday_park') then
 		keyvalues['landuse'] = 'trailer_park'
 		keyvalues['tourism'] = nil
 	end
