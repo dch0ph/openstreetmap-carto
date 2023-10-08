@@ -2010,10 +2010,18 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           }
         }
 		[zoom >= 16][lit != null] {
-			lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
-			[zoom >= 17] { lit/line-width: @service-width-z17 - 2 * @casing-width-z17; }
-			[zoom >= 18] { lit/line-width: @service-width-z18 - 2 * @casing-width-z18; }
-			[zoom >= 19] { lit/line-width: @service-width-z19 - 2 * @casing-width-z19; }
+			[service = 'INT-normal'] {
+				lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
+				[zoom >= 17] { lit/line-width: @service-width-z17 - 2 * @casing-width-z17; }
+				[zoom >= 18] { lit/line-width: @service-width-z18 - 2 * @casing-width-z18; }
+				[zoom >= 19] { lit/line-width: @service-width-z19 - 2 * @casing-width-z19; }
+			}
+			[service = 'INT-minor'] {
+				lit/line-width: @minor-service-width-z16 - 2 * @casing-width-z16;
+				[zoom >= 17] { lit/line-width: @minor-service-width-z17 - 2 * @casing-width-z17; }
+				[zoom >= 18] { lit/line-width: @minor-service-width-z18 - 2 * @casing-width-z18; }
+				[zoom >= 19] { lit/line-width: @minor-service-width-z19 - 2 * @casing-width-z19; }
+			}
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
