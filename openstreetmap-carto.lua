@@ -1090,6 +1090,12 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues["barrier"] = "gate"
 	end
 	
+	-- render abandoned graveyards still as graveyards
+	if keyvalues['abandoned:amenity'] == 'grave_yard' then
+		keyvalues['amenity'] = 'grave_yard'
+		keyvalues['abandoned:amenity'] = nil
+	end
+	
 	local natural = keyvalues['natural']
 	local wetland = keyvalues['wetland']
 	local tidal = keyvalues['tidal']
