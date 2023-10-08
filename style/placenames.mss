@@ -3,6 +3,7 @@
 @country-labels: darken(@admin-boundaries-narrow, 10%);
 @state-labels: desaturate(@admin-boundaries-narrow, 5%);
 @county-labels: darken(@admin-boundaries-wide, 5%);
+@farm-text: darken(@farmyard, 50%);
 
 /*#country-names {
   [zoom >= 3][zoom < 5][way_pixels > 1000],
@@ -483,14 +484,14 @@
   [place = 'locality'][zoom >= 14],
   [place = 'farm'][zoom >= 14] {
     text-name: "[name]";
-    text-size: 7;
+    text-size: 8;
     text-fill: @placenames;
     text-face-name: @book-fonts;
     text-halo-fill: @standard-halo-fill;
     text-halo-radius: @standard-halo-radius;
-    text-wrap-width: 30; // 4.5 em
-    text-line-spacing: -0.56; // -0.08 em
-    text-margin: 4.9; // 0.7 em
+    text-wrap-width: 36; // 4.5 em
+    text-line-spacing: -0.65; // -0.08 em
+    text-margin: 5.6; // 0.7 em
 	text-placement-type: simple;
 	text-placements: "N,S,E,W,NE,SE,NW,SW";
 	text-dx: 5;
@@ -503,6 +504,23 @@
       text-fill: @placenames-light;
       text-halo-fill: white;
     }
+  }
+  
+  //duplicate landuse_farmyard
+  [place = 'farm'][zoom >= 14] {
+    text-name: "[name]";
+	text-size: 8;
+    text-fill: @farm-text;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+	text-wrap-width: 36; // 4.5 em
+    text-line-spacing: -0.65; // -0.08 em
+	[zoom >= 16] {
+		text-size: @standard-font-size;
+		text-wrap-width: @standard-wrap-width;
+		text-line-spacing: @standard-line-spacing-size;
+	}  
   }
 }
 

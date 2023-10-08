@@ -43,10 +43,10 @@
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
 @farmland-linewidth: 0.7;
 @farmyard: #f5dcba;         // Lch(89,20,80)
-@farmyard-line: brown;
+//@farmyard-line: brown;
 //@farmyard-line: #d1b48c;    // Lch(75,25,80)
 
-@fence-color: @farmyard-line;
+@fence-color: @brown;
 
 // --- Transport ----
 
@@ -362,15 +362,16 @@
 //	polygon-smooth: 0.5;
   }
 
+// Kill off farmyard border. Generally bordered anyway, by fence, wall, buildings
   [feature = 'landuse_farmyard'][zoom >= 10] {
     polygon-fill: @farmyard;
-	[zoom >= 14] {
+/*	[zoom >= 14] {
 		line-width: 0.5;
         line-color: @farmyard-line;
 	}
 	[zoom >= 16] {
         line-width: 0.7;
-    }
+    }*/
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }

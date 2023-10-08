@@ -1039,10 +1039,11 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 		
 	-- Promote bridge/tunnel:name if possible
-	if (keyvalues['bridge:name'] ~= nil) and (keyvalues['name'] == nil) then
+	if keyvalues['bridge:name'] and (keyvalues['name'] == nil) then
 		keyvalues['name'] = keyvalues['bridge:name']
 	end
-	if (keyvalues['tunnel:name'] ~= nil) and (keyvalues['name'] == nil) then
+	-- Since there is no man_made=tunnel rendering, give high priority to tunnel:name
+	if keyvalues['tunnel'] and keyvalues['tunnel:name'] then
 		keyvalues['name'] = keyvalues['tunnel:name']
 	end
 	
