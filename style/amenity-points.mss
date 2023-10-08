@@ -1307,7 +1307,7 @@
   }
 
   // office points
-  [feature = 'office'][zoom >= 18] {
+  [feature = 'office'][zoom >= 17] {
     marker-width: 6;
     marker-line-width: 0;
     marker-clip: false;
