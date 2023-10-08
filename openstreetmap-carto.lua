@@ -420,12 +420,7 @@ function filter_tags_generic(tags)
 	if (tags['buildings'] == 'ruins') and (tags['barrier'] == 'wall') then
 		tags['barrier'] = nil
 	end
-	
-	-- Create place=farm if farmyard is named. Creates a higher priority (and uniform) label for farms
-	if (tags['landuse'] == 'farmyard') and (tags['name'] ~= nil) then
-		tags['place'] = 'farm'
-	end
-	
+		
 	-- Try to strip leading The from pub/cafe names if results has >1 word
 	-- e.g. will shorten to "Rat and Ratchet" but not change "The Rat"
 	if ((tags['amenity'] == 'pub') or (tags['amenity'] == 'cafe')) and tags['name'] then

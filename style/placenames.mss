@@ -481,8 +481,7 @@
 #placenames-small::locality {
 //  [place = 'neighbourhood'][zoom >= 15][zoom < 20],
   [place = 'isolated_dwelling'][zoom >= 14],
-  [place = 'locality'][zoom >= 14],
-  [place = 'farm'][zoom >= 14] {
+  [place = 'locality'][zoom >= 14] {
     text-name: "[name]";
     text-size: 8;
     text-fill: @placenames;
