@@ -342,7 +342,7 @@ function filter_tags_generic(tags)
 		end
 	elseif tags['landuse'] == 'forest' then
 	-- assume plantations are conifers if not stated otherwise (will trigger a darker colour)
-		if tags['leaf_type'] ~= nil then
+		if tags['leaf_type'] then
 			tags['leaf_type'] = 'needleleaved'  
 		elseif tags['leaf_type'] == 'broadleaved' then
 			tags['landuse'] = nil
@@ -369,6 +369,12 @@ function filter_tags_generic(tags)
 		--  As healthcare now rendered, remove any double-tagging
 			tags['healthcare'] = nil
 		end		
+	end
+	
+	-- Find likely disused units
+	if tags['old_name'] and (tags['name'] == nil) then
+	-- Kill off unit number to prevent empty units in otherwise busy area showing up
+		tags['addr:unit'] = nil
 	end
 
 -- Bodge lack of rendering of dedicated sports hall
