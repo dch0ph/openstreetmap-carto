@@ -210,7 +210,7 @@ local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doc
 local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
 local communitycentre_tags = { 'village_hall', 'social_centre', 'scout_hut' }
 local ford_tags = { 'stream', 'intermittent', 'tidal', 'seasonal' }
- 
+local bogusworkings = { 'old mine workings?', 'old mine workings' }
  
 --- If tagged with disused, turn into 'historic=yes'
 
@@ -273,6 +273,11 @@ function filter_tags_generic(tags)
 			tags['foot'] = 'permissive'
 		end
 	--	tags['access'] = 'yes'
+	end
+
+	-- Strip out bogus archaeological sites
+	if tags['historic'] == 'archaeological_site'] and is_in(tags['name', bogusworkings) then
+		return 1, {}
 	end
 
    -- Filter out objects that have no tags after deleting
