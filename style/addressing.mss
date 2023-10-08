@@ -11,7 +11,7 @@
 }
 
 #addresses {
-  [zoom >= 17]["addr_housename" != null]["addr:unit" = null],
+  [zoom >= 17]["addr_housename" != null]["addr_unit" = null],
   [zoom >= 18] {
     text-name: "[addr_housename]";
     ["addr_housename" = null] {

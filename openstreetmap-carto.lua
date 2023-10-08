@@ -372,9 +372,10 @@ function filter_tags_generic(tags)
 	end
 	
 	-- Find likely disused units
-	if tags['old_name'] and (tags['name'] == nil) then
-	-- Kill off unit number to prevent empty units in otherwise busy area showing up
+	if tags['old_name'] and (tags['name'] == nil) and tags['addr:unit'] then
+	-- Kill off address info to prevent empty units in otherwise busy area showing up
 		tags['addr:unit'] = nil
+		tags['addr:housename'] = nil
 	end
 
 -- Bodge lack of rendering of dedicated sports hall
