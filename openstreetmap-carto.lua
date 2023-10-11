@@ -210,7 +210,6 @@ local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doc
 local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
 local communitycentre_tags = { 'village_hall', 'social_centre', 'scout_hut' }
 local ford_tags = { 'stream', 'intermittent', 'tidal', 'seasonal' }
-local bogusworkings = { 'old mine workings?', 'old mine workings' }
  
 --- If tagged with disused, turn into 'historic=yes'
 
@@ -276,7 +275,7 @@ function filter_tags_generic(tags)
 	end
 
 	-- Strip out bogus archaeological sites
-	if tags['historic'] == 'archaeological_site'] and is_in(tags['name', bogusworkings) then
+	if (tags['historic'] == 'archaeological_site') and tags['name'] and string.find(tags['name'], "old mine workings") then
 		return 1, {}
 	end
 
@@ -1215,9 +1214,18 @@ function filter_tags_relation_member (keyvalues, keyvaluemembers, roles, memberc
 					end
 				end
 			end
-			if (keyvalues['name'] == nil) and (keyvalues['ref'] ~= nil) then
+			if (keyvalues['name'] == nil) and keyvalues['ref'] then
 				keyvalues['name'] = keyvalues['ref']
 			end
+		end
+
+		local osmc = keyvalues['osmc:symbol']
+		-- Use colour from osmc:symbol if none supplied
+		if osmc and (keyvalues['colour'] == nil) then
+				i, _ = string.find(osmc, ":")
+				if i and (i > 1) then
+					keyvalues['colour'] = string.sub(osmc, 1, i-1)
+				end
 		end
 			
         keyvalues.z_order = z_order(keyvalues)
