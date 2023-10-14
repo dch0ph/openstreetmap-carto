@@ -2241,7 +2241,7 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @leisure-green;
       [feature != 'leisure_sports_centre'],
-	  [sport != 'swimming'] {
+	  [sport = 'swimming'] {
 		text-dy: 11;
 	  }
       text-face-name: @standard-font;
