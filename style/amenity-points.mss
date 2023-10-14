@@ -950,14 +950,12 @@
   }
 
   // clubs
-  [feature = 'club'] {
-	[way_pixels > 3000][zoom >= 17],
-  	[zoom >= 18] {
-      marker-width: 6;
-      marker-line-width: 0;
+  [feature = 'club'][zoom >= 17] {
+	  marker-width: 6;
+	  [zoom = 17] { marker-width: 4}
+	  marker-line-width: 0;
 	  marker-fill: @leisure-green;
-      marker-clip: false;
-	}
+	  marker-clip: false;
   }
 
   // healthcare
