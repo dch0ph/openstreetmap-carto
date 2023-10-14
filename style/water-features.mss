@@ -4,6 +4,8 @@
 @weir-line: #aaa;
 @lock-gate: #aaa;
 @lock-gate-line: #aaa;
+// Use @pedestrian-fill. Was @land-color, but this has poor visibility
+@pier-fill: #ccc;
 
 #water-barriers-point, #water-barriers-line, #water-barriers-poly {
   [waterway = 'dam'] {
@@ -69,11 +71,11 @@
 #piers-poly, #piers-line {
   [man_made = 'pier'][zoom >= 12] {
     #piers-poly {
-      polygon-fill: @land-color;
+      polygon-fill: @pier-fill; 
     }
     #piers-line {
       line-width: 0.5;
-      line-color: @land-color;
+      line-color: @pier-fill;
       line-cap: square;
       [zoom >= 13] { line-width: 1; }
       [zoom >= 15] { line-width: 2; }

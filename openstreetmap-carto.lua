@@ -888,7 +888,7 @@ function filter_highway (keyvalues)
 	end
 
 	-- Unless other access set, then tag towpaths as foot=permissive
-	if (keyvalues['towpath'] = 'yes') and (keyvalues['designation'] == nil) and (keyvalues['foot'] == nil) then
+	if (keyvalues['towpath'] == 'yes') and (keyvalues['designation'] == nil) and (keyvalues['foot'] == nil) then
 		keyvalues['foot'] = 'permissive'
 	end
 	

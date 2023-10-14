@@ -11,7 +11,7 @@
 @airtransport: #8461C4; //also ferry_terminal
 @health-color: #BF0000;
 @amenity-brown: #734a08;
-@craft: orange;
+@craft: darken(orange, 4%);
 @gastronomy-icon: #C77400;
 @gastronomy-text: darken(@gastronomy-icon, 5%);
 @memorials: @amenity-brown;
@@ -925,25 +925,28 @@
   }
 
   // crafts
-  [feature = 'craft'][zoom >= 18] {
-    marker-width: 6;
+  [feature = 'craft'][zoom >= 17] {
     marker-line-width: 0;
 	marker-fill: @craft;
-	[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
-	[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
-	[craft = 'jewelry'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
-	[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
-	[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
-	[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
-	[craft = 'electronics_repair'] { marker-file: url('symbols/shop/electronics.svg'); marker-width: 12; }
-	[craft = 'computer_repair'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
-	[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
-	[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
-    [craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
-    [craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
-    [craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
-    [craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
+	marker-width: 4;
     marker-clip: false;
+	[zoom >= 18] {
+		marker-width: 6;
+		[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
+		[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
+		[craft = 'jewelry'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
+		[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
+		[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
+		[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
+		[craft = 'electronics_repair'] { marker-file: url('symbols/shop/electronics.svg'); marker-width: 12; }
+		[craft = 'computer_repair'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
+		[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
+		[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
+		[craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
+		[craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
+		[craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
+		[craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
+	}
   }
 
   // clubs
@@ -960,6 +963,7 @@
   // healthcare
   [feature = 'healthcare'][zoom >= 17] {
       marker-width: 6;
+	  [zoom = 17] { marker-width: 4}
       marker-line-width: 0;
 	  marker-fill: @health-color;
       marker-clip: false;
@@ -1309,10 +1313,13 @@
   // office points
   [feature = 'office'][zoom >= 17] {
     marker-width: 6;
+	[zoom = 17] { marker-width: 4; }
     marker-line-width: 0;
     marker-clip: false;
     marker-fill: @office;
-	[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
+	[zoom >= 18] {
+		[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
+	}
   }
 
   [feature = 'diplomatic_embassy'][zoom >= 17] {

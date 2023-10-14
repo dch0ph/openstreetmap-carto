@@ -16,7 +16,6 @@
 @hedge-width-z14: 0.8;
 @hedge-width-z16: 1.5;
 @barrier-color: #333;   // darker than original #444
-@contour-cutoff: 50;    // minimum number of pixels to display contour
 @water-line-color: lighten(#4d80b3, 5%); // Also used for high/low water contours
 @dark-water-color: darken(#4d80b3, 5%); // Water features e.g. waterfalls 
 @cliff-color: #333;
@@ -45,8 +44,21 @@
 @farmyard: #f5dcba;         // Lch(89,20,80)
 //@farmyard-line: brown;
 //@farmyard-line: #d1b48c;    // Lch(75,25,80)
-
 @fence-color: brown;
+
+// --- Contours ---
+
+@contours: darken(orange, 8%);
+@contours-text: @contours;
+@contours-multiplier: 1.75;
+@contours-smooth: 0.5;
+@contours-width: 0.5;
+@contours-width-highzoom: 0.7;
+@contours-width-z11: 0.25;
+@contours-width-z12: 0.4;
+@contours-opacity: 0.7;
+@contours-opacity-z11: 0.7;
+@contour-cutoff: 50;    // minimum number of pixels to display contour
 
 // --- Transport ----
 
@@ -1093,17 +1105,6 @@
 	line-width: 0.5;
   [zoom >= 15] { line-width: 0.8; }
 }
-
-@contours: darken(orange, 6%);
-@contours-text: @contours;
-@contours-multiplier: 1.75;
-@contours-smooth: 0.5;
-@contours-width: 0.5;
-@contours-width-highzoom: 0.7;
-@contours-width-z11: 0.25;
-@contours-width-z12: 0.4;
-@contours-opacity: 0.7;
-@contours-opacity-z11: 0.7;
 
 #landcontours {
   [way_pixels = 0], [way_pixels > @contour-cutoff]  {
