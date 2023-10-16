@@ -463,7 +463,7 @@ Layer:
           WHERE man_made = 'bridge'
         ) AS bridge
     properties:
-      minzoom: 15
+      minzoom: 14
   - id: buildings
     geometry: polygon
     <<: *extents
@@ -1621,12 +1621,12 @@ Layer:
           WHERE ST_PointOnSurface(way) && !bbox!
             AND name IS NOT NULL
             AND man_made = 'bridge'
-            AND way_area > 125*POW(!scale_denominator!*0.001*0.28,2)
+            AND way_area > 250*POW(!scale_denominator!*0.001*0.28,2)
             AND way_area < 768000*POW(!scale_denominator!*0.001*0.28,2)
           ORDER BY way_area DESC
         ) AS bridge_text
     properties:
-      minzoom: 11
+      minzoom: 15
   - id: county-names
     geometry: point
     <<: *extents

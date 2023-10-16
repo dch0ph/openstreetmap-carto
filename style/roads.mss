@@ -3021,7 +3021,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
 #bridge-text  {
   [man_made = 'bridge'] {
-    [way_pixels > 250][way_pixels <= 768000] {
       text-name: "[name]";
       text-size: 10;
       text-wrap-width: 30; // 3 em
@@ -3053,7 +3052,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         text-line-spacing: -1.80; // -0.15 em
         text-halo-radius: @standard-halo-radius * 1.3;
       }
-    }
   }
 }
 
