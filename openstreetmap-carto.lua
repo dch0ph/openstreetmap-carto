@@ -951,6 +951,12 @@ function filter_tags_way (keyvalues, numberofkeys)
         return filter, keyvalues, polygon, roads
     end
 
+    -- Normalise leisure=horse_riding on way to sports_centre + equestrian
+	if keyvalues['leisure'] == 'horse_riding' then
+		keyvalues['leisure'] = 'sports_centre'
+		keyvalues['sport'] = 'equestrian'
+	end
+	
 -- Stop wall being rendered if sheepfold symbol used (not ideal for complex structures)
 	if keyvalues['man_made'] == 'sheepfold' then
 		keyvalues['barrier'] = nil

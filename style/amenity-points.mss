@@ -1356,6 +1356,13 @@
     marker-clip: false;
   }
 
+  [feature = 'leisure_sports_centre'][sport = 'equestrian'][zoom >= 17],
+  [feature = 'leisure_horse_riding'][zoom >= 17] {
+    marker-file: url('symbols/leisure/horse_riding.svg');
+    marker-fill: @leisure-green;
+    marker-clip: false;
+  } 
+
   [feature = 'leisure_playground'][zoom >= 17] {
     marker-file: url('symbols/leisure/playground.svg');
     marker-fill: @leisure-green;
@@ -2231,9 +2238,10 @@
 
   [feature = 'leisure_water_park'],
   [feature = 'leisure_sports_centre'][sport = 'swimming'],
+  [feature = 'leisure_sports_centre'][sport = 'equestrian'],
   [feature = 'leisure_sports_centre'][is_building = 'yes'],
   [feature = 'leisure_swimming_area'] {
-    [zoom >= 14][way_pixels > 3000],
+    [zoom >= 14][way_pixels > 3000][sport != 'equestrian'],
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2241,7 +2249,8 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: @leisure-green;
       [feature != 'leisure_sports_centre'],
-	  [sport = 'swimming'] {
+	  [sport = 'swimming'],
+	  [sport = 'equestrian'] {
 		text-dy: 11;
 	  }
       text-face-name: @standard-font;
@@ -2274,6 +2283,7 @@
     }
   }
 
+  [feature = 'leisure_horse_riding'],
   [feature = 'leisure_playground'],
   [feature = 'leisure_dog_park'],
   [feature = 'leisure_fitness_centre'],
@@ -2439,7 +2449,7 @@
   [feature = 'natural_reef'],
  // [feature = 'leisure_fitness_centre'],
  // [feature = 'leisure_fitness_station'],
-  [feature = 'leisure_sports_centre'][sport != 'swimming'],
+  [feature = 'leisure_sports_centre'][sport != 'swimming'][sport != 'equestrian'],
   [feature = 'leisure_stadium'],
   [feature = 'leisure_track'],
  // [feature = 'leisure_dog_park'],
