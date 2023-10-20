@@ -1147,6 +1147,10 @@
       marker-file: url('symbols/shop/car_repair.svg');
     }
 
+    [shop = 'motorcycle_repair'][zoom >= 18] {
+      marker-file: url('symbols/shop/motorcycle_repair.svg');
+    }
+
     [shop = 'dairy'][zoom >= 18] {
       marker-file: url('symbols/shop/dairy.svg');
     }
