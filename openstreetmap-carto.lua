@@ -463,10 +463,6 @@ function filter_tags_generic(tags)
 		tags["name"] = "Platform " .. tags["ref"]
         tags["ref"]  = nil
     end
-
-	if (tags['aeroway'] == 'aerodrome') and tags['name'] and tags['iata'] then
-        tags["name"] = tags["name"] .. " (" .. tags["iata"] .. ")"
-	end
 	
 	-- Convert incorrect beer gardens into outdoor_seating
     if (tags["amenity"] == "biergarten") and (tags["name"] == nil) and (tags["leisure"] == nil) then

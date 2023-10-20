@@ -3104,6 +3104,7 @@
     [way_pixels <= 192000],
     [way_pixels = null] {
       text-name: "[name]";
+	  [iata != null] { text-name: [name] + " (" + [iata] + ")"; }
       text-size: @standard-font-size;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
