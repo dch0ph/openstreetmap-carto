@@ -1,3 +1,5 @@
+@aerialway-color: #555;
+
 #aerialways {
   [aerialway = 'cable_car'],
   [aerialway = 'gondola'],
@@ -43,12 +45,17 @@
       line/line-width: 1;
       line/line-join: round;
       line/line-cap: round;
-      line/line-color: #808080;
+      line/line-color: @aerialway-color;
 
       dash/line-width: 4;
       dash/line-join: round;
-      dash/line-color: black;
-      dash/line-dasharray: 1,30;
+      dash/line-color: @aerialway-color;
+      dash/line-dasharray: 0,10,1,10;
+	  [zoom >= 17] {
+		line/line-width: 2;		
+		dash/line-width: 8;
+		dash/line-dasharray: 0,10,1.5,20;
+	  }
       dash/line-clip: false;
     }
   }
