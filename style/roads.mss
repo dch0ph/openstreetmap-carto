@@ -427,7 +427,7 @@
 @shield-spacing: 760;
 @shield-repeat-distance: 400;
 @shield-margin: 40;
-@shield-font: @book-fonts;
+@shield-font: @monospace-fonts;
 @shield-opacity: 0.8;
 @shield-clip: false;
 

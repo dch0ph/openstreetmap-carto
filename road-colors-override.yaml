@@ -1,0 +1,21 @@
+# This is the input for scripts/generate_shields.py
+#
+# Colours for different roads classes are specified manually rather
+# than set up by generate_road_colours
+# All road classes colours will be generated for, in order of importance
+# (biggest first).
+roads:
+  - motorway
+  - trunk
+  - primary
+  - secondary
+shield-geometry:
+    rounded-corners: 2
+    font_height: 12.1
+    font_width: 6.2
+    padding_x: 4
+    padding_y: 2
+    stroke_width: 1
+    maxwidth: 11
+    maxheight: 4
+ 
