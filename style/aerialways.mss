@@ -42,7 +42,8 @@
   [aerialway = 'rope_tow'],
   [aerialway = 'zip_line'] {
     [zoom >= 12] {
-      line/line-width: 1;
+      line/line-width: 0.6;
+	  [zoom >= 13] { line/line-width: 1; }
       line/line-join: round;
       line/line-cap: round;
       line/line-color: @aerialway-color;
@@ -50,7 +51,8 @@
       dash/line-width: 4;
       dash/line-join: round;
       dash/line-color: @aerialway-color;
-      dash/line-dasharray: 0,10,1,10;
+      dash/line-dasharray: 0,10,0.6,10;
+	  [zoom >= 13] { dash/line-dasharray: 0,10,1,10; }
 	  [zoom >= 17] {
 		line/line-width: 2;		
 		dash/line-width: 8;
