@@ -5,11 +5,11 @@
    Bridges have also been suppressed on roads (and so unchanged) */
 
 // colours taken from AJT
-@motorway-fill: saturate(#89a4cb, 10%);
+@motorway-fill: saturate(#89a4cb, 10%); // #7499cc
 //@trunk-fill: #dd9f9f;
 @trunk-fill: #00a86b; // jade green
-@primary-fill: saturate(#dd9f9f, 10%);
-@secondary-fill: darken(#f9d6aa, 10%);
+@primary-fill: saturate(#dd9f9f, 10%); // #de6868
+@secondary-fill: darken(#f9d6aa, 10%); // #f7c588
 @tertiary-fill: #f8f8ba;
 
 @motorway-casing: darken(@motorway-fill, 30%); // originally #7788a1
