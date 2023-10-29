@@ -5,10 +5,18 @@
 # All road classes colours will be generated for, in order of importance
 # (biggest first).
 roads:
-  - motorway
-  - trunk
-  - primary
-  - secondary
+    motorway:
+        fill: "#7499cc"
+        casing_darken: 1.3
+    trunk:
+        fill: "#00a86b"
+        casing_darken: 1.3
+    primary:
+        fill: "#de6868"
+        casing_darken: 1.3
+    secondary:
+        fill: "#f7c588"
+        casing_darken: 1.3
 shield-geometry:
     rounded-corners: 2
     font_height: 12.1
@@ -16,6 +24,8 @@ shield-geometry:
     padding_x: 4
     padding_y: 2
     stroke_width: 1
-    maxwidth: 11
-    maxheight: 4
- 
+shield-colors:
+    fill_darken: 0.7
+    line_darken: 1.3
+    motorway:
+        fill_darken: 0.5
