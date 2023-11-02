@@ -5,13 +5,12 @@
 from __future__ import print_function
 import copy, lxml.etree, math, os
 import sys
-#from generate_road_colours import load_settings, generate_colours
 import yaml
 from colormath.color_conversions import convert_color
 from colormath.color_objects import HSLColor, sRGBColor
 #from colormath.color_diff import delta_e_cie2000
 
-verbose = True
+verbose = False
 
 # class Color:
 #     """A color in the CIE lch color space."""
@@ -42,19 +41,25 @@ def to_rgbhex(a):
     return rgb.get_rgb_hex()
 
 
-def scale_HSL(orig, alteration):
-    """ Create new HSLColor given an alternation specification. """
+def scale_HSL(orig, alteration, relative=False):
+    """ Create new HSLColor given an alteration specification. """
 
     mode, v = alteration
     newobj = copy.copy(orig)
     if mode == 'darken':
-        newobj.hsl_l /= v
+        if relative:
+            newobj.hsl_l /= v
+        else:
+            newobj.hsl_l -= v
         if (newobj.hsl_l < 0.0) or (newobj.hsl_l >1.0):
             raise ValueError(f"scale_HSL: darken with {v} generated lightness outside gamut: {newobj.hsl_l}")
     elif mode == 'saturate':
-        newobj.hsl_s *= v
-        if (newobj.hsl_s < 0.0) or (newobj.hsl_s >1.0):
-            raise ValueError(f"scale_HSL: saturate with {v} generated lightness outside gamut: {newobj.hsl_l}")
+        if relative:
+            newobj.hsl_s *= v
+        else:
+            newobj.hsl_s += v
+        if (newobj.hsl_s < 0.0) or (newobj.hsl_s > 1.0):
+            raise ValueError(f"scale_HSL: saturate with {v} generated saturation outside gamut: {newobj.hsl_s}")
     elif mode == 'absolute':
         pass
     else:
@@ -82,15 +87,15 @@ def parse_mode(d, which):
             continue
         if modetype is not None:
             sys.exit(f"More than one color specification for {which}")
-        if v < 1.0:
-            sys.exit(f"Invalid color scaling (must be floating point number >=1.0): {v}")
+        if (v >= 1.0) or (v <= -1.0):
+            sys.exit(f"Invalid color change (must be floating point number between -1 and 1): {v}")
         modetype = k[len(whichunderscore):]
         if modetype == 'lighten':
             modetype = 'darken'
-            v = 1.0/v
+            v = -v
         elif modetype == 'desaturate':
             modetype = 'saturate'
-            v = 1.0/v
+            v = -v
         elif modetype not in ['darken', 'saturate']:
             sys.exit(f"Unknown color alteration: {modetype}")
     return (modetype, v)
@@ -113,7 +118,6 @@ def main():
     svgns = '{' + namespace + '}'
     svgnsmap = {None: namespace}
 
-    config = {}
 #    config['base'] = {}
     # Fall back colours used if no colours are defined in road-colours.yaml for a road type.
 #    config['base']['fill'] = '#f1f1f1'
@@ -122,12 +126,10 @@ def main():
     max_width = 11
     max_height = 4
     output_dir = '../symbols/shields/' # specified relative to the script location
-#    additional_sizes = ['base', 'z16', 'z18']
-    output_sizes = ['base']
+    output_sizes = ['base', 'z16', 'z18']
 
     # specific values overwrite config['base'] ones
     for roadtype, roadvalues in shieldtypes.items():
-        config[roadtype] = {}
         try:
             fill = parse_color(roadvalues['fill'])
         except KeyError:
@@ -138,6 +140,8 @@ def main():
         settings['roads'][roadtype]['casing'] = scale_HSL(fill, casingmode)
 
     # changes for different size versions
+#   config['base']['font_height'] = 12.1
+#   config['base']['font_width'] = 6.2
 #    config['z16'] = {}
 #    config['z18'] = {}
 #    config['z16']['font_width'] = 6.1
@@ -148,26 +152,20 @@ def main():
     if not os.path.exists(os.path.dirname(output_dir)):
         os.makedirs(os.path.dirname(output_dir))
 
-    vars = settings['shield-geometry']
+    storevars = settings['shield-geometry']
     if verbose:
-        print(vars)
+        print(storevars)
         print(settings['roads'])
 
     for height in range(1, max_height + 1):
         for width in range(1, max_width + 1):
             for shield_type, roadsettings in shieldtypes.items():
 
-                # merge base config and specific styles
-#                if shield_type in config:
-#                    for option in config[shield_type]:
-#                        vars[option] = config[shield_type][option]
-
+                vars = copy.copy(storevars)
                 for shield_size in output_sizes:
 
-#                    if shield_size != 'base':
-#                        if shield_size in config:
-#                            for option in config[shield_size]:
-#                                vars[option] = config[shield_size][option]
+                    if (shield_size != 'base') and (shield_size in vars):
+                        vars.update(vars[shield_size])
 
                     shield_width = 2 * vars['padding_x'] + math.ceil(vars['font_width'] * width)
                     shield_height = 2 * vars['padding_y'] + math.ceil(vars['font_height'] * height)

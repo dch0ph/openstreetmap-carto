@@ -8,7 +8,7 @@
 @motorway-fill: saturate(#89a4cb, 10%); // #7499cc
 //@trunk-fill: #dd9f9f;
 @trunk-fill: #00a86b; // jade green
-@primary-fill: saturate(#dd9f9f, 10%); // #de6868
+@primary-fill: saturate(#dd9f9f, 10%); // #e09c9c
 @secondary-fill: darken(#f9d6aa, 10%); // #f7c588
 @tertiary-fill: #f8f8ba;
 
@@ -32,10 +32,14 @@
 //@primary-fill: #fcd6a4;
 //@secondary-fill: #f7fabf;
 
-@motorway-shield: @motorway-casing;
-@trunk-shield: @trunk-fill;
-@primary-shield: @primary-casing;
-@secondary-shield: @secondary-casing;
+@motorway-shield: black;
+@trunk-shield: black;
+@primary-shield: black;
+@secondary-shield: black;
+//@motorway-shield: @motorway-casing;
+//@trunk-shield: @trunk-fill;
+//@primary-shield: @primary-casing;
+//@secondary-shield: @secondary-casing;
 //@motorway-shield: #620728;
 //@trunk-shield: #5f1c0c;
 //@primary-shield: #503000;
@@ -427,8 +431,8 @@
 @shield-spacing: 760;
 @shield-repeat-distance: 400;
 @shield-margin: 40;
-@shield-font: @monospace-fonts;
-@shield-opacity: 0.8;
+@shield-font: @book-fonts;
+@shield-opacity: 1.0;
 @shield-clip: false;
 
 // These seem very small (50 and 10)
