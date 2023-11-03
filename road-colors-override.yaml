@@ -6,16 +6,20 @@
 # (biggest first).
 roads:
     motorway:
-        fill: "#7499cc"
+        base: "#7499cc"
+        fill_lighten: 0.15
         casing_darken: 0.3
     trunk:
-        fill: "#00a86b"
+        base: "#00a86b"
+        fill_lighten: 0.05
         casing_darken: 0.3
     primary:
-        fill: "#e09c9c"
+        base: "#e09c9c"
+        fill_lighten: 0.15
         casing_darken: 0.3
     secondary:
-        fill: "#f7c588"
+        base: "#f7c588"
+        fill_lighten: 0.15
         casing_darken: 0.3
 shield-geometry:
     rounded_corners: 4
@@ -23,12 +27,14 @@ shield-geometry:
 # Use scaling of 1.2 on font height to account for descenders etc.
     font_height: 12
     font_width: 6
-    padding_x: 3
+    padding_x: 2.5
     padding_y: 2
     stroke_width: 1
     z16:
         font_height: 13.2
         font_width: 6.6
+        stroke_width: 1.4
     z18:
         font_height: 14.4
         font_width: 7.2
+        stroke_width: 1.8

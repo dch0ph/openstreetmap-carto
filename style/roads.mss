@@ -32,14 +32,14 @@
 //@primary-fill: #fcd6a4;
 //@secondary-fill: #f7fabf;
 
-@motorway-shield: black;
-@trunk-shield: black;
-@primary-shield: black;
-@secondary-shield: black;
-//@motorway-shield: @motorway-casing;
-//@trunk-shield: @trunk-fill;
-//@primary-shield: @primary-casing;
-//@secondary-shield: @secondary-casing;
+//@motorway-shield: black;
+//@trunk-shield: black;
+//@primary-shield: black;
+//@secondary-shield: black;
+@motorway-shield: @motorway-casing;
+@trunk-shield: @trunk-casing;
+@primary-shield: @primary-casing;
+@secondary-shield: @secondary-casing;
 //@motorway-shield: #620728;
 //@trunk-shield: #5f1c0c;
 //@primary-shield: #503000;
@@ -426,8 +426,8 @@
 @shield-line-spacing: -1.50; // -0.15 em
 @shield-size-z16: 11;
 @shield-line-spacing-z16: -1.65; // -0.15 em
-@shield-size-z18: 12;
-@shield-line-spacing-z18: -1.80; // -0.15 em
+@shield-size-z18: 13;
+@shield-line-spacing-z18: -1.95; // -0.15 em
 @shield-spacing: 760;
 @shield-repeat-distance: 400;
 @shield-margin: 40;
@@ -3346,7 +3346,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
 
 #roads-text-ref-low-zoom[zoom < 13] {
-  [highway = 'motorway'][zoom >= 10],
+  [highway = 'motorway'][zoom >= 11],
   [highway = 'trunk'][zoom >= 11],
   [highway = 'primary'][zoom >= 11],
   [highway = 'secondary'][zoom >= 12] {

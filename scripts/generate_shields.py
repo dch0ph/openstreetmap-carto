@@ -70,11 +70,9 @@ def parse_mode(d, which):
             sys.exit(f"Invalid color change (must be floating point number between -1 and 1): {v}")
         modetype = k[len(whichunderscore):]
         if modetype == 'lighten':
-            modetype = 'darken'
-            v = -v
+            return ('darken', -v)
         elif modetype == 'desaturate':
-            modetype = 'saturate'
-            v = -v
+            return('saturate', -v)
         elif modetype not in ['darken', 'saturate']:
             sys.exit(f"Unknown color alteration: {modetype}")
     return (modetype, v)
@@ -97,21 +95,20 @@ def main():
     svgns = '{' + namespace + '}'
     svgnsmap = {None: namespace}
 
-
     max_width = 11
     max_height = 4
     output_dir = '../symbols/shields/' # specified relative to the script location
 
     for roadtype, roadvalues in shieldtypes.items():
         try:
-            fill = parse_color(roadvalues['fill'])
+            base = parse_color(roadvalues['base'])
         except KeyError:
-            sys.exit(f"Missing fill color for road type {roadtype}")
+            sys.exit(f"Missing base color for road type {roadtype}")
         casingmode = parse_mode(roadvalues, 'casing')
+        fillmode = parse_mode(roadvalues, 'fill')
 
-        settings['roads'][roadtype]['fill'] = fill
-        settings['roads'][roadtype]['casing'] = scale_HSL(fill, casingmode)
-
+        settings['roads'][roadtype]['fill'] = scale_HSL(base, fillmode)
+        settings['roads'][roadtype]['casing'] = scale_HSL(base, casingmode)
 
     if not os.path.exists(os.path.dirname(output_dir)):
         os.makedirs(os.path.dirname(output_dir))
