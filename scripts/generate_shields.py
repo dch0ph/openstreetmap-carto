@@ -8,29 +8,8 @@ import sys
 import yaml
 from colormath.color_conversions import convert_color
 from colormath.color_objects import HSLColor, sRGBColor
-#from colormath.color_diff import delta_e_cie2000
 
-verbose = False
-
-# class Color:
-#     """A color in the CIE lch color space."""
-
-#     def __init__(self, lch_tuple):
-#         self.m_lch = LCHabColor(*lch_tuple)
-
-#     def lch(self):
-#         return "Lch({:.0f},{:.0f},{:.0f})".format(*(self.m_lch.get_value_tuple()))
-
-#     def rgb(self):
-#         rgb = convert_color(self.m_lch, sRGBColor)
-#         if (rgb.rgb_r != rgb.clamped_rgb_r or rgb.rgb_g != rgb.clamped_rgb_g or rgb.rgb_b != rgb.clamped_rgb_b):
-#             raise Exception("Colour {} is outside sRGB".format(self.lch()))
-#         return rgb.get_rgb_hex()
-
-#     def rgb_error(self):
-#         return delta_e_cie2000(convert_color(self.m_lch, LabColor),
-#                                convert_color(sRGBColor.new_from_rgb_hex(self.rgb()), LabColor))
-
+verbose = True
 
 def to_rgbhex(a):
     """ Convert (HSL) color to RGB """
@@ -118,17 +97,11 @@ def main():
     svgns = '{' + namespace + '}'
     svgnsmap = {None: namespace}
 
-#    config['base'] = {}
-    # Fall back colours used if no colours are defined in road-colours.yaml for a road type.
-#    config['base']['fill'] = '#f1f1f1'
-#    config['base']['stroke_fill'] = '#c6c6c6'
 
     max_width = 11
     max_height = 4
     output_dir = '../symbols/shields/' # specified relative to the script location
-    output_sizes = ['base', 'z16', 'z18']
 
-    # specific values overwrite config['base'] ones
     for roadtype, roadvalues in shieldtypes.items():
         try:
             fill = parse_color(roadvalues['fill'])
@@ -139,23 +112,20 @@ def main():
         settings['roads'][roadtype]['fill'] = fill
         settings['roads'][roadtype]['casing'] = scale_HSL(fill, casingmode)
 
-    # changes for different size versions
-#   config['base']['font_height'] = 12.1
-#   config['base']['font_width'] = 6.2
-#    config['z16'] = {}
-#    config['z18'] = {}
-#    config['z16']['font_width'] = 6.1
-#    config['z16']['font_height'] = 14.1
-#    config['z18']['font_width'] = 6.9
-#    config['z18']['font_height'] = 15.1
 
     if not os.path.exists(os.path.dirname(output_dir)):
         os.makedirs(os.path.dirname(output_dir))
 
     storevars = settings['shield-geometry']
+    output_sizes = ['base']
+    for k in storevars.keys():
+        if k[0] == 'z':
+            output_sizes.append(k)
+
     if verbose:
         print(storevars)
         print(settings['roads'])
+        print(output_sizes)
 
     for height in range(1, max_height + 1):
         for width in range(1, max_width + 1):
