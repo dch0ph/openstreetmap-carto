@@ -929,6 +929,11 @@ function filter_highway (keyvalues)
 		keyvalues['oneway'] = keyvalues['oneway:foot']
 	end
 	
+	-- Kill ref tags on bridges to stop shields appearing
+	if keyvalues['bridge'] then
+		keyvalues['ref'] = nil
+	end
+	
 	return 0, keyvalues
 end
 
