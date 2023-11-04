@@ -39,7 +39,7 @@
 @motorway-shield: @motorway-casing;
 @trunk-shield: @trunk-casing;
 @primary-shield: @primary-casing;
-@secondary-shield: darken(@secondary-casing, 10%); // text needs to be a bit darker
+@secondary-shield: @secondary-casing;
 //@motorway-shield: #620728;
 //@trunk-shield: #5f1c0c;
 //@primary-shield: #503000;

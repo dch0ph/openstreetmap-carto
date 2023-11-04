@@ -1978,7 +1978,7 @@ Layer:
                     string_to_array(ref, ';') AS refs
                 FROM planet_osm_roads
                   WHERE highway IN ('motorway', 'trunk', 'primary', 'secondary')
-                  AND ref IS NOT NULL AND junction IS NULL
+                  AND (ref IS NOT NULL) AND (junction IS NULL)
               ) AS p) AS q
           WHERE height <= 4 AND width <= 11
           ORDER BY
@@ -2027,7 +2027,7 @@ Layer:
                     string_to_array(ref, ';') AS refs
                   FROM planet_osm_line
                   WHERE (highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') OR aeroway IN ('runway', 'taxiway'))
-                    AND ref IS NOT NULL AND junction IS NULL
+                    AND (ref IS NOT NULL) AND (junction IS NULL)
               ) AS p) AS q
           WHERE height <= 4 AND width <= 11
           ORDER BY
