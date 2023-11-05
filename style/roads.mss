@@ -32,10 +32,6 @@
 //@primary-fill: #fcd6a4;
 //@secondary-fill: #f7fabf;
 
-//@motorway-shield: black;
-//@trunk-shield: black;
-//@primary-shield: black;
-//@secondary-shield: black;
 @motorway-shield: @motorway-casing;
 @trunk-shield: @trunk-casing;
 @primary-shield: @primary-casing;
@@ -327,13 +323,11 @@
 @service-width-z20:              12;
 @minor-service-width-z20:         8.5;
 
-
 @major-casing-width-z11:          0.3;
 
 @casing-width-z12:                0.3;
 @secondary-casing-width-z12:      0.3;
 @major-casing-width-z12:          0.5;
-
 
 @casing-width-z13:                0.5;
 @residential-casing-width-z13:    0.5;

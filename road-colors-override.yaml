@@ -7,7 +7,7 @@
 roads:
     motorway:
         base: "#7499cc"
-        fill_lighten: 0.15
+        fill_lighten: 0.1
         casing_darken: 0.3
     trunk:
         base: "#00a86b"
@@ -15,11 +15,11 @@ roads:
         casing_darken: 0.3
     primary:
         base: "#e09c9c"
-        fill_lighten: 0.15
+        fill_lighten: 0.1
         casing_darken: 0.3
     secondary:
         base: "#f7c588"
-        fill_lighten: 0.15
+        fill_lighten: 0.1
         casing_darken: 0.3
 shield-geometry:
     rounded_corners: 4

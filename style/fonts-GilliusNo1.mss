@@ -28,5 +28,5 @@ For a considerable number of labels this style will make no difference to the re
 */
 @oblique-fonts: "Gillius ADF Italic", @book-fonts;
 
-@monospace-fonts: "Ubuntu Mono Regular";
+/* @monospace-fonts: "Ubuntu Mono Regular"; */
 
