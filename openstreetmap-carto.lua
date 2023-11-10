@@ -1106,7 +1106,7 @@ function filter_tags_way (keyvalues, numberofkeys)
     elseif is_in(keyvalues["barrier"], gate_tags) then
 		keyvalues["barrier"] = "gate"
 	end
-	
+		
 	-- render abandoned graveyards still as graveyards
 	if keyvalues['abandoned:amenity'] == 'grave_yard' then
 		keyvalues['amenity'] = 'grave_yard'
