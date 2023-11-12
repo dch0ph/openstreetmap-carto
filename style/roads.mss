@@ -5,11 +5,11 @@
    Bridges have also been suppressed on roads (and so unchanged) */
 
 // colours taken from AJT
-@motorway-fill: saturate(#89a4cb, 10%);
+@motorway-fill: saturate(#89a4cb, 10%); // #7499cc
 //@trunk-fill: #dd9f9f;
 @trunk-fill: #00a86b; // jade green
-@primary-fill: saturate(#dd9f9f, 10%);
-@secondary-fill: darken(#f9d6aa, 10%);
+@primary-fill: saturate(#dd9f9f, 10%); // #e09c9c
+@secondary-fill: darken(#f9d6aa, 10%); // #f7c588
 @tertiary-fill: #f8f8ba;
 
 @motorway-casing: darken(@motorway-fill, 30%); // originally #7788a1
@@ -33,7 +33,7 @@
 //@secondary-fill: #f7fabf;
 
 @motorway-shield: @motorway-casing;
-@trunk-shield: @trunk-fill;
+@trunk-shield: @trunk-casing;
 @primary-shield: @primary-casing;
 @secondary-shield: @secondary-casing;
 //@motorway-shield: #620728;
@@ -323,13 +323,11 @@
 @service-width-z20:              12;
 @minor-service-width-z20:         8.5;
 
-
 @major-casing-width-z11:          0.3;
 
 @casing-width-z12:                0.3;
 @secondary-casing-width-z12:      0.3;
 @major-casing-width-z12:          0.5;
-
 
 @casing-width-z13:                0.5;
 @residential-casing-width-z13:    0.5;
@@ -422,13 +420,13 @@
 @shield-line-spacing: -1.50; // -0.15 em
 @shield-size-z16: 11;
 @shield-line-spacing-z16: -1.65; // -0.15 em
-@shield-size-z18: 12;
-@shield-line-spacing-z18: -1.80; // -0.15 em
+@shield-size-z18: 13;
+@shield-line-spacing-z18: -1.95; // -0.15 em
 @shield-spacing: 760;
 @shield-repeat-distance: 400;
 @shield-margin: 40;
 @shield-font: @book-fonts;
-@shield-opacity: 0.8;
+@shield-opacity: 1.0;
 @shield-clip: false;
 
 // These seem very small (50 and 10)
@@ -3342,7 +3340,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
 
 #roads-text-ref-low-zoom[zoom < 13] {
-  [highway = 'motorway'][zoom >= 10],
+  [highway = 'motorway'][zoom >= 11],
   [highway = 'trunk'][zoom >= 11],
   [highway = 'primary'][zoom >= 11],
   [highway = 'secondary'][zoom >= 12] {

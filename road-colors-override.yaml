@@ -1,0 +1,40 @@
+# This is the input for scripts/generate_shields.py
+#
+# Colours for different roads classes are specified manually rather
+# than set up by generate_road_colours
+# All road classes colours will be generated for, in order of importance
+# (biggest first).
+roads:
+    motorway:
+        base: "#7499cc"
+        fill_lighten: 0.1
+        casing_darken: 0.3
+    trunk:
+        base: "#00a86b"
+        fill_lighten: 0.05
+        casing_darken: 0.3
+    primary:
+        base: "#e09c9c"
+        fill_lighten: 0.1
+        casing_darken: 0.3
+    secondary:
+        base: "#f7c588"
+        fill_lighten: 0.1
+        casing_darken: 0.3
+shield-geometry:
+    rounded_corners: 4
+# Default font size is 10 (Ubuntu mono uses 1em height, 0.5em weight)
+# Use scaling of 1.2 on font height to account for descenders etc.
+    font_height: 12
+    font_width: 6
+    padding_x: 2.5
+    padding_y: 2
+    stroke_width: 1
+    z16:
+        font_height: 13.2
+        font_width: 6.6
+        stroke_width: 1.4
+    z18:
+        font_height: 14.4
+        font_width: 7.2
+        stroke_width: 1.8

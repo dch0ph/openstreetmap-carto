@@ -929,6 +929,11 @@ function filter_highway (keyvalues)
 		keyvalues['oneway'] = keyvalues['oneway:foot']
 	end
 	
+	-- Kill ref tags on bridges to stop shields appearing
+	if keyvalues['bridge'] then
+		keyvalues['ref'] = nil
+	end
+	
 	return 0, keyvalues
 end
 
@@ -1101,7 +1106,7 @@ function filter_tags_way (keyvalues, numberofkeys)
     elseif is_in(keyvalues["barrier"], gate_tags) then
 		keyvalues["barrier"] = "gate"
 	end
-	
+		
 	-- render abandoned graveyards still as graveyards
 	if keyvalues['abandoned:amenity'] == 'grave_yard' then
 		keyvalues['amenity'] = 'grave_yard'

@@ -4,93 +4,148 @@
 
 from __future__ import print_function
 import copy, lxml.etree, math, os
-from generate_road_colours import load_settings, generate_colours
+import sys
+import yaml
+from colormath.color_conversions import convert_color
+from colormath.color_objects import HSLColor, sRGBColor
+
+verbose = True
+
+def to_rgbhex(a):
+    """ Convert (HSL) color to RGB """
+
+    rgb = convert_color(a, sRGBColor)
+    if (rgb.rgb_r != rgb.clamped_rgb_r or rgb.rgb_g != rgb.clamped_rgb_g or rgb.rgb_b != rgb.clamped_rgb_b):
+        raise Exception("Colour {} is outside sRGB".format(a))
+    return rgb.get_rgb_hex()
+
+
+def scale_HSL(orig, alteration, relative=False):
+    """ Create new HSLColor given an alteration specification. """
+
+    mode, v = alteration
+    newobj = copy.copy(orig)
+    if mode == 'darken':
+        if relative:
+            newobj.hsl_l /= v
+        else:
+            newobj.hsl_l -= v
+        if (newobj.hsl_l < 0.0) or (newobj.hsl_l >1.0):
+            raise ValueError(f"scale_HSL: darken with {v} generated lightness outside gamut: {newobj.hsl_l}")
+    elif mode == 'saturate':
+        if relative:
+            newobj.hsl_s *= v
+        else:
+            newobj.hsl_s += v
+        if (newobj.hsl_s < 0.0) or (newobj.hsl_s > 1.0):
+            raise ValueError(f"scale_HSL: saturate with {v} generated saturation outside gamut: {newobj.hsl_s}")
+    elif mode == 'absolute':
+        pass
+    else:
+        raise KeyError(f"Unknown alteration mode: {mode}")
+    return newobj
+
+
+def parse_color(a):
+    """Return HSL color from string specification (assumed sRGB hex #RRGGBB)"""
+
+    return convert_color(sRGBColor.new_from_rgb_hex(a), HSLColor)
+
+
+def parse_mode(d, which):
+    """ Search dict for colour modification """
+
+    whichunderscore = which + '_'
+    modetype = None
+    for k, v in d.items():
+        if k == which:
+            modetype = 'absolute'
+            v = parse_color(v)
+            continue
+        if not k.startswith(whichunderscore):
+            continue
+        if modetype is not None:
+            sys.exit(f"More than one color specification for {which}")
+        if (v >= 1.0) or (v <= -1.0):
+            sys.exit(f"Invalid color change (must be floating point number between -1 and 1): {v}")
+        modetype = k[len(whichunderscore):]
+        if modetype == 'lighten':
+            return ('darken', -v)
+        elif modetype == 'desaturate':
+            return('saturate', -v)
+        elif modetype not in ['darken', 'saturate']:
+            sys.exit(f"Unknown color alteration: {modetype}")
+    return (modetype, v)
+
 
 def main():
 
-    settings = load_settings()
-    colours = generate_colours(settings, 'shield')
+#    settings = load_settings()
+    config_file = 'road-colors-override.yaml'
+    settings = yaml.safe_load(open(config_file, 'r'))
+#    colours = generate_colours(settings, 'shield')
+
+    try:
+        shieldtypes = settings['roads']
+    except KeyError:
+        sys.exit(f"generate_shields: configuration file {config_file} did not"
+                 " contain a roads key listing the road types for shield generation.")
 
     namespace = 'http://www.w3.org/2000/svg'
     svgns = '{' + namespace + '}'
     svgnsmap = {None: namespace}
 
-    config = {}
-    config['base'] = {}
+    max_width = 11
+    max_height = 4
+    output_dir = '../symbols/shields/' # specified relative to the script location
 
-    # font_height and font_width are determined by trial and error
-    config['base']['rounded_corners'] = 2
-    config['base']['font_height'] = 12.1
-    config['base']['font_width'] = 6.2
-    config['base']['padding_x'] = 4
-    config['base']['padding_y'] = 2
-    config['base']['stroke_width'] = 1
+    for roadtype, roadvalues in shieldtypes.items():
+        try:
+            base = parse_color(roadvalues['base'])
+        except KeyError:
+            sys.exit(f"Missing base color for road type {roadtype}")
+        casingmode = parse_mode(roadvalues, 'casing')
+        fillmode = parse_mode(roadvalues, 'fill')
 
-    # Fall back colours used if no colours are defined in road-colours.yaml for a road type.
-    config['base']['fill'] = '#f1f1f1'
-    config['base']['stroke_fill'] = '#c6c6c6'
+        settings['roads'][roadtype]['fill'] = scale_HSL(base, fillmode)
+        settings['roads'][roadtype]['casing'] = scale_HSL(base, casingmode)
 
-    config['global'] = {}
+    if not os.path.exists(os.path.dirname(output_dir)):
+        os.makedirs(os.path.dirname(output_dir))
 
-    config['global']['types'] = ['motorway', 'trunk', 'primary', 'secondary', 'tertiary']
-    config['global']['max_width'] = 11
-    config['global']['max_height'] = 4
-    config['global']['output_dir'] = '../symbols/shields/' # specified relative to the script location
+    storevars = settings['shield-geometry']
+    output_sizes = ['base']
+    for k in storevars.keys():
+        if k[0] == 'z':
+            output_sizes.append(k)
 
-    config['global']['additional_sizes'] = ['base', 'z16', 'z18']
+    if verbose:
+        print(storevars)
+        print(settings['roads'])
+        print(output_sizes)
 
-    # specific values overwrite config['base'] ones
-    config['motorway'] = {}
-    config['trunk'] = {}
-    config['primary'] = {}
-    config['secondary'] = {}
-    config['tertiary'] = {}
+    for height in range(1, max_height + 1):
+        for width in range(1, max_width + 1):
+            for shield_type, roadsettings in shieldtypes.items():
 
-    # Colour values generated by generate_road_colours.py.
-    for line_name, line_colours in colours.items():
-        for name, colour in line_colours.items():
-            config[name][line_name] = colour.rgb()
+                vars = copy.copy(storevars)
+                for shield_size in output_sizes:
 
-    # changes for different size versions
-    config['z16'] = {}
-    config['z18'] = {}
-
-    config['z16']['font_width'] = 6.1
-    config['z16']['font_height'] = 14.1
-    config['z18']['font_width'] = 6.9
-    config['z18']['font_height'] = 15.1
-
-    if not os.path.exists(os.path.dirname(config['global']['output_dir'])):
-        os.makedirs(os.path.dirname(config['global']['output_dir']))
-
-    for height in range(1, config['global']['max_height'] + 1):
-        for width in range(1, config['global']['max_width'] + 1):
-            for shield_type in config['global']['types']:
-
-                # merge base config and specific styles
-                vars = copy.deepcopy(config['base'])
-                if shield_type in config:
-                    for option in config[shield_type]:
-                        vars[option] = config[shield_type][option]
-
-                for shield_size in config['global']['additional_sizes']:
-
-                    if shield_size != 'base':
-                        if shield_size in config:
-                            for option in config[shield_size]:
-                                vars[option] = config[shield_size][option]
+                    if (shield_size != 'base') and (shield_size in vars):
+                        vars.update(vars[shield_size])
 
                     shield_width = 2 * vars['padding_x'] + math.ceil(vars['font_width'] * width)
                     shield_height = 2 * vars['padding_y'] + math.ceil(vars['font_height'] * height)
+                    stroke_width = vars['stroke_width']
 
                     svg = lxml.etree.Element('svg', nsmap=svgnsmap)
-                    svg.set('width', str(shield_width + vars['stroke_width']))
-                    svg.set('height', str(shield_height + vars['stroke_width']))
-                    svg.set('viewBox', '0 0 ' + str(shield_width + vars['stroke_width']) + ' ' + str(shield_height + vars['stroke_width']))
+                    svg.set('width', str(shield_width + stroke_width))
+                    svg.set('height', str(shield_height + stroke_width))
+                    svg.set('viewBox', '0 0 ' + str(shield_width + stroke_width) + ' ' + str(shield_height + stroke_width))
 
-                    if vars['stroke_width'] > 0:
-                        offset_x = vars['stroke_width'] / 2.0
-                        offset_y = vars['stroke_width'] / 2.0
+                    if stroke_width > 0:
+                        offset_x = stroke_width / 2.0
+                        offset_y = stroke_width / 2.0
                     else:
                         offset_x = 0
                         offset_y = 0
@@ -101,15 +156,18 @@ def main():
                     shield.set('width', str(shield_width))
                     shield.set('height', str(shield_height))
                     if vars['rounded_corners'] > 0:
-                        shield.set('rx', str(vars['rounded_corners']))
-                        shield.set('ry', str(vars['rounded_corners']))
+                        asstr = str(vars['rounded_corners'])
+                        shield.set('rx', asstr)
+                        shield.set('ry', asstr)
 
-                    shield.set('fill', vars['fill'])
+                    fillcolor = to_rgbhex(roadsettings['fill'])
+                    shield.set('fill', fillcolor)
 
                     stroke = ''
-                    if vars['stroke_width'] > 0:
-                        shield.set('stroke', vars['stroke_fill'])
-                        shield.set('stroke-width', str(vars['stroke_width']))
+                    if stroke_width > 0:
+                        strokecolor = to_rgbhex(roadsettings['casing'])
+                        shield.set('stroke', strokecolor)
+                        shield.set('stroke-width', str(stroke_width))
 
                     svg.append(shield)
 
@@ -121,7 +179,7 @@ def main():
 
                     # save file
                     try:
-                        shieldfile = open(os.path.join(os.path.dirname(__file__), config['global']['output_dir'] + filename), 'wb')
+                        shieldfile = open(os.path.join(os.path.dirname(__file__), output_dir + filename), 'wb')
                         shieldfile.write(lxml.etree.tostring(svg, encoding='utf-8', xml_declaration=True, pretty_print=True))
                         shieldfile.close()
                     except IOError:
