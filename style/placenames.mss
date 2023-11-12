@@ -280,8 +280,8 @@
         text-wrap-width: 75; // 5.0 em
         text-line-spacing: -0.75; // -0.05 em
         text-margin: 10.5; // 0.7 em
-		text-halo-radius: @standard-halo-radius * 2.0;
-	  }
+		    text-halo-radius: @standard-halo-radius * 2.0;
+	    }
       [zoom >= 14] {
         text-size: 17;
         text-wrap-width: 85; // 5.0 em
@@ -333,7 +333,7 @@
   }
 }
 
-#placenames-small::suburb {
+/*#placenames-small::suburb {
   [place = 'suburb'][zoom >= 12][zoom < 17] {
     text-name: "[name]";
     text-size: 10;
@@ -344,12 +344,12 @@
     text-wrap-width: 50; // 5.0 em
     text-line-spacing: -0.50; // -0.05 em
     text-margin: 7; // 0.7 em
-/*    [zoom >= 13] {
+    [zoom >= 13] {
       text-size: 12;
       text-wrap-width: 60; // 5.0 em
       text-line-spacing: -0.60; // -0.05 em
       text-margin: 8.4; // 0.7 em
-    }*/
+    }
     [zoom >= 14] {
       text-size: 12;
       text-wrap-width: 60; // 5.0 em
@@ -364,19 +364,17 @@
       text-margin: 9.8; // 0.7 em
     }
   }
-}
+}*/
 
 #placenames-small::village {
-  [place = 'village'][zoom >= 11],
-  [place = 'quarter'][zoom >= 12] {
-    [zoom >= 11][zoom < 17] {
+  [place = 'village'],
+  [place = 'suburb'] {
+    [zoom >= 12][zoom < 17] {
       text-name: "[name]";
       text-size: 10;
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
-      [place = 'quarter'] { text-fill: @placenames-light; }
-      [place = 'quarter'] { text-halo-fill: white; }
       text-halo-radius: @standard-halo-radius * 1.5;
       text-wrap-width: 50; // 5.0 em
       text-line-spacing: -0.50; // -0.05 em
@@ -394,6 +392,8 @@
         text-margin: 9.1; // 0.7 em
       }
       [zoom >= 15] {
+		    text-fill: @placenames-light;
+		    text-halo-fill: white;
         text-size: 14;
         text-wrap-width: 70; // 5.0 em
         text-line-spacing: -0.70; // -0.05 em
@@ -410,7 +410,7 @@
 }
 
 #placenames-small::hamlet {
-/* [place = 'quarter'] {
+  [place = 'quarter'] {
     [zoom >= 14][zoom < 17] {
       text-name: "[name]";
       text-fill: @placenames;
@@ -438,7 +438,7 @@
         text-margin: 9.8; // 0.7 em
       }
     }
-  }*/
+  }
   [place = 'hamlet'],
   [place = 'neighbourhood'] {
     [zoom >= 14][zoom < 18] {
@@ -447,12 +447,11 @@
       text-face-name: @book-fonts;
       text-halo-fill: white;
       text-halo-radius: @standard-halo-radius * 1.5;
-	  text-dy: 10;
-	  text-dx: 10;
-//	  debug-mode: collision;
+	    text-dy: 10;
+	    text-dx: 10;
       [zoom >= 14] {
-		text-placement-type: simple;
-		text-placements: "N,S,E,W,NE,SE,NW,SW,10,8";
+		    text-placement-type: simple;
+		    text-placements: "N,S,E,W,NE,SE,NW,SW,10,8";
         text-size: 9;
         text-wrap-width: 55; // 5.0 em
         text-line-spacing: -0.55; // -0.05 em
@@ -491,10 +490,10 @@
     text-wrap-width: 36; // 4.5 em
     text-line-spacing: -0.65; // -0.08 em
     text-margin: 5.6; // 0.7 em
-	text-placement-type: simple;
-	text-placements: "N,S,E,W,NE,SE,NW,SW";
-	text-dx: 5;
-	text-dy: 5;
+	  text-placement-type: simple;
+	  text-placements: "N,S,E,W,NE,SE,NW,SW";
+	  text-dx: 5;
+	  text-dy: 5;
     [zoom >= 16] {
       text-size: 10;
       text-wrap-width: 50; // 5.0 em
@@ -508,18 +507,18 @@
   //duplicate landuse_farmyard
   [place = 'farm'][zoom >= 14] {
     text-name: "[name]";
-	text-size: 8;
+	  text-size: 8;
     text-fill: @farm-text;
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-	text-wrap-width: 36; // 4.5 em
+	  text-wrap-width: 36; // 4.5 em
     text-line-spacing: -0.65; // -0.08 em
-	[zoom >= 16] {
-		text-size: @standard-font-size;
-		text-wrap-width: @standard-wrap-width;
-		text-line-spacing: @standard-line-spacing-size;
-	}  
+	  [zoom >= 16] {
+		  text-size: @standard-font-size;
+		  text-wrap-width: @standard-wrap-width;
+		  text-line-spacing: @standard-line-spacing-size;
+	  }  
   }
 }
 
