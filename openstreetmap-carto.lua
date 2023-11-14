@@ -1072,14 +1072,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 	
 	if keyvalues['barrier'] == 'jersey_barrier' then
 		keyvalues['barrier'] = 'wall'
+	elseif keyvalues['barrier'] == 'haha' then
+		keyvalues['barrier'] = 'retaining_wall'
 	end
-	
-	-- Turn flowerbeds into gardens
-	if keyvalues["landuse"] == "flowerbed" then
-		keyvalues["leisure"] = "garden"
-		keyvalues["landuse"] = nil
-	end
-	
+		
 	-- Normalise residential caravan site to new landuse type
 	if (keyvalues['landuse'] == "residential") and (keyvalues['residential'] == 'trailer_park') then
 		keyvalues['landuse'] = 'trailer_park'
