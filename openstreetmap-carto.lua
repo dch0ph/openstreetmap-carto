@@ -1102,6 +1102,12 @@ function filter_tags_way (keyvalues, numberofkeys)
     elseif is_in(keyvalues["barrier"], gate_tags) then
 		keyvalues["barrier"] = "gate"
 	end
+	
+	-- render hollow_way as cutting
+	if (keyvalues['historic'] == 'hollow_way') and (keyvalues['cutting'] == nil) then
+		keyvalues['historic'] = nil
+		keyvalues['cutting'] = 'yes'
+	end
 		
 	-- render abandoned graveyards still as graveyards
 	if keyvalues['abandoned:amenity'] == 'grave_yard' then
