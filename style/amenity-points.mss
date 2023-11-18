@@ -2079,7 +2079,7 @@
   [feature = 'natural_volcano'][zoom >= 13],
   [feature = 'natural_saddle'][zoom >= 13],
   [feature = 'mountain_pass'][zoom >= 14],
-  [feature = 'tourism_viewpoint'][zoom >= 15],
+  [feature = 'tourism_viewpoint'][zoom >= 16],
   [feature = 'man_made_survey_point'][zoom >= 15] {
     text-name: "[name]";
     text-size: @standard-font-size;
@@ -2090,7 +2090,7 @@
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
-//    [feature = 'tourism_viewpoint'] { text-dy: 11; }
+    [feature = 'tourism_viewpoint'] { text-dy: 11; }
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
