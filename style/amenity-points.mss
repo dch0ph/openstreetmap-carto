@@ -2086,7 +2086,7 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: @landform-color-text;
-	[feature = 'man_made_survey_point'],
+	[feature = 'man_made_survey_point'] { text-fill: @amenity-blue; }
     [feature = 'natural_volcano'] { text-fill: #d40000; }
     [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
