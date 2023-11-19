@@ -529,7 +529,7 @@ Layer:
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
                 sidewalk,
-                trail_visibility,
+                tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
                 CASE
@@ -552,22 +552,19 @@ Layer:
                                  WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
                                  WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                  ELSE railway END) AS feature,
-                horse,
-                foot,
-                bicycle,
-                tracktype,
                 'null',
                 'null',
-                CASE
-                  WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
-                sidewalk,
-                trail_visibility,
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
                 'null',
                 construction,
-                CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
-                'no' AS link,
+                'null',
+                'no',
                 COALESCE(layer,0) AS layernotnull,
                 z_order
               FROM planet_osm_line
@@ -778,7 +775,7 @@ Layer:
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
                 sidewalk,
-                trail_visibility,
+                tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
                 CASE
@@ -804,27 +801,19 @@ Layer:
                                      WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
                                      WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                      ELSE railway END)) AS feature,
-                horse,
-                foot,
-                bicycle,
-                tracktype,
                 'null',
-                CASE WHEN surface IN ('unpaved', 'compacted', 'dirt', 'earth', 'fine_gravel', 'grass', 'grass_paver', 'gravel', 'ground',
-                                      'mud', 'pebblestone', 'salt', 'sand', 'woodchips', 'clay', 'ice', 'snow') THEN 'unpaved'
-                  WHEN surface IN ('paved', 'asphalt', 'cobblestone', 'cobblestone:flattened', 'sett', 'concrete', 'concrete:lanes',
-                                      'concrete:plates', 'paving_stones', 'metal', 'wood', 'unhewn_cobblestone') THEN 'paved'
-                  ELSE NULL
-                END AS int_surface,
-                CASE
-                  WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
-                sidewalk,
-                trail_visibility,
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
                 'null',
                 construction,
-                CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') OR leisure IN ('slipway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
-                'no' AS link,
+                'null',
+                'no',
                 COALESCE(layer,0) AS layernotnull,
                 osm_id,
                 z_order
@@ -1041,7 +1030,7 @@ Layer:
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
                 sidewalk,
-                trail_visibility,
+                tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
                 CASE
@@ -1065,22 +1054,19 @@ Layer:
                                  WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                  ELSE railway END) AS feature,
                 bridge,
-                horse,
-                foot,
-                bicycle,
-                tracktype,
                 'null',
                 'null',
-                CASE
-                  WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
-                sidewalk,
-                trail_visibility,
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
+                'null',
                 'null',
                 construction,
-                CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
-                'no' AS link,
+                'null',
+                'no',
                 COALESCE(layer,0) AS layernotnull,
                 z_order
               FROM planet_osm_line
@@ -2120,7 +2106,7 @@ Layer:
                  WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service' ELSE railway END AS railway,
             tags->'highspeed' as highspeed,
             tags->'usage' as usage,
-            islegend,
+            tags->'islegend' AS islegend,
             construction,
             name
           FROM planet_osm_line l
@@ -2340,7 +2326,7 @@ Layer:
             name,
             tags->'prow_ref' AS prow_ref,
             designation,
-            colour,
+            tags->'colour' AS colour,
             CASE
               WHEN oneway IN ('yes', '-1') THEN oneway
               WHEN junction IN ('roundabout') AND (oneway IS NULL OR NOT oneway IN ('no', 'reversible')) THEN 'yes'
