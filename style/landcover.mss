@@ -954,6 +954,12 @@
 	marker-placement: line;
 	marker-spacing: 7;
 	marker-offset: 1.5;
+	[zoom >= 16] {
+		line/line-width: 1.0;
+		marker-width: 7;
+		marker-spacing: 14;
+		marker-offset: 3.0;
+	}
 	marker-allow-overlap: true;
 	marker-ignore-placement: true;
 /*    line-pattern-file: url('symbols/cliff.svg');

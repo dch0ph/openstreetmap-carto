@@ -107,24 +107,23 @@ local roads_info = {
         residential     = {z = 330, roads = false},
         unclassified    = {z = 330, roads = false},
         road            = {z = 330, roads = false},
--- Note that living_street, road, track and footway are redistributed to other highway types
+-- Note that track is combined with service
         living_street   = {z = 320, roads = false},
         pedestrian      = {z = 310, roads = false},
         raceway         = {z = 300, roads = false},
--- Boost link roads otherwise appear underneath pedestrian
-        motorway_link   = {z = 335, roads = true},
-        trunk_link      = {z = 335, roads = true},
-        primary_link    = {z = 335, roads = true},
-        secondary_link  = {z = 325, roads = true},
-        tertiary_link   = {z = 325, roads = false},
--- Boost service so appears before pedestrian
-        service         = {z = 315, roads = false},
+        motorway_link   = {z = 240, roads = true},
+        trunk_link      = {z = 230, roads = true},
+        primary_link    = {z = 220, roads = true},
+        secondary_link  = {z = 210, roads = true},
+        tertiary_link   = {z = 200, roads = false},
+        service         = {z = 150, roads = false},
         track           = {z = 110, roads = false},
 -- Fake highway types created from route relations
 		rwn             = {z = 110, roads = false},
 		lwn             = {z = 110, roads = false},
         path            = {z = 100, roads = false},
-        footway         = {z = 100, roads = false},
+-- Promote footway to just below service
+        footway         = {z = 130, roads = false},
         bridleway       = {z = 100, roads = false},
 -- Move cycleway up since these are often parallel too and over-written by roads at zoom = 14
         cycleway        = {z = 375, roads = false},
@@ -687,12 +686,8 @@ local pathtypes = { 'cycleway', 'path', 'bridleway' }
 -- Specific filtering on highways
 function filter_highway (keyvalues)
 
--- Suppress generic road and living_street
-	if keyvalues['highway'] == 'living_street' then
-		keyvalues['highway'] = 'residential'
-	elseif keyvalues['highway'] == 'road' then
-		keyvalues['highway'] = 'unclassified'
-	elseif keyvalues['highway'] == 'escape' then
+	-- Treat highway = escape as case of highway = service
+	if keyvalues['highway'] == 'escape' then
 		keyvalues['highway'] = 'service'
 	end
 -- Demote narrow / unpaved roads to give better visual indication of importance / traffic levels 
@@ -840,16 +835,10 @@ function filter_highway (keyvalues)
 		keyvalues['highway'] = 'service'
 		-- Kill any sidewalk tag from tracks
 		keyvalues['sidewalk'] = nil
-	-- Kill off footway and treat as minor service road if decent surface present or path if not
-	-- Where possible, highway=footway will be promoted to highway=pedestrian
-	-- But add service = driveway so that rendering can be narrower
 	elseif keyvalues['highway'] == 'footway' then
 	-- For pedestrian-focussed routes, ignore any bicycle access (prevents 'upgrade' to cycleway)
 		keyvalues['bicycle'] = nil
-		if keyvalues['tracktype'] == 'grade1' then
-			keyvalues['highway'] = 'pedestrian'
-			keyvalues['service'] = 'driveway'
-		else
+		if keyvalues['tracktype'] ~= 'grade1' then
 			keyvalues['highway'] = 'path'
 		end
 	end
@@ -877,9 +866,9 @@ function filter_highway (keyvalues)
 		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'permissive_bridleway') then
 			keyvalues['highway'] = 'bridleway'
 		end
-	-- Normalise access tagging (destination only access is effectively foot = private)
-		if keyvalues['access'] == 'destination' then
-			keyvalues['foot'] = 'private'
+	-- Normalise access tagging (destination only access is effectively foot = private/no)
+		if (keyvalues['access'] == 'destination') or (keyvalues['access'] == 'private') then
+			keyvalues['foot'] = 'no'
 		end
 	end
 
