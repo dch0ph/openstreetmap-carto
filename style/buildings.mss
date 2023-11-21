@@ -12,15 +12,10 @@
 @entrance-normal: @building-line;
 
 #buildings {
-  [zoom >= 14][building != 'church'][building != 'mosque'],
-  [zoom >= 16] {
 	[building != 'ruins' ] {
 		polygon-clip: false;
 		polygon-fill: @building-fill;
-		[building = 'church'],
-		[building = 'mosque'] {
-			polygon-fill: @building-major-fill;
-		}
+		[is_significant = 'yes'] { polygon-fill: @building-major-fill; }
 		[way_pixels < 50][zoom < 16] { polygon-fill: @building-low-zoom; }
 	}
 	[building = 'ruins'] {
@@ -34,8 +29,7 @@
 	[way_pixels < 50][zoom < 16] { line/line-color: @building-low-zoom; }
 	line/line-width: 0.8;
 	[building = 'ruins'] { line/line-dasharray: 1.5,1; }  
-    line/line-clip: false;
-  }
+	line/line-clip: false;
 }
 
 #bridge {
