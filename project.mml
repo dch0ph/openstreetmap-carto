@@ -474,11 +474,11 @@ Layer:
             way,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,			
             building,
-            CASE WHEN building IN ('church', 'mosque') OR tags->'listed_status' IN ('Grade I', 'Grade II*') THEN 'yes' ELSE 'no' END AS is_significant,
             amenity,
             aeroway,
             aerialway,
-            tags->'public_transport' as public_transport
+            tags->'public_transport' as public_transport,
+            CASE WHEN tags->'listed_status' IN ('Grade I', 'Grade II*') THEN 'yes' ELSE 'no' END AS is_listed
           FROM planet_osm_polygon
           WHERE building IS NOT NULL
             AND building != 'no'

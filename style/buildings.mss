@@ -15,7 +15,14 @@
 	[building != 'ruins' ] {
 		polygon-clip: false;
 		polygon-fill: @building-fill;
-		[is_significant = 'yes'] { polygon-fill: @building-major-fill; }
+		[amenity = 'place_of_worship'],
+		[aeroway = 'terminal'],
+		[aerialway = 'station'],
+		[building = 'train_station'],
+		[public_transport = 'station'],
+		[is_listed = 'yes']{
+			polygon-fill: @building-major-fill;
+		}
 		[way_pixels < 50][zoom < 16] { polygon-fill: @building-low-zoom; }
 	}
 	[building = 'ruins'] {
