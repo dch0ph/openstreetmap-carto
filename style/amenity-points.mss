@@ -167,7 +167,13 @@
 	marker-max-error: 2.0;
   }
 
-  [feature = 'amenity_bbq'][zoom >= 14] {
+  [feature = 'amenity_internet_cafe'][zoom >= 17] {
+    marker-file: url('symbols/amenity/internet_cafe.svg');
+    marker-fill: @amenity-brown;
+    marker-clip: false;
+  }
+
+  [feature = 'amenity_bbq'][zoom >= 17] {
     marker-file: url('symbols/amenity/bbq.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -175,6 +181,18 @@
       marker-opacity: @private-opacity;
     }
 	[zoom < 16] { marker-width: 8; }
+  }
+
+  [feature = 'amenity_public_bookcase'][zoom >= 19] {
+    marker-file: url('symbols/amenity/public_bookcase.svg');
+    marker-fill: @amenity-brown;
+    marker-clip: false;
+  }
+
+  [feature = 'amenity_bicycle_rental'][zoom >= 17] {
+    marker-file: url('symbols/amenity/rental_bicycle.svg');
+    marker-fill: @transportation-icon;
+    marker-clip: false;
   }
 
   [feature = 'highway_bus_stop'] {
