@@ -183,7 +183,7 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
-  [feature = 'amenity_public_bookcase'][zoom >= 19] {
+  [feature = 'amenity_public_bookcase'][zoom >= 18] {
     marker-file: url('symbols/amenity/public_bookcase.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -1860,7 +1860,7 @@
     text-fill: @placenames;
     text-face-name: @book-fonts;
     text-halo-fill: @standard-halo-fill;
-    text-halo-radius: @standard-halo-radius * 1.5;
+    text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     text-wrap-width: 45; // 4.5 em
     text-line-spacing: -0.8; // -0.08 em
     text-margin: 7.0; // 0.7 em
@@ -1879,7 +1879,7 @@
     text-size: 11;
     text-face-name: @book-fonts;
     text-halo-fill: @standard-halo-fill;
-    text-halo-radius: @standard-halo-radius * 1.5;
+    text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     text-wrap-width: 45; // 4.5 em
     text-line-spacing: -0.8; // -0.08 em
     text-margin: 7.0; // 0.7 em
@@ -2321,7 +2321,7 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       [feature = 'leisure_dog_park'] {
-        text-halo-radius: @standard-halo-radius * 1.5; /* Extra halo needed to stand out from paw pattern. */
+        text-halo-radius: @standard-halo-radius * @standard-halo-multiplier; /* Extra halo needed to stand out from paw pattern. */
       }
       text-halo-fill: @standard-halo-fill;
       [int_access = 'restricted'] {
@@ -2521,7 +2521,7 @@
       [feature = 'landuse_cemetery'],
       [feature = 'amenity_grave_yard'] {
         text-fill: darken(@cemetery, 50%);
-        text-halo-radius: @standard-halo-radius * 1.5; /* extra halo needed to overpower the cemetery polygon pattern */
+        text-halo-radius: @standard-halo-radius * @standard-halo-multiplier; /* extra halo needed to overpower the cemetery polygon pattern */
       }
       [feature = 'landuse_residential'],
 	  [feature = 'landuse_trailer_park'] {

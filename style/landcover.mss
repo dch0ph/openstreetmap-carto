@@ -18,7 +18,7 @@
 @barrier-color: #333;   // darker than original #444
 @water-line-color: lighten(#4d80b3, 5%); // Also used for high/low water contours
 @dark-water-color: darken(#4d80b3, 5%); // Water features e.g. waterfalls 
-@cliff-color: #333;
+@cliff-color: #444;
 
 // --- "Base" landuses ---
 

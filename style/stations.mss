@@ -12,7 +12,7 @@
       text-size: 10;
       text-fill: @transportation-text;
       text-dy: 10;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: 0;
     }
@@ -36,7 +36,7 @@
       text-size: 10;
       text-fill: @station-text;
       text-dy: 9;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: 30; // 3 em
       text-line-spacing: -1.5; // -0.15 em
@@ -67,7 +67,7 @@
       text-size: @standard-font-size;
       text-fill: @station-text;
       text-dy: 10;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
@@ -90,7 +90,7 @@
       text-size: @standard-font-size;
       text-fill: @station-text;
       text-dy: 10;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
@@ -113,7 +113,7 @@
       text-size: @standard-font-size;
       text-fill: @station-text;
       text-dy: 10;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;

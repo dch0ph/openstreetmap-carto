@@ -44,7 +44,7 @@
     text-fill: @country-labels;
     text-face-name: @book-fonts;
     text-halo-fill: @standard-halo-fill;
-    text-halo-radius: @standard-halo-radius * 1.5;
+    text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     text-character-spacing: 0.5;
   }
 }*/
@@ -60,7 +60,7 @@
     text-fill: @state-labels;
     text-face-name: @oblique-fonts;
     text-halo-fill: @standard-halo-fill;
-    text-halo-radius: @standard-halo-radius * 1.5;
+    text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     text-placement: interior;
     [zoom >= 7] {
       text-size: 11;
@@ -103,7 +103,7 @@
     shield-line-spacing: -1.6; // -0.15 em
     shield-margin: 7.7; // 0.7 em
     shield-halo-fill: @standard-halo-fill;
-    shield-halo-radius: @standard-halo-radius * 1.5;
+    shield-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     shield-placement-type: simple;
     shield-placements: 'S,N,E,W';
     [dir = 1] {
@@ -136,7 +136,7 @@
     text-line-spacing: -0.65; // -0.05 em
     text-margin: 9.1; // 0.7 em
     text-halo-fill: @standard-halo-fill;
-    text-halo-radius: @standard-halo-radius * 1.5;
+    text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
 
     [zoom >= 10] {
       text-size: 14;
@@ -168,7 +168,7 @@
       shield-line-spacing: -1.65; // -0.15 em
       shield-margin: 7.7; // 0.7 em
       shield-halo-fill: @standard-halo-fill;
-      shield-halo-radius: @standard-halo-radius * 1.5;
+      shield-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       shield-placement-type: simple;
       shield-placements: 'S,N,E,W';
       [dir = 1] {
@@ -203,7 +203,7 @@
       text-line-spacing: -0.65; // -0.05 em
       text-margin: 9.1; // 0.7 em
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
 
       [zoom >= 10] {
         text-size: 14;
@@ -233,7 +233,7 @@
       shield-fill: @placenames;
       shield-face-name: @book-fonts;
       shield-halo-fill: @standard-halo-fill;
-      shield-halo-radius: @standard-halo-radius * 1.5;
+      shield-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       shield-wrap-width: 30; // 3.0 em
       shield-line-spacing: -1.5; // -0.15 em
       shield-margin: 7.0; // 0.7 em
@@ -253,7 +253,7 @@
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-wrap-width: 40; // 4.0 em
       text-line-spacing: -1.0; // -0.10 em
       text-margin: 7.0; // 0.7 em
@@ -300,7 +300,7 @@
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-wrap-width: 45; // 4.5 em
       text-line-spacing: -0.8; // -0.08 em
       text-margin: 7; // 0.7 em
@@ -355,7 +355,7 @@
       text-wrap-width: 60; // 5.0 em
       text-line-spacing: -0.60; // -0.05 em
       text-margin: 8.4; // 0.7 em
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
     }
     [zoom >= 16] {
       text-size: 14;
@@ -375,7 +375,7 @@
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-wrap-width: 50; // 5.0 em
       text-line-spacing: -0.50; // -0.05 em
       text-margin: 7.0; // 0.7 em
@@ -416,7 +416,7 @@
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       [zoom >= 14] {
         text-size: 11;
         text-wrap-width: 55; // 5.0 em
@@ -446,7 +446,7 @@
       text-fill: @placenames;
       text-face-name: @book-fonts;
       text-halo-fill: white;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
 	    text-dy: 10;
 	    text-dx: 10;
       [zoom >= 14] {
@@ -534,7 +534,7 @@
       text-fill: @county-labels;
       text-face-name: @oblique-fonts;
       text-halo-fill: @standard-halo-fill;
-      text-halo-radius: @standard-halo-radius * 1.5;
+      text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-placement-type: simple;
       text-placements: "S,SE,SW,E,NE,W,NW,N";
       [admin_level = '5'] {

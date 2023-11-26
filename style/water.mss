@@ -238,7 +238,7 @@
 
       [waterway = 'stream'][zoom >= 15] { water/line-width: @stream-width-z15plus; }
 
-	  [int_intermittent != 'yes'][zoom >= 13] {
+	  [int_intermittent != 'yes'][zoom >= 14] {
 		marker-file: url('symbols/oneway.svg');
 		marker-fill: @water-line-color;
 		marker-max-error: 0.5;
@@ -304,20 +304,6 @@
       text-placement: line;
       text-repeat-distance: @waterway-text-repeat-distance;
     }
-
-//    [waterway = 'stream'][zoom >= 13] {
-//      text-name: "[name]";
-//      text-size: 7;
-//      text-face-name: @oblique-fonts;
-//      text-fill: @water-text;
-//      text-halo-radius: @standard-halo-radius;
-//      text-halo-fill: @standard-halo-fill;
-//      text-spacing: 600;
-//      text-placement: line;
-//      text-vertical-alignment: middle;
-//      text-dy: 8;
-//      text-repeat-distance: @waterway-text-repeat-distance;
-//    }
 
 // Combined stream into drain and ditch, shrunk text slightly
     [waterway = 'drain'],
