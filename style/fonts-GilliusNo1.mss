@@ -27,6 +27,3 @@ Italics are only available for the (Latin-Greek-Cyrillic) base font, not the oth
 For a considerable number of labels this style will make no difference to the regular style.
 */
 @oblique-fonts: "Gillius ADF Italic", @book-fonts;
-
-/* @monospace-fonts: "Ubuntu Mono Regular"; */
-

@@ -38,9 +38,7 @@ srs: *srs
 Stylesheet:
 # style.mss has only limited effects (e.g. halo around text)
   - style/style.mss
-# font.mss only sets typefaces to be used
   - style/fonts-GilliusNo1.mss
-# Externally loaded shapefiles (e.g. oceans)
   - style/shapefiles.mss
 # land cover, barrier?, cliffs etc., plus gridlines
   - style/landcover.mss
