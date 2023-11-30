@@ -128,7 +128,7 @@ Layer:
               historic,
               CASE WHEN religion IN ('christian', 'jewish', 'muslim') THEN religion ELSE 'INT-generic'::text END AS religion,
               way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
-              CASE WHEN building = 'no' OR building IS NULL THEN 'no' ELSE 'yes' END AS is_building,
+              CASE WHEN building IS NULL THEN 'no' ELSE 'yes' END AS is_building,
               tags->'wetland' AS wetland,
               tags->'pasture' AS pasture,
               way_area
@@ -479,7 +479,6 @@ Layer:
             CASE WHEN tags->'listed_status' IN ('Grade I', 'Grade II*') THEN 'yes' ELSE 'no' END AS is_listed
           FROM planet_osm_polygon
           WHERE building IS NOT NULL
-            AND building != 'no'
             AND way_area > 1*!pixel_width!::real*!pixel_height!::real
           ORDER BY COALESCE(layer,0), way_area DESC
         ) AS buildings

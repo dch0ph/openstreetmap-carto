@@ -218,8 +218,12 @@ function filter_tags_generic(tags)
         return 1, {}
     end
 
-	if (tags['opening_hours'] == 'closed') and (tags['amenity'] or tags['shop']) then
-		return 1, {}
+	if tags['opening_hours'] == 'closed' then
+		if tags['amenity'] then
+			tags['amenity'] = nil
+		elseif tags['shop']) then
+			tags['shop'] = nil
+		end
 	end
 
     -- Delete tags listed in delete_tags
@@ -238,6 +242,11 @@ function filter_tags_generic(tags)
             end
         end
     end
+	
+	-- Actively suppress building=no to simplify SQL
+	if tags['building'] == 'no' then
+		tags['building'] = nil
+	end
 	
 	-- Consolidate key contact tags
 	if tags['contact:website'] then
