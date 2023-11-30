@@ -3199,15 +3199,18 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'tourism_attraction'][zoom >= 16][is_building = 'no'] {
-    text-name: "[name]";
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
-    text-fill: @tourism;
-    text-halo-radius: @standard-halo-radius;
-    text-halo-fill: @standard-halo-fill;
-    text-face-name: @standard-font;
+  [feature = 'tourism_attraction'] {
+	[way_pixels > 200],
+	[zoom >= 16] {
+		text-name: "[name]";
+		text-size: @standard-font-size;
+		text-wrap-width: @standard-wrap-width;
+		text-line-spacing: @standard-line-spacing-size;
+		text-fill: @tourism;
+		text-halo-radius: @standard-halo-radius;
+		text-halo-fill: @standard-halo-fill;
+		text-face-name: @standard-font;
+	}
   }
 
   [feature = 'amenity_parking'],
