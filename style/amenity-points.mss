@@ -59,7 +59,7 @@
 @larger-wrap-width: 48; // 4 em
 @larger-line-spacing-size: -1.8; // -0.15 em
 
-@private-opacity: 0.33;
+@private-opacity: 0.45;
 
 #orienteering {
   marker-file: url('symbols/orienteering_marker.svg');

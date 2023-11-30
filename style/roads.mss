@@ -248,7 +248,7 @@
 @secondary-width-z16:            7;
 @tertiary-width-z16:             7;
 @residential-width-z16:           5.5;
-@living-street-width-z16:         @residential-width-z15;
+@living-street-width-z16:         @residential-width-z16;
 @service-width-z16:               4;
 @pedestrian-width-z16:            @residential-width-z16;
 //@road-width-z16:                  @service-width-z16;
