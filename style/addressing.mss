@@ -62,7 +62,7 @@
 not official postal addresses) */
 
 #building-text {
-  [zoom >= 14][way_pixels > 3000],
+  [zoom >= 15][way_pixels > @large-building-pixels],
   [zoom >= 17] {
     text-name: "[name]";
     text-face-name: @book-fonts;

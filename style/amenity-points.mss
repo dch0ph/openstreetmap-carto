@@ -59,7 +59,7 @@
 @larger-wrap-width: 48; // 4 em
 @larger-line-spacing-size: -1.8; // -0.15 em
 
-@private-opacity: 0.45;
+@private-opacity: 0.5;
 
 #orienteering {
   marker-file: url('symbols/orienteering_marker.svg');
@@ -402,7 +402,7 @@
     marker-clip: false;
   }
 
-  [feature = 'tourism_apartment'][zoom >= 18] {
+  [feature = 'tourism_apartment'][zoom >= 17] {
     marker-file: url('symbols/tourism/apartment.svg');
     marker-fill: @accommodation-icon;
     marker-clip: false;
@@ -943,385 +943,372 @@
   }
 
   // crafts
-  [feature = 'craft'][zoom >= 17] {
-    marker-line-width: 0;
-	marker-fill: @craft;
-	marker-width: 4;
-    marker-clip: false;
-	[zoom >= 18] {
-		marker-width: 6;
-		[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
-		[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
-		[craft = 'jewelry'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
-		[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
-		[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
-		[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
-		[craft = 'electronics_repair'] { marker-file: url('symbols/shop/electronics.svg'); marker-width: 12; }
-		[craft = 'computer_repair'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
-		[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
-		[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
-		[craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
-		[craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
-		[craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
-		[craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
+  [feature = 'craft'] {
+     [way_pixels > @large-building-pixels][zoom >= 16],
+	 [zoom >= 17] {
+		marker-line-width: 0;
+		marker-fill: @craft;
+		marker-width: 4;
+		marker-clip: false;
+		[zoom >= 18] {
+			marker-width: 6;
+			[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
+			[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
+			[craft = 'jewelry'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
+			[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
+			[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
+			[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
+			[craft = 'electronics_repair'] { marker-file: url('symbols/shop/electronics.svg'); marker-width: 12; }
+			[craft = 'computer_repair'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
+			[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
+			[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
+			[craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
+			[craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
+			[craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
+			[craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
+		}
 	}
   }
 
   // clubs
-  [feature = 'club'][zoom >= 17] {
-	  marker-width: 6;
-	  [zoom = 17] { marker-width: 4}
-	  marker-line-width: 0;
-	  marker-fill: @leisure-green;
-	  marker-clip: false;
+  [feature = 'club'] {
+     [way_pixels > @large-building-pixels][zoom >= 16],
+	 [zoom >= 17] {
+		  marker-width: 6;
+		  [zoom < 18] { marker-width: 4}
+		  marker-line-width: 0;
+		  marker-fill: @leisure-green;
+		  marker-clip: false;
+	}
   }
 
   // healthcare
-  [feature = 'healthcare'][zoom >= 17] {
-      marker-width: 6;
-	  [zoom = 17] { marker-width: 4}
-      marker-line-width: 0;
-	  marker-fill: @health-color;
-      marker-clip: false;
+  [feature = 'healthcare'] {
+     [way_pixels > @large-building-pixels][zoom >= 15],
+	 [zoom >= 17] {
+		  marker-width: 6;
+		  [zoom < 18] { marker-width: 4}
+		  marker-line-width: 0;
+		  marker-fill: @health-color;
+		  marker-clip: false;
+    }
   }
 
-  [feature = 'shop'] {
-    [shop != 'mall'][shop != 'massage'][zoom >= 17],
-    [shop = 'supermarket'][zoom >= 16],
-    [shop = 'department_store'][zoom >= 16] {
+  [feature = 'shop'][shop != 'mall'] {
+    [zoom >= 17],
+	[zoom >= 16][shop = 'garden_centre'], 
+    [way_pixels > @large-building-pixels][zoom >= 15] {
       marker-clip: false;
       marker-fill: @shop-icon;
-    }
-
-    [zoom >= 17][zoom < 18][shop != 'supermarket'][shop != 'department_store'][shop != 'mall'][shop != 'massage'] {
-      marker-width: 4;
       marker-line-width: 0;
-    }
 
-    [shop = 'other'][zoom >= 18] {
-      marker-width: 6;
-      marker-line-width: 0;
-    }
+	[way_pixels <= @large-building-pixels][zoom < 18][shop != 'garden_centre'],
+	[shop = 'other'] {
+		marker-width: 6;
+		[zoom < 18] { marker-width: 4; }
+	}
+	
+	[way_pixels > @large-building-pixels],
+	[shop = 'garden_centre'],
+	[zoom >= 18] {
 
-    [shop = 'supermarket'][zoom >= 16] {
+    [shop = 'supermarket'] {
       marker-file: url('symbols/shop/supermarket.svg');
     }
 
-    [shop = 'art'][zoom >= 18] {
+    [shop = 'art'] {
       marker-file: url('symbols/shop/art.svg');
     }
 
-    [shop = 'bag'][zoom >= 18] {
+    [shop = 'bag'] {
       marker-file: url('symbols/shop/bag.svg');
     }
 
-    [shop = 'bakery'][zoom >= 18] {
+    [shop = 'bakery'] {
       marker-file: url('symbols/shop/bakery.svg');
     }
 
-    [shop = 'beauty'][zoom >= 18] {
+    [shop = 'beauty'] {
       marker-file: url('symbols/shop/beauty.svg');
     }
 
-    [shop = 'bed'][zoom >= 18] {
+    [shop = 'bed'] {
       marker-file: url('symbols/shop/bed.svg');
     }
 
-    [shop = 'beverages'][zoom >= 18] {
+    [shop = 'beverages'] {
       marker-file: url('symbols/shop/beverages.svg');
     }
 
-    [shop = 'bookmaker'][zoom >= 18] {
+    [shop = 'bookmaker'] {
       marker-file: url('symbols/shop/bookmaker.svg');
     }
 
-    [shop = 'books'][zoom >= 18] {
+    [shop = 'books'] {
       marker-file: url('symbols/amenity/library.svg');
     }
 
-    [shop = 'butcher'][zoom >= 18] {
+    [shop = 'butcher'] {
       marker-file: url('symbols/shop/butcher.svg');
     }
 
-    [shop = 'carpet'][zoom >= 18] {
+    [shop = 'carpet'] {
       marker-file: url('symbols/shop/carpet.svg');
     }
 
-    [shop = 'charity'][zoom >= 18] {
+    [shop = 'charity'] {
       marker-file: url('symbols/shop/charity.svg');
     }
 
-    [shop = 'chemist'][zoom >= 18] {
+    [shop = 'chemist'] {
       marker-file: url('symbols/shop/chemist.svg');
     }
 
     [shop = 'clothes'],
     [shop = 'fashion'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/clothes.svg');
-      }
     }
 
-    [shop = 'coffee'][zoom >= 18] {
+    [shop = 'coffee'] {
       marker-file: url('symbols/shop/coffee.svg');
     }
 
-    [shop = 'computer'][zoom >= 18] {
+    [shop = 'computer'] {
       marker-file: url('symbols/shop/computer.svg');
     }
 
-    [shop = 'convenience'][zoom >= 18] {
+    [shop = 'convenience'] {
       marker-file: url('symbols/shop/convenience.svg');
     }
 
-    [shop = 'chocolate'][zoom >= 18],
-    [shop = 'confectionery'][zoom >= 18],
-    [shop = 'pastry'][zoom >= 18] {
+    [shop = 'chocolate'],
+    [shop = 'confectionery'],
+    [shop = 'pastry'] {
       marker-file: url('symbols/shop/confectionery.svg');
     }
 
-    [shop = 'copyshop'][zoom >= 18] {
+    [shop = 'copyshop'] {
       marker-file: url('symbols/shop/copyshop.svg');
     }
 
     [shop = 'cosmetics'],
     [shop = 'perfumery'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/perfumery.svg');
-      }
     }
 
     [shop = 'deli'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/deli.svg');
-      }
     }
 
-    [shop = 'department_store'][zoom >= 16] {
+    [shop = 'department_store'] {
       marker-file: url('symbols/shop/department_store.svg');
     }
 
     [shop = 'doityourself'],
     [shop = 'hardware'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/diy.svg');
-      }
     }
 
     [shop = 'dry_cleaning'],
     [shop = 'laundry'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/laundry.svg');
-      }
     }
 
-    [shop = 'fabric'][zoom >= 18] {
+    [shop = 'fabric'] {
       marker-file: url('symbols/shop/fabric.svg');
     }
 
     [shop = 'fishmonger'],
     [shop = 'seafood'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/seafood.svg');
-      }
     }
 
-    [shop = 'florist'][zoom >= 18] {
+    [shop = 'florist'] {
       marker-file: url('symbols/shop/florist.svg');
     }
 
-    [shop = 'garden_centre'][zoom >= 17] {
+    [shop = 'garden_centre'] {
       marker-file: url('symbols/shop/garden_centre.svg');
     }
 
     [shop = 'greengrocer'],
     [shop = 'farm'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/greengrocer.svg');
-      }
     }
 
-    [shop = 'hairdresser'][zoom >= 18] {
+    [shop = 'hairdresser'] {
       marker-file: url('symbols/shop/hairdresser.svg');
     }
 
-    [shop = 'hifi'][zoom >= 18] {
+    [shop = 'hifi'] {
       marker-file: url('symbols/shop/hifi.svg');
     }
 
-    [shop = 'houseware'][zoom >= 18] {
+    [shop = 'houseware'] {
       marker-file: url('symbols/shop/houseware.svg');
     }
 
-    [shop = 'car'][zoom >= 18] {
+    [shop = 'car'] {
       marker-file: url('symbols/shop/car.svg');
     }
 
-    [shop = 'car_parts'][zoom >= 18] {
+    [shop = 'car_parts'] {
       marker-file: url('symbols/shop/car_parts.svg');
     }
 
-    [shop = 'car_repair'][zoom >= 18] {
+    [shop = 'car_repair'] {
       marker-file: url('symbols/shop/car_repair.svg');
     }
 
-    [shop = 'motorcycle_repair'][zoom >= 18] {
+    [shop = 'motorcycle_repair'] {
       marker-file: url('symbols/shop/motorcycle_repair.svg');
     }
 
-    [shop = 'dairy'][zoom >= 18] {
+    [shop = 'dairy'] {
       marker-file: url('symbols/shop/dairy.svg');
     }
 
-    [shop = 'bicycle'][zoom >= 18] {
+    [shop = 'bicycle'] {
       marker-file: url('symbols/shop/bicycle.svg');
     }
 
-    [shop = 'pet'][zoom >= 18] {
+    [shop = 'pet'] {
       marker-file: url('symbols/shop/pet.svg');
     }
 
     [shop = 'camera'],
     [shop = 'photo'],
     [shop = 'photography'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/photo.svg');
-      }
     }
 
-    [shop = 'paint'][zoom >= 18] {
+    [shop = 'paint'] {
       marker-file: url('symbols/shop/paint.svg');
     }
 
-    [shop = 'shoes'][zoom >= 18] {
+    [shop = 'shoes'] {
       marker-file: url('symbols/shop/shoes.svg');
     }
 
-    [shop = 'gift'][zoom >= 18] {
+    [shop = 'gift'] {
       marker-file: url('symbols/shop/gift.svg');
     }
 
-    [shop = 'electronics'][zoom >= 18] {
+    [shop = 'electronics'] {
       marker-file: url('symbols/shop/electronics.svg');
     }
 
     [shop = 'alcohol'],
     [shop = 'wine'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/alcohol.svg');
-      }
     }
 
-    [shop = 'optician'][zoom >= 18] {
+    [shop = 'optician'] {
       marker-file: url('symbols/shop/optician.svg');
     }
 
-    [shop = 'outdoor'][zoom >= 18] {
+    [shop = 'outdoor'] {
       marker-file: url('symbols/shop/outdoor.svg');
     }
 
-    [shop = 'furniture'][zoom >= 18] {
+    [shop = 'furniture'] {
       marker-file: url('symbols/shop/furniture.svg');
     }
 
-    [shop = 'interior_decoration'][zoom >= 18] {
+    [shop = 'interior_decoration'] {
       marker-file: url('symbols/shop/interior_decoration.svg');
     }
 
-    [shop = 'massage'][zoom >= 18] {
-      marker-file: url('symbols/shop/massage.svg');
+    [shop = 'massage'] {
       marker-fill: @leisure-green;
+      [zoom >= 18] { marker-file: url('symbols/shop/massage.svg'); }
     }
 
-    [shop = 'medical_supply'][zoom >= 18]{
+    [shop = 'medical_supply'] {
       marker-file: url('symbols/shop/medical_supply.svg');
     }
 
-    [shop = 'mobile_phone'][zoom >= 18] {
+    [shop = 'mobile_phone'] {
       marker-file: url('symbols/shop/mobile_phone.svg');
     }
 
-    [shop = 'motorcycle'][zoom >= 18] {
+    [shop = 'motorcycle'] {
       marker-file: url('symbols/shop/motorcycle.svg');
     }
 
-    [shop = 'music'][zoom >= 18] {
+    [shop = 'music'] {
       marker-file: url('symbols/shop/music.svg');
     }
 
-    [shop = 'musical_instrument'][zoom >= 18] {
+    [shop = 'musical_instrument'] {
       marker-file: url('symbols/shop/musical_instrument.svg');
     }
 
     [shop = 'kiosk'],
     [shop = 'newsagent'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/newsagent.svg');
-      }
     }
 
     [shop = 'jewelry'],
     [shop = 'jewellery'] {
-      [zoom >= 18] {
         marker-file: url('symbols/shop/jewelry.svg');
-      }
     }
 
-    [shop = 'toys'][zoom >= 18] {
+    [shop = 'toys'] {
       marker-file: url('symbols/shop/toys.svg');
     }
 
-    [shop = 'travel_agency'][zoom >= 18] {
+    [shop = 'travel_agency'] {
       marker-file: url('symbols/shop/travel_agency.svg');
     }
 
-    [shop = 'second_hand'][zoom >= 18] {
+    [shop = 'second_hand'] {
       marker-file: url('symbols/shop/second_hand.svg');
     }
 
-    [shop = 'sports'][zoom >= 18] {
+    [shop = 'sports'] {
       marker-file: url('symbols/shop/sports.svg');
     }
 
-    [shop = 'stationery'][zoom >= 18] {
+    [shop = 'stationery'] {
       marker-file: url('symbols/shop/stationery.svg');
     }
 
-    [shop = 'tobacco'][zoom >= 18] {
+    [shop = 'tobacco'] {
       marker-file: url('symbols/shop/tobacco.svg');
     }
 
-    [shop = 'tea'][zoom >= 18] {
+    [shop = 'tea'] {
       marker-file: url('symbols/shop/tea.svg');
     }
 
-    [shop = 'ticket'][zoom >= 18] {
+    [shop = 'ticket'] {
       marker-file: url('symbols/shop/ticket.svg');
     }
 
-    [shop = 'trade'][zoom >= 18] {
+    [shop = 'trade'],
+	[shop = 'wholesale']
+	{
       marker-file: url('symbols/shop/trade.svg');
     }
 
-    [shop = 'wholesale'][zoom >= 18] {
-      marker-file: url('symbols/shop/trade.svg');
-    }
-
-    [shop = 'tyres'][zoom >= 18] {
+    [shop = 'tyres'] {
       marker-file: url('symbols/shop/tyres.svg');
     }
 
-    [shop = 'variety_store'][zoom >= 18] {
+    [shop = 'variety_store'] {
       marker-file: url('symbols/shop/variety_store.svg');
     }
 
-    [shop = 'video'][zoom >= 18] {
+    [shop = 'video'] {
       marker-file: url('symbols/shop/video.svg');
     }
 
-    [shop = 'video_games'][zoom >= 18] {
+    [shop = 'video_games'] {
       marker-file: url('symbols/shop/video_games.svg');
     }
+	}
+  }
   }
 
   [feature = 'advertising_column'][zoom >= 19]{
@@ -1331,14 +1318,17 @@
   }
 
   // office points
-  [feature = 'office'][zoom >= 17] {
-    marker-width: 6;
-	[zoom = 17] { marker-width: 4; }
-    marker-line-width: 0;
-    marker-clip: false;
-    marker-fill: @office;
-	[zoom >= 18] {
-		[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
+  [feature = 'office'] {
+	[zoom >= 15][way_pixels > @large-building-pixels],
+	[zoom >= 17] {
+		marker-width: 6;
+		[zoom < 18] { marker-width: 4; }
+		marker-line-width: 0;
+		marker-clip: false;
+		marker-fill: @office;
+		[zoom >= 18] {
+			[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
+		}
 	}
   }
 
@@ -2678,7 +2668,7 @@
   [feature = 'tourism_hostel'][zoom >= 17],
   [feature = 'tourism_chalet'][zoom >= 17],
   [feature = 'tourism_guest_house'][zoom >= 17],
-  [feature = 'tourism_apartment'][zoom >= 18],
+  [feature = 'tourism_apartment'][zoom >= 17],
   [feature = 'tourism_wilderness_hut'][zoom >= 14],
   [feature = 'tourism_camp_site'][zoom >= 16],
   [feature = 'tourism_caravan_site'][zoom >= 16], {
@@ -2837,6 +2827,7 @@
   [feature = 'amenity_dentist'],
   [feature = 'amenity_veterinary'],
   [feature = 'healthcare']  {
+	[zoom >= 15][way_pixels > @large-building-pixels],
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2853,7 +2844,8 @@
 
   [feature = 'amenity_nursing_home'],
   [feature = 'amenity_childcare'] {
-    [zoom >= 18] {
+	[zoom >= 16][way_pixels > @large-building-pixels],
+    [zoom >= 17] {
       text-name: "[name]";
       text-size: @landcover-font-size;
       text-wrap-width: @landcover-wrap-width-size;
@@ -2882,7 +2874,8 @@
 
   [feature = 'shop'][shop != 'mall'],
   [feature = 'craft'] {
-    [way_pixels > 3000][zoom >= 17],
+    [way_pixels > @large-building-pixels][zoom >= 16],
+	[shop = 'garden_centre'][zoom >= 17],
     [zoom >= 18] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2900,8 +2893,24 @@
     }
   }
 
+/*  [feature = 'shop_supermarket'],
+  [feature = 'shop_department_store'] {
+    [zoom >= 16] {
+      text-name: "[name]";
+      text-size: @standard-font-size;
+      text-wrap-width: @standard-wrap-width;
+      text-line-spacing: @standard-line-spacing-size;
+      text-dy: 12;
+      text-fill: @shop-text;
+      text-face-name: @standard-font;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: rgba(255, 255, 255, 0.6);
+    }
+  }*/
+
+
   [feature = 'office'] {
-    [way_pixels > 3000][zoom >= 17],
+    [way_pixels > @large-building-pixels][zoom >= 15],
     [zoom >= 18] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2916,7 +2925,7 @@
   }
 
   [feature = 'club'] {
-    [way_pixels > 3000][zoom >= 17],
+    [way_pixels > @large-building-pixels][zoom >= 16],
     [zoom >= 18] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2939,21 +2948,6 @@
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 10;
       text-fill: @office;
-      text-face-name: @standard-font;
-      text-halo-radius: @standard-halo-radius;
-      text-halo-fill: rgba(255, 255, 255, 0.6);
-    }
-  }
-
-  [feature = 'shop_supermarket'],
-  [feature = 'shop_department_store'] {
-    [zoom >= 16] {
-      text-name: "[name]";
-      text-size: @standard-font-size;
-      text-wrap-width: @standard-wrap-width;
-      text-line-spacing: @standard-line-spacing-size;
-      text-dy: 12;
-      text-fill: @shop-text;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: rgba(255, 255, 255, 0.6);

@@ -10,3 +10,6 @@ Map {
 
 // Multiplier for stronger emphasis
 @standard-halo-multiplier: 1.4;
+
+// Cut-off for 'large building' (way_area pixels)
+@large-building-pixels: 2000;
