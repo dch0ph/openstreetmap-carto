@@ -221,7 +221,7 @@ function filter_tags_generic(tags)
 	if tags['opening_hours'] == 'closed' then
 		if tags['amenity'] then
 			tags['amenity'] = nil
-		elseif tags['shop']) then
+		elseif tags['shop'] then
 			tags['shop'] = nil
 		end
 	end
