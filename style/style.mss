@@ -13,3 +13,9 @@ Map {
 
 // Cut-off for 'large building' (way_area pixels)
 @large-building-pixels: 2000;
+
+// Cut-off for larger landcover font size
+@larger-area-pixels: 6000;
+
+// Cut-off for largest landcover font size
+@largest-area-pixels: 30000;
