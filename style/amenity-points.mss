@@ -954,7 +954,7 @@
 			marker-width: 6;
 			[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
 			[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
-			[craft = 'jewelry'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
+			[craft = 'jeweller'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
 			[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
 			[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
 			[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
@@ -1321,13 +1321,14 @@
   [feature = 'office'] {
 	[zoom >= 15][way_pixels > @large-building-pixels],
 	[zoom >= 17] {
-		marker-width: 6;
-		[zoom < 18] { marker-width: 4; }
+		marker-width: 4;
 		marker-line-width: 0;
 		marker-clip: false;
 		marker-fill: @office;
 		[zoom >= 18] {
+			marker-width: 6;
 			[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
+			[office = 'it'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
 		}
 	}
   }
