@@ -1106,19 +1106,21 @@
     text-name: "[name]";
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    text-fill: @cliff-color;
-    text-size: @small-font-size;
-	[zoom >= 16] { text-size: @standard-font-size; }
-    text-face-name: @book-fonts;
-    text-placement: line;
-    [feature != 'natural_ridge'] {
-		text-dy: 8;
-		text-spacing: 400;
-	}
 	[feature = 'natural_ridge'] {
 		text-face-name: @oblique-fonts;
 		text-fill: @landform-color-text;
+		text-size: @standard-font-size;
+		[zoom >= 16] { text-size: @larger-font-size; }
 	}
+	[feature != 'natural_ridge'] {
+		text-face-name: @book-fonts;
+		text-fill: @cliff-color;
+		text-size: @small-font-size;
+		[zoom >= 16] { text-size: @standard-font-size; }
+		text-dy: 8;
+		text-spacing: 400;
+	}
+    text-placement: line;
     text-vertical-alignment: middle;
   }
 }
