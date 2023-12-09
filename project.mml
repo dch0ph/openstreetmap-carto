@@ -581,6 +581,20 @@ Layer:
       cache-features: true
       group-by: layernotnull
       minzoom: 10
+  - id: cliffs
+    geometry: linestring
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way, "natural", man_made
+          FROM planet_osm_line
+          WHERE "natural" IN ('arete', 'cliff', 'ridge') OR man_made = 'embankment'
+        ) AS cliffs
+    properties:
+      cache-features: true
+      minzoom: 14
   - id: landuse-overlay
     geometry: polygon
     <<: *extents
@@ -636,20 +650,6 @@ Layer:
           ) AS features
         ) AS line_barriers
     properties:
-      minzoom: 14
-  - id: cliffs
-    geometry: linestring
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way, "natural", man_made
-          FROM planet_osm_line
-          WHERE "natural" IN ('arete', 'cliff', 'ridge') OR man_made = 'embankment'
-        ) AS cliffs
-    properties:
-      cache-features: true
       minzoom: 14
   - id: ferry-routes
     geometry: linestring
