@@ -2418,6 +2418,51 @@
 
   [feature = 'natural_wetland'],
   [feature = 'natural_mud'],
+  [feature = 'natural_grassland'],
+  [feature = 'natural_heath'],
+  [feature = 'natural_scrub'],
+  [feature = 'natural_shoal'],
+  [feature = 'natural_beach'] {
+    [zoom >= 10][way_pixels > @large-building-pixels],
+	[zoom >= 14] {
+      text-name: "[name]";
+      text-size: @landcover-font-size;
+      text-wrap-width: @landcover-wrap-width-size;
+      text-line-spacing: @landcover-line-spacing-size;
+      [way_pixels > 6000],
+	  [zoom >= 16] {
+        text-size: @landcover-font-size-big;
+        text-wrap-width: @landcover-wrap-width-size-big;
+        text-line-spacing: @landcover-line-spacing-size-big;
+      }
+      [way_pixels > 32000] {
+        text-size: @landcover-font-size-bigger;
+        text-wrap-width: @landcover-wrap-width-size-bigger;
+        text-line-spacing: @landcover-line-spacing-size-bigger;
+      }
+      text-face-name: @landcover-face-name;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: @standard-halo-fill;
+      [feature = 'natural_mud'],
+      [feature = 'natural_wetland'] {
+        text-fill: @wetland-text;
+      }
+      [feature = 'natural_grassland'] {
+        text-fill: darken(@grass, 50%);
+      }
+      [feature = 'natural_heath'] {
+        text-fill: darken(@heath, 40%);
+      }
+      [feature = 'natural_scrub'] {
+        text-fill: darken(@scrub, 60%);
+      }
+      [feature = 'natural_beach'],
+      [feature = 'natural_shoal'] {
+        text-fill: darken(@beach, 60%);
+      }
+    }
+  }
+
   [feature = 'leisure_park'],
   [feature = 'landuse_recreation_ground'],
   [feature = 'landuse_village_green'],
@@ -2431,7 +2476,6 @@
   [feature = 'landuse_residential'],
   [feature = 'landuse_trailer_park'],
   [feature = 'landuse_meadow'],
-  [feature = 'natural_grassland'],
   [feature = 'landuse_grass'],
   [feature = 'landuse_allotments'],
   [feature = 'landuse_farmland'],
@@ -2455,10 +2499,6 @@
   [feature = 'amenity_college'],
   [feature = 'amenity_university'],
   [feature = 'landuse_religious'],
-  [feature = 'natural_heath'],
-  [feature = 'natural_scrub'],
-  [feature = 'natural_beach'],
-  [feature = 'natural_shoal'],
   [feature = 'natural_reef'],
  // [feature = 'leisure_fitness_centre'],
  // [feature = 'leisure_fitness_station'],
@@ -2469,9 +2509,8 @@
   [feature = 'leisure_ice_rink'],
   [feature = 'leisure_pitch'] {
     [zoom >= 10][way_pixels > @large-building-pixels][is_building = 'no'],
-    [zoom >= 17][is_building = 'no'],
     [zoom >= 10][way_pixels > @large-building-pixels][feature = 'shop'][shop = 'mall'],
-    [zoom >= 17][feature = 'shop'][shop = 'mall'] {
+	[zoom >= 17] {
       text-name: "[name]";
       text-size: @landcover-font-size;
       text-wrap-width: @landcover-wrap-width-size;
@@ -2490,8 +2529,6 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
       [feature = 'natural_reef'],
-      [feature = 'natural_wetland'],
-      [feature = 'natural_mud'],
       [feature = 'landuse_salt_pond'] {
         text-fill: @wetland-text;
       }
@@ -2519,7 +2556,6 @@
         text-fill: darken(@residential, 60%);
       }
       [feature = 'landuse_meadow'],
-      [feature = 'natural_grassland'],
       [feature = 'landuse_grass'] {
         text-fill: darken(@grass, 50%);
       }
@@ -2569,16 +2605,6 @@
       }
       [feature = 'landuse_religious'] {
         text-fill: darken(@place_of_worship, 50%);
-      }
-      [feature = 'natural_heath'] {
-        text-fill: darken(@heath, 40%);
-      }
-      [feature = 'natural_scrub'] {
-        text-fill: darken(@scrub, 60%);
-      }
-      [feature = 'natural_beach'],
-      [feature = 'natural_shoal'] {
-        text-fill: darken(@beach, 60%);
       }
       [feature = 'leisure_sports_centre'],
       [feature = 'leisure_stadium'] {
