@@ -69,6 +69,7 @@ local delete_tags = {
     'source',
     'source_ref',
     'attribution',
+	'description',
     'comment',
     'fixme',
 	'FIXME',
@@ -310,7 +311,7 @@ function filter_tags_generic(tags)
 		tags['man_made'] = tags['disused:man_made']
 		tags['historic'] = 'yes'
 	end
-	if tags['abandoned:landuse'] == 'quarry' then
+	if (tags['abandoned:landuse'] == 'quarry') or (tags['historic'] == 'quarry') then
 		tags['landuse'] = 'quarry'
 		tags['historic'] = 'yes'
 	end
@@ -560,6 +561,8 @@ function filter_tags_node (keyvalues, numberofkeys)
 	-- Suppress the dubious natural=hill tag
 	if keyvalues["natural"] == "hill" then
 		keyvalues["natural"] = "peak"
+	elseif keyvalues['natural'] == 'shake_hole' then
+		keyvalues["natural"] = 'sinkhole'
 	end
 
 	-- Render jersey barrier as block if node

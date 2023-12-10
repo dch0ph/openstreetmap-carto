@@ -2108,12 +2108,14 @@
   [feature = 'natural_cape'][zoom >= 14] {
     text-name: "[name]";
     text-fill: #000;
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
+	[zoom >= 16] {
+		text-size: @larger-font-size;
+		text-wrap-width: @larger-wrap-width;
+		text-line-spacing: @larger-line-spacing-size;
+	}
   }
 
   [feature = 'tourism_information'][zoom >= 19],
