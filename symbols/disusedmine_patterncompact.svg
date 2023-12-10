@@ -2,27 +2,22 @@
 <!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="32px" height="32px" viewBox="0 0 32 32" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:none;stroke:#808080;stroke-width:0.75;stroke-linecap:round;stroke-miterlimit:10;}
-	.st1{fill:#808080;stroke:#808080;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:9.9999;}
-	.st2{fill:#808080;stroke:#808080;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-</style>
-<line class="st0" x1="5.3" y1="5.7" x2="3.6" y2="4"/>
-<line class="st0" x1="8.1" y1="8.5" x2="6.3" y2="6.7"/>
-<line class="st0" x1="3.7" y1="6.6" x2="6.6" y2="4"/>
-<line class="st0" x1="2.1" y1="8.1" x2="3.2" y2="8.1"/>
-<rect x="1.4" y="2.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.5345 3.0389)" class="st1" width="3" height="1"/>
-<polygon class="st2" points="8.3,5.1 5.9,2.7 6.6,2 7.3,2.7 "/>
-<line class="st0" x1="16.1" y1="27.7" x2="14.3" y2="25.9"/>
-<line class="st0" x1="18.8" y1="30.4" x2="17" y2="28.6"/>
-<line class="st0" x1="14.5" y1="28.6" x2="17.3" y2="25.9"/>
-<line class="st0" x1="12.8" y1="30" x2="14" y2="30"/>
-<rect x="12.2" y="24.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -13.8791 17.0745)" class="st1" width="3" height="1"/>
-<polygon class="st2" points="19.1,27 16.7,24.6 17.3,23.9 18.1,24.7 "/>
-<line class="st0" x1="27" y1="16.2" x2="25.3" y2="14.4"/>
-<line class="st0" x1="29.8" y1="18.9" x2="28" y2="17.1"/>
-<line class="st0" x1="25.4" y1="17.1" x2="28.3" y2="14.4"/>
-<line class="st0" x1="23.8" y1="18.5" x2="25" y2="18.5"/>
-<rect x="23.1" y="13.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5411 21.4371)" class="st1" width="3" height="1"/>
-<polygon class="st2" points="30,15.5 27.6,13.1 28.3,12.4 29,13.2 "/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="5.3" y1="5.7" x2="3.6" y2="4"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="8.1" y1="8.5" x2="6.3" y2="6.7"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="3.7" y1="6.6" x2="6.6" y2="4"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="2.1" y1="8.1" x2="3.2" y2="8.1"/>
+<rect x="1.4" y="2.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.5345 3.0389)" fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="3" height="1"/>
+<polygon fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="8.3,5.1 5.9,2.7 6.6,2 7.3,2.7 "/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="16.1" y1="27.7" x2="14.3" y2="25.9"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="18.8" y1="30.4" x2="17" y2="28.6"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="14.5" y1="28.6" x2="17.3" y2="25.9"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="12.8" y1="30" x2="14" y2="30"/>
+<rect x="12.2" y="24.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -13.8791 17.0745)" fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="3" height="1"/>
+<polygon fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="19.1,27 16.7,24.6 17.3,23.9 18.1,24.7 "/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="27" y1="16.2" x2="25.3" y2="14.4"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="29.8" y1="18.9" x2="28" y2="17.1"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="25.4" y1="17.1" x2="28.3" y2="14.4"/>
+<line stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" x1="23.8" y1="18.5" x2="25" y2="18.5"/>
+<rect x="23.1" y="13.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5411 21.4371)" fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="3" height="1"/>
+<polygon fill="#808080" stroke="#808080" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="30,15.5 27.6,13.1 28.3,12.4 29,13.2 "/>
 </svg>
