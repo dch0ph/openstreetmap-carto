@@ -517,6 +517,9 @@ function filter_tags_generic(tags)
 			tags['shop'] = 'pet'
 		elseif (tags['shop'] == 'curtains') or (tags['shop'] == 'linen') then
 			tags['shop'] = 'fabric'
+		-- Bottle shop arguably more interesting as shop=alcohol than whether or not it has a bar
+		elseif (tags["shop"] == 'alcohol') and ((tags['amenity'] == 'bar') or (tags['amenity'] == 'pub')) then
+			tags['shop'] = nil
 		end
 	end
 	
@@ -783,7 +786,7 @@ function filter_highway (keyvalues)
 	-- assume footway = surface or adopted_footway has excellent surface
 	-- Remove name from footway=sidewalk (we expect it to be rendered via the road that this is a sidewalk for)
 	if surface == nil then
-		if ((keyvalues['footway'] == 'sidewalk') or (keyvalues['designation'] == 'adopted_footway')) or (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or keyvalues['bridge'] then
+		if (keyvalues['footway'] == 'sidewalk') or (keyvalues['is_sidepath'] == 'yes') or (keyvalues['designation'] == 'adopted_footway') or (keyvalues['highway'] == 'service') or (keyvalues['highway'] == 'cycleway') or keyvalues['bridge'] then
 			isexcellentsurface = true
 		end
 	end
