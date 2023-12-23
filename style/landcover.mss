@@ -994,6 +994,9 @@
 }
 
 #barriers {
+  [feature = 'barrier_city_wall'],
+  [feature = 'barrier_ruined_city_wall'],
+  [zoom >= 14] {
 	line-width: 0.5;
     line-color: @barrier-color;
   [zoom >= 16] { line-width: 0.8; }
@@ -1031,33 +1034,32 @@
     [zoom >= 19] {
       line-width: 4;
     }
-    [zoom >= 20] {
-      line-width: 5;
-    }
+//    [zoom >= 20] {
+//      line-width: 5;
+//    }
   }
-  [feature = 'historic_citywalls'],
-  [feature = 'barrier_city_wall'] {
-    [zoom >= 15] {
-      line-width: 1;
-      line-color: lighten(#444, 30%);
-    }
-    [zoom >= 16] {
-      line-width: 1.5;
-    }
+  [feature = 'barrier_city_wall'],
+  [feature = 'barrier_ruined_city_wall'] {
+    line-color: lighten(@barrier-color, 25%);
+	line-width: 0.8;
+	[zoom >= 14] { line-width: 1; }
+    [zoom >= 16] { line-width: 1.5; }
     [zoom >= 17] {
       line-width: 2;
-      barrier/line-width: 0.4;
-      barrier/line-color: #444;
+// Not sure what these were about
+//      barrier/line-width: 0.4;
+//      barrier/line-color: @barrier-color;
     }
-    [zoom >= 18] {
-      line-width: 3;
-    }
-    [zoom >= 19] {
-      line-width: 4;
-    }
-    [zoom >= 20] {
-      line-width: 5;
-    }
+    [zoom >= 18] { line-width: 3; }
+    [zoom >= 19] { line-width: 4; }
+//    [zoom >= 20] {
+//      line-width: 5;
+//    }
+	[feature = 'barrier_ruined_city_wall'] {
+		line-dasharray: 2,4;
+		[zoom >= 17] { line-dasharray: 4,8; }
+	}
+  }
   }
 }
 

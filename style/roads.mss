@@ -823,7 +823,7 @@
 			top/marker-spacing: 8;
 			top/marker-transform: translate(0,1); 
 			[bridge = 'cutting'] {
-				top/marker-transform: translate(0,1),rotate(180);
+				top/marker-transform: translate(0,0.5),rotate(180);
 			}
 			top/marker-offset: 2 + @cycleway-width-z15;
 			top/marker-allow-overlap: true;
@@ -837,22 +837,21 @@
 			bottom/marker-fill: @earthworks-color;
 			bottom/marker-placement: line;
 			bottom/marker-spacing: 8;
-			// note that the cutting transform isn't quite right - slightly too far from path
-			bottom/marker-transform: translate(0,-4 - 0.5 * @cycleway-width-z15); 
+			bottom/marker-transform: translate(0,-1.5 - 0.5 * @cycleway-width-z15); 
 			[bridge = 'embankment'] {
 				bottom/marker-transform: translate(0,-2.5), rotate(180);
 			}
 			bottom/marker-offset: -0.5 -1.0 * @cycleway-width-z15;
 			bottom/marker-allow-overlap: true;
 			bottom/marker-ignore-placement: true;
+			[zoom >= 17] {
+				bottom/marker-width: 5;
+				bottom/marker-spacing: 15;
+				bottom/marker-offset: -3 -1.0 * @cycleway-width-z18;
+			}	
 		}
       }
       #tunnels {  // Hole for z14/15 handled differently
-/*	      [zoom < 14] {
-			line-width: @cycleway-width-z13 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width);
-			line-color: @tunnel-casing;
-			line-dasharray: 4,2;
-		  }*/
 		  [zoom >= 16] {
 			line-width: @cycleway-width-z16 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); 
 			[zoom >= 17] { line-width: @cycleway-width-z17 + 2 * (@paths-background-width + @cycleway-tunnel-casing-width); }
@@ -861,7 +860,7 @@
 			line-color: @tunnel-casing;
 			line-dasharray: 4,2;
 		  }
-     }
+      }
     }
 
     [feature = 'railway_tram'],

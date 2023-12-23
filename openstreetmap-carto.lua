@@ -952,7 +952,7 @@ function filter_tags_way (keyvalues, numberofkeys)
     if filter == 1 then
         return filter, keyvalues, polygon, roads
     end
-
+	
     -- Normalise leisure=horse_riding on way to sports_centre + equestrian
 	if keyvalues['leisure'] == 'horse_riding' then
 		keyvalues['leisure'] = 'sports_centre'
@@ -1066,10 +1066,17 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['name'] = keyvalues['tunnel:name']
 	end
 	
-	-- Introduce general category of ruined barrier
-	if keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
+	-- Introduce general category of ruined barrier, with special case for ruins of city wall
+	if (keyvalues['ruins:historic'] == 'citywalls') or (keyvalues['ruins:barrier'] == 'city_wall') then
+	-- Note this will squash any existing (modern) barrier, which is the Right Thing
+		keyvalues['barrier'] = 'ruined_city_wall'
+	elseif keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
 		keyvalues['barrier'] = 'ruins'
 	end 
+	if keyvalues['historic'] == 'citywalls' then
+		keyvalues['historic'] = nil
+		keyvalues['barrier'] = 'city_wall'
+	end
 	
 	if keyvalues['barrier'] == 'jersey_barrier' then
 		keyvalues['barrier'] = 'wall'

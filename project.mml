@@ -620,16 +620,13 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, COALESCE(historic, barrier) AS feature
+            way, feature
           FROM
             (SELECT way,
-              ('barrier_' || (CASE WHEN barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
-                    'handrail', 'hedge', 'retaining_wall', 'wall') THEN barrier END)) AS barrier,
-              ('historic_' || (CASE WHEN historic = 'citywalls' THEN historic END)) AS historic
+              'barrier_' || barrier AS feature
               FROM
                 (SELECT
                     way,
-                    historic,
                     barrier,
                     waterway
                   FROM planet_osm_polygon
@@ -637,20 +634,18 @@ Layer:
                 UNION ALL
                 SELECT
                     way,
-                    historic,
                     barrier,
                     waterway
                   FROM planet_osm_line
                   WHERE way && !bbox!
                 ) _
-              WHERE barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
+              WHERE barrier IN ('chain', 'city_wall', 'ruined_city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
                   'handrail', 'hedge', 'retaining_wall', 'wall')
-              OR historic = 'citywalls'
               AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'stream', 'drain', 'ditch'))
           ) AS features
         ) AS line_barriers
     properties:
-      minzoom: 14
+      minzoom: 13
   - id: ferry-routes
     geometry: linestring
     <<: *extents
