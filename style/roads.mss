@@ -817,34 +817,36 @@
 		}
 		[bridge = 'embankment'][zoom >= 15],
         [bridge = 'cutting'][zoom >= 15] {
-			top/marker-file: url('symbols/roundedtalldowntriangle.svg');
+			top/marker-file: url('symbols/roundedmiddowntriangle.svg');
 			top/marker-fill: @earthworks-color;
 			top/marker-placement: line;
-			top/marker-spacing: 8;
+			top/marker-spacing: 7.5;
 			top/marker-transform: translate(0,1); 
 			[bridge = 'cutting'] {
-				top/marker-transform: translate(0,0.5),rotate(180);
+				top/marker-transform: translate(0, 0.5), rotate(180);
 			}
-			top/marker-offset: 2 + @cycleway-width-z15;
+			top/marker-offset: 1 + @cycleway-width-z15;
 			top/marker-allow-overlap: true;
 			top/marker-ignore-placement: true;
 			[zoom >= 17] {
+				top/marker-file: url('symbols/roundedtalldowntriangle.svg');
 				top/marker-width: 5;
 				top/marker-spacing: 15;
 				top/marker-offset: 4 + @cycleway-width-z18;
 			}	
-			bottom/marker-file: url('symbols/roundedtalldowntriangle.svg');
+			bottom/marker-file: url('symbols/roundedmiddowntriangle.svg');
 			bottom/marker-fill: @earthworks-color;
 			bottom/marker-placement: line;
-			bottom/marker-spacing: 8;
-			bottom/marker-transform: translate(0,-1.5 - 0.5 * @cycleway-width-z15); 
+			bottom/marker-spacing: 7.5;
+			bottom/marker-transform: translate(0,-0.5 - 0.5 * @cycleway-width-z15); 
 			[bridge = 'embankment'] {
-				bottom/marker-transform: translate(0,-2.5), rotate(180);
+				bottom/marker-transform: translate(0,-1.5), rotate(180);
 			}
 			bottom/marker-offset: -0.5 -1.0 * @cycleway-width-z15;
 			bottom/marker-allow-overlap: true;
 			bottom/marker-ignore-placement: true;
 			[zoom >= 17] {
+				bottom/marker-file: url('symbols/roundedtalldowntriangle.svg');
 				bottom/marker-width: 5;
 				bottom/marker-spacing: 15;
 				bottom/marker-offset: -3 -1.0 * @cycleway-width-z18;

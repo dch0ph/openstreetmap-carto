@@ -946,7 +946,7 @@
 }
 
 #cliffs {
-  [natural = 'cliff'][zoom >= 14] {
+  [natural = 'cliff'] {
 	line/line-width: 0.7;
 	line/line-color: @cliff-color;
 	marker-file: url('symbols/sidetriangle.svg');
@@ -962,34 +962,30 @@
 	}
 	marker-allow-overlap: true;
 	marker-ignore-placement: true;
-/*    line-pattern-file: url('symbols/cliff.svg');
-	[zoom = 14] { line-pattern-file: url('symbols-otm/cliff_z14.png'); }
-	[zoom = 14] { line-pattern-file: url('symbols/cliff-compact.svg'); }
-    [zoom >= 15] {
-      line-pattern-file: url('symbols/cliff2.svg');
-    }*/
   }
-  /* More usefully covered by contours and/or naming */
-//  [natural = 'ridge'][zoom >= 15] {
-//    line-pattern-file: url('symbols/ridge-mid.svg');
-//    [zoom >= 15] {
-//      line-pattern-file: url('symbols/ridge2.svg');
-//    }
-//  }
-  [natural = 'arete'][zoom >= 14] {
+  [natural = 'arete'] {
 	line/line-width: 0.7;
+	line/line-color: @cliff-color;
 	marker-file: url('symbols/sidetriangles.svg');
 	marker-placement: line;
 	marker-spacing: 10;
 	marker-allow-overlap: true;
 	marker-ignore-placement: true;
-/*    line-pattern-file: url('symbols/arete-mid.svg');
-    [zoom >= 15] {
-      line-pattern-file: url('symbols/arete2.svg');
-    }*/
   }
   [man_made = 'embankment'][zoom >= 15]::man_made {
-    line-pattern-file: url('symbols/embankment.svg');
+		marker-file: url('symbols/roundedmiddowntriangle.svg');
+		marker-fill: @earthworks-color;
+		marker-placement: line;
+		marker-spacing: 7.5;
+		marker-offset: 1;
+		marker-allow-overlap: true;
+		marker-ignore-placement: true;
+		[zoom >= 17] {
+			marker-file: url('symbols/roundedtalldowntriangle.svg');
+			marker-width: 5;
+			marker-spacing: 15;
+			marker-offset: 2;
+		}	
   }
 }
 
@@ -1040,7 +1036,7 @@
   }
   [feature = 'barrier_city_wall'],
   [feature = 'barrier_ruined_city_wall'] {
-    line-color: lighten(@barrier-color, 25%);
+    line-color: lighten(@barrier-color, 15%);
 	line-width: 0.8;
 	[zoom >= 14] { line-width: 1; }
     [zoom >= 16] { line-width: 1.5; }
