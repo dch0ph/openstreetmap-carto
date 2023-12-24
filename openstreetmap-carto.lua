@@ -1066,14 +1066,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['name'] = keyvalues['tunnel:name']
 	end
 	
-	-- Introduce general category of ruined barrier, with special case for ruins of city wall
 	if (keyvalues['ruins:historic'] == 'citywalls') or (keyvalues['ruins:barrier'] == 'city_wall') then
 	-- Note this will squash any existing (modern) barrier, which is the Right Thing
 		keyvalues['barrier'] = 'ruined_city_wall'
-	elseif keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
-		keyvalues['barrier'] = 'ruins'
-	end 
-	if keyvalues['historic'] == 'citywalls' then
+	elseif keyvalues['historic'] == 'citywalls' then
 		keyvalues['historic'] = nil
 		keyvalues['barrier'] = 'city_wall'
 	end
@@ -1082,7 +1078,16 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['barrier'] = 'wall'
 	elseif keyvalues['barrier'] == 'haha' then
 		keyvalues['barrier'] = 'retaining_wall'
+	-- Promote castle walls to 'city_wall' for thicker rendering
+	elseif (keyvalues['barrier'] == 'wall') and (keyvalues['wall'] == 'castle_wall') then
+		keyvalues['barrier'] = 'city_wall'
 	end
+	if (keyvalues['barrier'] == 'city_wall') and (keyvalues['ruins'] == 'yes') then
+		keyvalues['barrier'] = 'ruined_city_wall'
+	-- Introduce general category of ruined barrier, after having considered special case for ruins of city wall
+	elseif keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
+		keyvalues['barrier'] = 'ruins'
+	end 
 		
 	-- Normalise residential caravan site to new landuse type
 	if (keyvalues['landuse'] == "residential") and (keyvalues['residential'] == 'trailer_park') then
