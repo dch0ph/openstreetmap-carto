@@ -89,6 +89,7 @@
   }
 }*/
 
+/*
 #capital-names {
   [zoom >= 4][zoom < 8][population > 600000],
   [zoom >= 5][zoom < 8] {
@@ -151,7 +152,7 @@
       text-margin: 10.5; // 0.7 em
     }
   }
-}
+} */
 
 #placenames-medium::high-importance {
   [category = 1][zoom < 14] {

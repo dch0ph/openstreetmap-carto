@@ -2,13 +2,14 @@
 
 @address-color: #666;
 
+/*
 #interpolation {
   [zoom >= 17] {
     line-color: @address-color;
     line-width: 1;
     line-dasharray: 2,4;
   }
-}
+}*/
 
 #addresses {
   [zoom >= 17]["addr_housename" != null]["addr_unit" = null],
