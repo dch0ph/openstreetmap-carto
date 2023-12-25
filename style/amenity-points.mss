@@ -815,7 +815,8 @@
     }
   }
 
-  [feature = 'amenity_prison'][zoom >= 17] {
+// Move this up (from Z17) as generally large
+  [feature = 'amenity_prison'][zoom >= 15] {
     marker-file: url('symbols/amenity/prison.svg');
     marker-fill: @public-service;
     marker-clip: false;
@@ -1990,7 +1991,7 @@
   [feature = 'amenity_social_facility'][zoom >= 17],
   [feature = 'amenity_fire_station'][zoom >= 17],
   [feature = 'amenity_post_office'][zoom >= 17],
-  [feature = 'amenity_prison'][zoom >= 17],
+  [feature = 'amenity_prison'][zoom >= 16],
   [feature = 'amenity_bank'][zoom >= 17] {
     text-name: "[name]";
     text-size: @standard-font-size;
