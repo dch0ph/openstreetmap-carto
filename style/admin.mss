@@ -10,8 +10,9 @@ Overlapping borders are hidden by a white background line, rendered before each 
 Then all three layers are added to the rendering with comp-op: darken, so that the white lines will not show
 */
 
-//#admin-low-zoom[zoom < 8]
-//#admin-mid-zoom[zoom >= 8][zoom < 13],
+/*
+#admin-low-zoom[zoom < 8]
+#admin-mid-zoom[zoom >= 8][zoom < 13],
 #admin-high-zoom[zoom >= 13] {
   [admin_level = '2']::firstline {
     [zoom >= 8] {
@@ -305,7 +306,7 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
   ::firstline { opacity: 0.5; }
   ::wideline { opacity: 0.5; }
   ::narrowline { opacity: 0.6; }
-  /*
+  
   The following code prevents admin boundaries from being rendered on top of
   each other. Comp-op works on the entire attachment, not on the individual
   border. Therefore, this code generates an attachment containing a set of
@@ -315,7 +316,7 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
   darker than @admin-boundaries).
   The SQL has `ORDER BY admin_level`, so the boundary with the lowest
   admin_level is rendered on top, and therefore the only visible boundary.
-  */
+  
   ::firstline,
   ::wideline,
   ::narrowline { comp-op: darken; }
@@ -443,8 +444,9 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
     line-dasharray: 0,3,2,2,2,3;
     line-clip: false;
   }
-}
+}*/
 
+/*
 #admin-text[zoom >= 11][way_pixels >= 196000] {
   [admin_level = '1'][way_pixels >= 360000],
   [admin_level = '2'][way_pixels >= 360000],
@@ -471,7 +473,7 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
     text-vertical-alignment: middle;
     text-dy: -10;
   }
-}
+}*/
 
 // shrinking area needed to show name
 #protected-areas-text[way_pixels > 80000] 
