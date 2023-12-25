@@ -889,13 +889,13 @@
 	// Just use scrub colour for wet scrub
     [natural = 'scrub'][wetland = null] {
       polygon-pattern-file: url('symbols/scrub-compact.svg');
-	  [zoom >= 17] { polygon-pattern-file: url('symbols/scrub.png'); }
+	  [zoom >= 16] { polygon-pattern-file: url('symbols/scrub.png'); }
       polygon-pattern-alignment: global;
     }
   }
 
   //Also landuse = forest, converted in the SQL
-  [natural = 'wood'][zoom >= 13][wetland = null][leaf_type != null]::wood {
+  [natural = 'wood'][zoom >= 14][wetland = null][leaf_type != null]::wood {
     polygon-pattern-file: url('symbols/leaftype_mixed_compact.svg');
     [leaf_type = "broadleaved"] { polygon-pattern-file: url('symbols/leaftype_broadleaved_compact.svg'); }
     [leaf_type = "needleleaved"] { polygon-pattern-file: url('symbols/leaftype_needleleaved_compact.svg'); }
@@ -903,7 +903,6 @@
 //    [leaf_type = "leafless"] { polygon-pattern-file: url('symbols/leaftype_leafless.svg'); }
 	
     polygon-pattern-alignment: global;
-	// bump opacity from 0.4
     opacity: 0.75; // The entire layer has opacity to handle overlapping forests
 // This doesn't work - will need to shrink pattern
 //	[zoom < 16] { polygon-pattern-geometry-transform: scale(0.5); }

@@ -2475,9 +2475,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 	
 	[feature = 'railway_dismantled'][zoom >= 14] {
-		line-color: #aaa;
+		line-color: #999;
 		line-width: 1.5;
 		line-dasharray: 3,5,3,4;
+		[zoom >= 16] {
+			line-width: 2;
+			line-dasharray: 5,8,5,6;
+		}
 //		line-join: round;
 //		line-cap: round;
 	}
