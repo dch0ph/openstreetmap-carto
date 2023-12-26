@@ -1036,16 +1036,16 @@
   [feature = 'barrier_city_wall'],
   [feature = 'barrier_ruined_city_wall'] {
     line-color: lighten(@barrier-color, 15%);
-	line-width: 1;
-	[zoom >= 14] { line-width: 1.5; }
-    [zoom >= 16] { line-width: 2; }
+	line-width: 1.5;
+	[zoom >= 14] { line-width: 1.75; }
+    [zoom >= 16] { line-width: 2.5; }
     [zoom >= 17] {
-      line-width: 2.5;
+      line-width: 2.8;
 // Not sure what these were about
 //      barrier/line-width: 0.4;
 //      barrier/line-color: @barrier-color;
     }
-    [zoom >= 18] { line-width: 3; }
+    [zoom >= 18] { line-width: 3.5; }
     [zoom >= 19] { line-width: 4; }
 //    [zoom >= 20] {
 //      line-width: 5;

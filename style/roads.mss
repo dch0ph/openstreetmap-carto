@@ -1097,7 +1097,7 @@ osm_planet_line. This is for performance reasons: osm_planet_roads contains less
 data, and is thus faster. Chosen is for zoom level 10 as cut-off, because
 tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
-#roads-low-zoom[zoom < 10],
+//#roads-low-zoom[zoom < 10],
 #roads-fill[zoom >= 10],
 #bridges[zoom >= 10],
 #tunnels[zoom >= 10] {
@@ -1113,13 +1113,14 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [zoom = 10][feature = 'highway_secondary'],
     [zoom = 11][feature = 'highway_secondary'] {
       line-color: @halo-color-for-minor-road;
-      line-width: 2.7;
+      line-width: @secondary-width-z10 + 2 * @lowzoom-halo-width;
+	  [zoom = 11] { line-width: @secondary-width-z11 + 2 * @lowzoom-halo-width; }
       line-opacity: 0.4;
       line-join: round;
       //Missing line-cap: round; is intentional. It would cause rendering glow multiple times in some places - what as result of partial transparency would cause differences in rendering
       //Also, bridges - including bridge casings - are rendered on top of roads. Enabling line-cap: round would result in glow from bridges rendered on top of road around bridges.
     }
-    [zoom = 10][feature = 'highway_tertiary'],
+/*    [zoom = 10][feature = 'highway_tertiary'],
     [zoom = 11][feature = 'highway_tertiary'],
     [zoom = 11][feature = 'highway_unclassified'] {
       line-color: @halo-color-for-minor-road;
@@ -1129,7 +1130,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       line-join: round;
       //Missing line-cap: round; is intentional. It would cause rendering glow multiple times in some places - what as result of partial transparency would cause differences in rendering
       //Also, bridges - including bridge casings are rendered on top of roads. Enabling line-cap: round would result in glow from bridges rendered on top of road around bridges.
-    }
+    }*/
     [feature = 'highway_motorway'][link != 'yes'][zoom >= 6][zoom < 12],
     [feature = 'highway_motorway'][link = 'yes'][zoom >= 10][zoom < 12],
     [feature = 'highway_trunk'][link != 'yes'][zoom >= 6][zoom < 12],
@@ -3380,60 +3381,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   }
 }
 
-#roads-text-ref-minor {
-  [highway = 'unclassified'],
-  [highway = 'residential'] {
-  // bump up zoom level as we don't care about ref
-    [zoom >= 16] {
-      text-name: "[refs]";
-      text-size: 8;
-
-      [zoom >= 16] {
-        text-size: 9;
-      }
-      [zoom >= 17] {
-        text-size: 11;
-      }
-
-      text-fill: #000;
-      text-face-name: @oblique-fonts;
-      text-placement: line;
-      text-repeat-distance: @major-highway-text-repeat-distance;
-      text-halo-radius: @standard-halo-radius;
-      text-halo-fill: @standard-halo-fill;
-      text-spacing: 760;
-      text-clip: false;
-    }
-  }
-
-  [highway = 'track'] {
-    [zoom >= 15] {
-      text-name: "[refs]";
-      text-size: 8;
-      text-dy: 5;
-
-      [zoom >= 16] {
-        text-size: 9;
-        text-dy: 7;
-      }
-      [zoom >= 17] {
-        text-size: 11;
-        text-dy: 9;
-      }
-
-      text-clip: false;
-      text-fill: #222;
-      text-face-name: @oblique-fonts;
-      text-halo-radius: @standard-halo-radius;
-      text-halo-fill: @standard-halo-fill;
-      text-margin: 10;
-      text-placement: line;
-      text-spacing: 760;
-      text-repeat-distance: @major-highway-text-repeat-distance;
-      text-vertical-alignment: middle;
-    }
-  }
-}
 
 #roads-text-name {
   [highway = 'motorway'],

@@ -95,8 +95,9 @@ def main():
     svgns = '{' + namespace + '}'
     svgnsmap = {None: namespace}
 
-    max_width = 11
-    max_height = 4
+    min_width = 3
+    max_width = 10
+    max_height = 2
     output_dir = '../symbols/shields/' # specified relative to the script location
 
     for roadtype, roadvalues in shieldtypes.items():
@@ -125,7 +126,7 @@ def main():
         print(output_sizes)
 
     for height in range(1, max_height + 1):
-        for width in range(1, max_width + 1):
+        for width in range(min_width, max_width + 1):
             for shield_type, roadsettings in shieldtypes.items():
 
                 vars = copy.copy(storevars)
