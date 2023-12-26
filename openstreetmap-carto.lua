@@ -1088,6 +1088,11 @@ function filter_tags_way (keyvalues, numberofkeys)
 	elseif keyvalues['abandoned:barrier'] or keyvalues['ruins:barrier'] or (keyvalues['barrier'] and (keyvalues['ruins'] == 'yes')) then
 		keyvalues['barrier'] = 'ruins'
 	end 
+	
+	-- OK, the vallum on Hadrian's Wall is a bit more than a ditch, but still useful!
+	if keyvalues['historic'] == 'vallum' then
+		keyvalues['barrier'] = 'ditch'
+	end
 		
 	-- Normalise residential caravan site to new landuse type
 	if (keyvalues['landuse'] == "residential") and (keyvalues['residential'] == 'trailer_park') then
@@ -1175,6 +1180,11 @@ function filter_tags_way (keyvalues, numberofkeys)
 			end
 		elseif natural == 'mud' then
 			keyvalues['wetland'] = 'partial'
+		end
+		
+		if natural = 'earth_bank' then
+			keyvalues['man_made'] = 'embankment'
+			keyvalues['natural'] = nil
 		end
 	end
 	
