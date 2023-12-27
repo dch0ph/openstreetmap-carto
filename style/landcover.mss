@@ -1037,10 +1037,10 @@
   [feature = 'barrier_ruined_city_wall'] {
     line-color: lighten(@barrier-color, 15%);
 	line-width: 1.5;
-	[zoom >= 14] { line-width: 1.75; }
+	[zoom >= 14] { line-width: 2; }
     [zoom >= 16] { line-width: 2.5; }
     [zoom >= 17] {
-      line-width: 2.8;
+      line-width: 3;
 // Not sure what these were about
 //      barrier/line-width: 0.4;
 //      barrier/line-color: @barrier-color;
@@ -1051,8 +1051,8 @@
 //      line-width: 5;
 //    }
 	[feature = 'barrier_ruined_city_wall'] {
-		line-dasharray: 3,4;
-		[zoom >= 17] { line-dasharray: 6,8; }
+		line-dasharray: 5,3,2,2;
+		[zoom >= 17] { line-dasharray: 8,5,4,4; }
 	}
   }
   }

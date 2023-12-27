@@ -653,10 +653,17 @@ function filter_tags_node (keyvalues, numberofkeys)
 	end
  	
 	-- Kill off details like route markers on stiles etc. in favour of rendering barrier
-	if keyvalues['barrier'] and (keyvalues['tourism'] == 'information') then
-		keyvalues['tourism'] = nil
-		keyvalues['information'] = nil
+	if keyvalues['barrier']
+		if keyvalues['tourism'] == 'information' then
+			keyvalues['tourism'] = nil
+			keyvalues['information'] = nil
+		end
+		-- Treat locked=yes as shorthand for access=no
+		if (keyvalues['locked'] == 'yes') and (keyvalues['access'] == nil) then
+			keyvalues['access'] = 'no'
+		end	
 	end
+	
 end
 
 -- Filtering on relations
@@ -1182,7 +1189,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 			keyvalues['wetland'] = 'partial'
 		end
 		
-		if natural = 'earth_bank' then
+		if natural == 'earth_bank' then
 			keyvalues['man_made'] = 'embankment'
 			keyvalues['natural'] = nil
 		end
