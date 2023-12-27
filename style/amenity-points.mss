@@ -1709,21 +1709,22 @@
     }
   }
 
-  [feature = 'barrier_gate']::barrier {
-    [zoom >= 15] {
+  [feature = 'barrier_gate'][zoom >= 15]::barrier {
 //	  marker-file: url('symbols/barrier/gate.svg');
       marker-clip: false;
 //      [zoom < 17]  { 
 		marker-file: url('symbols/gate_compact.svg');
-		marker-line-color: @amenity-brown;
+//		marker-line-color: @amenity-brown;
 //	  }
-	  [zoom >= 18] { marker-width: 12; }
-    }
+	  marker-line-color: #aaa;
+	  [zoom >= 17] { marker-width: 12; }
+	  [int_access = 'restricted'] { marker-opacity: @private-opacity; }
   }
 
   [feature = 'barrier_lift_gate'][zoom >= 16]::barrier,
   [feature = 'barrier_swing_gate'][zoom >= 16]::barrier {
     marker-file: url('symbols/barrier/lift_gate.svg');
+	[int_access = 'restricted'] { marker-opacity: @private-opacity; }
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
@@ -1759,6 +1760,7 @@
   [feature = 'barrier_full-height_turnstile'][zoom >= 16]::barrier {
     marker-file: url('symbols/barrier/full-height_turnstile.svg');
     marker-fill: @barrier-icon;
+	[int_access = 'restricted'] { marker-opacity: @private-opacity; }
     marker-clip: false;
   }
 
@@ -1781,6 +1783,7 @@
       [zoom >= 18] {
         marker-width: 4;
       }
+	  [feature = 'barrier_turnstile'][int_access = 'restricted'] { marker-opacity: @private-opacity; }
     }
   }
 
