@@ -1716,8 +1716,7 @@
 		marker-file: url('symbols/gate_compact.svg');
 //		marker-line-color: @amenity-brown;
 //	  }
-	  marker-line-color: #aaa;
-	  [zoom >= 17] { marker-width: 12; }
+	  [zoom >= 17] { marker-width: 10; }
 	  [int_access = 'restricted'] { marker-opacity: @private-opacity; }
   }
 
