@@ -334,15 +334,20 @@ function filter_tags_generic(tags)
 		tags['natural'] = 'scree'
 	end
 	
+	-- Try to find missing names
+	if keyvalues['name'] == nil then
 	-- Possibly useful more generally, but common for fuel
-	if ((tags['amenity'] == 'fuel') or tags['shop']) and (tags['name'] == nil) then
-		if tags['brand'] then
-			tags['name'] = tags['brand']
-		else
-			tags['name'] = tags['operator']
+		if (tags['amenity'] == 'fuel') or tags['shop'] then
+			if tags['brand'] then
+				tags['name'] = tags['brand']
+			else
+				tags['name'] = tags['operator']
+			end
+		elseif tags['power'] = 'substation' then
+			tags['name'] = tags['ref']
 		end
 	end
-	
+		
 	if tags['landuse'] == 'farmland' then
 		if is_in(tags['farmland'], meadow_tags) or (tags['animal'] ~= nil) then
 			if (tags['farmland'] ~= 'meadow') or (tags['animal'] ~= nil) then
