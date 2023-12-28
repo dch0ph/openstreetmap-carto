@@ -11,7 +11,7 @@
 @airtransport: #8461C4; //also ferry_terminal
 @health-color: #BF0000;
 @amenity-brown: #734a08;
-@craft: darken(orange, 4%);
+@craft: darken(orange, 5%);
 @gastronomy-icon: #C77400;
 @gastronomy-text: darken(@gastronomy-icon, 5%);
 @memorials: @amenity-brown;
@@ -681,7 +681,7 @@
   }
 
   [feature = 'amenity_place_of_worship'][zoom >= 15],
-  [feature = 'monastery'][zoom >= 16] {
+  [feature = 'amenity_monastery'][zoom >= 16] {
     marker-file: url('symbols/amenity/place_of_worship.svg');
     marker-fill: @religious-icon;
     marker-clip: false;
@@ -695,7 +695,7 @@
         marker-file: url('symbols/amenity/place_of_worship.svg');
       }
     }
-	[feature = 'monastery'] { marker-fill: @craft; }
+	[feature = 'amenity_monastery'] { marker-fill: @craft; }
     [religion = 'muslim'] {
       marker-file: url('symbols/religion/muslim.svg');
     }
