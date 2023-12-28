@@ -680,7 +680,8 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_place_of_worship'][zoom >= 15] {
+  [feature = 'amenity_place_of_worship'][zoom >= 15],
+  [feature = 'monastery'][zoom >= 16] {
     marker-file: url('symbols/amenity/place_of_worship.svg');
     marker-fill: @religious-icon;
     marker-clip: false;
@@ -694,6 +695,7 @@
         marker-file: url('symbols/amenity/place_of_worship.svg');
       }
     }
+	[feature = 'monastery'] { marker-fill: @craft; }
     [religion = 'muslim'] {
       marker-file: url('symbols/religion/muslim.svg');
     }
@@ -715,7 +717,7 @@
     [religion = 'taoist'] {
       marker-file: url('symbols/religion/taoist.svg');
     }
-	[zoom < 16] { marker-width: 7; }
+	[feature = 'amenity_place_of_worship'][zoom < 16] { marker-width: 7; }
   }
 
   [feature = 'man_made_storage_tank'][zoom >= 18],
@@ -2068,6 +2070,19 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: #000033;
+    text-dy: 12;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+  }
+
+  [feature = 'amenity_monastery'][zoom >= 16][way_pixels > @large-building-pixels],
+  [feature = 'amenity_monastery'][zoom >= 17] {
+    text-name: "[name]";
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: @craft;
     text-dy: 12;
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
