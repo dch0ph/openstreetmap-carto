@@ -335,7 +335,7 @@ function filter_tags_generic(tags)
 	end
 	
 	-- Try to find missing names
-	if keyvalues['name'] == nil then
+	if tags['name'] == nil then
 	-- Possibly useful more generally, but common for fuel
 		if (tags['amenity'] == 'fuel') or tags['shop'] then
 			if tags['brand'] then
@@ -343,7 +343,7 @@ function filter_tags_generic(tags)
 			else
 				tags['name'] = tags['operator']
 			end
-		elseif tags['power'] = 'substation' then
+		elseif tags['power'] == 'substation' then
 			tags['name'] = tags['ref']
 		end
 	end
@@ -658,7 +658,7 @@ function filter_tags_node (keyvalues, numberofkeys)
 	end
  	
 	-- Kill off details like route markers on stiles etc. in favour of rendering barrier
-	if keyvalues['barrier']
+	if keyvalues['barrier'] then
 		if keyvalues['tourism'] == 'information' then
 			keyvalues['tourism'] = nil
 			keyvalues['information'] = nil
