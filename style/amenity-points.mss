@@ -1730,9 +1730,9 @@
     marker-clip: false;
   }
 
-// current symbol is too heavy to render at lower zoom
+// use thinner bars as PDF rendering is creating too heavy a symbol
   [feature = 'barrier_cattle_grid'][zoom >= 17]::barrier {
-    marker-file: url('symbols/barrier/cattle_grid.svg');
+    marker-file: url('symbols/barrier/cattle_grid_thin.svg');
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
