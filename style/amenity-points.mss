@@ -1733,6 +1733,7 @@
 // use thinner bars as PDF rendering is creating too heavy a symbol
   [feature = 'barrier_cattle_grid'][zoom >= 17]::barrier {
     marker-file: url('symbols/barrier/cattle_grid_thin.svg');
+	[zoom >= 19] { marker-width: 14; }
     marker-fill: @barrier-icon;
     marker-clip: false;
   }
