@@ -557,6 +557,10 @@ function filter_tags_generic(tags)
     return 0, tags
 end
 
+function string:endswith(suffix)
+    return self:sub(-#suffix) == suffix
+end
+
 -- Filtering on nodes
 function filter_tags_node (keyvalues, numberofkeys)
 
@@ -628,6 +632,15 @@ function filter_tags_node (keyvalues, numberofkeys)
 	
 	if (keyvalues['man_made'] == 'water_tap') and (keyvalues['drinking_water'] == 'yes') and (keyvalues['amenity'] == nil) then
 		keyvalues['amenity'] = 'drinking_water'
+	end
+	
+	-- Kill off weird isolated_dwelling thing
+	if keyvalues["place"] == "isolated_dwelling" then
+		if keyvalues["name"] and keyvalues["name"]:endswith(" Farm") then
+			keyvalues["place"] = "farm"
+		else
+			keyvalues["place"] = "locality"
+		end
 	end
 		
     if keyvalues["highway"] == "passing_place" then

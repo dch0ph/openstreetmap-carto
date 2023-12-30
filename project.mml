@@ -1987,7 +1987,8 @@ Layer:
                 highway,
                 array_length(refs,1) AS height,
                 (SELECT MAX(char_length(ref)) FROM unnest(refs || ARRAY['XXX']) AS u(ref)) AS width,
-                array_to_string(refs, E'\n') AS refs
+                array_to_string(refs, E'\n') AS refs,
+                ST_Length(way)/NULLIF(!scale_denominator!*0.001*0.28,0) AS way_pixels
               FROM (
                 SELECT
                     osm_id,
@@ -2001,7 +2002,7 @@ Layer:
                   WHERE (highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') OR aeroway IN ('runway', 'taxiway'))
                     AND (ref IS NOT NULL) AND (junction IS NULL)
               ) AS p) AS q
-          WHERE height <= 2 AND width <= 10
+          WHERE height <= 2 AND width <= 10 AND way_pixels > 25
           ORDER BY
             CASE
               WHEN highway = 'motorway' THEN 38
