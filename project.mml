@@ -1734,7 +1734,6 @@ Layer:
                 'amenity_' || CASE WHEN amenity IN ('parking') AND (tags->'parking' NOT IN ('underground') OR (tags->'parking') IS NULL) THEN amenity END,
                 'amenity_' || CASE WHEN amenity IN ('parking_entrance')
                                         AND tags->'parking' IN ('multi-storey', 'underground')
-                                        AND (access IS NULL OR access IN ('private', 'no', 'customers', 'permit', 'delivery'))
                                         AND way_area IS NULL
                                    THEN amenity END,
                 'tourism_' || CASE WHEN tourism IN ('viewpoint', 'attraction') THEN tourism END,
