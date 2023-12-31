@@ -16,7 +16,7 @@
 		polygon-clip: false;
 		polygon-fill: @building-fill;
 		[building = 'roof' ] {
-			polygon-full: lighten(@building-fill, 15%);
+			polygon-fill: lighten(@building-fill, 15%);
 		}
 		[amenity = 'place_of_worship'],
 		[aeroway = 'terminal'],
