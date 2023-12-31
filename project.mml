@@ -1757,7 +1757,7 @@ Layer:
                 WHEN tags->'orienteering' = 'marker' THEN 500.0
                 WHEN "historic" IN ('castle', 'fort') THEN 2000.0
                 WHEN "amenity" IN ('hotel', 'museum') THEN 2000.0 
-                WHEN "amenity" IN ('cafe', 'pub') THEN 1000.0
+                WHEN "amenity" IN ('cafe', 'pub', 'marketplace', 'food_court') THEN 1000.0
               END AS score,
               religion,
               tags->'denomination' as denomination,
@@ -1941,7 +1941,8 @@ Layer:
                 highway,
                 array_length(refs,1) AS height,
                 (SELECT MAX(char_length(ref)) FROM unnest(refs || ARRAY['XXX']) AS u(ref)) AS width,
-                array_to_string(refs, E'\n') AS refs
+                array_to_string(refs, E'\n') AS refs,
+                ST_Length(way)/NULLIF(!scale_denominator!*0.001*0.28,0) AS way_pixels
               FROM (
                 SELECT
                     way,
@@ -1952,7 +1953,7 @@ Layer:
                   WHERE highway IN ('motorway', 'trunk', 'primary', 'secondary')
                   AND (ref IS NOT NULL) AND (junction IS NULL)
               ) AS p) AS q
-          WHERE height <= 2 AND width <= 10
+          WHERE height <= 2 AND width <= 10 AND way_pixels > 30
           ORDER BY
             CASE
               WHEN highway = 'motorway' THEN 38
