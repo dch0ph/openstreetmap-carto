@@ -2003,7 +2003,7 @@ Layer:
                   WHERE (highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') OR aeroway IN ('runway', 'taxiway'))
                     AND (ref IS NOT NULL) AND (junction IS NULL)
               ) AS p) AS q
-          WHERE height <= 2 AND width <= 10 AND way_pixels > 25
+          WHERE height <= 2 AND width <= 10 AND way_pixels > 30
           ORDER BY
             CASE
               WHEN highway = 'motorway' THEN 38
