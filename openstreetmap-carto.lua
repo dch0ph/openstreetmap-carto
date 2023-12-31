@@ -719,6 +719,8 @@ local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 
 --local keepbridges = { 'cycleway', 'path', 'bridleway' }
 local access_tags = { 'foot', 'horse', 'bicycle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
+-- synonyms for two sided embankment / cutting
+local cuttingtypes = { 'yes', 'both', 'two_sided' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -922,10 +924,10 @@ function filter_highway (keyvalues)
 		keyvalues['foot'] = 'yes'
 	end
 	
-	if is_in(keyvalues['highway'], pathtypes) then
-		if keyvalues['embankment'] == 'yes' then
+	if is_in(keyvalues['highway'], pathtypes) and keyvalues['bridge'] == nil then
+		if is_in(keyvalues['embankment'], cuttingtypes) then
 			keyvalues['bridge'] = 'embankment'
-		elseif keyvalues['cutting'] == 'yes' then
+		elseif is_in(keyvalues['cutting'], cuttingtypes) then
 			keyvalues['bridge'] = 'cutting'
 		end
 	end
