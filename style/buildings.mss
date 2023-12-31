@@ -15,15 +15,18 @@
 	[building != 'ruins' ] {
 		polygon-clip: false;
 		polygon-fill: @building-fill;
+		[building = 'roof' ] {
+			polygon-full: lighten(@building-fill, 15%);
+		}
 		[amenity = 'place_of_worship'],
 		[aeroway = 'terminal'],
 		[aerialway = 'station'],
 		[building = 'train_station'],
 		[public_transport = 'station'],
-		[is_listed = 'yes']{
+		[is_listed = 'yes'] {
 			polygon-fill: @building-major-fill;
 		}
-		[way_pixels < 50][zoom < 16] { polygon-fill: @building-low-zoom; }
+		[way_pixels < 75][zoom < 16] { polygon-fill: @building-low-zoom; }
 	}
 	[building = 'ruins'] {
 		polygon-fill: white;
@@ -33,7 +36,7 @@
 		casing/line-opacity: 0.8;
 	}
 	line/line-color: @building-line;
-	[way_pixels < 50][zoom < 16] { line/line-color: @building-low-zoom; }
+	[way_pixels < 75][zoom < 16] { line/line-color: @building-low-zoom; }
 	line/line-width: 0.8;
 	[building = 'ruins'] { line/line-dasharray: 1.5,1; }  
 	line/line-clip: false;

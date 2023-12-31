@@ -1013,9 +1013,7 @@ function filter_tags_way (keyvalues, numberofkeys)
 	
 	-- In the absence of specific icons, at least render leisure=bandstand etc. as buildings
 	if (keyvalues['leisure'] == 'bandstand') or (keyvalues['animal'] == 'horse_walker') then
-		if (keyvalues['building'] == nil) and (keyvalues['disused:building'] ~= nil) then
-			keyvalues['building'] = 'yes'
-		end
+		keyvalues['building'] = 'roof'
 	end
 		
 	-- Consolidated highway = rest_area with roadside parking
