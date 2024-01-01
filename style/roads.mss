@@ -62,6 +62,8 @@
 @path-fill: darken(saddlebrown, 5%);
 @path-fill-noaccess: @fill-noaccess;
 @cycleway-fill: blue;
+// give a small amount of casing to cycleways, partly to improve intersection with footways
+@cycleway-casing-factor: 1.6; 
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
 @cycleway-fill-noaccess: #9999ff;
 @bridleway-fill: darken(limegreen, 5%);
@@ -967,7 +969,7 @@
       }
     }
 
-// No path-background width. Steps are wide. 
+// No paths-background width. Steps are wide. 
     [feature = 'highway_steps'] {
       #bridges {
         [zoom >= 14] {
@@ -1366,7 +1368,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-    #roads-low-zoom[feature = 'highway_motorway'],
+//    #roads-low-zoom[feature = 'highway_motorway'],
     #roads-fill[feature = 'highway_motorway'],
     #bridges[feature = 'highway_motorway'],
     #tunnels[feature = 'highway_motorway'] {
@@ -1419,13 +1421,33 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
+//Note that tunnels and bridges handled elsewhere
   [feature = 'highway_bridleway'],
   [feature = 'highway_cycleway'],
   [feature = 'highway_path'] {
       [zoom >= 14] {
         #roads-fill {
           background/line-color: @cycleway-casing;
-          background/line-opacity: 0.6;
+		  background/line-join: round;
+          [feature != 'highway_cycleway'] {
+			background/line-opacity: 0.5;
+			background/line-width: @cycleway-width-z13;
+			[zoom >= 14] { background/line-width: @cycleway-width-z14; }
+			[zoom >= 15] { background/line-width: @cycleway-width-z15; }
+			[zoom >= 16] { background/line-width: @cycleway-width-z16; }
+			[zoom >= 17] { background/line-width: @cycleway-width-z17; }
+			[zoom >= 18] { background/line-width: @cycleway-width-z18; }
+			[zoom >= 19] { background/line-width: @cycleway-width-z19; }
+		  }
+			[feature = 'highway_cycleway'] {
+				background/line-width: @cycleway-width-z13 * @cycleway-casing-factor;
+				[zoom >= 14] { background/line-width: @cycleway-width-z14 * @cycleway-casing-factor; }
+				[zoom >= 15] { background/line-width: @cycleway-width-z15 * @cycleway-casing-factor; }
+				[zoom >= 16] { background/line-width: @cycleway-width-z16 * @cycleway-casing-factor; }
+				[zoom >= 17] { background/line-width: @cycleway-width-z17 * @cycleway-casing-factor; }
+				[zoom >= 18] { background/line-width: @cycleway-width-z18 * @cycleway-casing-factor; }
+				[zoom >= 19] { background/line-width: @cycleway-width-z19 * @cycleway-casing-factor; }
+			}
         }
 			line/line-color: @path-fill;
 			[feature = 'highway_path'] {
@@ -1552,7 +1574,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-    #roads-low-zoom[feature = 'highway_primary'],
+//    #roads-low-zoom[feature = 'highway_primary'],
     #roads-fill[feature = 'highway_primary'],
     #bridges[feature = 'highway_primary'],
     #tunnels[feature = 'highway_primary'] {
