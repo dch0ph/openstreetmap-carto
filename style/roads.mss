@@ -65,8 +65,9 @@
 // give a small amount of casing to cycleways, partly to improve intersection with footways
 @cycleway-casing-factor: 1.6; 
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
-@cycleway-fill-noaccess: #9999ff;
-@bridleway-fill: darken(limegreen, 5%);
+@cycleway-fill-noaccess: desaturate(@cycleway-fill, 15%);
+//#9999ff;
+@bridleway-fill: darken(limegreen, 8%);
 @BOAT-fill: purple;
 //@bridleway-fill-noaccess: lighten(@bridleway-fill, 30%);
 //@track-fill: #996600;
@@ -402,12 +403,14 @@
 @living-street-oneway-arrow-color: darken(@residential-casing, 30%);
 @pedestrian-oneway-arrow-color:   darken(@pedestrian-casing, 25%);
 @raceway-oneway-arrow-color:      darken(@raceway-fill, 50%);
-//use same colour for arrows
-//@footway-oneway-arrow-color:      darken(@footway-fill, 35%);
-//@steps-oneway-arrow-color:        darken(@steps-fill, 35%);
-//@cycleway-oneway-arrow-color:     darken(@cycleway-fill, 25%);
+// Avoid having to reproduce PRoW logic for footways (uncommon) 
+@path-text-color:      black; 
+@footpath-text-color:	darken(@footpath-fill, 10%);   
+//darken(@footway-fill, 35%);
+@steps-text-color:        darken(@steps-fill, 35%);
+@cycleway-text-color:     @cycleway-fill;
 //@track-oneway-arrow-color:        darken(@track-fill, 10%);
-//@bridleway-oneway-arrow-color:    darken(@bridleway-fill, 15%);
+@bridleway-text-color:    darken(@bridleway-fill, 15%);
 
 // Shield’s line wrap is based on OpenStreetMap data and not on line-wrap-width,
 // but lines are typically rather short, so we use narrow line spacing.
@@ -444,9 +447,7 @@
         top/line-dasharray: 4,2;
 		bottom/line-width: @cycleway-tunnel-casing-width;
 	    bottom/line-offset: -1.625;
-		//(-1.0*@paths-background-width) -0.5*(@cycleway-tunnel-casing-width + @cycleway-width-z14);
         [zoom >= 15] { bottom/line-offset: -1.875; }
-		//-@paths-background-width - (@cycleway-tunnel-casing-width + @cycleway-width-z15) * 0.5; }
         bottom/line-color: @tunnel-casing;
         bottom/line-dasharray: 4,2;
 	}
@@ -712,7 +713,7 @@
     }
 
     [feature = 'highway_pedestrian'],
-	[feature = 'highway_footway'] {
+	  [feature = 'highway_footway'] {
       [zoom >= 14] {
         line-color: @pedestrian-casing;
 		[feature = 'highway_pedestrian'] {
@@ -2993,12 +2994,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
         access/line-join: round;
         access/line-cap: round;
-		access/line-width: @major-access-width-z14;
-		access/line-dasharray: 0.1,6;
-		[zoom >= 15] {
-			access/line-width: @major-access-width-z15;
-			access/line-dasharray: 0.1,9;
-		}
+		    access/line-width: @major-access-width-z14;
+		    access/line-dasharray: 0.1,6;
+		    [zoom >= 15] {
+			    access/line-width: @major-access-width-z15;
+			    access/line-dasharray: 0.1,9;
+		    }
         [zoom >= 17] {
           access/line-width: 6;
           access/line-dasharray: 0.1,12;
@@ -3016,8 +3017,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 //		access/line-width: @minor-access-width-z14;
 //		access/line-dasharray: 0.1,3;
 //		[zoom >= 15] {
-			access/line-width: @minor-access-width-z15;
-			access/line-dasharray: 0.1,4;
+  			access/line-width: @minor-access-width-z15;
+  			access/line-dasharray: 0.1,4;
 //		}
         [zoom >= 17] {
           access/line-width: 4;
@@ -3045,7 +3046,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 //    [feature = 'highway_secondary'],
     [feature = 'highway_tertiary'],
     [feature = 'highway_unclassified'],
-    [feature = 'highway_residential'] {
+    [feature = 'highway_residential'],
     [feature = 'highway_living_street'] {
       [zoom >= 14] {
         access/line-color: @access-marking;
@@ -3054,12 +3055,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
         access/line-join: round;
         access/line-cap: round;
-		access/line-width: @major-access-width-z14;
-		access/line-dasharray: 4,4;
-		[zoom >= 15] {
-			access/line-width: @major-access-width-z15;
-			access/line-dasharray: 6,6;
-		}
+	    	access/line-width: @major-access-width-z14;
+		    access/line-dasharray: 4,4;
+	  	  [zoom >= 15] {
+		  	  access/line-width: @major-access-width-z15;
+			    access/line-dasharray: 6,6;
+		    }
         [zoom >= 17] {
           access/line-width: 6;
           access/line-dasharray: 10,12;
@@ -3072,13 +3073,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
        /* [int_surface = 'unpaved'] {
           access/line-color: @access-marking-white-unpaved;
         } */
-       access/line-join: round;
+        access/line-join: round;
         access/line-cap: round;
 //		access/line-width: @minor-access-width-z14;
 //		access/line-dasharray: 4,6;
 //		[zoom >= 15] {
-			access/line-width: @minor-access-width-z15;
-			access/line-dasharray: 6,8;
+			  access/line-width: @minor-access-width-z15;
+			  access/line-dasharray: 6,8;
 //		}
         [zoom >= 17] {
           access/line-width: 3;
@@ -3088,7 +3089,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 
     [feature = 'highway_service'][service = 'INT-minor'][zoom >= 17]
-	{
+	  {
       access/line-color: @access-marking;
 //      [int_surface = 'unpaved'] {
 //        access/line-color: @access-marking-white-unpaved;
@@ -3101,7 +3102,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         access/line-width: 2;
 //      }
     }
-  } 
+  }
 }
 
 
@@ -3536,7 +3537,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [highway = 'service'] { text-halo-fill: @service-fill; }
       text-face-name: @book-fonts;
       text-repeat-distance: @major-highway-text-repeat-distance;
-// at low zoom levels, offset as paths
 	  [zoom < 16] {
         text-vertical-alignment: middle;
         text-dy: 6;
@@ -3608,8 +3608,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       text-name: "[name]";
 	  [zoom >= 17][prow_ref != null] { text-name: [name] + " (" + [prow_ref] + ")"; }
       text-fill: black;
-	  [designation = 'public_footpath'] { text-fill: @footpath-fill; }
-	  [designation = 'public_bridleway'] { text-fill: @bridleway-fill; }
+	  [highway = 'cycleway'] { text-fill: @cycleway-text-color; }
+	  [designation = 'public_footpath'] { text-fill: @footpath-text-color; }
+	  [designation = 'public_bridleway'] { text-fill: @bridleway-text-color; }
       text-size: 8;
       text-halo-radius: @standard-halo-radius * 0.8;
       text-halo-fill: @standard-halo-fill;
@@ -3731,6 +3732,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [highway = 'living_street'],
     [highway = 'service'],
     [highway = 'pedestrian'],
+    [highway = 'footway'],
     [highway = 'raceway'] {
       [oneway = 'yes'],
       [oneway = '-1'] {
@@ -3770,7 +3772,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         [highway = 'living_street'] {
           marker-fill: @living-street-oneway-arrow-color;
         }
-        [highway = 'pedestrian'] {
+        [highway = 'pedestrian'],
+        [highway = 'footway'] {
           marker-fill: @pedestrian-oneway-arrow-color;
         }
         [highway = 'raceway'] {
@@ -3781,44 +3784,52 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
     [highway = 'steps'],
     [highway = 'cycleway'],
-    [highway = 'footway'],
     [highway = 'path'],
 //    [highway = 'track'],
     [highway = 'bridleway'] {
       [oneway = 'yes'],
       [oneway = '-1'] {
-        text-name: "'🠖'";
-        text-size: 15;
-        text-clip: false;
-        text-spacing: 180;
-        text-placement: line;
-        text-halo-fill: @standard-halo-fill;
-        text-halo-radius: 1.5;
-        text-margin: 2;
-        text-dy: 3;
-        text-upright: right;
-        text-vertical-alignment: middle;
-        text-face-name: @book-fonts;
+        marker-placement: line;
+        marker-spacing: 180;
+        marker-max-error: 0.5;
+        marker-file: url('symbols/oneway.svg');
         [oneway = '-1'] {
-          text-upright: left;
-          text-dy: -3;
+          marker-file: url('symbols/oneway-reverse.svg');
         }
-/*        [highway = 'footway'][highway = 'path'] {
-          text-fill: @footway-oneway-arrow-color;
-        }*/
+		marker-offset: 5;
+
+// Can't use this approach as arrow symbol not present in typeface used
+//        text-name: "'🠖'";
+//        text-size: 15;
+//        text-clip: false;
+//        text-spacing: 180;
+//        text-placement: line;
+//        text-halo-fill: @standard-halo-fill;
+//        text-halo-radius: 1.5;
+//        text-margin: 2;
+//        text-dy: 3;
+//        text-upright: right;
+//        text-vertical-alignment: middle;
+//        text-face-name: @book-fonts;
+//        [oneway = '-1'] {
+//          text-upright: left;
+//         text-dy: -3;
+//        }
+        [highway = 'path'] {
+          marker-fill: @path-text-color;
+        }
         [highway = 'steps'] {
-          text-fill: @steps-fill;
+          marker-fill: @steps-text-color;
         }
         [highway = 'cycleway'] {
-          text-fill: @cycleway-fill;
+          marker-fill: @cycleway-text-color;
         }
         [highway = 'bridleway'] {
-          text-fill: @bridleway-fill;
+          marker-fill: @bridleway-text-color;
         }
       }
     }
   }
-
 }
 
 #railways-text-name {
