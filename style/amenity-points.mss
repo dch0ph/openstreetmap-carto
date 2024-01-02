@@ -2345,7 +2345,7 @@
 
 
 // scale labelling range by 2/3 reflecting tighter font size
-  [feature = 'landuse_military'],
+  [feature = 'landuse_military'][zoom >= 11],
   [feature = 'natural_wood'],
   [feature = 'landuse_forest'],
   [feature = 'boundary_national_park'],
