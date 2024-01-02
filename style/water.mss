@@ -41,7 +41,7 @@
 			[zoom >= 12] { line-smooth: @water-smooth; }
 		}
 	  }
-	  [zoom >= 12] {
+	  [zoom >= 11] {
 		line-width: 0.4;
 		line-color: @water-line-color;
 	  }
@@ -67,10 +67,10 @@
       line-join: round;
       line-clip: false;
     }
-    line-color: @water-color;
-    line-width: 0.7;
-    [zoom >= 9] { line-width: 1.2; }
-    [zoom >= 10] { line-width: 1.6; }
+    line-color: mix(@water-line-color, @water-color, 50%);
+    line-width: 1.2;
+ //   [zoom >= 9] { line-width: 1.2; }
+ //   [zoom >= 10] { line-width: 1.6; }
   }
 }
 

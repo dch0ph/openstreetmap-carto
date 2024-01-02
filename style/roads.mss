@@ -65,7 +65,7 @@
 // give a small amount of casing to cycleways, partly to improve intersection with footways
 @cycleway-casing-factor: 1.6; 
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
-@cycleway-fill-noaccess: desaturate(@cycleway-fill, 15%);
+@cycleway-fill-noaccess: desaturate(@cycleway-fill, 25%);
 //#9999ff;
 @bridleway-fill: darken(limegreen, 8%);
 @BOAT-fill: purple;

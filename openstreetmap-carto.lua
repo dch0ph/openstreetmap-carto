@@ -730,10 +730,14 @@ function filter_highway (keyvalues)
 		keyvalues['highway'] = 'service'
 	end
 -- Demote narrow / unpaved roads to give better visual indication of importance / traffic levels 
-	if (keyvalues['lanes'] == 1) or (keyvalues['surface'] == 'unpaved') then
-		if keyvalues['highway'] == 'unclassified' then
-			keyvalues['highway'] = 'service'
-		elseif keyvalues['highway'] == 'tertiary' then
+	if ((keyvalues['junction'] == nil) and (keyvalues['oneway'] == nil)) or (keyvalues['surface'] == 'unpaved') then 
+		if keyvalues['lanes'] == 1 then
+			if keyvalues['highway'] == 'unclassified' then
+				keyvalues['highway'] = 'service'
+			elseif keyvalues['highway'] == 'tertiary' then
+				keyvalues['highway'] = 'unclassified'
+			end
+		elseif (keyvalues['lane_markings'] == 'no') and (keyvalues['highway'] == 'tertiary') then
 			keyvalues['highway'] = 'unclassified'
 		end
 	end
