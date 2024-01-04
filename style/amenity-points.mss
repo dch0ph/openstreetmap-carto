@@ -29,7 +29,8 @@
 @protected-area: @amenity-brown;
 @aboriginal: #82643a;
 @religious-icon: #000000;
-//@missing-data: red;
+
+@track-smooth: 0.2;
 
 // scale down landcover text from 10, 12, 15
 @landcover-font-size: 9;
@@ -3335,20 +3336,23 @@
   }
 
   [feature = 'leisure_track'] {
-    [zoom >= 16] {
+    [zoom >= 15] {
       [zoom >= 17] {
         bridgecasing/line-color: saturate(darken(@pitch, 30%), 20%);
         bridgecasing/line-join: round;
-        bridgecasing/line-width: 1.25;
-        [zoom >= 18] { bridgecasing/line-width: 2.5; }
-        [zoom >= 19] { bridgecasing/line-width: 5; }
+		bridgecasing/line-smooth: @track-smooth;
+        bridgecasing/line-width: 3;
+        [zoom >= 18] { bridgecasing/line-width: 5; }
+        [zoom >= 19] { bridgecasing/line-width: 8; }
       }
       line-color: @pitch;
       line-join: round;
       line-cap: round;
-      line-width: 1;
-      [zoom >= 18] { line-width: 2; }
-      [zoom >= 19] { line-width: 4; }
+	  line-width: 1;
+	  [zoom >= 17] { line-smooth: @track-smooth; }
+      [zoom >= 16] { line-width: 2; }
+      [zoom >= 18] { line-width: 3.5; }
+      [zoom >= 19] { line-width: 6; }
     }
   }
 

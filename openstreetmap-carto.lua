@@ -950,11 +950,6 @@ function filter_highway (keyvalues)
 	if keyvalues['designation'] and not isPROW then
 		keyvalues['designation'] = nil
 	end
-
-    -- Not sure what this accomplished in highway section. Commenting out
-	--if keyvalues['made_made'] == 'spillway' then
-	--	keyvalues['natural'] = 'water'
-	--end
 	
 	-- For highway types where oneway:foot could be different, use oneway:foot 
 	if (keyvalues['oneway:foot'] ~= nil) and ((keyvalues['highway'] == 'pedestrian') or (keyvalues['highway'] == 'cycleway')) then
