@@ -1465,7 +1465,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			  line/line-color: @bridleway-fill;
 			  [foot='no'] { line/line-color: @path-fill-noaccess; }
 			}
-			line/line-dasharray: 10,2;
+			line/line-dasharray: 9.5,2.5;
 			[tracktype = 'grade2'] { line/line-dasharray: 7.5,2.5; }
 			[tracktype = 'grade3'] { line/line-dasharray: 5.0,4.0; }
 			[tracktype = 'grade4'] { line/line-dasharray: 3.2,3.8; }
@@ -1880,24 +1880,24 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 //            [zoom >= 20] { line-width: @minor-service-width-z20 - 2 * @bridge-casing-width-z20; }
           }
         }
-		[zoom >= 16][lit != null] {
+		[zoom >= 17][lit != null] {
 			[service = 'INT-normal'] {
-				lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
-				[zoom >= 17] { lit/line-width: @service-width-z17 - 2 * @casing-width-z17; }
+//				lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
+				lit/line-width: @service-width-z17 - 2 * @casing-width-z17;
 				[zoom >= 18] { lit/line-width: @service-width-z18 - 2 * @casing-width-z18; }
 				[zoom >= 19] { lit/line-width: @service-width-z19 - 2 * @casing-width-z19; }
 			}
 			[service = 'INT-minor'] {
-				lit/line-width: @minor-service-width-z16 - 2 * @casing-width-z16;
-				[zoom >= 17] { lit/line-width: @minor-service-width-z17 - 2 * @casing-width-z17; }
+//				lit/line-width: @minor-service-width-z16 - 2 * @casing-width-z16;
+				lit/line-width: @minor-service-width-z17 - 2 * @casing-width-z17;
 				[zoom >= 18] { lit/line-width: @minor-service-width-z18 - 2 * @casing-width-z18; }
 				[zoom >= 19] { lit/line-width: @minor-service-width-z19 - 2 * @casing-width-z19; }
 			}
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
-			lit/line-dasharray: 6, 6;
-			[zoom >= 18] { lit/line-dasharray: 12, 12; }
+//			lit/line-dasharray: 6, 6;
+			lit/line-dasharray: 12, 12;
 			lit/line-opacity: @lit-opacity;
 		}
       }
@@ -1975,24 +1975,24 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-color: @pedestrian-fill;
         line-join: round;
         line-cap: round;
-		[zoom >= 16][lit != null] {
+		[zoom >= 17][lit != null] {
 			[feature = 'highway_pedestrian'] {
-				lit/line-width: @pedestrian-width-z16 - 2 * @casing-width-z16;
-				[zoom >= 17] { lit/line-width: @pedestrian-width-z17 - 2 * @casing-width-z17; }
+//				lit/line-width: @pedestrian-width-z16 - 2 * @casing-width-z16;
+				lit/line-width: @pedestrian-width-z17 - 2 * @casing-width-z17;
 				[zoom >= 18] { lit/line-width: @pedestrian-width-z18 - 2 * @casing-width-z18; }
 				[zoom >= 19] { lit/line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
 			}
 			[feature = 'highway_footway'] {
-				lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
-				[zoom >= 17] { lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; }
+//				lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
+				lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17;
 				[zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
 				[zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
 			}
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
-			lit/line-dasharray: 6, 6;
-			[zoom >= 18] { lit/line-dasharray: 12, 12; }
+//			lit/line-dasharray: 6, 6;
+			lit/line-dasharray: 12, 12;
 			lit/line-opacity: @lit-opacity;
 		}
       }
@@ -2096,16 +2096,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           [zoom >= 18] { background/line-width: @minor-pedestrian-width-z18; }
           [zoom >= 19] { background/line-width: @minor-pedestrian-width-z19; }
           background/line-opacity: 0.5;
-		  [zoom >= 16][lit != null] {
-			lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
-			[zoom >= 17] { lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; }
+		  [zoom >= 17][lit != null] {
+//			lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
+			lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; 
 			[zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
 			[zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
-			lit/line-dasharray: 6, 6;
-			[zoom >= 18] { lit/line-dasharray: 12, 12; }
+//			lit/line-dasharray: 6, 6;
+			lit/line-dasharray: 12, 12;
 			lit/line-opacity: @lit-opacity;
 			}
         }
