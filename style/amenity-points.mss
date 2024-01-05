@@ -30,7 +30,7 @@
 @aboriginal: #82643a;
 @religious-icon: #000000;
 
-@track-smooth: 0.2;
+@track-smooth: 0.3;
 
 // scale down landcover text from 10, 12, 15
 @landcover-font-size: 9;
@@ -61,6 +61,9 @@
 @larger-line-spacing-size: -1.8; // -0.15 em
 
 @private-opacity: 0.5;
+// Change shade and opacity, particularly for parking-entrance
+@private-transportation-icon: lighten(@transportation-icon, 15%);
+@private-transportation-opacity: 0.8;
 
 #orienteering {
   marker-file: url('symbols/orienteering_marker.svg');
@@ -1660,7 +1663,7 @@
       [feature = 'amenity_parking']["parking" = 'street_side'],
       [feature = 'amenity_parking']["parking" = 'lane'] { 
         marker-file: url('symbols/amenity/parking_subtle.svg'); 
-		marker-width: 6;
+		marker-width: 8;
       }
       [feature = 'amenity_bicycle_parking'] { marker-file: url('symbols/amenity/bicycle_parking.svg'); }
       [feature = 'amenity_motorcycle_parking'] { marker-file: url('symbols/amenity/motorcycle_parking.svg'); }
@@ -1668,7 +1671,10 @@
       [feature = 'amenity_parking_entrance']["parking"='multi-storey'] { marker-file: url('symbols/amenity/parking_entrance_multistorey.svg'); }
       marker-clip: false;
       marker-fill: @transportation-icon;
-      [int_access = 'restricted'] { marker-opacity: @private-opacity; }
+      [int_access = 'restricted'] {
+		marker-opacity: @private-transportation-opacity;
+		marker-fill: @private-transportation-icon;
+	  }
     }
   }
 
@@ -3273,7 +3279,8 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
       [int_access = 'restricted'] {
-        text-opacity: @private-opacity;
+        text-opacity: @private-transportation-opacity;
+		text-fill: @private-transportation-icon;
         text-halo-radius: 0;
       }
       [feature = 'amenity_bicycle_parking'],
