@@ -1719,12 +1719,13 @@
 		marker-file: url('symbols/gate_compact.svg');
 //		marker-line-color: @amenity-brown;
 //	  }
+	marker-line-color: @barrier-icon;
 	  [zoom >= 17] { marker-width: 10; }
 	  [int_access = 'restricted'] { marker-opacity: @private-opacity; }
   }
 
-  [feature = 'barrier_lift_gate'][zoom >= 16]::barrier,
-  [feature = 'barrier_swing_gate'][zoom >= 16]::barrier {
+  [feature = 'barrier_lift_gate'][zoom >= 17]::barrier,
+  [feature = 'barrier_swing_gate'][zoom >= 17]::barrier {
     marker-file: url('symbols/barrier/lift_gate.svg');
 	[int_access = 'restricted'] { marker-opacity: @private-opacity; }
     marker-fill: @barrier-icon;
@@ -1748,7 +1749,7 @@
 
   [feature = 'barrier_motorcycle_barrier'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/motorcycle_barrier.svg');
-    marker-fill: @amenity-brown;
+    marker-fill: @barrier-icon;
     marker-clip: false;
 	[zoom < 16] { marker-width: 8; }
   }
@@ -1756,7 +1757,7 @@
   [feature = 'barrier_cycle_barrier'][zoom >= 15]::barrier {
     marker-file: url('symbols/barrier/cycle_barrier.svg');
     marker-clip: false;
-    marker-fill: @amenity-brown;
+    marker-fill: @barrier-icon;
 	[zoom < 16] { marker-width: 8; }
   }
 

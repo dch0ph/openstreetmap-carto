@@ -982,16 +982,16 @@
           line-color: @steps-casing;
           line-join: round;
 // Only show lit/dark at higher zoom (not helpful/relevant for distance walking)
-		  [zoom >= 16][lit != null] {
-			lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
-			[zoom >= 17] { lit/line-width: @service-width-z17 - 2 * @casing-width-z17; }
+		  [zoom >= 17][lit != null] {
+//			lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
+			lit/line-width: @service-width-z17 - 2 * @casing-width-z17;
 			[zoom >= 18] { lit/line-width: @service-width-z18 - 2 * @casing-width-z18; }
 			[zoom >= 19] { lit/line-width: @service-width-z19 - 2 * @casing-width-z19; }
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
-			lit/line-dasharray: 6, 6;
-			[zoom >= 18] { lit/line-dasharray: 12, 12; }
+//			lit/line-dasharray: 6, 6;
+			lit/line-dasharray: 12, 12;
 			lit/line-opacity: @lit-opacity;
 			}
         }
@@ -1006,16 +1006,16 @@
           [zoom >= 16] { line-width: @service-width-z16 - 2 * @cycleway-tunnel-casing-width; }
           [zoom >= 17] { line-width: @service-width-z17 - 2 * @cycleway-tunnel-casing-width; }
           [zoom >= 18] { line-width: @service-width-z18 - 2 * @cycleway-tunnel-casing-width; }
-		  [zoom >= 16][lit != null] {
-			lit/line-width: @service-width-z16 - 2 * @cycleway-tunnel-casing-width;
-			[zoom >= 17] { lit/line-width: @service-width-z17 - 2 * @cycleway-tunnel-casing-width; }
+		  [zoom >= 17][lit != null] {
+//			lit/line-width: @service-width-z16 - 2 * @cycleway-tunnel-casing-width;
+			lit/line-width: @service-width-z17 - 2 * @cycleway-tunnel-casing-width;
 			[zoom >= 18] { lit/line-width: @service-width-z18 - 2 * @cycleway-tunnel-casing-width; }
 			[zoom >= 19] { lit/line-width: @service-width-z19 - 2 * @cycleway-tunnel-casing-width; }
 			lit/line-color: @pedestrian-dark;
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
-			lit/line-dasharray: 6, 6;
-			[zoom >= 18] { lit/line-dasharray: 12, 12; }
+//			lit/line-dasharray: 6, 6;
+			lit/line-dasharray: 12, 12;
 			lit/line-opacity: @lit-opacity;
 			}
         }
