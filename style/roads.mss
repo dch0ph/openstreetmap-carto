@@ -1992,7 +1992,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 			lit/line-join: round;
 //			lit/line-dasharray: 6, 6;
-			lit/line-dasharray: 12, 12;
+			[feature = 'highway_pedestrian'],[designation = null] { lit/line-dasharray: 12, 12; }
 			lit/line-opacity: @lit-opacity;
 		}
       }
