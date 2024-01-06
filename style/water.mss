@@ -210,18 +210,18 @@
         bridgecasing/line-join: round;
 		bridgecasing/line-cap: square;
         bridgecasing/line-width: 3;
-        [waterway = 'stream'][zoom >= 15] { bridgecasing/line-width: 3; }
+        [waterway = 'stream'][zoom >= 15], [zoom >= 17] { bridgecasing/line-width: 3; }
         bridgeglow/line-color: white;
         bridgeglow/line-join: round;
         bridgeglow/line-width: 3;
-        [waterway = 'stream'][zoom >= 15] { bridgeglow/line-width: 3; }
+        [waterway = 'stream'][zoom >= 15], [zoom >= 17] { bridgeglow/line-width: 3; }
       }
 
 	  [int_tunnel = 'yes'] {
 		tunnelfill/line-color: white;
 		tunnelfill/line-join: round;
 		tunnelfill/line-width: 1.5;
-        [waterway = 'stream'][zoom >= 15] { tunnelfill/line-width: 2.5; }			
+        [waterway = 'stream'][zoom >= 15], [zoom >= 17] { tunnelfill/line-width: 2.5; }			
 	  }
 	  water/line-cap: round;
 	  [int_intermittent = 'yes'] {
@@ -236,7 +236,8 @@
 	  [int_tunnel = 'yes'] { water/line-color: lighten(@water-line-color, 20%); }
 	  [bridge != 'yes'][int_tunnel != 'yes'][waterway != 'drain'][zoom < 18] { water/line-smooth: @water-smooth; }
 
-      [waterway = 'stream'][zoom >= 15] { water/line-width: @stream-width-z15plus; }
+      [waterway = 'stream'][zoom >= 15],
+	  [zoom >= 17] { water/line-width: @stream-width-z15plus; }
 
 	  [int_intermittent != 'yes'][zoom >= 14] {
 		marker-file: url('symbols/oneway.svg');
@@ -246,19 +247,6 @@
 		marker-spacing: 300;
 		marker-transform: translate(0,-4);
 	  }
-
-/*      [int_tunnel = 'yes'][zoom >= 16] {
-        background/line-width: 3.5;
-        water/line-width: 3.5;
-        [waterway = 'stream'] {
-          background/line-width: 4.5;
-          water/line-width: 4.5;
-        }
-        water/line-dasharray: 4,2;
-        tunnelfill/line-width: 1;
-        [waterway = 'stream'] { tunnelfill/line-width: 2; }
-        tunnelfill/line-color: #f3f7f7;
-      }*/
     }
   }
 
