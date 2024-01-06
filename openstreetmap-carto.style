@@ -14,7 +14,6 @@ node,way   admin_level  text         linear
 node,way   aerialway    text         linear
 node,way   aeroway      text         polygon
 node,way   amenity      text         polygon
-node       annotation   text         linear
 node,way   barrier      text         linear
 way        bicycle      text         linear
 way        bridge       text         linear
@@ -48,7 +47,6 @@ way        surface      text         linear
 node,way   tourism      text         polygon
 way        tracktype    text         linear
 way        designation  text         linear
-way        sidewalk     text         linear
 way        tunnel       text         linear
 node,way   water        text         polygon
 node,way   waterway     text         polygon

@@ -526,7 +526,7 @@ Layer:
                 CASE WHEN access IN ('destination') THEN 'destination'::text
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
-                sidewalk,
+                tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
@@ -767,7 +767,7 @@ Layer:
                 CASE WHEN access IN ('destination') THEN 'destination'::text
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
-                sidewalk,
+                tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
@@ -984,7 +984,7 @@ Layer:
                 CASE WHEN access IN ('destination') THEN 'destination'::text
                   WHEN access IN ('no', 'private') THEN 'no'::text
                 END AS access,
-                sidewalk,
+                tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
                 construction,
@@ -2516,7 +2516,7 @@ Layer:
             way,
             name
           FROM planet_osm_point
-          WHERE (annotation = 'text')
+          WHERE (tags->'annotation' = 'text')
         ) AS text_annotation
     properties:
       minzoom: 14
