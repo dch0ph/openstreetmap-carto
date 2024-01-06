@@ -67,7 +67,7 @@
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
 @cycleway-fill-noaccess: lighten(@cycleway-fill, 25%);
 //#9999ff;
-@bridleway-fill: darken(limegreen, 8%);
+@bridleway-fill: darken(limegreen, 10%);
 @BOAT-fill: purple;
 //@bridleway-fill-noaccess: lighten(@bridleway-fill, 30%);
 //@track-fill: #996600;
