@@ -959,7 +959,6 @@
 		marker-clip: false;
 		[zoom >= 18] {
 			marker-width: 6;
-			[craft = 'brewery'], [craft='cider'] { marker-file: url('symbols/amenity/pub.svg'); marker-width: 12; }
 			[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
 			[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
 			[craft = 'jeweller'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
