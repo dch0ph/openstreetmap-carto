@@ -1702,7 +1702,7 @@
     marker-clip: false;
   }
 
-  [feature = 'marker_pipeline'][zoom >= 17] {
+  [feature = 'marker_pipeline'][zoom >= 18] {
     marker-file: url('symbols/man_made/pipeline_marker.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
