@@ -562,17 +562,17 @@ Then all three layers are added to the rendering with comp-op: darken, so that t
   [way_pixels > 400] {
       // inner line
       ::wideline {
-        line-color: @protected-area;
+        line-color: lighten(@protected-area, 8%);
         line-join: round;
         line-cap: round;
         line-width: 3;
         line-offset: -0.75;
-		opacity: 0.3;
+		opacity: 0.2;
       }
       // outer line
       ::narrowline {
-        opacity: 0.7;
-        line-color: @protected-area;
+        opacity: 0.6;
+        line-color: lighten(@protected-area, 8%);
         line-join: round;
         line-cap: round;
         line-width: 1;

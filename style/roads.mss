@@ -63,6 +63,8 @@
 @path-fill-noaccess: @fill-noaccess;
 @cycleway-fill: blue;
 // give a small amount of casing to cycleways, partly to improve intersection with footways
+@path-glow-opacity: 0.6;
+@path-lowzoom-glow-width: 3;
 @cycleway-casing-factor: 1.6; 
 // no access subtle different for cycleways - normal meaning is OK for cyclists not blocked for everybody
 @cycleway-fill-noaccess: lighten(@cycleway-fill, 25%);
@@ -76,7 +78,6 @@
 @aeroway-fill: #bbc;
 @runway-fill: @aeroway-fill;
 @taxiway-fill: @aeroway-fill;
-@helipad-fill: @aeroway-fill;
 @helipad-fill: @aeroway-fill;
 @access-marking: @path-fill-noaccess;
 // New access markings
@@ -105,7 +106,6 @@
 //@footway-casing: @default-casing;
 @steps-casing: @default-casing;
 @cycleway-casing: @default-casing;
-@bridleway-casing: @default-casing;
 //@excellent-visibility-scaling: 1.25;
 //@bad-visibility-scaling: 0.75;
 
@@ -208,8 +208,7 @@
 @living-street-width-z14:         @residential-width-z14;
 @pedestrian-width-z14:            @residential-width-z14;
 @minor-pedestrian-width-z14:            1.7;
-//@road-width-z14:                  2.25;
-@service-width-z14:               2.25;
+@service-width-z14:               2.5;
 @major-access-width-z14:		  2;
 // Value below not used as don't show highway=service with access restrictions below Z15
 //@minor-access-width-z14:		  1.2;
@@ -226,11 +225,11 @@
 @tertiary-width-z15:              @secondary-width-z15;
 @tertiary-link-width-z15:         @secondary-link-width-z15;
 // bumped down from 5
-@residential-width-z15:           4;
-@service-width-z15:				  3;
+@residential-width-z15:           4.5;
+@service-width-z15:				  3.5;
 @living-street-width-z15:         @residential-width-z15;
 @pedestrian-width-z15:            @residential-width-z15;
-@minor-pedestrian-width-z15:            2.4;
+@minor-pedestrian-width-z15:            2.5;
 // bumped up from 1.2
 //@bridleway-width-z15:             1.4;
 //@footway-width-z15:               1.4;
@@ -244,10 +243,10 @@
 
 // Note that primary width at z16 = z15 (7)
 @secondary-width-z16:            7;
-@tertiary-width-z16:             7;
+@tertiary-width-z16:             @secondary-width-z16;
 @residential-width-z16:           5.5;
 @living-street-width-z16:         @residential-width-z16;
-@service-width-z16:               4;
+@service-width-z16:               4.2;
 @pedestrian-width-z16:            @residential-width-z16;
 //@road-width-z16:                  @service-width-z16;
 @minor-service-width-z16:         3;
@@ -287,12 +286,11 @@
 @residential-width-z18:          12;
 @living-street-width-z18:        @residential-width-z18;
 @service-width-z18:               8.5;
-//@road-width-z18:                  @service-width-z18;
 @pedestrian-width-z18:           @residential-width-z18;
 @minor-service-width-z18:         5.5;
 @minor-pedestrian-width-z18:           @minor-service-width-z18;
 //@footway-width-z18:               1.3;
-@cycleway-width-z18:              2;
+@cycleway-width-z18:              2.5;
 
 @motorway-width-z19:             27;
 @motorway-link-width-z19:        16;
@@ -306,18 +304,17 @@
 @tertiary-link-width-z19:        16;
 @residential-width-z19:          17;
 @living-street-width-z19:        @residential-width-z19;
-//@road-width-z19:                 11;
 @service-width-z19:              12;
 @pedestrian-width-z19:           @residential-width-z19;
 @minor-service-width-z19:         7;
 @minor-pedestrian-width-z19:           @minor-service-width-z19;
 //@footway-width-z19:               1.6;
-@cycleway-width-z19:              2.5;
+@cycleway-width-z19:              3;
 
-@motorway-width-z20:             33;
-@motorway-link-width-z20:        17;
-@service-width-z20:              12;
-@minor-service-width-z20:         8.5;
+//@motorway-width-z20:             33;
+//@motorway-link-width-z20:        17;
+//@service-width-z20:              12;
+//@minor-service-width-z20:         8.5;
 
 @major-casing-width-z11:          0.3;
 
@@ -712,9 +709,8 @@
       }
     }
 
-    [feature = 'highway_pedestrian'],
-	  [feature = 'highway_footway'] {
-      [zoom >= 14] {
+    [feature = 'highway_pedestrian'][zoom >= 14],
+	  [feature = 'highway_footway'][zoom >= 15] {
         line-color: @pedestrian-casing;
 		[feature = 'highway_pedestrian'] {
 			line-width: @pedestrian-width-z14;
@@ -725,8 +721,8 @@
 			[zoom >= 19] { line-width: @pedestrian-width-z19; }
 		}
 		[feature = 'highway_footway'] {		
-			line-width: @minor-pedestrian-width-z14;
-			[zoom >= 15] { line-width: @minor-pedestrian-width-z15; }
+//			line-width: @minor-pedestrian-width-z14;
+			line-width: @minor-pedestrian-width-z15;
 			[zoom >= 16] { line-width: @minor-pedestrian-width-z16; }
 			[zoom >= 17] { line-width: @minor-pedestrian-width-z17; }
 			[zoom >= 18] { line-width: @minor-pedestrian-width-z18; }
@@ -743,7 +739,6 @@
           line-color: @bridge-casing;
           line-join: round;
         }
-      }
     }
 
       [feature = 'highway_living_street'] {
@@ -1432,11 +1427,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           background/line-color: @cycleway-casing;
 		  background/line-join: round;
           [feature != 'highway_cycleway'] {
-			background/line-opacity: 0.5;
-			background/line-width: @cycleway-width-z13;
-			[zoom >= 14] { background/line-width: @cycleway-width-z14; }
-			[zoom >= 15] { background/line-width: @cycleway-width-z15; }
-			[zoom >= 16] { background/line-width: @cycleway-width-z16; }
+			background/line-opacity: @path-glow-opacity;
+			background/line-width: @path-lowzoom-glow-width;
+//			[zoom >= 14] { background/line-width: @cycleway-width-z14 * @path-glow-factor; }
+//			[zoom >= 15] { background/line-width: @cycleway-width-z15 * @path-glow-factor; }
+//			[zoom >= 16] { background/line-width: @cycleway-width-z16 * @path-glow-factor; }
 			[zoom >= 17] { background/line-width: @cycleway-width-z17; }
 			[zoom >= 18] { background/line-width: @cycleway-width-z18; }
 			[zoom >= 19] { background/line-width: @cycleway-width-z19; }
@@ -1510,7 +1505,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[zoom >= 19] {
 			  line/line-width: @cycleway-width-z19;
 			}
-	    }
+	  }
   }
   
     [feature = 'highway_trunk'] {
@@ -1920,14 +1915,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
  */
 
-    #roads-fill[feature = 'highway_pedestrian'],
-    #bridges[feature = 'highway_pedestrian'],
-    #tunnels[feature = 'highway_pedestrian'],
-    #roads-fill[feature = 'highway_footway'],
-    #bridges[feature = 'highway_footway'],
-    #tunnels[feature = 'highway_footway']
+    #roads-fill[feature = 'highway_pedestrian'][zoom >= 14],
+    #bridges[feature = 'highway_pedestrian'][zoom >= 14],
+    #tunnels[feature = 'highway_pedestrian'][zoom >= 14],
+    #roads-fill[feature = 'highway_footway'][zoom >= 15],
+    #bridges[feature = 'highway_footway'][zoom >= 15],
+    #tunnels[feature = 'highway_footway'][zoom >= 15]
 	{
-      [zoom >= 14] {
 		[feature = 'highway_pedestrian'] {
 			line-width: @pedestrian-width-z14 - 2 * @casing-width-z14;
 			[zoom >= 15] { line-width: @pedestrian-width-z15 - 2 * @casing-width-z15; }
@@ -1937,38 +1931,17 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[zoom >= 19] { line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
 		}
 		[feature = 'highway_footway']	{
-			line-width: @minor-pedestrian-width-z14 - 2 * @minor-casing-width-z14;
-			[zoom >= 15] { line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15; }
+//			line-width: @minor-pedestrian-width-z14 - 2 * @minor-casing-width-z14;
+			line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15;
 			[zoom >= 16] { line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16; }
 			[zoom >= 17] { line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; }
 			[zoom >= 18] { line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
 			[zoom >= 19] { line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
 		}
-        line-color: @pedestrian-fill;
-        line-join: round;
-        line-cap: round;
-		[zoom >= 17][lit != null] {
-			[feature = 'highway_pedestrian'] {
-//				lit/line-width: @pedestrian-width-z16 - 2 * @casing-width-z16;
-				lit/line-width: @pedestrian-width-z17 - 2 * @casing-width-z17;
-				[zoom >= 18] { lit/line-width: @pedestrian-width-z18 - 2 * @casing-width-z18; }
-				[zoom >= 19] { lit/line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
-			}
-			[feature = 'highway_footway'] {
-//				lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
-				lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17;
-				[zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
-				[zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
-			}
-			lit/line-color: @pedestrian-dark;
-			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
-			lit/line-join: round;
-//			lit/line-dasharray: 6, 6;
-			[feature = 'highway_pedestrian'],[designation = null] { lit/line-dasharray: 12, 12; }
-			lit/line-opacity: @lit-opacity;
-		}
-      }
-    }
+    line-color: @pedestrian-fill;
+    line-join: round;
+    line-cap: round;
+  }
 
 
 // Note this only applies to highway = pedestrian since highway=footway as always paved
@@ -2068,44 +2041,42 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           [zoom >= 18] { background/line-width: @minor-pedestrian-width-z18; }
           [zoom >= 19] { background/line-width: @minor-pedestrian-width-z19; }
           background/line-opacity: 0.5;
-		  [zoom >= 17][lit != null] {
-//			lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
-			lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; 
-			[zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
-			[zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
-			lit/line-color: @pedestrian-dark;
-			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
-			lit/line-join: round;
-//			lit/line-dasharray: 6, 6;
-			lit/line-dasharray: 12, 12;
-			lit/line-opacity: @lit-opacity;
-			}
+          [zoom >= 17][lit != null] {
+    //			lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
+          lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; 
+          [zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
+          [zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
+          lit/line-color: @pedestrian-dark;
+          [lit = 'yes'] { lit/line-color: @pedestrian-lit; }
+          lit/line-join: round;
+    //			lit/line-dasharray: 6, 6;
+          lit/line-dasharray: 12, 12;
+          lit/line-opacity: @lit-opacity;
+          }
         }
         line/line-color: @steps-fill;
         [access = 'no'] { line/line-color: @steps-fill-noaccess; }
         line/line-dasharray: 0.7, 0.7;
         line/line-width: @minor-pedestrian-width-z14 - 2 * @minor-casing-width-z14;
         [zoom >= 15] {
-			line/line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15;
-		}
+			    line/line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15;
+		    }
         [zoom >= 16] { 
-			line/line-width:  @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
-			line/line-dasharray: 0.75, 1.4;
-		}
+			    line/line-width:  @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
+			    line/line-dasharray: 0.75, 1.4;
+		    }
         [zoom >= 17] { line/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; }
         [zoom >= 18] {
-			line/line-dasharray: 1, 2;
-			line/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18;
-			[zoom >= 19] { line/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
-		}
+			    line/line-dasharray: 1, 2;
+			    line/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18;
+		    } 
+        [zoom >= 19] { line/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
       }
     }
 
-    
- 
     [feature = 'railway_rail'][zoom >= 8],
     [feature = 'railway_INT-spur-siding-yard'][zoom >= 13],
-	[feature = 'railway_disused'][zoom >=14] {
+	  [feature = 'railway_disused'][zoom >=14] {
       [zoom < 12] {
 //        line-color: #787878;
 		line-color: @railway-color;
@@ -3081,6 +3052,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 #roads-fill::lit,
 #bridges::lit {
 	[zoom >= 17][lit != null] {
+		lit/line-join: round;
+//			lit/line-dasharray: 6, 6;
+		[designation != null][feature = 'highway_pedestrian'] { lit/line-dasharray: 12, 12; }
+		lit/line-opacity: @lit-opacity;
+		lit/line-color: @pedestrian-dark;
+		[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
 		[feature = 'highway_service'] {
 			[service = 'INT-normal'] {
 //				lit/line-width: @service-width-z16 - 2 * @casing-width-z16;
@@ -3094,12 +3071,18 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 				[zoom >= 18] { lit/line-width: @minor-service-width-z18 - 2 * @casing-width-z18; }
 				[zoom >= 19] { lit/line-width: @minor-service-width-z19 - 2 * @casing-width-z19; }
 			}
-			lit/line-color: @pedestrian-dark;
-			[lit = 'yes'] { lit/line-color: @pedestrian-lit; }
-			lit/line-join: round;
-//			lit/line-dasharray: 6, 6;
-			lit/line-dasharray: 12, 12;
-			lit/line-opacity: @lit-opacity;
+		}	
+		[feature = 'highway_pedestrian'] {
+//				lit/line-width: @pedestrian-width-z16 - 2 * @casing-width-z16;
+			lit/line-width: @pedestrian-width-z17 - 2 * @casing-width-z17;
+			[zoom >= 18] { lit/line-width: @pedestrian-width-z18 - 2 * @casing-width-z18; }
+			[zoom >= 19] { lit/line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
+		}
+		[feature = 'highway_footway'] {
+//				lit/line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16;
+			lit/line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17;
+			[zoom >= 18] { lit/line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
+			[zoom >= 19] { lit/line-width: @minor-pedestrian-width-z19 - 2 * @casing-width-z19; }
 		}
 	}
 }
