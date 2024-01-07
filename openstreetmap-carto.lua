@@ -719,11 +719,23 @@ local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 
 --local keepbridges = { 'cycleway', 'path', 'bridleway' }
 local access_tags = { 'foot', 'horse', 'bicycle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
+local suppress_construction = { 'raceway', 'pedestrian', 'footway', 'cycleway', 'path', 'bridleway', 'steps' }
 -- synonyms for two sided embankment / cutting
 local cuttingtypes = { 'yes', 'both', 'two_sided' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
+
+	if keyvalues['highway'] == 'construction' then
+		if is_in(keyvalues['construction'], suppress_construction) then
+			return 1, keyvalues
+		end
+		if keyvalues['construction'] == 'living_street' then
+			keyvalues['construction'] = 'residential'
+		elseif keyvalues['construction'] == nil then
+			keyvalues['construction'] = 'unclassified'
+		end
+	end
 
 	-- Treat highway = escape as case of highway = service
 	if keyvalues['highway'] == 'escape' then
@@ -1016,13 +1028,15 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 		
 	-- Consolidated highway = rest_area with roadside parking
-	if keyvalues['highway'] == 'rest_area' then
-		keyvalues['highway'] = nil
-		keyvalues['amenity'] = 'parking'
-	elseif keyvalues['highway'] then
-		filter, keyvalues = filter_highway(keyvalues)
-		if filter == 1 then
-			return filter, keyvalues, polygon, roads(keyvalues)
+	if keyvalues['highway'] then
+		if keyvalues['highway'] == 'rest_area' then
+			keyvalues['highway'] = nil
+			keyvalues['amenity'] = 'parking'
+		else
+			filter, keyvalues = filter_highway(keyvalues)
+			if filter == 1 then
+				return filter, keyvalues, polygon, roads(keyvalues)
+			end
 		end
 	end
 	

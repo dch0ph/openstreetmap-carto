@@ -1224,7 +1224,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
       }
 
-      [construction = null][zoom >= 14],
+//      [construction = null][zoom >= 14],
       [construction = 'residential'][zoom >= 14],
       [construction = 'unclassified'][zoom >= 14] {
         line-color: @minor-construction;
@@ -1246,7 +1246,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           b/line-width: 7;
         }
       }
-      [construction = 'living_street'][zoom >= 14] {
+/*      [construction = 'living_street'][zoom >= 14] {
         line-color: @minor-construction;
         b/line-color: @living-street-fill;
         line-width: @living-street-width-z14;
@@ -1285,7 +1285,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           line-width: 8;
           b/line-width: 7;
         }
-      }
+      }*/
 
       [construction = 'service'] {
         [zoom >= 15][service = 'INT-normal'],
@@ -1331,7 +1331,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         }
       }
 
-      [construction = 'raceway'][zoom >= 15] {
+ /*     [construction = 'raceway'][zoom >= 15] {
         line-color: @minor-construction;
         b/line-color: @road-fill;
         line-width: @service-width-z14;
@@ -1364,7 +1364,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			b/line-color: @minor-construction;
 			b/line-dasharray: 2,6;
 		}
-      }
+      }*/
     }
 
 //    #roads-low-zoom[feature = 'highway_motorway'],
