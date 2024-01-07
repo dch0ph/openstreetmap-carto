@@ -1510,18 +1510,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[zoom >= 19] {
 			  line/line-width: @cycleway-width-z19;
 			}
-		
-		    [designation = 'public_footpath'],
-		    [designation = 'public_bridleway'],
-		    [feature = 'highway_bridleway'] {
-			  [foot = 'no'], [access = 'no'] {
-				noprow/marker-file: url('symbols/Cross.svg');
-				noprow/marker-line-color: red;
-				noprow/marker-spacing: 10;
-				noprow/marker-placement: line;
-			  }
-		    }
-    }
+	    }
   }
   
     [feature = 'highway_trunk'] {
@@ -3163,15 +3152,21 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 	  [zoom >= 19] {
 		prow/line-width: @cycleway-width-z19;
 	  }
-
-	  [foot = 'no'], [access = 'no'] {
-		noprow/marker-file: url('symbols/Cross.svg');
-		noprow/marker-line-color: red;
-		noprow/marker-spacing: 10;
-		noprow/marker-placement: line;
-	  }
 	} 
   }
+}
+
+#tunnels::noPRoW,
+#roads-fill::noPRoW,
+#bridges::noPRoW {
+	[designation != null][zoom >= 14] {
+		  [foot = 'no'], [access = 'no'] {
+			marker-file: url('symbols/Cross.svg');
+			marker-line-color: red;
+			marker-spacing: 10;
+			marker-placement: line;
+		  }
+	}
 }
 
 #guideways {
