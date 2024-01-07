@@ -710,7 +710,7 @@
     }
 
     [feature = 'highway_pedestrian'][zoom >= 14],
-	  [feature = 'highway_footway'][zoom >= 15] {
+	  [feature = 'highway_footway'][zoom >= 14] {
         line-color: @pedestrian-casing;
 		[feature = 'highway_pedestrian'] {
 			line-width: @pedestrian-width-z14;
@@ -721,8 +721,8 @@
 			[zoom >= 19] { line-width: @pedestrian-width-z19; }
 		}
 		[feature = 'highway_footway'] {		
-//			line-width: @minor-pedestrian-width-z14;
-			line-width: @minor-pedestrian-width-z15;
+			line-width: @minor-pedestrian-width-z14;
+			[zoom >= 15] { line-width: @minor-pedestrian-width-z15; } 
 			[zoom >= 16] { line-width: @minor-pedestrian-width-z16; }
 			[zoom >= 17] { line-width: @minor-pedestrian-width-z17; }
 			[zoom >= 18] { line-width: @minor-pedestrian-width-z18; }
@@ -1918,9 +1918,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     #roads-fill[feature = 'highway_pedestrian'][zoom >= 14],
     #bridges[feature = 'highway_pedestrian'][zoom >= 14],
     #tunnels[feature = 'highway_pedestrian'][zoom >= 14],
-    #roads-fill[feature = 'highway_footway'][zoom >= 15],
-    #bridges[feature = 'highway_footway'][zoom >= 15],
-    #tunnels[feature = 'highway_footway'][zoom >= 15]
+    #roads-fill[feature = 'highway_footway'][zoom >= 14],
+    #bridges[feature = 'highway_footway'][zoom >= 14],
+    #tunnels[feature = 'highway_footway'][zoom >= 14]
 	{
 		[feature = 'highway_pedestrian'] {
 			line-width: @pedestrian-width-z14 - 2 * @casing-width-z14;
@@ -1931,8 +1931,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 			[zoom >= 19] { line-width: @pedestrian-width-z19 - 2 * @casing-width-z19; }
 		}
 		[feature = 'highway_footway']	{
-//			line-width: @minor-pedestrian-width-z14 - 2 * @minor-casing-width-z14;
-			line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15;
+			line-width: @minor-pedestrian-width-z14 - 2 * @minor-casing-width-z14;
+			[zoom >= 15] { line-width: @minor-pedestrian-width-z15 - 2 * @minor-casing-width-z15; }
 			[zoom >= 16] { line-width: @minor-pedestrian-width-z16 - 2 * @casing-width-z16; }
 			[zoom >= 17] { line-width: @minor-pedestrian-width-z17 - 2 * @casing-width-z17; }
 			[zoom >= 18] { line-width: @minor-pedestrian-width-z18 - 2 * @casing-width-z18; }
