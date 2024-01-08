@@ -975,7 +975,7 @@ function filter_highway (keyvalues)
 	end
 	
 	-- Kill off lit tags unless on roads of interest
-	if tags['lit'] and not is_in(keyvalues['highway'], allow_lit) then
+	if keyvalues['lit'] and not is_in(keyvalues['highway'], allow_lit) then
 		keyvalues['lit'] = nil
 	end
 	
