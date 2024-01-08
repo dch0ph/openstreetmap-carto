@@ -722,6 +722,7 @@ local pathtypes = { 'cycleway', 'path', 'bridleway' }
 local suppress_construction = { 'raceway', 'pedestrian', 'footway', 'cycleway', 'path', 'bridleway', 'steps' }
 -- synonyms for two sided embankment / cutting
 local cuttingtypes = { 'yes', 'both', 'two_sided' }
+local allow_lit = { 'service', 'pedestrian', 'footway' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -971,6 +972,11 @@ function filter_highway (keyvalues)
 	-- Kill ref tags on bridges to stop shields appearing
 	if keyvalues['bridge'] then
 		keyvalues['ref'] = nil
+	end
+	
+	-- Kill off lit tags unless on roads of interest
+	if tags['lit'] and not is_in(keyvalues['highway'], allow_lit) then
+		keyvalues['lit'] = nil
 	end
 	
 	return 0, keyvalues
