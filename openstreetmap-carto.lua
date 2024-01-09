@@ -722,7 +722,8 @@ local pathtypes = { 'cycleway', 'path', 'bridleway' }
 local suppress_construction = { 'raceway', 'pedestrian', 'footway', 'cycleway', 'path', 'bridleway', 'steps' }
 -- synonyms for two sided embankment / cutting
 local cuttingtypes = { 'yes', 'both', 'two_sided' }
-local allow_lit = { 'service', 'pedestrian', 'footway' }
+local allow_lit = { 'service', 'pedestrian', 'footway', 'steps' }
+local notopen_tags = { 'destination', 'private', 'no' }
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -922,15 +923,22 @@ function filter_highway (keyvalues)
 		elseif (keyvalues['designation'] == 'public_bridleway') or (keyvalues['designation'] == 'permissive_bridleway') then
 			keyvalues['highway'] = 'bridleway'
 		end
-	-- Normalise access tagging (destination only access is effectively foot = private/no)
-		if (keyvalues['access'] == 'destination') or (keyvalues['access'] == 'private') then
-			keyvalues['foot'] = 'no'
-		end
 	end
 
 	-- Unless other access set, then tag towpaths as foot=permissive
 	if (keyvalues['towpath'] == 'yes') and (keyvalues['designation'] == nil) and (keyvalues['foot'] == nil) then
 		keyvalues['foot'] = 'permissive'
+	end
+
+	if (keyvalues['highway'] == 'path') or (keyvalues['highway'] == 'footway') then
+	-- Normalise access tagging (destination only access is effectively foot = private/no)
+		if (keyvalues['foot'] ~= 'yes') and is_in(keyvalues['access'], notopen_tags) then
+			keyvalues['foot'] = 'no'
+		end
+	-- Use path styling for forbidden footways
+		if keyvalues['foot'] == 'no' then
+			keyvalues['highway'] = 'path'
+		end
 	end
 	
 	-- permissive only relevant to highway=path. Normalise rest
