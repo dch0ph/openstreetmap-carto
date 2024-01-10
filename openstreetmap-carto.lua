@@ -578,9 +578,9 @@ function filter_tags_node (keyvalues, numberofkeys)
 	end
 
 	-- Render jersey barrier as block if node
-	if keyvalues['barrier'] == 'jersey_barrier' then
-		keyvalues['barrier'] = 'wall'
-	end
+--	if keyvalues['barrier'] == 'jersey_barrier' then
+--		keyvalues['barrier'] = 'block'
+--	end
 
 -- Suppress cairn / survey_point etc. if coincides with peak
 	if (keyvalues['natural'] == 'peak') and keyvalues['man_made'] then
@@ -1126,9 +1126,9 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['barrier'] = 'city_wall'
 	end
 	
-	if keyvalues['barrier'] == 'jersey_barrier' then
-		keyvalues['barrier'] = 'wall'
-	elseif keyvalues['barrier'] == 'haha' then
+--	if keyvalues['barrier'] == 'jersey_barrier' then
+--		keyvalues['barrier'] = 'wall'
+	if keyvalues['barrier'] == 'haha' then
 		keyvalues['barrier'] = 'retaining_wall'
 	-- Promote castle walls to 'city_wall' for thicker rendering
 	elseif (keyvalues['barrier'] == 'wall') and (keyvalues['wall'] == 'castle_wall') then
