@@ -640,7 +640,7 @@ Layer:
                   WHERE way && !bbox!
                 ) _
               WHERE barrier IN ('chain', 'city_wall', 'ruined_city_wall', 'ditch', 'fence', 'guard_rail', 'ruins',
-                  'handrail', 'hedge', 'retaining_wall', 'wall')
+                  'handrail', 'hedge', 'retaining_wall', 'wall', 'jersey_barrier')
               AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'stream', 'drain', 'ditch'))
           ) AS features
         ) AS line_barriers
@@ -2430,7 +2430,7 @@ Layer:
               'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('route_marker') AND way_area IS NULL THEN tags->'information' END,
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross', 'cairn') AND way_area IS NULL THEN man_made END,
-              'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate') THEN barrier END,
+              'barrier_' || CASE WHEN barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate', 'jersey_barrier') THEN barrier END,
               'marker_' || CASE WHEN tags->'marker' IN ('post', 'plate', 'pedestal') AND way_area IS NULL THEN 'pipeline' END
             )  AS feature,
             CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
@@ -2477,7 +2477,7 @@ Layer:
                OR (tags->'marker' IN ('post', 'plate', 'pedestal') AND tags->'utility' IS NOT NULL)
                OR man_made IN ('cross', 'cairn')
                OR (tourism IN ('information') AND tags->'information' IN ('route_marker'))
-               OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate')
+               OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate', 'jersey_barrier')
             ORDER BY
               CASE amenity
                 WHEN 'waste_basket' THEN 1
