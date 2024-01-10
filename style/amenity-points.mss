@@ -1214,7 +1214,11 @@
       marker-file: url('symbols/shop/optician.svg');
     }
 
-    [shop = 'outdoor'] {
+    [shop = 'hearing_aids'][zoom >= 18] {
+      marker-file: url('symbols/shop/hearing_aids.svg');
+    }
+
+    [shop = 'outdoor'][zoom >= 18] {
       marker-file: url('symbols/shop/outdoor.svg');
     }
 
