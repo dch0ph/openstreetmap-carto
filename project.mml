@@ -1793,6 +1793,7 @@ Layer:
               tags->'sport' as sport,
               tags->'information' as information,
               tags->'memorial' as memorial,
+              tags->'operator' as operator,
               tags->'artwork_type' as artwork_type,
               tags->'vending' as vending,
               CASE WHEN shop IN ('supermarket', 'bag', 'bakery', 'beauty', 'bed', 'bookmaker', 'books', 'butcher', 'carpet', 'clothes', 'computer',

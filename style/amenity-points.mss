@@ -3244,6 +3244,7 @@
 
   [feature = 'man_made_mineshaft'][zoom >= 15] {
     text-name: "[name]";
+	[zoom >= 17][operator != null] { text-name: [name] + " (" + [operator] + ")"; }
     text-fill: @man-made-icon;
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
