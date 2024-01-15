@@ -459,8 +459,7 @@
   [feature = 'tourism_information'][information = 'office'][zoom >= 16],
   [feature = 'tourism_information'][information = 'guidepost'][zoom >= 17],
   [feature = 'tourism_information'][information = 'map'][zoom >= 17] {
-//    marker-file: url('symbols/tourism/information.svg');
-    [zoom >= 19][information = 'audioguide'] {
+    [information = 'audioguide'] {
       marker-file: url('symbols/tourism/audioguide.svg');
     }
     [information = 'board'] {
@@ -477,7 +476,7 @@
     [information = 'tactile_map'] {
       marker-file: url('symbols/tourism/map.svg');
     }
-    [zoom >= 19][information = 'terminal'] {
+    [information = 'terminal'] {
       marker-file: url('symbols/tourism/terminal.svg');
     }
     marker-fill: @man-made-icon;

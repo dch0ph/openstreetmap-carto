@@ -333,21 +333,7 @@ function filter_tags_generic(tags)
 	if (tags['man_made'] == 'spoil_heap') or (tags['disused:man_made'] == 'spoil_heap') then
 		tags['natural'] = 'scree'
 	end
-	
-	-- Try to find missing names
-	if tags['name'] == nil then
-	-- Possibly useful more generally, but common for fuel
-		if (tags['amenity'] == 'fuel') or tags['shop'] then
-			if tags['brand'] then
-				tags['name'] = tags['brand']
-			else
-				tags['name'] = tags['operator']
-			end
-		elseif tags['power'] == 'substation' then
-			tags['name'] = tags['ref']
-		end
-	end
-		
+			
 	if tags['landuse'] == 'farmland' then
 		if is_in(tags['farmland'], meadow_tags) or (tags['animal'] ~= nil) then
 			if (tags['farmland'] ~= 'meadow') or (tags['animal'] ~= nil) then
@@ -402,9 +388,24 @@ function filter_tags_generic(tags)
     tags['layer'] = layer(tags['layer'])
 
 	-- If name does not exist but name:en does, use it.	
-    if (tags['name'] == nil) and (tags['name:en'] ~= nil ) then
+    if (tags['name'] == nil) and tags['name:en'] then
 		tags['name'] = tags['name:en']
     end
+	-- Try to find missing names
+	if tags['name'] == nil then
+	-- Possibly useful more generally, but common for fuel
+		if (tags['amenity'] == 'fuel') or tags['shop'] then
+			if tags['brand'] then
+				tags['name'] = tags['brand']
+			else
+				tags['name'] = tags['operator']
+			end
+		elseif tags['power'] == 'substation' then
+			tags['name'] = tags['ref']
+		elseif (tags['leisure'] == 'outdoor_seating') and tags['operator'] then
+			tags['name'] = "(" .. tags['operator'] .. ")"
+		end
+	end
 	
 	-- Normalise use of common
 	if (tags['leisure'] == 'common') and (tags['designation'] == nil) then
