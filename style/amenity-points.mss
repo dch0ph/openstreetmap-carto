@@ -82,7 +82,8 @@
 #amenity-points {
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
-  [feature = 'amenity_shelter'][zoom >= 15] {
+  [feature = 'amenity_shelter'][int_minorshelter != 'yes'][zoom >= 15],
+  [feature = 'amenity_shelter'][zoom >= 18] {
     marker-fill: @accommodation-icon;
     marker-file: url('symbols/amenity/shelter.svg');
     [feature = 'tourism_wilderness_hut'] {
@@ -92,8 +93,7 @@
       marker-file: url('symbols/tourism/alpinehut.svg');
     }
     [feature = 'amenity_shelter'] {
-//      marker-fill: @man-made-icon;
-      marker-fill: @amenity-brown;
+      marker-fill: @man-made-icon;
     }
     marker-clip: false;
     [int_access = 'restricted'] {
@@ -2726,8 +2726,9 @@
   }
 
   [feature = 'tourism_alpine_hut'][zoom >= 14],
-  [feature = 'amenity_shelter'][zoom >= 15],
-  [feature = 'leisure_picnic_table'][zoom >= 17],
+  [feature = 'amenity_shelter'][int_minorshelter != 'yes'][zoom >= 15],
+  [feature = 'amenity_shelter'][zoom >= 18],
+  [feature = 'leisure_picnic_table'][zoom >= 18],
   [feature = 'tourism_hotel'][zoom >= 15],
   [feature = 'tourism_motel'][zoom >= 17],
   [feature = 'tourism_hostel'][zoom >= 17],
@@ -2753,10 +2754,9 @@
     [feature = 'tourism_caravan_site'] {
       text-dy: 15;
     }
-    [feature = 'leisure_picnic_table'][zoom >= 17],
+    [feature = 'leisure_picnic_table'],
     [feature = 'amenity_shelter'] {
-//      text-fill: @man-made-icon;
-		text-fill: @amenity-brown;
+      text-fill: @man-made-icon;
     }
     [feature = 'tourism_alpine_hut'],
     [feature = 'tourism_wilderness_hut'],
@@ -2794,8 +2794,9 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
-      [feature = 'highway_bus_stop'][int_shelter != 'yes'] {
-        text-dy: 9;
+      [feature = 'highway_bus_stop'] {
+		[int_shelter != 'yes'] { text-dy: 9; }
+		[zoom = 17] { text-dy: 7; }
       }
       [int_access = 'restricted'] {
         text-opacity: @private-opacity;

@@ -1773,6 +1773,7 @@ Layer:
               tags->'location' as location,
               tags->'indoor' as indoor,
               CASE WHEN (tags->'covered' = 'yes') OR (tags->'shelter' = 'yes') THEN 'yes' ELSE 'no' END AS int_shelter,
+              CASE WHEN tags->'shelter_type' IN ('public_transport', 'picnic_shelter') THEN 'yes' END AS int_minorshelter,
               tags->'survey_point' as survey_point,
               tags->'icao' as icao,
               tags->'iata' as iata,
