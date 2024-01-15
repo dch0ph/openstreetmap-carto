@@ -1460,7 +1460,7 @@
      marker-clip: false;
    }
 
-  [feature = 'leisure_outdoor_seating'][zoom >= 19] {
+  [feature = 'leisure_outdoor_seating'][zoom >= 18] {
      marker-file: url('symbols/leisure/outdoor_seating.svg');
      marker-fill: @leisure-green;
      marker-clip: false;
@@ -2037,7 +2037,7 @@
   [feature = 'leisure_beach_resort'][zoom >= 17],
   [feature = 'leisure_bird_hide'][zoom >= 17],
   [feature = 'leisure_amusement_arcade'][zoom >= 18],
-  [feature = 'leisure_outdoor_seating'][zoom >= 19],
+  [feature = 'leisure_outdoor_seating'][zoom >= 18],
   [feature = 'leisure_fishing'][zoom >= 17] {
     text-name: "[name]";
     text-size: @standard-font-size;
