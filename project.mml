@@ -1772,6 +1772,7 @@ Layer:
               historic,
               tags->'location' as location,
               tags->'indoor' as indoor,
+              CASE WHEN (tags->'covered' = 'yes') OR (tags->'shelter' = 'yes') THEN 'yes' ELSE 'no' END AS int_shelter,
               tags->'survey_point' as survey_point,
               tags->'icao' as icao,
               tags->'iata' as iata,

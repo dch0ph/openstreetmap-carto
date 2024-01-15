@@ -208,6 +208,7 @@
     }
     [zoom >= 18] {
       marker-file: url('symbols/highway/bus_stop.svg');
+	  [int_shelter = 'yes'] { marker-file: url('symbols/highway/bus_stop_covered.svg'); }
       marker-width: 12;
       marker-fill: @transportation-icon;
 //      ["naptan:verified" = 'no'] { marker-fill: @missing-data; }
@@ -2790,7 +2791,7 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
-      [feature = 'highway_bus_stop'] {
+      [feature = 'highway_bus_stop'][int_shelter != 'yes'] {
         text-dy: 9;
       }
       [int_access = 'restricted'] {
