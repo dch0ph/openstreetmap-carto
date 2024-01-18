@@ -30,7 +30,7 @@
 	}
 	[building = 'ruins'] {
 		polygon-fill: white;
-		opacity: 0.8;
+		polygon-opacity: 0.8;
 		casing/line-width: 0.8;
 		casing/line-color: white;
 		casing/line-opacity: 0.8;
