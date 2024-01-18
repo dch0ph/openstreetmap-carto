@@ -462,6 +462,22 @@ Layer:
         ) AS bridge
     properties:
       minzoom: 14
+  - id: contours-text
+    geometry: linestring
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
+            prop_value
+          FROM terrain50_contours
+          WHERE (prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')
+        ) AS contours_text50
+    properties:
+      minzoom: 14
+      maxzoom: 17
   - id: buildings
     geometry: polygon
     <<: *extents
@@ -2492,22 +2508,6 @@ Layer:
     properties:
       cache-features: true
       minzoom: 14
-  - id: contours-text
-    geometry: linestring
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way,
-            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
-            prop_value
-          FROM terrain50_contours
-          WHERE (prop_value::int % 50 = 0) AND (feat_type = 'ContourLine')
-        ) AS contours_text50
-    properties:
-      minzoom: 14
-      maxzoom: 17
   - id: text-annotation
     geometry: point
     <<: *extents
