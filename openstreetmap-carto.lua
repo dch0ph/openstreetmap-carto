@@ -1062,6 +1062,11 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if keyvalues['natural'] == 'tree_group' then
 		keyvalues['natural'] = 'wood'
 	end
+	
+	-- As tourism = attraction is generally rendered, can kill off double tagging that would compete
+	if (keyvalues['tourism'] == 'attraction') and (keyvalues['landuse'] == 'farmyard') then
+		keyvalues['landuse'] = nil
+	end
 
 -- Don't render railway bridges.
 -- Note that paths on dismantled railways are handled as highways
