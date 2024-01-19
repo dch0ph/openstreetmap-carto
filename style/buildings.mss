@@ -1,6 +1,7 @@
 @building-fill: #d9d0c9;  // Lch(84, 5, 68)
 @building-line: black;
-@building-low-zoom: #333;
+// #444 is same level of black as railway
+@building-low-zoom: #444;
 //darken(@building-fill, 4%);
 
 @building-major-fill: darken(@building-fill, 15%); 
