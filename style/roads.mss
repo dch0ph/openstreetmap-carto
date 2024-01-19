@@ -44,7 +44,8 @@
 @pedestrian-dark: #888;
 @pedestrian-lit: lighten(yellow, 20%);
 @lit-opacity: 1;
-@raceway-fill: darken(pink, 10%); // use darker colour for raceways
+@raceway-fill: #d0a800; // light mustard
+//@raceway-fill: darken(pink, 10%); // use darker colour for raceways
 @road-fill: #ddd;
 //@footway-fill: salmon;
 //@footway-fill: salmon;
@@ -2021,12 +2022,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'highway_raceway'][int_surface != 'unpaved'] {
       [zoom >= 13] {
         line-color: @raceway-fill;
-        line-width: 2;
+        line-width: 1.5;
         line-join: round;
         line-cap: round;
       }
-      [zoom >= 14] { line-width: @residential-width-z14; }  // was (also) 3
-      [zoom >= 15] { line-width: @residential-width-z15; }  // was 6
+      [zoom >= 14] { line-width: 2; }  // was (also) 3
+      [zoom >= 15] { line-width: 3; }  // was 6
+      [zoom >= 16] { line-width: @service-width-z16; }  // was 6
       [zoom >= 18] { line-width: 8; }
       [zoom >= 19] { line-width: 12; }
    //   [zoom >= 20] { line-width: 24; }
@@ -2037,12 +2039,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-pattern-type: repeat;
         line-pattern-alignment: global;
         line-pattern-file: url("symbols/unpaved/unpaved_raceway-fill.svg"); 
-        line-pattern-width: 2;
+        line-pattern-width: 1.5;
         line-pattern-join: round;
         line-pattern-cap: round;
       }
-      [zoom >= 14] { line-width: @residential-width-z14; }  // was (also) 3
-      [zoom >= 15] { line-width: @residential-width-z15; }  // was 6
+      [zoom >= 14] { line-width: 2; }  // was (also) 3
+      [zoom >= 15] { line-width: 3; }  // was 6
+      [zoom >= 16] { line-width: @service-width-z16; }  // was 6
       [zoom >= 18] { line-pattern-width: 8; }
       [zoom >= 19] { line-pattern-width: 12; }
  //     [zoom >= 20] { line-pattern-width: 24; }
