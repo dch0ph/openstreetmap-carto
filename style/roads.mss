@@ -80,7 +80,7 @@
 @runway-fill: @aeroway-fill;
 @taxiway-fill: @aeroway-fill;
 @helipad-fill: @aeroway-fill;
-@access-marking: @path-fill-noaccess;
+@access-marking: #ddd;
 // New access markings
 //@access-marking-primary: #f0f0f0;
 //@access-marking-secondary: #e4e4e4;
@@ -2025,6 +2025,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-width: 1.5;
         line-join: round;
         line-cap: round;
+		line-smooth: @track-smooth;
       }
       [zoom >= 14] { line-width: 2; }  // was (also) 3
       [zoom >= 15] { line-width: 3; }  // was 6
@@ -2042,10 +2043,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-pattern-width: 1.5;
         line-pattern-join: round;
         line-pattern-cap: round;
+		line-pattern-smooth: @track-smooth;
       }
-      [zoom >= 14] { line-width: 2; }  // was (also) 3
-      [zoom >= 15] { line-width: 3; }  // was 6
-      [zoom >= 16] { line-width: @service-width-z16; }  // was 6
+      [zoom >= 14] { line-pattern-width: 2; }  // was (also) 3
+      [zoom >= 15] { line-pattern-width: 3; }  // was 6
+      [zoom >= 16] { line-pattern-width: @service-width-z16; }  // was 6
       [zoom >= 18] { line-pattern-width: 8; }
       [zoom >= 19] { line-pattern-width: 12; }
  //     [zoom >= 20] { line-pattern-width: 24; }

@@ -87,17 +87,17 @@ def main():
 
     # List of names of color variables in mss code for which we will generate patterns
     color_names = {
-        'motorway-low-zoom',
-        'trunk-low-zoom',
-        'primary-low-zoom',
-        'motorway-fill',
-        'trunk-fill',
-        'primary-fill',
-        'secondary-fill',
+#        'motorway-low-zoom',
+#        'trunk-low-zoom',
+#        'primary-low-zoom',
+#        'motorway-fill',
+#        'trunk-fill',
+#        'primary-fill',
+#        'secondary-fill',
         'platform-fill',
         'aeroway-fill',
-        'road-fill',
-        'pedestrian-fill',
+#        'road-fill',
+#        'pedestrian-fill',
         'living-street-fill',
         'raceway-fill',
         'residential-fill'
