@@ -97,7 +97,7 @@ def main():
         'platform-fill',
         'aeroway-fill',
 #        'road-fill',
-#        'pedestrian-fill',
+        'pedestrian-fill',
         'living-street-fill',
         'raceway-fill',
         'residential-fill'
