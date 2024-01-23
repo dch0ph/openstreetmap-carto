@@ -187,6 +187,7 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
+  [feature = 'amenity_animal_boarding'][zoom >= 17],
   [feature = 'amenity_animal_shelter'][zoom >= 17] {
     marker-file: url('symbols/amenity/animal_shelter.svg');
     marker-fill: @amenity-brown;
@@ -1940,6 +1941,8 @@
   [feature = 'tourism_museum'],
   [feature = 'amenity_theatre'],
   [feature = 'amenity_cinema'],
+  [feature = 'amenity_animal_boarding'],
+  [feature = 'amenity_animal_shelter'],
   [feature = 'amenity_arts_centre'],
   [feature = 'amenity_community_centre'],
   [feature = 'historic_archaeological_site'],
