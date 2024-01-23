@@ -187,6 +187,12 @@
 	[zoom < 16] { marker-width: 8; }
   }
 
+  [feature = 'amenity_animal_shelter'][zoom >= 17] {
+    marker-file: url('symbols/amenity/animal_shelter.svg');
+    marker-fill: @amenity-brown;
+    marker-clip: false;
+  }
+
   [feature = 'amenity_public_bookcase'][zoom >= 18] {
     marker-file: url('symbols/amenity/public_bookcase.svg');
     marker-fill: @amenity-brown;
