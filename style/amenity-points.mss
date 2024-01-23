@@ -2554,8 +2554,8 @@
  // [feature = 'leisure_dog_park'],
   [feature = 'leisure_ice_rink'],
   [feature = 'leisure_pitch'] {
-    [zoom >= 10][way_pixels > @large-building-pixels][is_building = 'no'],
-    [zoom >= 10][way_pixels > @large-building-pixels][feature = 'shop'][shop = 'mall'],
+    [zoom >= 11][way_pixels > @large-building-pixels][is_building = 'no'],
+    [zoom >= 11][way_pixels > @large-building-pixels][feature = 'shop'][shop = 'mall'],
 	[zoom >= 17] {
       text-name: "[name]";
       text-size: @landcover-font-size;
