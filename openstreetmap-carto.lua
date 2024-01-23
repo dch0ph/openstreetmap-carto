@@ -249,6 +249,12 @@ function filter_tags_generic(tags)
 		tags['building'] = nil
 	end
 	
+	-- Not quite the right symbol, but gets something on the map
+	if tags['leisure'] == 'indoor_play' then
+		tags['leisure'] = 'playground'
+		tags['indoor'] = 'yes'
+	end
+	
 	-- Consolidate key contact tags
 	if tags['contact:website'] then
 		if tags['website'] == nil then
