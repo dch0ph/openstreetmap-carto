@@ -2019,23 +2019,24 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-    [feature = 'highway_raceway'][int_surface != 'unpaved'] {
-      [zoom >= 13] {
-        line-color: @raceway-fill;
-        line-width: 1.5;
-        line-join: round;
-        line-cap: round;
-		line-smooth: @track-smooth;
-      }
-      [zoom >= 14] { line-width: 2; }  // was (also) 3
-      [zoom >= 15] { line-width: 3; }  // was 6
-      [zoom >= 16] { line-width: @service-width-z16; }  // was 6
-      [zoom >= 18] { line-width: 8; }
-      [zoom >= 19] { line-width: 12; }
+    [feature = 'highway_raceway'] {
+		[int_surface = 'unpaved'][zoom >= 13][zoom < 14],
+		[int_surface != 'unpaved'][zoom >= 13] {
+			line-color: @raceway-fill;
+			line-width: 1.5;
+			line-join: round;
+			line-cap: round;
+			line-smooth: @track-smooth;
+		  [zoom >= 14] { line-width: 2; }  // was (also) 3
+		  [zoom >= 15] { line-width: 3; }  // was 6
+		  [zoom >= 16] { line-width: @service-width-z16; }  // was 6
+		  [zoom >= 18] { line-width: 8; }
+		  [zoom >= 19] { line-width: 12; }
    //   [zoom >= 20] { line-width: 24; }
+		}
     }
 
-     [feature = 'highway_raceway'][int_surface = 'unpaved'] {
+     [feature = 'highway_raceway'][int_surface = 'unpaved'][zoom >= 15] {
       [zoom >= 13] {
         line-pattern-type: repeat;
         line-pattern-alignment: global;
