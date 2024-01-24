@@ -2469,7 +2469,7 @@
   [feature = 'natural_scrub'],
   [feature = 'natural_shoal'],
   [feature = 'natural_beach'] {
-    [zoom >= 10][way_pixels > @large-building-pixels],
+    [zoom >= 11][way_pixels > @large-building-pixels],
 	[zoom >= 14] {
       text-name: "[name]";
       text-size: @landcover-font-size;
