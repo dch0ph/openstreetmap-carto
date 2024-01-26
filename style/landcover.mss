@@ -1091,8 +1091,11 @@
     text-halo-fill: @standard-halo-fill;
     text-size: 10;
 	[way_pixels > 200] { text-size: 13; }
-    text-face-name: @oblique-fonts;
     text-placement: line;
+//	text-placement-type: simple;
+// 	text-placements: 'X,16,13,10';
+    text-face-name: @oblique-fonts;
+	text-character-spacing: 2; 
 	text-fill: @landform-color-text;
     text-vertical-alignment: middle;
   }

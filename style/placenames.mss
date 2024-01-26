@@ -47,12 +47,14 @@
       text-name: '[name]';
       text-face-name: @book-fonts;
       text-fill: @placenames;
+	  text-transform: uppercase;
       text-size: 13;
       text-wrap-width: 65; // 5.0 em
       text-line-spacing: -0.65; // -0.05 em
       text-margin: 9.1; // 0.7 em
       text-halo-fill: @standard-halo-fill;
       text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
+      text-character-spacing: 2.5;
 
       [zoom >= 10] {
         text-size: 14;
@@ -65,6 +67,7 @@
         text-wrap-width: 75; // 5.0 em
         text-line-spacing: -0.75; // -0.05 em
         text-margin: 10.5; // 0.7 em
+		text-character-spacing: 3;
       }
     }
   }
@@ -103,10 +106,12 @@
       text-face-name: @book-fonts;
       text-halo-fill: @standard-halo-fill;
       text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
+	  text-transform: uppercase;
       text-wrap-width: 40; // 4.0 em
       text-line-spacing: -1.0; // -0.10 em
       text-margin: 7.0; // 0.7 em
-      [zoom >= 9] {
+      text-character-spacing: 2;
+     [zoom >= 9] {
         text-size: 12;
         text-wrap-width: 60; // 5.0 em
         text-line-spacing: -0.6; // -0.05 em
@@ -117,6 +122,7 @@
         text-wrap-width: 65; // 5.0 em
         text-line-spacing: -0.65; // -0.05 em
         text-margin: 9.1; // 0.7 em
+        text-character-spacing: 2.5;
       }
       [zoom >= 11] {
         text-size: 14;
@@ -130,6 +136,7 @@
         text-line-spacing: -0.75; // -0.05 em
         text-margin: 10.5; // 0.7 em
 		text-halo-radius: @standard-halo-radius * 2.0;
+        text-character-spacing: 3;
 	  }
       [zoom >= 14] {
         text-size: 17;
