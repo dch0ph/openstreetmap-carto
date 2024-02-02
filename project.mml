@@ -1660,7 +1660,13 @@ Layer:
       <<: *osm2pgsql
       table: &amenity_points_sql |-
         (SELECT
-            *
+            *,
+            CASE
+              WHEN feature = 'shelter' THEN 15
+              WHEN feature = 'highway_bus_stop' THEN 16
+              WHEN feature = 'amenity_shelter_public_transport' THEN 17
+              ELSE 16
+            END AS start_zoom
           FROM
           (SELECT -- This subselect allows filtering on the feature column
               way,
@@ -1694,6 +1700,7 @@ Layer:
                 'tourism_' || CASE WHEN tourism IN ('alpine_hut', 'apartment', 'artwork', 'camp_site', 'caravan_site', 'chalet', 'gallery', 'guest_house',
                                                     'hostel', 'hotel', 'motel', 'museum', 'picnic_site', 'theme_park', 'wilderness_hut',
                                                     'zoo') THEN tourism END,
+                'amenity_' || CASE WHEN amenity = 'shelter' AND tags->'shelter_type' = 'public_transport' THEN 'shelter_public_transport' END,
                 'amenity_' || CASE WHEN amenity IN ('arts_centre', 'atm', 'bank', 'bar', 'bbq', 'bicycle_rental',
                                                     'bicycle_repair_station','biergarten', 'boat_rental', 'bureau_de_change', 'bus_station', 'cafe',
                                                     'car_rental', 'car_wash', 'casino', 'charging_station', 'childcare', 'cinema', 'clinic', 'college',
@@ -1890,7 +1897,8 @@ Layer:
               ) _
             ) AS features
           WHERE feature IS NOT NULL
-          ORDER BY score DESC NULLS LAST,
+          ORDER BY start_zoom ASC NULLS LAST,
+            score DESC NULLS LAST,
             way_pixels DESC NULLS LAST
           ) AS amenity_points
     properties:

@@ -82,8 +82,9 @@
 #amenity-points {
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
-  [feature = 'amenity_shelter'][int_minorshelter != 'yes'][zoom >= 15],
-  [feature = 'amenity_shelter'][zoom >= 18] {
+//  [feature = 'amenity_shelter'][int_minorshelter != 'yes'][zoom >= 15],
+  [feature = 'amenity_shelter_public_transport'][zoom >= 17],
+  [feature = 'amenity_shelter'][zoom >= 15] {
     marker-fill: @accommodation-icon;
     marker-file: url('symbols/amenity/shelter.svg');
     [feature = 'tourism_wilderness_hut'] {
@@ -92,6 +93,7 @@
     [feature = 'tourism_alpine_hut'] {
       marker-file: url('symbols/tourism/alpinehut.svg');
     }
+    [feature = 'amenity_shelter_public_transport'],
     [feature = 'amenity_shelter'] {
       marker-fill: @man-made-icon;
     }
