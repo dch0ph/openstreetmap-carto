@@ -172,6 +172,7 @@
 @tertiary-width-z12:              2.5;
 @tertiary-link-width-z12:         1.5;
 @residential-width-z12:           1.5;
+@pedestrian-width-z12:            @residential-width-z12;
 //@unclassified-width-z12:          0.8;
 
 @motorway-width-z13:              6;
@@ -185,6 +186,7 @@
 @tertiary-width-z13:              4;
 @tertiary-link-width-z13:         3;
 @residential-width-z13:           2.5;
+@pedestrian-width-z13:            @residential-width-z13;
 @service-width-z13:				  2;
 @living-street-width-z13:         @residential-width-z13;
 // bumped up from 0.3 to match footway
@@ -710,11 +712,12 @@
       }
     }
 
-    [feature = 'highway_pedestrian'][zoom >= 14],
+    [feature = 'highway_pedestrian'][zoom >= 13],
 	  [feature = 'highway_footway'][zoom >= 14] {
         line-color: @pedestrian-casing;
 		[feature = 'highway_pedestrian'] {
-			line-width: @pedestrian-width-z14;
+			line-width: @pedestrian-width-z13;
+			[zoom >= 14] { line-width: @pedestrian-width-z14; }
 			[zoom >= 15] { line-width: @pedestrian-width-z15; }
 			[zoom >= 16] { line-width: @pedestrian-width-z16; }
 			[zoom >= 17] { line-width: @pedestrian-width-z17; }
@@ -1941,15 +1944,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
  */
 
-    #roads-fill[feature = 'highway_pedestrian'][zoom >= 14],
-    #bridges[feature = 'highway_pedestrian'][zoom >= 14],
-    #tunnels[feature = 'highway_pedestrian'][zoom >= 14],
+    #roads-fill[feature = 'highway_pedestrian'][zoom >= 13][int_surface != 'unpaved'],
+    #bridges[feature = 'highway_pedestrian'][zoom >= 13][int_surface != 'unpaved'],
+    #tunnels[feature = 'highway_pedestrian'][zoom >= 13],
     #roads-fill[feature = 'highway_footway'][zoom >= 14],
     #bridges[feature = 'highway_footway'][zoom >= 14],
     #tunnels[feature = 'highway_footway'][zoom >= 14]
 	{
 		[feature = 'highway_pedestrian'] {
-			line-width: @pedestrian-width-z14 - 2 * @casing-width-z14;
+			line-width: @pedestrian-width-z13 - 2 * @casing-width-z13;
+			[zoom >= 14] { line-width: @pedestrian-width-z14 - 2 * @casing-width-z14; }
 			[zoom >= 15] { line-width: @pedestrian-width-z15 - 2 * @casing-width-z15; }
 			[zoom >= 16] { line-width: @pedestrian-width-z16 - 2 * @casing-width-z16; }
 			[zoom >= 17] { line-width: @pedestrian-width-z17 - 2 * @casing-width-z17; }
@@ -1996,8 +2000,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 // Note this only applies to highway = pedestrian since highway=footway as always paved
     #roads-fill[feature = 'highway_pedestrian'][int_surface = 'unpaved'],
     #bridges[feature = 'highway_pedestrian'][int_surface = 'unpaved'] {
-      [zoom >= 14] {
-        line-pattern-width: @pedestrian-width-z14 - 2 * @casing-width-z14;
+      [zoom >= 13] {
+        line-pattern-width: @pedestrian-width-z13 - 2 * @casing-width-z13;
+        [zoom >= 14] { line-pattern-width: @pedestrian-width-z14 - 2 * @casing-width-z14; }
         [zoom >= 15] { line-pattern-width: @pedestrian-width-z15 - 2 * @casing-width-z15; }
         [zoom >= 16] { line-pattern-width: @pedestrian-width-z16 - 2 * @casing-width-z16; }
         [zoom >= 17] { line-pattern-width: @pedestrian-width-z17 - 2 * @casing-width-z17; }
@@ -2007,7 +2012,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line-pattern-alignment: global;
         line-pattern-file: url("symbols/unpaved/unpaved_pedestrian-fill.svg"); 
         #bridges {
-          line-pattern-width: @pedestrian-width-z14 - 2 * @bridge-casing-width-z14;
+          line-pattern-width: @pedestrian-width-z13 - 2 * @bridge-casing-width-z13;
+          [zoom >= 14] { line-pattern-width: @pedestrian-width-z14 - 2 * @bridge-casing-width-z14; }
           [zoom >= 15] { line-pattern-width: @pedestrian-width-z15 - 2 * @bridge-casing-width-z15; }
           [zoom >= 16] { line-pattern-width: @pedestrian-width-z16 - 2 * @bridge-casing-width-z16; }
           [zoom >= 17] { line-pattern-width: @pedestrian-width-z17 - 2 * @bridge-casing-width-z17; }
