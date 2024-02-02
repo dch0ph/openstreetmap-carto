@@ -49,6 +49,12 @@
       ["addr_flats" != null]["addr_housenumber" = null] {
         text-name: [addr_flats];
       }
+	  [entrance != null] {
+		[zoom >= 18][entrance = "main"],
+		[zoom >= 19] {
+			text-dy: 7;
+		}
+	  }
     }
 /*    [zoom >= 20] {
         text-size: 11;

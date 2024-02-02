@@ -2305,6 +2305,7 @@ Layer:
             "addr:housename" AS addr_housename,
             tags->'addr:unit' AS addr_unit,
             tags->'addr:flats' AS addr_flats,
+            tags->'entrance' AS entrance,
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
           FROM planet_osm_polygon
           WHERE way && !bbox! -- Not ST_PointOnSurface(way) because name might be NULL
@@ -2318,6 +2319,7 @@ Layer:
             "addr:housename" AS addr_housename,
             tags->'addr:unit' AS addr_unit,
             tags->'addr:flats' AS addr_flats,
+            tags->'entrance' AS entrance,
             NULL AS way_pixels
           FROM planet_osm_point
           WHERE way && !bbox!
