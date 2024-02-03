@@ -50,32 +50,27 @@
 }
 
 #entrances {
-  [zoom >= 18][entrance = "main"],
-  [zoom >= 19] {
     marker-fill: @entrance-normal;
     marker-allow-overlap: true;
     marker-ignore-placement: true;
     marker-file: url('symbols/rect.svg');
-    marker-width: 4;
-    marker-height: 4;
+//    marker-width: 4;
+//    marker-height: 4;
     ["entrance" = "main"] {
       marker-file: url('symbols/square.svg');
     }
-	  [zoom >= 19] {
-		 marker-width: 6;
-		 marker-height: 6;
-		 ["entrance" = "service"] {
-			marker-file: url('symbols/corners.svg');
-		 }
-		["access" = "yes"],
-		["access" = "permissive"] {
-		  marker-fill: @entrance-permissive;
-		}
-		["access" = "no"] {
-		  marker-file: url('symbols/rectdiag.svg');
-		}
-	  }
-   }
+	 marker-width: 6;
+	 marker-height: 6;
+	 ["entrance" = "service"] {
+		marker-file: url('symbols/corners.svg');
+	 }
+	["access" = "yes"],
+	["access" = "permissive"] {
+	  marker-fill: @entrance-permissive;
+	}
+	["access" = "no"] {
+	  marker-file: url('symbols/rectdiag.svg');
+	}
 /*  [zoom >= 20]["entrance" != null] {
     marker-width: 8.0;
     marker-height: 8.0;
