@@ -853,16 +853,6 @@
     }
   }
 
-  [feature = 'amenity_driving_school'][zoom >= 17] {
-    marker-width: 4;
-    [zoom >= 18] {
-      marker-width: 6;
-    }
-    marker-line-width: 0;
-    marker-clip: false;
-    marker-fill: @shop-icon;
-  }
-
   [feature = 'tourism_viewpoint'][zoom >= 14] {
     marker-file: url('symbols/tourism/viewpoint.svg');
     marker-fill: @amenity-brown;
@@ -1341,6 +1331,7 @@
   }
 
   // office points
+  [feature = 'amenity_driving_school'],
   [feature = 'office'] {
 	[zoom >= 15][way_pixels > @large-building-pixels],
 	[zoom >= 17] {
@@ -2984,7 +2975,7 @@
     }
   }*/
 
-
+  [feature = 'amenity_driving_school'],
   [feature = 'office'] {
     [way_pixels > @large-building-pixels][zoom >= 15],
     [zoom >= 18] {
