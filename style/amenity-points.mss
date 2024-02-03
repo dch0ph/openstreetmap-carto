@@ -1802,13 +1802,13 @@
   [feature = 'barrier_log'],
   [feature = 'barrier_jersey_barrier'],
   [feature = 'barrier_turnstile'] {
-    [zoom >= 16] {
-      marker-width: 3;
+    [zoom >= 17] {
+      marker-width: 3.5;
       marker-line-width: 0;
-      marker-fill: #7d7c7c;
+      marker-fill: #444;
 
       [zoom >= 18] {
-        marker-width: 4;
+        marker-width: 5.5;
       }
 	  [feature = 'barrier_turnstile'][int_access = 'restricted'] { marker-opacity: @private-opacity; }
     }

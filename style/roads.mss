@@ -80,7 +80,7 @@
 @runway-fill: @aeroway-fill;
 @taxiway-fill: @aeroway-fill;
 @helipad-fill: @aeroway-fill;
-@access-marking: #ddd;
+@access-marking: #ccc;
 // New access markings
 //@access-marking-primary: #f0f0f0;
 //@access-marking-secondary: #e4e4e4;
@@ -1245,8 +1245,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           b/line-dasharray: 8,6;
         }
         [zoom >= 17] {
-          line-width: 8;
-          b/line-width: 7;
+          line-width: @residential-width-z17;
+          b/line-width: @residential-width-z17 - 2 * @casing-width-z17;
         }
       }
 /*      [construction = 'living_street'][zoom >= 14] {
