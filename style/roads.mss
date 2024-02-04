@@ -130,7 +130,8 @@
 @living-street-tunnel-fill: lighten(@living-street-fill, 3%);
 
 @railway-color: #404040;
-@railway-disused-color: #909090;
+@railway-minor-color: #585858;
+@railway-disused-color: #989898;
 
 //@motorway-width-z6:               0.4;
 //@trunk-width-z6:                  0.4;
@@ -2135,7 +2136,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 
     [feature = 'railway_rail'][zoom >= 8],
-    [feature = 'railway_INT-spur-siding-yard'][zoom >= 13],
+    [feature = 'railway_INT-spur-siding-yard'][zoom >= 12],
 	  [feature = 'railway_disused'][zoom >=14] {
       [zoom < 12] {
 //        line-color: #787878;
@@ -2153,10 +2154,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           light/line-color: white;
           light/line-color: white;
           light/line-join: round;
-          [feature = 'railway_rail'],
-		  [feature = 'railway_disused'] {
+          [feature = 'railway_rail'] {
             dark/line-color: @railway-color;
-			[feature = 'railway_disused'] { dark/line-color: @railway-disused-color; }
             dark/line-width: 2;
             light/line-width: 0.75;
             light/line-dasharray: 8,8;
@@ -2172,10 +2171,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
               light/line-width: 2;
             }
           }
-          [feature = 'railway_INT-spur-siding-yard'] {
+          [feature = 'railway_INT-spur-siding-yard'],
+		  [feature = 'railway_disused']
+		  {
             dark/line-width: 2;
-            dark/line-color: @railway-color;
-            light/line-width: 0.8;
+            dark/line-color: @railway-minor-color;
+			[feature = 'railway_disused'] { dark/line-color: @railway-disused-color; }
+            light/line-width: 0.75;
             light/line-dasharray: 0,8,8,1;
             [zoom >= 18] {
               dark/line-width: 3;
