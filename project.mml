@@ -1763,6 +1763,7 @@ Layer:
                 'place_' || CASE WHEN place IN ('locality') AND way_area IS NULL THEN place END,
                 'golf_' || CASE WHEN tags->'golf' IN ('pin') THEN tags->'golf' END
               ) AS feature,
+              CASE WHEN tags->'office' IN ('it', 'taxi') THEN 'yes' END AS int_hassymbol,
               CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
               CASE WHEN tags->'orienteering' = 'marker' AND (tags->'information' IN ('board', 'map', 'guidepost')) THEN 'yes' ELSE 'no' END AS offset,
               CASE

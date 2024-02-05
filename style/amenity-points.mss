@@ -2984,6 +2984,7 @@
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 8;
+	  [int_hassymbol != 'yes'] { text-dy: 6; }
       text-fill: @office;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
