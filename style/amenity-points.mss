@@ -1811,16 +1811,12 @@
     marker-clip: false;
 }
 
- [feature = 'amenity_bench'][zoom >= 15]::amenity {
-    marker-file: url('symbols/bench-compact.svg');
-	[zoom < 16] { marker-width: 4; }
-	[zoom = 17] { marker-width: 8; }
-	[zoom >= 18] {
-		marker-file: url('symbols/amenity/bench.svg');
-	}
+ [feature = 'amenity_bench'][zoom >= 17]::amenity {
+	marker-width: 8;
+    marker-file: url('symbols/amenity/bench.svg');
     marker-line-color: @amenity-brown;
     [int_access = 'restricted'] { marker-opacity: @private-opacity; }
-	[zoom >= 17][offset = 'yes'] { marker-transform: translate(12,0); }  
+	[offset = 'yes'] { marker-transform: translate(12,0); }  
   }
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
