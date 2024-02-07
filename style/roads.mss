@@ -218,7 +218,7 @@
 //@minor-access-width-z14:		  1.2;
 @cycleway-width-z14:              1;
 
-@motorway-width-z15:             7;
+@motorway-width-z15:             8;
 @motorway-link-width-z15:         5.5;
 @trunk-width-z15:                @motorway-width-z15;
 @trunk-link-width-z15:          @motorway-link-width-z15;
