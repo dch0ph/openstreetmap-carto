@@ -1664,8 +1664,7 @@ Layer:
             CASE
               WHEN feature = 'shelter' THEN 15
               WHEN feature = 'highway_bus_stop' THEN 16
-              WHEN feature = 'amenity_shelter_public_transport' THEN 17
-              ELSE 16
+              ELSE 17
             END AS start_zoom
           FROM
           (SELECT -- This subselect allows filtering on the feature column
