@@ -38,18 +38,23 @@
         polygon-fill: @water-color;
 		[zoom < 18] { 
 			polygon-smooth: @water-smooth;
-			[zoom >= 12] { line-smooth: @water-smooth; }
+			[zoom >= 12][water != 'lock'] { line/line-smooth: @water-smooth; }
 		}
 	  }
-	  [zoom >= 11] {
-		line-width: 0.4;
-		line-color: @water-line-color;
+	  [water = 'lock'][zoom >= 16] {
+		polygon-pattern-file: url('patterns/generic_fine_hatch.svg');
+		polygon-pattern-opacity: 0.6;
+		polygon-pattern-comp-op: color-dodge;
 	  }
-	  [zoom >= 13] { line-width: 0.8; }
-	  [zoom >= 17] { line-width: 1.3; }
+	  [zoom >= 11] {
+		line/line-width: 0.4;
+		line/line-color: @water-line-color;
+	  }
+	  [zoom >= 13] { line/line-width: 0.8; }
+	  [zoom >= 17] { line/line-width: 1.3; }
       [way_pixels >= 4] { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.6; }
-	  [zoom < 12] { line: none; }
+	  [zoom < 12] { line/line: none; }
     }
     [int_intermittent = 'yes'] {
       polygon-pattern-file: url('patterns/intermittent_water.svg');
