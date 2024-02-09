@@ -287,7 +287,7 @@ function filter_tags_generic(tags)
 	end
 
 	-- Strip out bogus archaeological sites
-	if (tags['historic'] == 'archaeological_site') and tags['name'] and string.find(tags['name'], "old mine workings") then
+	if (tags['historic'] == 'archaeological_site') and tags['name'] and (string.sub(tags['name'],1,4) == "old") then
 		return 1, {}
 	end
 

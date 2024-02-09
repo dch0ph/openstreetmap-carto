@@ -799,7 +799,6 @@
 
 /* man_made=cutline */
 #landcover-line {
-  [zoom >= 14] {
     line-width: 3;
     line-join: round;
 // revert to default butt
@@ -812,7 +811,6 @@
         line-width: 12;
       }
     }
-  }
 }
 
 #landcover-area-symbols {
@@ -1095,7 +1093,7 @@
 //	text-placement-type: simple;
 // 	text-placements: 'X,16,13,10';
     text-face-name: @oblique-fonts;
-	text-character-spacing: 2; 
+	text-character-spacing: 1; 
 	text-fill: @landform-color-text;
     text-vertical-alignment: middle;
   }
