@@ -1859,7 +1859,7 @@
       text-wrap-width: @landcover-wrap-width-size-bigger;
       text-line-spacing: @landcover-line-spacing-size-bigger;
     }
-    text-face-name: @oblique-fonts;
+    text-face-name: @book-fonts;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
   }
@@ -3189,7 +3189,7 @@
       text-line-spacing: @standard-line-spacing-size;
       text-fill: darken(@airtransport, 15%);
       text-dy: 10;
-      text-face-name: @oblique-fonts;
+      text-face-name: @book-fonts;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
     }
@@ -3202,7 +3202,7 @@
     text-line-spacing: @standard-line-spacing-size;
     text-fill: darken(@airtransport, 15%);
     text-dy: 10;
-    text-face-name: @oblique-fonts;
+    text-face-name: @book-fonts;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
   }
