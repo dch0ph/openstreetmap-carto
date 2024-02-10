@@ -952,8 +952,26 @@
     marker-file: url('symbols/shop/marketplace.svg');
   }
 
-  // crafts
   [feature = 'craft'] {
+     [way_pixels > @large-building-pixels][zoom >= 16],
+	 [zoom >= 17] {
+		marker-line-width: 0;
+		marker-fill: @craft;
+		marker-width: 4;
+		marker-clip: false;
+		[zoom >= 18] {
+			marker-width: 6;
+			[symbol_url != null] {
+				marker-file: [symbol_url];
+				marker-width: 12;
+			}
+			marker-clip: false;
+		}
+	}
+  }
+
+  // crafts
+ /* [feature = 'craft'] {
      [way_pixels > @large-building-pixels][zoom >= 16],
 	 [zoom >= 17] {
 		marker-line-width: 0;
@@ -978,7 +996,7 @@
 			[craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
 		}
 	}
-  }
+  }*/
 
   // clubs
   [feature = 'club'] {
@@ -2947,7 +2965,10 @@
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 12;
       text-fill: @shop-text;
-	  [feature = 'craft'] { text-fill: @craft; }
+	  [feature = 'craft'] {
+		text-fill: @craft;
+		[symbol_url = null] { text-dy: 6; }
+	  }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: rgba(255, 255, 255, 0.6);
