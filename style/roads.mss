@@ -2026,7 +2026,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 
     [feature = 'highway_raceway'] {
-		[int_surface = 'unpaved'][zoom >= 13][zoom < 14],
+		[int_surface = 'unpaved'][zoom >= 13][zoom < 15],
 		[int_surface != 'unpaved'][zoom >= 13] {
 			line-color: @raceway-fill;
 			line-width: 1.5;
@@ -2043,17 +2043,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 
      [feature = 'highway_raceway'][int_surface = 'unpaved'][zoom >= 15] {
-      [zoom >= 13] {
         line-pattern-type: repeat;
         line-pattern-alignment: global;
         line-pattern-file: url("symbols/unpaved/unpaved_raceway-fill.svg"); 
-        line-pattern-width: 1.5;
+        line-pattern-width: 3;
         line-pattern-join: round;
         line-pattern-cap: round;
 		line-pattern-smooth: @track-smooth;
-      }
-      [zoom >= 14] { line-pattern-width: 2; }  // was (also) 3
-      [zoom >= 15] { line-pattern-width: 3; }  // was 6
       [zoom >= 16] { line-pattern-width: @service-width-z16; }  // was 6
       [zoom >= 18] { line-pattern-width: 8; }
       [zoom >= 19] { line-pattern-width: 12; }
