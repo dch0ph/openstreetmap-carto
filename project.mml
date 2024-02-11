@@ -1660,12 +1660,7 @@ Layer:
       <<: *osm2pgsql
       table: &amenity_points_sql |-
         (SELECT *,
-          CASE WHEN feature_class IS NULL THEN
-            CASE
-                WHEN int_feature LIKE 'craft_%' THEN 'craft'
-                ELSE int_feature END
-            ELSE feature_class END
-            AS feature
+          CASE WHEN large_way_pixels IS NOT NULL AND way_pixels > large_way_pixels THEN large_start_zoom ELSE COALESCE(normal_start_zoom, 16) END AS start_zoom
           FROM
           (SELECT -- This subselect allows filtering on the feature column
               way,
@@ -1717,7 +1712,7 @@ Layer:
                 'advertising_' || CASE WHEN tags->'advertising' in ('column') THEN tags->'advertising' END,
                 'emergency_' || CASE WHEN tags->'emergency' IN ('phone', 'defibrillator', 'life_ring') AND way_area IS NULL THEN tags->'emergency' END,
                 'shop' || CASE WHEN shop IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR shop IS NULL THEN NULL ELSE '' END,
-                'craft_' || CASE WHEN tags->'craft' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'craft') IS NULL THEN NULL ELSE tags->'craft' END,
+                'craft' || CASE WHEN tags->'craft' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'craft') IS NULL THEN NULL ELSE '' END,
                 'club' || CASE WHEN tags->'club' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'club') IS NULL THEN NULL ELSE '' END,
                 'healthcare' || CASE WHEN tags->'healthcare' IN ('yes', 'no', 'vacant', 'closed', 'disused', 'empty') OR (tags->'healthcare') IS NULL THEN NULL ELSE '' END,
                 'leisure_' || CASE WHEN leisure IN ('amusement_arcade', 'beach_resort', 'bird_hide', 'bowling_alley', 'dog_park', 'firepit', 'fishing', 'horse_riding',
@@ -1761,7 +1756,7 @@ Layer:
                 'tourism_' || CASE WHEN tourism IN ('viewpoint', 'attraction') THEN tourism END,
                 'place_' || CASE WHEN place IN ('locality') AND way_area IS NULL THEN place END,
                 'golf_' || CASE WHEN tags->'golf' IN ('pin') THEN tags->'golf' END
-              ) AS int_feature,
+              ) AS feature,
               CASE WHEN tags->'office' IN ('it', 'taxi') THEN 'yes' END AS int_hassymbol,
               CASE WHEN access IN ('private', 'no', 'customers', 'permit', 'delivery') THEN 'restricted' ELSE 'yes' END AS int_access,
               CASE WHEN tags->'orienteering' = 'marker' AND (tags->'information' IN ('board', 'map', 'guidepost')) THEN 'yes' ELSE 'no' END AS offset,
@@ -1896,8 +1891,14 @@ Layer:
                 WHERE way && !bbox!
               ) _
             ) AS features
-          LEFT JOIN POITable ON features.int_feature = POITable.feature_name
-          WHERE features.int_feature IS NOT NULL
+          LEFT JOIN POITable ON
+            features.feature = POITable.feature_class AND
+            CASE
+              WHEN features.feature = 'craft' THEN craft
+              WHEN features.feature = 'office' THEN office
+            END = POITable.feature_value
+          LEFT JOIN POIDefaults ON features.feature = POIDefaults.feature_class
+          WHERE feature IS NOT NULL
           ORDER BY start_zoom ASC NULLS LAST,
             score DESC NULLS LAST,
             way_pixels DESC NULLS LAST

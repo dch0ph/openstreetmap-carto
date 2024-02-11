@@ -961,42 +961,14 @@
 		marker-clip: false;
 		[zoom >= 18] {
 			marker-width: 6;
-			[symbol_url != null] {
-				marker-file: [symbol_url];
+			[symbol_file != null] {
+				marker-file: [symbol_file];
 				marker-width: 12;
 			}
 			marker-clip: false;
 		}
 	}
   }
-
-  // crafts
- /* [feature = 'craft'] {
-     [way_pixels > @large-building-pixels][zoom >= 16],
-	 [zoom >= 17] {
-		marker-line-width: 0;
-		marker-fill: @craft;
-		marker-width: 4;
-		marker-clip: false;
-		[zoom >= 18] {
-			marker-width: 6;
-			[craft = 'confectionery'] { marker-file: url('symbols/shop/confectionery.svg'); marker-width: 12; }
-			[craft = 'distiller'], [craft = 'brewery'],[craft = 'cider'] { marker-file: url('symbols/shop/alcohol.svg'); marker-width: 12; }
-			[craft = 'jeweller'] { marker-file: url('symbols/shop/jewelry.svg'); marker-width: 12; }
-			[craft = 'shoemaker'], [craft = 'shoe_repair'] { marker-file: url('symbols/shop/shoes.svg'); marker-width: 12; }
-			[craft = 'tailor'], [craft = 'dressmaker'] { marker-file: url('symbols/shop/clothes.svg'); marker-width: 12; }
-			[craft = 'stonemason'] { marker-file: url('symbols/historic/memorial.svg'); marker-width: 12; }
-			[craft = 'electronics_repair'] { marker-file: url('symbols/shop/electronics.svg'); marker-width: 12; }
-			[craft = 'computer_repair'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
-			[craft = 'photo_studio'], [craft = 'photographer'] { marker-file: url('symbols/shop/photo.svg'); marker-width: 12; }
-			[craft = 'decorator'], [craft = 'painter']  { marker-file: url('symbols/shop/paint.svg'); marker-width: 12; }
-			[craft = 'printer'] { marker-file: url('symbols/shop/newsagent.svg'); marker-width: 12; }
-			[craft = 'weaver'] { marker-file: url('symbols/shop/fabric.svg'); marker-width: 12; }
-			[craft = 'sculptor'] { marker-file: url('symbols/tourism/artwork.svg'); marker-width: 12; }
-			[craft = 'upholsterer'] { marker-file: url('symbols/shop/furniture.svg'); marker-width: 12; }	
-		}
-	}
-  }*/
 
   // clubs
   [feature = 'club'] {
@@ -1235,11 +1207,11 @@
       marker-file: url('symbols/shop/optician.svg');
     }
 
-    [shop = 'hearing_aids'][zoom >= 18] {
+    [shop = 'hearing_aids'] {
       marker-file: url('symbols/shop/hearing_aids.svg');
     }
 
-    [shop = 'outdoor'][zoom >= 18] {
+    [shop = 'outdoor'] {
       marker-file: url('symbols/shop/outdoor.svg');
     }
 
@@ -1253,7 +1225,7 @@
 
     [shop = 'massage'] {
       marker-fill: @leisure-green;
-      [zoom >= 18] { marker-file: url('symbols/shop/massage.svg'); }
+      marker-file: url('symbols/shop/massage.svg');
     }
 
     [shop = 'medical_supply'] {
@@ -1360,8 +1332,10 @@
 		marker-fill: @office;
 		[zoom >= 18] {
 			marker-width: 6;
-			[office = 'taxi'] { marker-file: url('symbols/amenity/taxi.svg'); marker-width: 12; }
-			[office = 'it'] { marker-file: url('symbols/shop/computer.svg'); marker-width: 12; }
+			[symbol_file != null] {
+				marker-file: [symbol_file];
+				marker-width: 12;
+			}
 		}
 	}
   }
@@ -2967,7 +2941,7 @@
       text-fill: @shop-text;
 	  [feature = 'craft'] {
 		text-fill: @craft;
-		[symbol_url = null] { text-dy: 6; }
+		[symbol_file = null] { text-dy: 6; }
 	  }
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
