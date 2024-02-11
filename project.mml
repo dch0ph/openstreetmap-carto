@@ -1759,7 +1759,6 @@ Layer:
                                         AND way_area IS NULL
                                    THEN amenity END,
                 'tourism_' || CASE WHEN tourism IN ('viewpoint', 'attraction') THEN tourism END,
-                'place_' || CASE WHEN place IN ('locality') AND way_area IS NULL THEN place END,
                 'golf_' || CASE WHEN tags->'golf' IN ('pin') THEN tags->'golf' END
               ) AS feature,
               CASE WHEN tags->'office' IN ('it', 'taxi') THEN 'yes' END AS int_hassymbol,
