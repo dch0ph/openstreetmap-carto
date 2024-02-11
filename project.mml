@@ -393,7 +393,7 @@ Layer:
             way,
             waterway
           FROM planet_osm_polygon
-          WHERE waterway IN ('dam', 'weir', 'lock_gate')
+          WHERE waterway = 'dam'
         ) AS water_barriers_poly
     properties:
       minzoom: 12
@@ -445,7 +445,7 @@ Layer:
         (SELECT
             way, waterway
           FROM planet_osm_point
-          WHERE waterway IN ('dam', 'weir', 'lock_gate')
+          WHERE waterway IN ('dam', 'weir')
         ) AS water_barriers_points
     properties:
       minzoom: 17

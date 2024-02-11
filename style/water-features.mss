@@ -57,14 +57,6 @@
       line-color: @lock-gate-line;
       line-width: 2;
     }
-    #water-barriers-point[zoom >= 17] {
-      marker-fill: @lock-gate;
-      marker-line-width: 0;
-      marker-width: 8;
-      [zoom >= 18] { marker-width: 10; }
-      marker-allow-overlap: true;
-      marker-ignore-placement: true;
-    }
   }
 }
 
