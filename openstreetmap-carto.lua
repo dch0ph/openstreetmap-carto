@@ -1000,6 +1000,7 @@ end
 local religionbuilding_tags = { 'church', 'mosque' }
 local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
 local gate_tags = { 'wicket_gate', 'hampshire_gate', 'lych_gate' }
+local majorkeys = { 'leisure', 'amenity', 'shop', 'healthcare', 'club', 'office', 'craft' }
 
 -- Filtering on ways
 function filter_tags_way (keyvalues, numberofkeys)
@@ -1073,6 +1074,21 @@ function filter_tags_way (keyvalues, numberofkeys)
 	if (keyvalues['tourism'] == 'attraction') and (keyvalues['landuse'] == 'farmyard') then
 		keyvalues['landuse'] = nil
 	end
+	
+	-- If has one of the major tags add key to indicate that name shouldn't be used as building name
+	if keyvalues['name'] and keyvalues['building'] then
+        for _, ptag in ipairs(majorkeys) do
+            if keyvalues[ptag] then
+				if keyvalues[ptag] == "no" then
+					keyvalues[ptag] = nil
+				else
+					keyvalues['hasmajorkey'] = 'yes'
+					break
+                end
+            end
+        end
+    end
+
 
 -- Don't render railway bridges.
 -- Note that paths on dismantled railways are handled as highways
