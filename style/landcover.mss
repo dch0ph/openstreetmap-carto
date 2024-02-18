@@ -22,10 +22,10 @@
 
 // --- "Base" landuses ---
 
-@built-up-z12: #c6c6c6;
+//@built-up-z12: #c6c6c6;
 //@built-up-z12: #dddddd;
 //@built-up-lowzoom: #d0d0d0;
-@built-up-lowzoom: @built-up-z12;
+@built-up-lowzoom: #c6c6c6;
 //@residential: #e0dfdf;      // Lch(89,0,0)
 @residential: #c6c6c6;		// Lch(80,0,0)  A bit darker
 @residential-line: #b9b9b9; // Lch(75,0,0)
@@ -109,10 +109,6 @@
 
 #landcover-low-zoom[zoom < 10],
 #landcover[zoom >= 10] {
-/*  ::low-zoom[zoom < 11] {
-    // Increase the lightness of the map by scaling color lightness to be in the 20%-100% range
-    image-filters: scale-hsla(0,1, 0,1, 0.2,1, 0,1);
-  }*/
 
   ::low-zoom[zoom < 12],
   ::high-zoom[zoom >= 12] {
@@ -294,8 +290,7 @@
   [feature = 'landuse_residential'][zoom >= 8],
   [feature = 'landuse_trailer_park'][zoom >= 8] {
     polygon-fill: @built-up-lowzoom;
-    [zoom >= 12] { polygon-fill: @built-up-z12; }
-    [zoom >= 13] { polygon-fill: @residential; }
+    [zoom >= 12] { polygon-fill: @residential; }
     [zoom >= 16] {
       line-width: .5;
       line-color: @residential-line;
@@ -447,7 +442,6 @@
   [feature = 'amenity_marketplace'] {
     [zoom >= 8] {
       polygon-fill: @built-up-lowzoom;
-      [zoom >= 12] { polygon-fill: @built-up-z12; }
       [zoom >= 13] { polygon-fill: @retail; }
       [zoom >= 16] {
         line-width: 0.5;
@@ -463,8 +457,7 @@
 
   [feature = 'landuse_industrial'][zoom >= 8] {
     polygon-fill: @built-up-lowzoom;
-    [zoom >= 12] { polygon-fill: @built-up-z12; }
-    [zoom >= 13] { polygon-fill: @industrial; }
+    [zoom >= 12] { polygon-fill: @industrial; }
     [zoom >= 16] {
       line-width: .5;
       line-color: @industrial-line;
@@ -542,8 +535,7 @@
 
   [feature = 'landuse_commercial'][zoom >= 8] {
     polygon-fill: @built-up-lowzoom;
-    [zoom >= 12] { polygon-fill: @built-up-z12; }
-    [zoom >= 13] { polygon-fill: @commercial; }
+    [zoom >= 12] { polygon-fill: @commercial; }
     [zoom >= 16] {
       line-width: 0.5;
       line-color: @commercial-line;
@@ -681,9 +673,6 @@
       [way_pixels >= 64] { polygon-gamma: 0.3;  }
     }
     [zoom >= 12] {
-      polygon-fill: @built-up-z12;
-    }
-    [zoom >= 13] {
       polygon-fill: @societal_amenities;
       line-width: 0.3;
       line-color: darken(@societal_amenities, 35%);
