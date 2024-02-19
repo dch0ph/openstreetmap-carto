@@ -1662,8 +1662,9 @@ Layer:
         (SELECT
             *,
             CASE
-              WHEN feature = 'shelter' THEN 15
-              WHEN feature = 'highway_bus_stop' THEN 16
+              WHEN feature IN ('amenity_pub') THEN 14
+              WHEN feature IN ('tourism_hotel', 'amenity_shelter', 'historic_castle', 'historic_fort') THEN 15
+              WHEN feature IN ('highway_bus_stop', 'tourism_museum', 'amenity_cafe', 'amenity_marketplace', 'amenity_food_court') THEN 16
               ELSE 17
             END AS start_zoom
           FROM
@@ -1777,9 +1778,6 @@ Layer:
                   END
                 WHEN tags->'emergency' IN ('phone', 'defibrillator', 'life_ring') THEN 1000.0
                 WHEN tags->'orienteering' = 'marker' THEN 500.0
-                WHEN "historic" IN ('castle', 'fort') THEN 2000.0
-                WHEN "amenity" IN ('hotel', 'museum') THEN 2000.0 
-                WHEN "amenity" IN ('cafe', 'pub', 'marketplace', 'food_court') THEN 1000.0
               END AS score,
               religion,
               tags->'denomination' as denomination,
