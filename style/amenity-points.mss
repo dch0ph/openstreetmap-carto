@@ -2458,6 +2458,7 @@
   [feature = 'natural_heath'],
   [feature = 'natural_scrub'],
   [feature = 'natural_shoal'],
+  [feature = 'natural_reef'],
   [feature = 'natural_beach'] {
     [zoom >= 11][way_pixels > @large-building-pixels],
 	[zoom >= 14] {
@@ -2480,6 +2481,7 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
       [feature = 'natural_mud'],
+      [feature = 'natural_reef'],
       [feature = 'natural_wetland'] {
         text-fill: @wetland-text;
       }
@@ -2535,7 +2537,6 @@
   [feature = 'amenity_college'],
   [feature = 'amenity_university'],
   [feature = 'landuse_religious'],
-  [feature = 'natural_reef'],
  // [feature = 'leisure_fitness_centre'],
  // [feature = 'leisure_fitness_station'],
   [feature = 'leisure_sports_centre'][sport != 'swimming'][sport != 'equestrian'],
@@ -2544,8 +2545,8 @@
  // [feature = 'leisure_dog_park'],
   [feature = 'leisure_ice_rink'],
   [feature = 'leisure_pitch'] {
-    [zoom >= 11][way_pixels > @large-building-pixels][is_building = 'no'],
-    [zoom >= 11][way_pixels > @large-building-pixels][feature = 'shop'][shop = 'mall'],
+    [zoom >= 12][way_pixels > @large-building-pixels][is_building = 'no'],
+    [zoom >= 12][way_pixels > @large-building-pixels][feature = 'shop'][shop = 'mall'],
 	[zoom >= 17] {
       text-name: "[name]";
       text-size: @landcover-font-size;
@@ -2564,7 +2565,6 @@
       text-face-name: @landcover-face-name;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
-      [feature = 'natural_reef'],
       [feature = 'landuse_salt_pond'] {
         text-fill: @wetland-text;
       }
