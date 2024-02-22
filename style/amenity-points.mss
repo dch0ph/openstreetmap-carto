@@ -980,7 +980,8 @@
 	}
   }
 
-  // clubs
+  // clubs or other generic leisure-green
+  [feature = 'leisure_escape_game'],
   [feature = 'club'] {
      [way_pixels > @large-building-pixels][zoom >= 16],
 	 [zoom >= 17] {
@@ -2989,6 +2990,7 @@
     }
   }
 
+  [feature = 'leisure_escape_game'],
   [feature = 'club'] {
     [way_pixels > @large-building-pixels][zoom >= 16],
     [zoom >= 18] {
