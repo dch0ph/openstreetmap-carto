@@ -255,10 +255,11 @@ Layer:
             CASE WHEN tags->'intermittent' IN ('yes')
               OR tags->'seasonal' IN ('yes', 'spring', 'summer', 'autumn', 'winter', 'wet_season', 'dry_season')
               OR tags->'basin' IN ('detention', 'infiltration')
-              THEN 'yes' ELSE 'no' END AS int_intermittent
+              THEN 'yes' ELSE 'no' END AS int_intermittent,
+            tags->'tidal' AS tidal 
           FROM planet_osm_polygon
           WHERE
-            (waterway IN ('dock', 'riverbank')
+            (waterway IN ('dock')
               OR landuse IN ('reservoir', 'basin')
               OR "natural" IN ('water', 'glacier'))
             AND building IS NULL

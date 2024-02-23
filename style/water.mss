@@ -29,9 +29,9 @@
   [waterway = 'dock'],
   [landuse = 'basin'],
   [natural = 'water'][water != 'river'],
-  [natural = 'water'][zoom >=12],
-  [landuse = 'reservoir'],
-  [waterway = 'riverbank'][zoom >= 12] {
+  [natural = 'water'][tidal = 'yes'],
+  [natural = 'water'][zoom >= 11],
+  [landuse = 'reservoir'] {
     [int_intermittent = 'no'] {
 	  [ water = 'wastewater'] { polygon-fill: @wastewater-color; }
 	  [ water != 'wastewater'] {
