@@ -478,7 +478,8 @@
   }
 
   [feature = 'man_made_wastewater_plant'] {
-    polygon-fill: @industrial;
+    polygon-fill: @built-up-lowzoom;
+    [zoom >= 12] { polygon-fill: @industrial; }
     [zoom >= 15] {
       polygon-fill: @wastewater_plant;
     }
@@ -505,7 +506,7 @@
     }
   }
 
-  [feature = 'landuse_railway'][zoom >= 10] {
+  [feature = 'landuse_railway'][zoom >= 12] {
     polygon-fill: @railway;
     [zoom >= 16][name != ''] {
       line-width: 0.7;
@@ -518,8 +519,8 @@
   [feature = 'power_plant'][zoom >= 10],
   [feature = 'power_generator'][zoom >= 10],
   [feature = 'power_substation'][zoom >= 13] {
-    polygon-fill: @industrial;
-    [zoom >= 15] {
+    polygon-fill: @built-up-lowzoom;
+    [zoom >= 12] {
       polygon-fill: @power;
     }
     [zoom >= 16] {
@@ -550,7 +551,8 @@
   [feature = 'landuse_brownfield'],
   [feature = 'landuse_construction'] {
    [zoom >= 10] {
-      polygon-fill: @construction;
+      polygon-fill: @built-up-lowzoom;
+      [zoom >= 12] { polygon-fill: @construction; }
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.3;  }
     }
