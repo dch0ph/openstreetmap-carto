@@ -1573,8 +1573,20 @@ Layer:
             name,
             NULL AS way_pixels
           FROM planet_osm_point
-          WHERE way && !bbox!
+          WHERE z(!scale_denominator!) >= 14 AND way && !bbox!
             AND (highway = 'motorway_junction' OR highway = 'traffic_signals' OR junction = 'yes')
+        UNION ALL
+          (SELECT
+            ST_Centroid(ST_Union(way)) AS way,
+            'motorway_junction' AS highway,
+            NULL AS junction,
+            ref,
+            name,
+            NULL::NUMERIC AS way_pixels
+          FROM planet_osm_point
+          WHERE z(!scale_denominator!) < 14 AND way && !bbox!
+            AND highway = 'motorway_junction'
+          GROUP BY ref, name)
         UNION ALL
           SELECT
             ST_PointOnSurface(way) AS way,
