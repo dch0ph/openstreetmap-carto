@@ -519,6 +519,7 @@ Layer:
             designation,
             int_surface,
             access,
+            motor_access,
             sidewalk,
             trail_visibility,
             lit,
@@ -540,9 +541,8 @@ Layer:
                   WHEN surface IN ('paved', 'asphalt', 'cobblestone',  'sett', 'concrete',
                                      'paving_stones', 'metal', 'wood') THEN 'paved'
                 END AS int_surface,
-                CASE WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
+                tags->'int_access' AS access,
+                tags->'int_motoraccess' AS motor_access,
                 tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
@@ -567,16 +567,17 @@ Layer:
                                  WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
                                  WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                  ELSE railway END) AS feature,
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
-                'null',
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
                 construction,
                 'null',
                 'no',
@@ -591,7 +592,7 @@ Layer:
             z_order,
             CASE WHEN substring(feature for 8) = 'railway_' THEN 2 ELSE 1 END,
             CASE WHEN feature IN ('railway_INT-preserved-ssy', 'railway_INT-spur-siding-yard', 'railway_tram-service') THEN 0 ELSE 1 END,
-            CASE WHEN access IN ('no', 'private') THEN 0 WHEN access IN ('destination') THEN 1 ELSE 2 END,
+            CASE WHEN motor_access = 'no' THEN 0 WHEN motor_access = 'destination' THEN 1 ELSE 2 END,
             CASE WHEN int_surface IN ('unpaved') THEN 0 ELSE 1 END
         ) AS tunnels
     properties:
@@ -760,6 +761,7 @@ Layer:
             designation,
             int_surface,
             access,
+            motor_access,
             sidewalk,
             trail_visibility,
             lit,
@@ -781,9 +783,8 @@ Layer:
                   WHEN surface IN ('paved', 'asphalt', 'cobblestone',  'sett', 'concrete',
                                      'paving_stones', 'metal', 'wood') THEN 'paved'
                 END AS int_surface,
-                CASE WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
+                tags->'int_access' AS access,
+                tags->'int_motoraccess' AS motor_access,
                 tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
@@ -811,6 +812,7 @@ Layer:
                                      WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
                                      WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                      ELSE railway END)) AS feature,
+                'null',
                 'null',
                 'null',
                 'null',
@@ -977,6 +979,7 @@ Layer:
             designation,
             int_surface,
             access,
+            motor_access,
             sidewalk,
             trail_visibility,
             lit,
@@ -998,9 +1001,8 @@ Layer:
                                       'mud', 'pebblestone', 'salt', 'sand', 'woodchips', 'clay', 'ice', 'snow') THEN 'unpaved'
                   WHEN surface IN ('paved', 'asphalt', 'cobblestone', 'sett', 'concrete', 'paving_stones', 'metal', 'wood') THEN 'paved'
                 END AS int_surface,
-                CASE WHEN access IN ('destination') THEN 'destination'::text
-                  WHEN access IN ('no', 'private') THEN 'no'::text
-                END AS access,
+                tags->'int_access' AS access,
+                tags->'int_motoraccess' AS motor_access,
                 tags->'sidewalk' AS sidewalk,
                 tags->'trail_visibility' AS trail_visibility,
                 tags->'lit' AS lit,
@@ -1026,6 +1028,7 @@ Layer:
                                  WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
                                  ELSE railway END) AS feature,
                 bridge,
+                'null',
                 'null',
                 'null',
                 'null',

@@ -725,12 +725,22 @@ local BOAT_alternative_tags = { 'byway', 'public_byway', 'orpa', 'unclassified_c
 local PRoW_designation_tags = { 'byway_open_to_all_traffic', 'public_footpath', 'public_bridleway'}
 --local keepbridges = { 'cycleway', 'path', 'bridleway' }
 local access_tags = { 'foot', 'horse', 'bicycle' }
+local motoraccess_tags = { 'access', 'motor_vehicle' }
 local pathtypes = { 'cycleway', 'path', 'bridleway' }
 local suppress_construction = { 'raceway', 'pedestrian', 'footway', 'cycleway', 'path', 'bridleway', 'steps' }
 -- synonyms for two sided embankment / cutting
 local cuttingtypes = { 'yes', 'both', 'two_sided' }
 local allow_lit = { 'service', 'pedestrian', 'footway', 'steps' }
 local notopen_tags = { 'destination', 'private', 'no' }
+
+-- Simplify access to destination / no / nil
+function create_int_access(keyvalue, def)
+	if keyvalue == 'destination' then
+		return 'destination'
+	elseif (keyvalue == 'private') or (keyvalues == 'no') then
+		return 'no'
+	return def
+end
 
 -- Specific filtering on highways
 function filter_highway (keyvalues)
@@ -772,19 +782,22 @@ function filter_highway (keyvalues)
 		keyvalues['trail_visibility'] = 'bad'
 	end
 
--- Consolidate access tags
+-- Consolidate "motor access" tags, i.e. tags most relevant to vehicles (access and motor_vehicle)
 -- Note the SQL query also looks to "compact" private -> no
 -- Keep distinction between private and no for now, since these have different significance for PRoW
 -- First - lose "access=designated", which is meaningless.
--- Keep permissive for time being. Remove customers access to reduce clutter (more logically indicated elsewhere)
-	if keyvalues['access'] then
-		if (keyvalues['access'] == 'designated') or (keyvalues['access'] == 'customers') then
-			keyvalues['access'] = nil
-		elseif is_in(keyvalues['access'], private_access_tags) then
-			keyvalues['access'] = 'private'
+-- Also remove customers access to reduce clutter (more logically indicated elsewhere)
+    for index, access_tag in ipairs (motoraccess_tags) do
+	if keyvalues[access_tag] then
+		if (keyvalues[access_tag] == 'designated') or (keyvalues[access_tag] == 'customers') then
+			keyvalues[access_tag] = nil
+		elseif is_in(keyvalues[access_tag], private_access_tags) then
+			keyvalues[access_tag] = 'private'
 		end
 	end
-
+	keyvalues['int_access'] = create_int_access(keyvalues['access'], nil)
+	keyvalues['int_motoraccess'] = create_int_access(keyvalues['motor_vehicle'], keyvalues['int_access'])
+	
 	-- Normalise BOAT designation
 	if is_in(keyvalues['designation'], BOAT_alternative_tags) then
 		keyvalues['designation'] = 'byway_open_to_all_traffic'
