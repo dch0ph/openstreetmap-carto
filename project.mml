@@ -819,7 +819,7 @@ Layer:
                 'null',
                 'null',
                 'null',
-                'null',
+                NULL AS motor_access,
                 'null',
                 'null',
                 'null',

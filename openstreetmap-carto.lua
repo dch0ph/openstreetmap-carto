@@ -739,6 +739,7 @@ function create_int_access(keyvalue, def)
 		return 'destination'
 	elseif (keyvalue == 'private') or (keyvalues == 'no') then
 		return 'no'
+	end
 	return def
 end
 
@@ -781,22 +782,6 @@ function filter_highway (keyvalues)
 	if is_in(keyvalues['trail_visibility'], poor_visibility_tags) or (keyvalues['foot:physical'] == 'no') or (keyvalues['overgrown'] == 'yes') then
 		keyvalues['trail_visibility'] = 'bad'
 	end
-
--- Consolidate "motor access" tags, i.e. tags most relevant to vehicles (access and motor_vehicle)
--- Note the SQL query also looks to "compact" private -> no
--- Keep distinction between private and no for now, since these have different significance for PRoW
--- First - lose "access=designated", which is meaningless.
--- Also remove customers access to reduce clutter (more logically indicated elsewhere)
-    for index, access_tag in ipairs (motoraccess_tags) do
-	if keyvalues[access_tag] then
-		if (keyvalues[access_tag] == 'designated') or (keyvalues[access_tag] == 'customers') then
-			keyvalues[access_tag] = nil
-		elseif is_in(keyvalues[access_tag], private_access_tags) then
-			keyvalues[access_tag] = 'private'
-		end
-	end
-	keyvalues['int_access'] = create_int_access(keyvalues['access'], nil)
-	keyvalues['int_motoraccess'] = create_int_access(keyvalues['motor_vehicle'], keyvalues['int_access'])
 	
 	-- Normalise BOAT designation
 	if is_in(keyvalues['designation'], BOAT_alternative_tags) then
@@ -899,9 +884,26 @@ function filter_highway (keyvalues)
 
    -- Remove private access if PRoW and not explicitly tagged with foot=no
    -- Does not affect access = no (which generally means way is barred)
+   -- Could be moved to motor_vehicle, but suppressed access marking reduces visual clutter
    if ((keyvalues['access'] == 'private') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
 		keyvalues['access'] = nil
 	end
+
+-- Consolidate "motor access" tags, i.e. tags most relevant to vehicles (access and motor_vehicle)
+-- Note the SQL query also looks to "compact" private -> no
+-- Keep distinction between private and no for now, since these have different significance for PRoW
+-- Remove customers access to reduce clutter (more logically indicated elsewhere)
+    for index, access_tag in ipairs (motoraccess_tags) do
+		if keyvalues[access_tag] then
+			if keyvalues[access_tag] == 'customers' then
+				keyvalues[access_tag] = nil
+			elseif is_in(keyvalues[access_tag], private_access_tags) then
+				keyvalues[access_tag] = 'private'
+			end
+		end
+	end
+	keyvalues['int_access'] = create_int_access(keyvalues['access'], nil)
+	keyvalues['int_motoraccess'] = create_int_access(keyvalues['motor_vehicle'], keyvalues['int_access'])
 	
 	-- Kill off track and extend service to include tracktype
 	if keyvalues['highway'] == 'track' then
