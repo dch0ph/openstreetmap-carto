@@ -882,13 +882,6 @@ function filter_highway (keyvalues)
  
  	local isPROW = is_in(keyvalues['designation'], PRoW_designation_tags)
 
-   -- Remove private access if PRoW and not explicitly tagged with foot=no
-   -- Does not affect access = no (which generally means way is barred)
-   -- Could be moved to motor_vehicle, but suppressed access marking reduces visual clutter
-   if ((keyvalues['access'] == 'private') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
-		keyvalues['access'] = nil
-	end
-
 -- Consolidate "motor access" tags, i.e. tags most relevant to vehicles (access and motor_vehicle)
 -- Note the SQL query also looks to "compact" private -> no
 -- Keep distinction between private and no for now, since these have different significance for PRoW
@@ -902,6 +895,14 @@ function filter_highway (keyvalues)
 			end
 		end
 	end
+
+   -- Remove private access if PRoW and not explicitly tagged with foot=no
+   -- Does not affect access = no (which generally means way is barred)
+   -- Could be moved to motor_vehicle, but suppressed access marking reduces visual clutter
+	if ((keyvalues['access'] == 'private') or (keyvalues['access'] == 'destination')) and isPROW and (keyvalues['foot'] ~= 'no') then
+		keyvalues['access'] = nil
+	end
+
 	keyvalues['int_access'] = create_int_access(keyvalues['access'], nil)
 	keyvalues['int_motoraccess'] = create_int_access(keyvalues['motor_vehicle'], keyvalues['int_access'])
 	
