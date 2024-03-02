@@ -2367,7 +2367,7 @@
   [feature = 'boundary_national_park'],
   [feature = 'leisure_nature_reserve'][zoom >= 12],
 //  [feature = 'boundary_aboriginal_lands'],
-  [feature = 'boundary_protected_area'][zoom >= 10] {
+  [feature = 'boundary_protected_area'] {
     [zoom >= 8][way_pixels > 2000][is_building = 'no'],
     [zoom >= 17] {
       text-name: "[name]";

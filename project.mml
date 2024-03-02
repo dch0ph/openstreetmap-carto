@@ -214,7 +214,7 @@ Layer:
           WHERE waterway = 'river'
         ) AS water_lines_low_zoom
     properties:
-      minzoom: 8
+      minzoom: 9
       maxzoom: 11
   - id: water-lines
     geometry: linestring
@@ -1563,7 +1563,7 @@ Layer:
         ) AS stations
     properties:
       cache-features: true
-      minzoom: 12
+      minzoom: 11
   - id: junctions
     geometry: point
     <<: *extents
@@ -1607,7 +1607,7 @@ Layer:
           ORDER BY way_pixels DESC NULLS LAST
         ) AS junctions
     properties:
-      minzoom: 11
+      minzoom: 10
   - id: bridge-text
     geometry: point
     <<: *extents
@@ -2007,7 +2007,7 @@ Layer:
             osm_id
         ) AS roads_text_ref_low_zoom
     properties:
-      minzoom: 11
+      minzoom: 10
       maxzoom: 12
   - id: roads-text-ref
     geometry: linestring

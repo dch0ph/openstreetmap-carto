@@ -65,7 +65,7 @@
 }
 
 #water-lines-low-zoom {
-  [waterway = 'river'][zoom >= 8][zoom < 12] {
+  [waterway = 'river'][zoom < 12] {
     [int_intermittent = 'yes'] {
       line-dasharray: 8,4;
       line-cap: butt;
@@ -73,9 +73,9 @@
       line-clip: false;
     }
     line-color: mix(@water-line-color, @water-color, 50%);
-    line-width: 1.2;
- //   [zoom >= 9] { line-width: 1.2; }
- //   [zoom >= 10] { line-width: 1.6; }
+//    line-width: 1.2;
+    line-width: 0.8;
+    [zoom >= 10] { line-width: 1.2; }
   }
 }
 
