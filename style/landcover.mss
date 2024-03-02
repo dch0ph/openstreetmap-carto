@@ -379,26 +379,16 @@
     polygon-fill: @forest;
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
-// Can't smooth one landuse without adding smoothing to everything
-//	polygon-smooth: 0.5;
   }
   [feature = 'natural_wood'][zoom >= 5] {
     polygon-fill: @wood;
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
-//	polygon-smooth: 0.5;
   }
 
 // Kill off farmyard border. Generally bordered anyway, by fence, wall, buildings
   [feature = 'landuse_farmyard'][zoom >= 10] {
     polygon-fill: @farmyard;
-/*	[zoom >= 14] {
-		line-width: 0.5;
-        line-color: @farmyard-line;
-	}
-	[zoom >= 16] {
-        line-width: 0.7;
-    }*/
     [way_pixels >= 4]  { polygon-gamma: 0.75; }
     [way_pixels >= 64] { polygon-gamma: 0.3;  }
   }

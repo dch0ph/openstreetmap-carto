@@ -1839,7 +1839,7 @@
 }
 
 /* Note that these layers are also used in water.mss */
-//#text-poly-low-zoom[zoom < 10],
+#text-poly-low-zoom[zoom < 10],
 #text-point[zoom >= 10] {
   [feature = 'place_island'][zoom >= 4][way_pixels > @large-building-pixels],
   [feature = 'place_island'][zoom >= 16],
@@ -2366,8 +2366,8 @@
   [feature = 'landuse_forest'],
   [feature = 'boundary_national_park'],
   [feature = 'leisure_nature_reserve'][zoom >= 12],
-  [feature = 'boundary_aboriginal_lands'],
-  [feature = 'boundary_protected_area'] {
+//  [feature = 'boundary_aboriginal_lands'],
+  [feature = 'boundary_protected_area'][zoom >= 10] {
     [zoom >= 8][way_pixels > 2000][is_building = 'no'],
     [zoom >= 17] {
       text-name: "[name]";
@@ -3141,7 +3141,8 @@
     }
   }
 
-  [feature = 'natural_glacier'][is_building = 'no'] {
+// Mysteriously carto fails on low-zoom, commented out
+ /* [feature = 'natural_glacier'][is_building = 'no'] {
     [zoom >= 8][way_pixels > 10000],
     [zoom >= 10][way_pixels > 750],
     [zoom >= 17] {
@@ -3164,7 +3165,7 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
     }
-  }
+  }*/
 
   [feature = 'aeroway_helipad'][zoom >= 16] {
     text-name: "[name]";

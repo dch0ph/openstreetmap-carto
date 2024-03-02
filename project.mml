@@ -72,7 +72,8 @@ Layer:
       table: |-
         (SELECT
             way, way_pixels,
-            COALESCE(landuse, "natural") AS feature
+            COALESCE(landuse, "natural") AS feature,
+            NULL::text AS pasture
           FROM (SELECT
               way,
               ('landuse_' || (CASE WHEN landuse IN ('forest', 'farmland', 'residential', 'trailer_park', 'commercial', 'retail', 'industrial',
@@ -907,38 +908,38 @@ Layer:
       table: *turning-circle_sql
     properties:
       minzoom: 15
-#  - id: roads-low-zoom
-#    geometry: linestring
-#    <<: *extents
-#    Datasource:
-#      <<: *osm2pgsql
-#      table: |-
-#        (SELECT
-#            way,
-#            COALESCE(
-#              ('highway_' || (CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link')
-#                                     THEN substr(highway, 0, length(highway)-4) ELSE highway end)),
-#              ('railway_' || (CASE WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
-#                                   WHEN railway IN ('rail', 'tram', 'light_rail', 'funicular', 'narrow_gauge') THEN railway END))
-#            ) AS feature,
-#            CASE WHEN tunnel = 'yes' OR tunnel = 'building_passage' OR covered = 'yes' THEN 'yes' ELSE 'no' END AS int_tunnel,
-#            CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link') THEN 'yes' ELSE 'no' END AS link,
-#            CASE WHEN surface IN ('unpaved', 'compacted', 'dirt', 'earth', 'fine_gravel', 'grass', 'grass_paver', 'gravel', 'ground',
-#                                  'mud', 'pebblestone', 'salt', 'sand', 'woodchips', 'clay', 'ice', 'snow') THEN 'unpaved'
-#              WHEN surface IN ('paved', 'asphalt', 'cobblestone',  'sett', 'concrete',
-#                                 'paving_stones', 'metal', 'wood') THEN 'paved'
-#            END AS int_surface
-#          FROM planet_osm_roads
-#          WHERE highway IS NOT NULL
-#            OR (railway IS NOT NULL AND railway != 'preserved'
-#              AND (service IS NULL OR service NOT IN ('spur', 'siding', 'yard')))
-#          ORDER BY
-#            z_order
-#        ) AS roads_low_zoom
-#    properties:
-#      cache-features: true
-#      minzoom: 6
-#      maxzoom: 9
+  - id: roads-low-zoom
+    geometry: linestring
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            COALESCE(
+              ('highway_' || (CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link')
+                                     THEN substr(highway, 0, length(highway)-4) ELSE highway end)),
+              ('railway_' || (CASE WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
+                                   WHEN railway IN ('rail', 'tram', 'light_rail', 'funicular', 'narrow_gauge') THEN railway END))
+            ) AS feature,
+            CASE WHEN tunnel = 'yes' OR tunnel = 'building_passage' OR covered = 'yes' THEN 'yes' ELSE 'no' END AS int_tunnel,
+            CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link') THEN 'yes' ELSE 'no' END AS link,
+            CASE WHEN surface IN ('unpaved', 'compacted', 'dirt', 'earth', 'fine_gravel', 'grass', 'grass_paver', 'gravel', 'ground',
+                                  'mud', 'pebblestone', 'salt', 'sand', 'woodchips', 'clay', 'ice', 'snow') THEN 'unpaved'
+              WHEN surface IN ('paved', 'asphalt', 'cobblestone',  'sett', 'concrete',
+                                 'paving_stones', 'metal', 'wood') THEN 'paved'
+            END AS int_surface
+          FROM planet_osm_roads
+          WHERE highway IS NOT NULL
+            OR (railway IS NOT NULL AND railway != 'preserved'
+              AND (service IS NULL OR service NOT IN ('spur', 'siding', 'yard')))
+          ORDER BY
+            z_order
+        ) AS roads_low_zoom
+    properties:
+      cache-features: true
+      minzoom: 6
+      maxzoom: 9
   - id: waterway-bridges
     geometry: linestring
     <<: *extents

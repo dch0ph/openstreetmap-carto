@@ -139,14 +139,14 @@
 //@motorway-width-z7:               0.8;
 //@trunk-width-z7:                  0.6;
 
-//@motorway-width-z8:               1;
-//@trunk-width-z8:                  1;
-//@primary-width-z8:                1;
+@motorway-width-z8:               1;
+@trunk-width-z8:                  1;
+@primary-width-z8:                1;
 
-//@motorway-width-z9:               1.4;
-//@trunk-width-z9:                  1.4;
-//@primary-width-z9:                1.4;
-//@secondary-width-z9:              1;
+@motorway-width-z9:               1.4;
+@trunk-width-z9:                  1.4;
+@primary-width-z9:                1.4;
+@secondary-width-z9:              1;
 
 // Boost widths at z10/11 to improve visibilty
 @motorway-width-z10:              2.5;
@@ -1103,7 +1103,7 @@ osm_planet_line. This is for performance reasons: osm_planet_roads contains less
 data, and is thus faster. Chosen is for zoom level 10 as cut-off, because
 tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
-//#roads-low-zoom[zoom < 10],
+#roads-low-zoom[zoom < 10],
 #roads-fill[zoom >= 10],
 #bridges[zoom >= 10],
 #tunnels[zoom >= 10] {
@@ -1147,22 +1147,22 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [feature = 'highway_motorway'] {
 //        [zoom >= 6] { line-width: @motorway-width-z6 + 2 * @lowzoom-halo-width; }
 //        [zoom >= 7] { line-width: @motorway-width-z7 + 2 * @lowzoom-halo-width; }
-//        [zoom >= 8] { line-width: @motorway-width-z8 + 2 * @lowzoom-halo-width; }
-//        [zoom >= 9] { line-width: @motorway-width-z9 + 2 * @lowzoom-halo-width; }
+        [zoom >= 8] { line-width: @motorway-width-z8 + 2 * @lowzoom-halo-width; }
+        [zoom >= 9] { line-width: @motorway-width-z9 + 2 * @lowzoom-halo-width; }
         [zoom >= 10] { line-width: @motorway-width-z10 + 2 * @lowzoom-halo-width; }
         [zoom >= 11] { line-width: @motorway-width-z11 + 2 * @lowzoom-halo-width; }
       }
       [feature = 'highway_trunk'] {
 //        [zoom >= 6] { line-width: @trunk-width-z6 + 2 * @lowzoom-halo-width; }
 //        [zoom >= 7] { line-width: @trunk-width-z7 + 2 * @lowzoom-halo-width; }
-//        [zoom >= 8] { line-width: @trunk-width-z8 + 2 * @lowzoom-halo-width; }
-//        [zoom >= 9] { line-width: @trunk-width-z9 + 2 * @lowzoom-halo-width; }
+        [zoom >= 8] { line-width: @trunk-width-z8 + 2 * @lowzoom-halo-width; }
+        [zoom >= 9] { line-width: @trunk-width-z9 + 2 * @lowzoom-halo-width; }
         [zoom >= 10] { line-width: @trunk-width-z10 + 2 * @lowzoom-halo-width; }
         [zoom >= 11] { line-width: @trunk-width-z11 + 2 * @lowzoom-halo-width; }
       }
       [feature = 'highway_primary'] {
-//        [zoom >= 8] { line-width: @primary-width-z8 + 2 * @lowzoom-halo-width; }
-//        [zoom >= 9] { line-width: @primary-width-z9 + 2 * @lowzoom-halo-width; }
+        [zoom >= 8] { line-width: @primary-width-z8 + 2 * @lowzoom-halo-width; }
+        [zoom >= 9] { line-width: @primary-width-z9 + 2 * @lowzoom-halo-width; }
         [zoom >= 10] { line-width: @primary-width-z10 + 2 * @lowzoom-halo-width; }
         [zoom >= 11] { line-width: @primary-width-z11 + 2 * @lowzoom-halo-width; }
       }
@@ -1371,7 +1371,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }*/
     }
 
-//    #roads-low-zoom[feature = 'highway_motorway'],
+    #roads-low-zoom[feature = 'highway_motorway'],
     #roads-fill[feature = 'highway_motorway'],
     #bridges[feature = 'highway_motorway'],
     #tunnels[feature = 'highway_motorway'] {
@@ -1520,8 +1520,8 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 //        line-width: @trunk-width-z6;
         line-color: @trunk-fill;
 //        [zoom >= 7] { line-width: @trunk-width-z7; }
-//        [zoom >= 8] { line-width: @trunk-width-z8; }
-//        [zoom >= 9] { line-width: @trunk-width-z9; }
+        line-width: @trunk-width-z8;
+        [zoom >= 9] { line-width: @trunk-width-z9; }
         line-width: @trunk-width-z10;
         [zoom >= 11] { line-width: @trunk-width-z11; }
         [zoom >= 12] {
@@ -1566,16 +1566,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-//    #roads-low-zoom[feature = 'highway_primary'],
+    #roads-low-zoom[feature = 'highway_primary'],
     #roads-fill[feature = 'highway_primary'],
     #bridges[feature = 'highway_primary'],
     #tunnels[feature = 'highway_primary'] {
       [zoom >= 8][link != 'yes'],
       [zoom >= 10] {
-//         line-width: @primary-width-z8;
+          line-width: @primary-width-z8;
           line-color: @primary-fill;
-//          [zoom >= 9] { line-width: @primary-width-z9; }
-          line-width: @primary-width-z10;
+          [zoom >= 9] { line-width: @primary-width-z9; }
+          [zoom >= 10] { line-width: @primary-width-z10; }
           [zoom >= 11] { line-width: @primary-width-z11; }
         [zoom >= 12] {
           line-color: @primary-fill;
@@ -1622,9 +1622,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
  //     [zoom >= 9][link != 'yes'],
       [zoom >= 10] {
  //       line-color: @unimportant-road;
- //       line-width: @secondary-width-z9;
+        line-width: @secondary-width-z9;
         line-color: @secondary-fill;
-        line-width: @secondary-width-z10;
+        [zoom >= 10] { line-width: @secondary-width-z10; }
         [zoom >= 11] { line-width: @secondary-width-z11; }
         [zoom >= 12] {
           line-width: @secondary-width-z12 - 2 * @secondary-casing-width-z12;
