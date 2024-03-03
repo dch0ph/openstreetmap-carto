@@ -22,15 +22,16 @@
     marker-file: url('symbols/square.svg');
     marker-fill: @station-color;
     marker-clip: false;
-    [int_ismajor = 'yes'] {
+    [int_ismajor = 'yes'],
+	[zoom >= 12] {
       marker-width: 4;
     }
     [zoom >= 12][int_ismajor = 'yes'],
-    [zoom >= 14] {
+    [zoom >= 13] {
       marker-width: 6;
     }
     [zoom >= 12][int_ismajor = 'yes'],
-    [zoom >= 15] {
+    [zoom >= 14] {
       text-name: "[name]";
       text-face-name: @bold-fonts;
       text-size: 10;
