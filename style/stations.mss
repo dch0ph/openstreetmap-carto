@@ -35,7 +35,7 @@
       text-face-name: @bold-fonts;
       text-size: 10;
       text-fill: @station-text;
-      text-dy: 9;
+      text-dy: 8;
       text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: 30; // 3 em
@@ -52,21 +52,21 @@
   }
 
   [railway = 'halt'] {
-    [zoom >= 13] {
+    [zoom >= 12] {
       marker-file: url('symbols/square.svg');
       marker-fill: @station-color;
       marker-width: 4;
       marker-clip: false;
-      [zoom >= 15] {
+      [zoom >= 13] {
         marker-width: 6;
       }
     }
-    [zoom >= 15] {
+    [zoom >= 13] {
       text-name: "[name]";
       text-face-name: @bold-fonts;
       text-size: @standard-font-size;
       text-fill: @station-text;
-      text-dy: 10;
+      text-dy: 8;
       text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: @standard-wrap-width;
