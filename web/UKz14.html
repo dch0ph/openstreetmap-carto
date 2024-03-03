@@ -78,10 +78,16 @@
 			}).on('add', function(e) { ensureimagedata(imagelayer); });
 			imagelayer.missingdata = true;
 			var overlayMaps = { "Pubs": publayer, "Cafes": cafelayer, "Images": imagelayer };
-			var layerControl = L.control.layers(null, overlayMaps, {collapsed: false, position: 'topleft'}).addTo(map);
+			var layerControl = L.control.layers(null, overlayMaps, {collapsed: true, position: 'topleft'}).addTo(map);
 			function updatezoom() {
 				current_zoom = map.getZoom();
 				document.getElementById("zoomlevel").innerHTML = "Z" + current_zoom;
+				if (current_zoom < 12) {
+					layerControl.remove();
+				}
+				else {
+					layerControl.addTo(map);
+				}
 			}
 
             L.tileLayer('http://80.229.222.125/osm-tiles@1p5x/{z}/{x}/{y}.png', {
