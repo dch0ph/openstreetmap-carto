@@ -1525,7 +1525,7 @@ Layer:
             ref,
             railway,
             aerialway,
-            station
+            CASE WHEN (station IS NULL) OR (station = 'train') THEN 'yes' ELSE 'no' END AS int_ismajor
           FROM
           (SELECT
               ST_PointOnSurface(way) AS way,

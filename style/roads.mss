@@ -2222,12 +2222,12 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     }
 
     [feature = 'railway_miniature'] {
-      [zoom >= 14] {
+      [zoom >= 16] {
         line/line-width: 1.2;
-		[zoom < 16] { line/line-width: 0.9; }
-        line/line-color: #999;
-        dashes/line-width: 3;
-        dashes/line-color: #999;
+//		[zoom < 16] { line/line-width: 0.9; }
+        line/line-color: #666;
+        dashes/line-width: 4;
+        dashes/line-color: #666;
         dashes/line-dasharray: 1,10;
       }
     }

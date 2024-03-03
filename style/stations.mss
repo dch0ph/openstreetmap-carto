@@ -22,26 +22,26 @@
     marker-file: url('symbols/square.svg');
     marker-fill: @station-color;
     marker-clip: false;
-    [station != 'subway'] {
+    [int_ismajor = 'yes'] {
       marker-width: 4;
     }
-    [zoom >= 12][station != 'subway'],
-    [zoom >= 14][station = 'subway'] {
+    [zoom >= 12][int_ismajor = 'yes'],
+    [zoom >= 14] {
       marker-width: 6;
     }
-    [zoom >= 12][station !='subway'],
+    [zoom >= 12][int_ismajor = 'yes'],
     [zoom >= 15] {
       text-name: "[name]";
       text-face-name: @bold-fonts;
       text-size: 10;
       text-fill: @station-text;
-      text-dy: 8;
+      text-dy: 7;
       text-halo-radius: @standard-halo-radius * @standard-halo-multiplier;
       text-halo-fill: @standard-halo-fill;
       text-wrap-width: 30; // 3 em
       text-line-spacing: -1.5; // -0.15 em
     }
-    [zoom >= 14][station != 'subway'],
+    [zoom >= 14][int_ismajor = 'yes'],
     [zoom >= 16] {
       marker-width: 9;
       text-size: 12;
