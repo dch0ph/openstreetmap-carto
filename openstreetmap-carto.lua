@@ -1014,7 +1014,7 @@ function filter_highway (keyvalues)
 end
 
 local religionbuilding_tags = { 'church', 'mosque' }
-local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
+-- local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
 local gate_tags = { 'wicket_gate', 'hampshire_gate', 'lych_gate' }
 local majorkeys = { 'leisure', 'amenity', 'shop', 'healthcare', 'club', 'office', 'craft' }
 
@@ -1115,12 +1115,13 @@ function filter_tags_way (keyvalues, numberofkeys)
 	-- Consolidate railway types
 		if railwaytype == 'abandoned' then
 			keyvalues['railway'] = 'dismantled'
-		elseif (railwaytype == 'monorail') or (railwaytype == 'preserved') then
-			keyvalues['railway'] = 'rail'
-	-- Consolidate on tram as this is handled as special case
-		elseif is_in(railwaytype, lightrail_tags) then
-			keyvalues['railway'] = 'tram'
+		elseif railwaytype == 'monorail' then
+			keyvalues['railway'] = 'light_rail'
 		end
+		if (keyvalues['railway:preserved'] == 'yes') and (keyvalues['railway'] == 'rail') then
+			keyvalues['railway'] = 'preserved'
+		end
+			
 	-- Consolidate tunnels
 		if keyvalues['tunnel'] or (keyvalues['covered'] == 'yes') then
 			keyvalues['tunnel'] = 'yes'
