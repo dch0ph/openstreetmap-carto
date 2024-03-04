@@ -1126,6 +1126,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 		if keyvalues['tunnel'] or (keyvalues['covered'] == 'yes') then
 			keyvalues['tunnel'] = 'yes'
 		end
+		
+		if (railwaytype == 'station') and (keyvalues['station'] == nil) and (keyvalues['usage'] == 'tourism') then
+			keyvalues['station'] = 'preserved'
+		end
 	end
 	
 	-- Consolidate church buildings so can filter out small (active) churches at low zoom
@@ -1155,12 +1159,17 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 		
 	-- Promote bridge/tunnel:name if possible
-	if keyvalues['bridge:name'] and (keyvalues['name'] == nil) then
-		keyvalues['name'] = keyvalues['bridge:name']
+	-- Kill off ref on bridge and tunnel since most likely to lead to clutter
+	if keyvalues['bridge'] then
+		if keyvalues['bridge:name'] and (keyvalues['name'] == nil) then
+			keyvalues['name'] = keyvalues['bridge:name']
+		end
+		keyvalues['ref'] = nil
 	end
 	-- Since there is no man_made=tunnel rendering, give high priority to tunnel:name
-	if keyvalues['tunnel'] and keyvalues['tunnel:name'] then
+	if keyvalues['tunnel'] then
 		keyvalues['name'] = keyvalues['tunnel:name']
+		keyvalues['ref'] = nil
 	end
 	
 	if (keyvalues['ruins:historic'] == 'citywalls') or (keyvalues['ruins:barrier'] == 'city_wall') then
@@ -1199,10 +1208,16 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['tourism'] = nil
 	end
 	
+	if keyvalues["waterway"] then
+	-- Kill off names of waterways in tunnels
+		if keyvalues['tunnel'] then
+			keyvalues['name'] = nil
+		end
 	-- Treat narrow canal-like waterways as stream
-	if (keyvalues["waterway"] == "spillway") or (keyvalues["waterway"] == "fish_pass") or
-       ((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "tailrace") or (keyvalues["usage"] == "spillway"))) then
-		keyvalues["waterway"] = "stream"
+		if (keyvalues["waterway"] == "spillway") or (keyvalues["waterway"] == "fish_pass") or
+		((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "tailrace") or (keyvalues["usage"] == "spillway"))) then
+			keyvalues["waterway"] = "stream"
+		end
 	end
 	
 	if keyvalues['man_made'] == 'gasometer' then
