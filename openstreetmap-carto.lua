@@ -1209,10 +1209,6 @@ function filter_tags_way (keyvalues, numberofkeys)
 	end
 	
 	if keyvalues["waterway"] then
-	-- Kill off names of waterways in tunnels
-		if keyvalues['tunnel'] then
-			keyvalues['name'] = nil
-		end
 	-- Treat narrow canal-like waterways as stream
 		if (keyvalues["waterway"] == "spillway") or (keyvalues["waterway"] == "fish_pass") or
 		((keyvalues["waterway"] == "canal") and ((keyvalues["usage"] == "headrace") or (keyvalues["usage"] == "tailrace") or (keyvalues["usage"] == "spillway"))) then
