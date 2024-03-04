@@ -452,6 +452,9 @@ function filter_tags_generic(tags)
 			tags['name'] = stripname
 		end
 	end
+	if tags['amenity'] == 'training' then
+		tags['amenity'] = 'school'
+	end
 	
 	-- Remove bar/bar tagging for social clubs now that club is rendered
 	if tags['club'] == 'social' then
