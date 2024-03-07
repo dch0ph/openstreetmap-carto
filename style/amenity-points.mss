@@ -1414,27 +1414,27 @@
 	[zoom < 15] { marker-width: 9; }
   }
 
-  [feature = 'tourism_picnic_site'][zoom >= 14] {
+  [feature = 'tourism_picnic_site'][zoom >= 15] {
     marker-file: url('symbols/tourism/picnic.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
     }
-	[zoom < 17] { marker-width: 10; }
+	[zoom < 17] { marker-width: 9; }
   }
 
   [feature = 'leisure_picnic_table'][zoom >= 16] {
     marker-file: url('symbols/tourism/picnic.svg');
     marker-fill: @amenity-brown;
-	[zoom < 17] { marker-width: 10; }
+	[zoom < 17] { marker-width: 9; }
     marker-clip: false;
     [int_access = 'restricted'] {
       marker-opacity: @private-opacity;
     }
   }
 
-  [feature = 'leisure_firepit'][zoom >= 15] {
+  [feature = 'leisure_firepit'][zoom >= 17] {
     marker-file: url('symbols/leisure/firepit.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
