@@ -1525,7 +1525,7 @@ Layer:
             ref,
             railway,
             aerialway,
-            CASE WHEN (station IS NULL) OR (station = 'train') THEN 'yes' ELSE 'no' END AS int_ismajor
+            CASE WHEN ((station IS NULL) OR (station = 'train')) AND (usage <> 'tourism') THEN 'yes' ELSE 'no' END AS int_ismajor
           FROM
           (SELECT
               ST_PointOnSurface(way) AS way,
@@ -1534,6 +1534,7 @@ Layer:
               railway,
               aerialway,
               tags->'station' AS station,
+              tags->'usage' AS usage,
               way_area
             FROM planet_osm_polygon
             WHERE way && !bbox! -- Not ST_PointOnSurface(way) because name might be NULL
@@ -1546,6 +1547,7 @@ Layer:
               railway,
               aerialway,
               tags->'station' AS station,
+              tags->'usage' AS usage,
               NULL as way_area
             FROM planet_osm_point
             WHERE way && !bbox!
