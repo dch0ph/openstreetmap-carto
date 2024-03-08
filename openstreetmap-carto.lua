@@ -200,7 +200,7 @@ end
 local meadow_tags = { 'pasture', 'paddock', 'meadow', 'animal_keeping' }
 local known_rentals = { 'car_rental', 'bicycle_rental' }
 local tradeshop_tags = { 'builders_merchant', 'plumbers_merchant', 'building_materials' }
-local sportshop_tags = { 'scuba_diving', 'water_sports', 'fishing' }
+local sportshop_tags = { 'scuba_diving', 'water_sports' }
 local mine_tags = { 'mine', 'mine_shaft', 'mineshaft', 'adit', 'mine_level', 'mine_adit' }
 local promotetocraft_tags = { 'tailor', 'computer_repair', 'photo_studio', 'shoe_repair' }
 local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doctors', 'dentist', 'veterinary'}

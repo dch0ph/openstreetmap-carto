@@ -1129,6 +1129,10 @@
       marker-file: url('symbols/shop/fabric.svg');
     }
 
+    [shop = 'fishing'] {
+        marker-file: url('symbols/leisure/fishing.svg');
+    }
+
     [shop = 'fishmonger'],
     [shop = 'seafood'] {
         marker-file: url('symbols/shop/seafood.svg');
