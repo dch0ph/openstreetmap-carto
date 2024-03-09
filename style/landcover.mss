@@ -806,12 +806,12 @@
     }
  }
 
-  [wetland = 'yes'][zoom >= 10],
-  [natural = 'wetland'][zoom >= 10] {
+  [wetland = 'yes'][zoom >= 8],
+  [natural = 'wetland'][zoom >= 8] {
     polygon-pattern-file: url('symbols/wetland-compact.svg');
     polygon-pattern-alignment: global;
   }
-  [wetland = 'partial'][zoom >= 10] {
+  [wetland = 'partial'][zoom >= 8] {
     cover/polygon-pattern-file: url('symbols/semi_wetland-compact.svg');
     cover/polygon-pattern-alignment: global;
   }  
@@ -820,51 +820,6 @@
     polygon-pattern-alignment: global;
   }
   [zoom >= 13] {
-/*    [int_wetland = 'marsh'],
-    [int_wetland = 'saltmarsh'],
-    [int_wetland = 'wet_meadow'] {
-      polygon-pattern-file: url('symbols/wetland_marsh.png');
-      polygon-pattern-alignment: global;
-    }
-    [int_wetland = 'reedbed'] {
-      polygon-pattern-file: url('symbols/wetland_reed.png');
-      polygon-pattern-alignment: global;
-    }
-    [int_wetland = 'mangrove'] {
-      polygon-pattern-file: url('symbols/wetland_mangrove.png');
-      polygon-pattern-alignment: global;
-    }
-    [int_wetland = 'swamp'] {
-      polygon-pattern-file: url('symbols/wetland_swamp.png');
-      polygon-pattern-alignment: global;
-    }
-    [int_wetland = 'bog'],
-    [int_wetland = 'fen'],
-    [int_wetland = 'string_bog'] {
-      polygon-pattern-file: url('symbols/wetland_bog.png');
-      polygon-pattern-alignment: global;
-    }
-    [landuse = 'salt_pond'] {
-      polygon-pattern-file: url('symbols/salt_pond.png');
-      polygon-pattern-alignment: global;
-    }
-    [natural = 'beach'],
-    [natural = 'shoal'] {
-      [surface = 'sand'] {
-        polygon-pattern-file: url('symbols/beach.png');
-        polygon-pattern-alignment: global;
-      }
-      [surface = 'gravel'],
-      [surface = 'fine_gravel'],
-      [surface = 'pebbles'],
-      [surface = 'pebblestone'],
-      [surface = 'shingle'],
-      [surface = 'stones'],
-      [surface = 'shells'] {
-        polygon-pattern-file: url('symbols/beach_coarse.png');
-        polygon-pattern-alignment: global;
-      }
-    } */
 	// Just use scrub colour for wet scrub
     [natural = 'scrub'][wetland = null] {
       polygon-pattern-file: url('symbols/scrub-compact.svg');

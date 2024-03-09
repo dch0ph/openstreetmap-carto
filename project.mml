@@ -73,13 +73,14 @@ Layer:
         (SELECT
             way, way_pixels,
             COALESCE(landuse, "natural") AS feature,
+            wetland,
             NULL::text AS pasture
           FROM (SELECT
               way,
               ('landuse_' || (CASE WHEN landuse IN ('forest', 'farmland', 'residential', 'trailer_park', 'commercial', 'retail', 'industrial',
                                                     'meadow', 'pasture', 'grass', 'village_green', 'vineyard', 'orchard') THEN landuse END)) AS landuse,
-              ('natural_' || (CASE WHEN "natural" IN ('wood', 'sand', 'scree', 'shingle', 'bare_rock', 'heath', 'grassland', 'scrub') THEN "natural" END)) AS "natural",
-              ('wetland_' || (CASE WHEN "natural" IN ('wetland', 'mud') THEN (CASE WHEN "natural" IN ('mud') THEN "natural" ELSE tags->'wetland' END) END)) AS wetland,
+              ('natural_' || (CASE WHEN "natural" IN ('mud', 'wetland', 'wood', 'sand', 'scree', 'shingle', 'bare_rock', 'heath', 'grassland', 'scrub') THEN "natural" END)) AS "natural",
+              tags->'wetland' AS wetland,
               way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels,
               way_area
             FROM planet_osm_polygon
