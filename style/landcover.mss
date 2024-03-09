@@ -798,20 +798,18 @@
 
   ::first {
     [natural = 'mud'] {
-      [zoom >= 9] {
         polygon-fill: @mud;
         [way_pixels >= 4]  { polygon-gamma: 0.75; }
         [way_pixels >= 64] { polygon-gamma: 0.3;  }
-      }
     }
  }
 
-  [wetland = 'yes'][zoom >= 8],
-  [natural = 'wetland'][zoom >= 8] {
+  [wetland = 'yes'],
+  [natural = 'wetland'] {
     polygon-pattern-file: url('symbols/wetland-compact.svg');
     polygon-pattern-alignment: global;
   }
-  [wetland = 'partial'][zoom >= 8] {
+  [wetland = 'partial'] {
     cover/polygon-pattern-file: url('symbols/semi_wetland-compact.svg');
     cover/polygon-pattern-alignment: global;
   }  
