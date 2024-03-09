@@ -207,7 +207,9 @@ local healthcarestrip_tags = { 'clinic', 'hospital', 'hospice', 'pharmacy', 'doc
 local important_protected_tags = { 'national_park', 'area_of_outstanding_natural_beauty', 'Area of Outstanding Natural Beauty'}
 local communitycentre_tags = { 'village_hall', 'social_centre', 'scout_hut' }
 local ford_tags = { 'stream', 'intermittent', 'tidal', 'seasonal' }
- 
+local majorkeys = { 'leisure', 'amenity', 'shop', 'healthcare', 'club', 'office', 'craft' }
+local religionbuilding_tags = { 'church', 'mosque' }
+
 --- If tagged with disused, turn into 'historic=yes'
 
 --- Generic filtering of OSM tags
@@ -1137,10 +1139,8 @@ function filter_highway (keyvalues)
 	return 0, keyvalues
 end
 
-local religionbuilding_tags = { 'church', 'mosque' }
 -- local lightrail_tags = { 'miniature', 'tram', 'funicular', 'light_rail', 'narrow_gauge'}
 local gate_tags = { 'wicket_gate', 'hampshire_gate', 'lych_gate' }
-local majorkeys = { 'leisure', 'amenity', 'shop', 'healthcare', 'club', 'office', 'craft' }
 
 -- Filtering on ways
 function filter_tags_way (keyvalues, numberofkeys)
