@@ -564,87 +564,87 @@ function filter_tags_generic(tags)
     end
 	
 	-- render abandoned graveyards still as graveyards
-	if keyvalues['abandoned:amenity'] == 'grave_yard' then
-		keyvalues['amenity'] = 'grave_yard'
-		keyvalues['abandoned:amenity'] = nil
+	if tags['abandoned:amenity'] == 'grave_yard' then
+		tags['amenity'] = 'grave_yard'
+		tags['abandoned:amenity'] = nil
 	end
 	
-	local natural = keyvalues['natural']
-	local wetland = keyvalues['wetland']
-	local tidal = keyvalues['tidal']
+	local natural = tags['natural']
+	local wetland = tags['wetland']
+	local tidal = tags['tidal']
 	
 	if natural then
 	-- Rationalise beach to sand, mud or shingle (coarse) 
-		if (natural == 'beach') or (natural == 'shoal') or (keyvalues['wetland'] == 'tidalflat') then
-			if (keyvalues['surface'] == 'sand') or (keyvalues['surface'] == nil) then
-				keyvalues['natural'] = 'sand'
-			elseif keyvalues['surface'] == 'mud' then
-				keyvalues['natural'] = 'mud'
+		if (natural == 'beach') or (natural == 'shoal') or (tags['wetland'] == 'tidalflat') then
+			if (tags['surface'] == 'sand') or (tags['surface'] == nil) then
+				tags['natural'] = 'sand'
+			elseif tags['surface'] == 'mud' then
+				tags['natural'] = 'mud'
 			else
-				keyvalues['natural'] = 'shingle'
+				tags['natural'] = 'shingle'
 			end
 			if natural ~= 'beach' then
-				keyvalues['wetland'] = 'partial'
+				tags['wetland'] = 'partial'
 			end
 	-- Try to merge natural = wetland into existing natural types overprinted with partial / fully wet symbols
 		elseif natural == 'wetland' then
 			if (wetland == 'marsh') or (wetland == 'saltmarsh') then
 				if tidal == 'yes' then
-					keyvalues['wetland'] = 'partial'					
+					tags['wetland'] = 'partial'					
 				else
-					keyvalues['wetland'] = 'yes'
+					tags['wetland'] = 'yes'
 				end
 				if (wetland == 'marsh') or (tidal == 'yes') then
-					keyvalues['natural'] = 'scrub'
+					tags['natural'] = 'scrub'
 				end
 			elseif wetland == 'reedbed' then
-				keyvalues['wetland'] = 'yes'
+				tags['wetland'] = 'yes'
 			elseif wetland == 'wet_meadow' then
-				keyvalues['natural'] = nil
-				keyvalues['landuse'] = 'meadow'
-				keyvalues['wetland'] = 'partial'
-				keyvalues['pasture'] = 'rough'
+				tags['natural'] = nil
+				tags['landuse'] = 'meadow'
+				tags['wetland'] = 'partial'
+				tags['pasture'] = 'rough'
 			elseif (wetland == 'swamp') or (wetland == 'mangrove') then
-				keyvalues['natural'] = 'wood'
-				keyvalues['wetland'] = 'yes'
+				tags['natural'] = 'wood'
+				tags['wetland'] = 'yes'
 			elseif (wetland == 'bog') or (wetland == 'fen') then
-				keyvalues['wetland'] = 'partial'
-				keyvalues['natural'] = 'heath'
+				tags['wetland'] = 'partial'
+				tags['natural'] = 'heath'
 			elseif wetland == 'stringbog' then
-				keyvalues['wetland'] = 'yes'
-				keyvalues['natural'] = 'scrub'
+				tags['wetland'] = 'yes'
+				tags['natural'] = 'scrub'
 			end
 		elseif natural == 'mud' then
-			keyvalues['wetland'] = 'partial'
+			tags['wetland'] = 'partial'
 		end
 		
 		if natural == 'earth_bank' then
-			keyvalues['man_made'] = 'embankment'
-			keyvalues['natural'] = nil
+			tags['man_made'] = 'embankment'
+			tags['natural'] = nil
 		end
 	end
 
-	if keyvalues['tourism'] == 'holiday_park' then
-		keyvalues['landuse'] = 'residential'
+	if tags['tourism'] == 'holiday_park' then
+		tags['landuse'] = 'residential'
 	end
 
-	if keyvalues['natural'] == 'tree_group' then
-		keyvalues['natural'] = 'wood'
+	if tags['natural'] == 'tree_group' then
+		tags['natural'] = 'wood'
 	end
 	
 	-- As tourism = attraction is generally rendered, can kill off double tagging that would compete
-	if (keyvalues['tourism'] == 'attraction') and (keyvalues['landuse'] == 'farmyard') then
-		keyvalues['landuse'] = nil
+	if (tags['tourism'] == 'attraction') and (tags['landuse'] == 'farmyard') then
+		tags['landuse'] = nil
 	end
 	
 	-- If has one of the major tags add key to indicate that name shouldn't be used as building name
-	if keyvalues['name'] and keyvalues['building'] then
+	if tags['name'] and tags['building'] then
         for _, ptag in ipairs(majorkeys) do
-            if keyvalues[ptag] then
-				if keyvalues[ptag] == "no" then
-					keyvalues[ptag] = nil
+            if tags[ptag] then
+				if tags[ptag] == "no" then
+					tags[ptag] = nil
 				else
-					keyvalues['hasmajorkey'] = 'yes'
+					tags['hasmajorkey'] = 'yes'
 					break
                 end
             end
@@ -652,37 +652,37 @@ function filter_tags_generic(tags)
     end
 	
 	-- Consolidate church buildings so can filter out small (active) churches at low zoom
-	if keyvalues['building'] == 'chapel' then
-		keyvalues['building'] = 'church'
+	if tags['building'] == 'chapel' then
+		tags['building'] = 'church'
 	end
-	if (keyvalues['building'] == 'yes') and (keyvalues['amenity'] == 'place_of_worship') then
-		if keyvalues['religion'] == 'christian' then
-			keyvalues['building'] = 'church'
-		elseif keyvalues['religion'] == 'muslim' then
-			keyvalues['building'] = 'mosque'		
+	if (tags['building'] == 'yes') and (tags['amenity'] == 'place_of_worship') then
+		if tags['religion'] == 'christian' then
+			tags['building'] = 'church'
+		elseif tags['religion'] == 'muslim' then
+			tags['building'] = 'mosque'		
 		end
-	elseif is_in(keyvalues['building'], religionbuilding_tags) and (keyvalues['amenity'] ~= 'place_of_worship') then
+	elseif is_in(tags['building'], religionbuilding_tags) and (tags['amenity'] ~= 'place_of_worship') then
 	-- Hide religious buildings that are not active i.e. will not be tagged with place of worship
-		keyvalues['building'] = 'yes'
+		tags['building'] = 'yes'
 	end
 	
 	-- Remove building tag for ways with other formatting that would be otherwise obscured (NB leisure now handled differently)
-	if keyvalues['building'] and (keyvalues['power'] == 'substation') then
-		keyvalues['building'] = nil
+	if tags['building'] and (tags['power'] == 'substation') then
+		tags['building'] = nil
 	end
 	
 	-- Retag courtyards or squares into pedestrian areas
-	if ((keyvalues['place'] == 'square') or (keyvalues['man_made'] == 'courtyard')) and (keyvalues['highway'] == nil) then
-		keyvalues['highway'] = 'pedestrian'
-		keyvalues['area'] = 'yes'
+	if ((tags['place'] == 'square') or (tags['man_made'] == 'courtyard')) and (tags['highway'] == nil) then
+		tags['highway'] = 'pedestrian'
+		tags['area'] = 'yes'
 	end
 		
 	-- Normalise residential caravan site to new landuse type
-	if (keyvalues['landuse'] == "residential") and (keyvalues['residential'] == 'trailer_park') then
-		keyvalues['landuse'] = 'trailer_park'
-	elseif ((keyvalues['tourism'] == 'caravan_site') and (keyvalues['static_caravans'] == 'only')) or (keyvalues['tourism'] == 'holiday_park') then
-		keyvalues['landuse'] = 'trailer_park'
-		keyvalues['tourism'] = nil
+	if (tags['landuse'] == "residential") and (tags['residential'] == 'trailer_park') then
+		tags['landuse'] = 'trailer_park'
+	elseif ((tags['tourism'] == 'caravan_site') and (tags['static_caravans'] == 'only')) or (tags['tourism'] == 'holiday_park') then
+		tags['landuse'] = 'trailer_park'
+		tags['tourism'] = nil
 	end
 	
     return 0, tags
