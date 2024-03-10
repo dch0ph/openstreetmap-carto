@@ -768,7 +768,7 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_recycling'][recycling_type = 'centre'][zoom >= 17],
+  [feature = 'amenity_recycling'][recycling_type = 'centre'][zoom >= 16],
   [feature = 'amenity_recycling'][zoom >= 19] {
     marker-file: url('symbols/amenity/recycling.svg');
     marker-fill: @amenity-brown;
@@ -2466,18 +2466,18 @@
   [feature = 'natural_reef'],
   [feature = 'natural_beach'] {
     [zoom >= 11][way_pixels > @large-building-pixels],
-	[zoom >= 14] {
+	[zoom >= 15] {
       text-name: "[name]";
       text-size: @landcover-font-size;
       text-wrap-width: @landcover-wrap-width-size;
       text-line-spacing: @landcover-line-spacing-size;
-      [way_pixels > 6000],
+      [way_pixels > @larger-area-pixels],
 	  [zoom >= 16] {
         text-size: @landcover-font-size-big;
         text-wrap-width: @landcover-wrap-width-size-big;
         text-line-spacing: @landcover-line-spacing-size-big;
       }
-      [way_pixels > 32000] {
+      [way_pixels > @largest-area-pixels] {
         text-size: @landcover-font-size-bigger;
         text-wrap-width: @landcover-wrap-width-size-bigger;
         text-line-spacing: @landcover-line-spacing-size-bigger;
@@ -3267,7 +3267,7 @@
   }
 
   [feature = 'tourism_attraction'] {
-	[way_pixels > 200],
+	[way_pixels > @large-building-pixels],
 	[zoom >= 16] {
 		text-name: "[name]";
 		text-size: @standard-font-size;
