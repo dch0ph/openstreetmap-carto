@@ -686,7 +686,14 @@ function filter_tags_generic(tags)
 		tags['landuse'] = 'trailer_park'
 		tags['tourism'] = nil
 	end
-	
+
+	-- Consolidate highway = rest_area with roadside parking
+	if keyvalues['highway'] == 'rest_area' then
+		keyvalues['highway'] = nil
+		keyvalues['amenity'] = 'parking'
+		keyvalues['parking'] = 'layby'
+	end
+
     return 0, tags
 end
 
@@ -1185,16 +1192,10 @@ function filter_tags_way (keyvalues, numberofkeys)
 		keyvalues['building'] = 'roof'
 	end
 		
-	-- Consolidated highway = rest_area with roadside parking
 	if keyvalues['highway'] then
-		if keyvalues['highway'] == 'rest_area' then
-			keyvalues['highway'] = nil
-			keyvalues['amenity'] = 'parking'
-		else
-			filter, keyvalues = filter_highway(keyvalues)
-			if filter == 1 then
-				return filter, keyvalues, polygon, roads(keyvalues)
-			end
+		filter, keyvalues = filter_highway(keyvalues)
+		if filter == 1 then
+			return filter, keyvalues, polygon, roads(keyvalues)
 		end
 	end
 	
