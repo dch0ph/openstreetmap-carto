@@ -688,10 +688,10 @@ function filter_tags_generic(tags)
 	end
 
 	-- Consolidate highway = rest_area with roadside parking
-	if keyvalues['highway'] == 'rest_area' then
-		keyvalues['highway'] = nil
-		keyvalues['amenity'] = 'parking'
-		keyvalues['parking'] = 'layby'
+	if tags['highway'] == 'rest_area' then
+		tags['highway'] = nil
+		tags['amenity'] = 'parking'
+		tags['parking'] = 'layby'
 	end
 
     return 0, tags
