@@ -998,7 +998,11 @@ function filter_highway (keyvalues)
 		elseif is_in(surface, poor_surface_tags) or (keyvalues['informal'] == 'yes') then
 			keyvalues['tracktype'] = 'grade4'
 		else
-			keyvalues['tracktype'] = 'grade3'
+			if keyvalues['highway'] == 'service' then
+				keyvalues['tracktype'] = 'grade1'
+			else
+				keyvalues['tracktype'] = 'grade3'
+			end
 		end
 	end
 		
