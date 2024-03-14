@@ -870,7 +870,7 @@ local notopen_tags = { 'destination', 'private', 'no' }
 function create_int_access(keyvalue, def)
 	if keyvalue == 'destination' then
 		return 'destination'
-	elseif (keyvalue == 'private') or (keyvalues == 'no') then
+	elseif (keyvalue == 'private') or (keyvalue == 'no') then
 		return 'no'
 	end
 	return def
