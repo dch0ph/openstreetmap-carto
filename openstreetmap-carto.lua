@@ -930,6 +930,18 @@ function filter_highway (keyvalues)
 	-- Very difficult to render highways that overlap with (disused) railways. Kill railway tag
 	keyvalues['railway'] = nil
 
+	-- Treat highway=busway as highway=service
+	-- Normalisation of access tags not strictly necessary as will not affect rendering
+	if keyvalues['highway'] == 'busway' then
+		keyvalues['highway'] = 'service'
+		if keyvalues['motor_vehicle'] == nil then
+			keyvalues['motor_vehicle'] = 'no'
+		end
+		if keyvalues['bus'] == nil then
+			keyvalues['bus'] = 'yes'
+		end
+	end
+
     -- Prioritise any explicit footway surface
 	if keyvalues['footway:surface'] then
 		keyvalues['surface'] = keyvalues['footway:surface']
@@ -998,11 +1010,7 @@ function filter_highway (keyvalues)
 		elseif is_in(surface, poor_surface_tags) or (keyvalues['informal'] == 'yes') then
 			keyvalues['tracktype'] = 'grade4'
 		else
-			if keyvalues['highway'] == 'service' then
-				keyvalues['tracktype'] = 'grade1'
-			else
-				keyvalues['tracktype'] = 'grade3'
-			end
+			keyvalues['tracktype'] = 'grade3'
 		end
 	end
 		
@@ -1059,19 +1067,7 @@ function filter_highway (keyvalues)
 			keyvalues['highway'] = 'path'
 		end
 	end
-	
-	-- Treat highway=busway as highway=service
-	-- Normalisation of access tags not strictly necessary as will not affect rendering
-	if keyvalues['highway'] == 'busway' then
-		keyvalues['highway'] = 'service'
-		if keyvalues['motor_vehicle'] == nil then
-			keyvalues['motor_vehicle'] = 'no'
-		end
-		if keyvalues['bus'] == nil then
-			keyvalues['bus'] = 'yes'
-		end
-	end
-	
+		
 	-- Explicitly set foot = no if accessed blocked (to avoid multiple checks when styling)
 	if keyvalues['access'] == 'no' then
 		keyvalues['foot'] = 'no'
