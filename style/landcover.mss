@@ -69,7 +69,7 @@
 //@parking-outline: saturate(darken(@parking, 40%), 20%);
 // make parking stand out more clearly
 @parking: white;
-@parking-outline: #999;  // same as footway casing
+@parking-outline: #888;
 @railway: @industrial;
 @railway-line: @industrial-line;
 @rest_area: #efc8c8; // also services
@@ -690,7 +690,7 @@
   [feature = 'amenity_bicycle_parking'],
   [feature = 'amenity_motorcycle_parking'],
   [feature = 'amenity_taxi'] {
-    [zoom >= 14] {
+    [zoom >= 15] {
       polygon-fill: @parking;
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
       [way_pixels >= 64] {
