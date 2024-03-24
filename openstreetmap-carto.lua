@@ -577,7 +577,7 @@ function filter_tags_generic(tags)
 	
 	if natural then
 	-- Rationalise beach to sand, mud or shingle (coarse) 
-		if (natural == 'beach') or (natural == 'shoal') or (tags['wetland'] == 'tidalflat') then
+		if (natural == 'beach') or (natural == 'shoal') or (wetland == 'tidalflat') then
 			if (tags['surface'] == 'sand') or (tags['surface'] == nil) then
 				tags['natural'] = 'sand'
 			elseif tags['surface'] == 'mud' then
@@ -590,21 +590,20 @@ function filter_tags_generic(tags)
 			end
 	-- Try to merge natural = wetland into existing natural types overprinted with partial / fully wet symbols
 		elseif natural == 'wetland' then
-			if (wetland == 'marsh') or (wetland == 'saltmarsh') then
+		-- Retag tidal marsh as saltmarsh
+			if (wetland == 'marsh') and (tidal == 'yes') then
+				wetland = 'saltmarsh'
+			end
+			if (wetland == 'reedbed') or (wetland == 'marsh') then
+				tags['wetland'] = 'yes'
+			elseif (wetland == 'wet_meadow') or (wetland == 'saltmarsh') then
+				tags['natural'] = nil
+				tags['landuse'] = 'meadow'
 				if tidal == 'yes' then
 					tags['wetland'] = 'partial'					
 				else
 					tags['wetland'] = 'yes'
 				end
-				if (wetland == 'marsh') or (tidal == 'yes') then
-					tags['natural'] = 'scrub'
-				end
-			elseif wetland == 'reedbed' then
-				tags['wetland'] = 'yes'
-			elseif wetland == 'wet_meadow' then
-				tags['natural'] = nil
-				tags['landuse'] = 'meadow'
-				tags['wetland'] = 'partial'
 				tags['pasture'] = 'rough'
 			elseif (wetland == 'swamp') or (wetland == 'mangrove') then
 				tags['natural'] = 'wood'
