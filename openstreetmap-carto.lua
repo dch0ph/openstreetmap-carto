@@ -578,9 +578,9 @@ function filter_tags_generic(tags)
 	if natural then
 	-- Rationalise beach to sand, mud or shingle (coarse) 
 		if (natural == 'beach') or (natural == 'shoal') or (wetland == 'tidalflat') then
-			if (tags['surface'] == 'sand') or (tags['surface'] == nil) then
+			if (tags['surface'] == 'sand') or ((tags['surface'] == nil) and (wetland ~= 'tidalflat')) then
 				tags['natural'] = 'sand'
-			elseif tags['surface'] == 'mud' then
+			elseif (tags['surface'] == 'mud') or (wetland == 'tidalflat') then
 				tags['natural'] = 'mud'
 			else
 				tags['natural'] = 'shingle'
