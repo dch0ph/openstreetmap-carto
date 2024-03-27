@@ -210,11 +210,15 @@
   }
 
   [feature = 'highway_bus_stop'] {
-    [zoom >= 16][zoom < 18] {
+    [zoom = 16][physically_present != 'no'],
+    [zoom = 17] {
       marker-file: url('symbols/square.svg');
-      marker-fill: @transportation-icon;
       marker-width: 5;
+      marker-fill: @transportation-icon;
       marker-clip: false;
+     [physically_present = 'no'] {
+       marker-opacity: @private-opacity;
+     }
     }
     [zoom >= 18] {
       marker-file: url('symbols/highway/bus_stop.svg');
@@ -224,10 +228,12 @@
 		marker-width: 14;
 	  }
       marker-fill: @transportation-icon;
-//      ["naptan:verified" = 'no'] { marker-fill: @missing-data; }
       marker-clip: false;
+     [physically_present = 'no'] {
+       marker-opacity: @private-opacity;
+     }
     }
-  }
+   }
 
   [feature = 'highway_elevator'][zoom >= 18] {
     [int_access = 'yes'] {
@@ -2801,7 +2807,8 @@
 		[int_shelter != 'yes'] { text-dy: 9; }
 		[zoom = 17] { text-dy: 7; }
       }
-      [int_access = 'restricted'] {
+      [int_access = 'restricted'],
+	  [physically_present = 'no'] {
         text-opacity: @private-opacity;
         text-halo-radius: 0;
       }
