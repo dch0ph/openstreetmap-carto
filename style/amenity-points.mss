@@ -1142,6 +1142,12 @@
       }
     }
 
+    [shop = 'yes'] {
+      [zoom >= 18] {
+        marker-file: url('symbols/circlehole.svg');
+      }
+    }
+
     [shop = 'jewelry'] {
       [zoom >= 18] {
         marker-file: url('symbols/shop/jewelry.svg');
