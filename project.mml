@@ -37,7 +37,7 @@ srs: *srs
 
 Stylesheet:
   - style/style.mss
-  - style/fonts.mss
+  - style/fonts-GilliusNo1.mss
   - style/shapefiles.mss
   - style/landcover.mss
   - style/water.mss
@@ -157,18 +157,18 @@ Layer:
         ) AS landcover_line
     properties:
       minzoom: 14
-  - id: icesheet-poly
-    geometry: polygon
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way
-          FROM icesheet_polygons
-        ) AS icesheet_polygons
-    properties:
-      minzoom: 5
+#  - id: icesheet-poly
+#    geometry: polygon
+#    <<: *extents
+#    Datasource:
+#      <<: *osm2pgsql
+#      table: |-
+#        (SELECT
+#            way
+#          FROM icesheet_polygons
+#        ) AS icesheet_polygons
+#    properties:
+#      minzoom: 5
   - id: water-lines-low-zoom
     geometry: linestring
     <<: *extents
@@ -293,19 +293,19 @@ Layer:
     properties:
       cache-features: true
       minzoom: 9
-  - id: icesheet-outlines
-    geometry: linestring
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way,
-            ice_edge
-          FROM icesheet_outlines
-        ) AS icesheet_outlines
-    properties:
-      minzoom: 5
+#  - id: icesheet-outlines
+#    geometry: linestring
+#    <<: *extents
+#    Datasource:
+#      <<: *osm2pgsql
+#      table: |-
+#        (SELECT
+#            way,
+#            ice_edge
+#          FROM icesheet_outlines
+#        ) AS icesheet_outlines
+#    properties:
+#      minzoom: 5
   - id: marinas-area
     geometry: polygon
     <<: *extents
