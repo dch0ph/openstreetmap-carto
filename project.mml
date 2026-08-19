@@ -1823,27 +1823,36 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-          crossing.way AS way,
-          crossing.railway AS type,
-          CASE
-            BOOL_AND(
-              track.railway IN ('disused', 'tram', 'miniature')
-              OR COALESCE(track.service IN ('spur', 'siding', 'yard'), FALSE)
-            ) FILTER (WHERE track.railway IS NOT NULL)
-            WHEN TRUE THEN 'yes'
-            WHEN FALSE THEN 'no'
-          END AS int_isminor,  -- NULL if no intersecting railways
-          crossing.osm_id
-        FROM planet_osm_point crossing
-        JOIN planet_osm_line track
-          ON ST_DWithin(crossing.way, track.way, 0.1)
-        WHERE crossing.railway IN ('crossing', 'level_crossing')
-          AND crossing.way && !bbox!
-          AND track.way && !bbox!
-        GROUP BY
-          crossing.osm_id,
-          crossing.way,
-          crossing.railway
+          *
+          FROM
+            (SELECT
+              crossing.way AS way,
+              crossing.railway AS railway,
+              CASE
+                BOOL_AND(
+                  track.railway IN ('disused', 'tram', 'miniature')
+                  OR COALESCE(track.service IN ('spur', 'siding', 'yard'), FALSE)
+                ) FILTER (WHERE track.railway IS NOT NULL)
+                WHEN TRUE THEN 'yes'
+                WHEN FALSE THEN 'no'
+              END AS int_isminor,  -- NULL if no intersecting railways
+              crossing.osm_id
+            FROM planet_osm_point crossing
+            JOIN planet_osm_line track
+              ON ST_DWithin(crossing.way, track.way, 0.1)
+            WHERE crossing.railway IN ('crossing', 'level_crossing')
+              AND ((track.railway IS NOT NULL) OR (track.highway IS NOT NULL))
+              AND crossing.way && !bbox!
+              AND track.way && !bbox!
+            GROUP BY
+              crossing.osm_id,
+              crossing.way,
+              crossing.railway
+            ) _
+          ORDER BY
+            CASE WHEN int_isminor IS NULL OR int_isminor = 'no' THEN 1 ELSE 2 END,
+            CASE WHEN railway = 'crossing' THEN 1 ELSE 2 END,
+            osm_id
         ) AS railway_crossings
     properties:
       minzoom: 14

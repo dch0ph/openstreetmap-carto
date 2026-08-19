@@ -1499,15 +1499,15 @@
 }
 
 #railway-crossings {
-  [type = 'level_crossing'][int_isminor != 'yes'],
-  [type = 'level_crossing'][zoom >= 16],
-  [type = 'crossing'][int_isminor != 'yes'][zoom >= 15],
-  [type = 'crossing'][zoom >= 16] {
+  [railway = 'level_crossing'][int_isminor != 'yes'],
+  [railway = 'level_crossing'][zoom >= 16],
+  [railway = 'crossing'][int_isminor != 'yes'][zoom >= 15],
+  [railway = 'crossing'][zoom >= 16] {
     marker-file: url('symbols/barrier/level_crossing.svg');
     marker-fill: #4d4d4d;
     marker-clip: false;
     [int_isminor != 'yes'][zoom >= 16],
-    [zoom >= 17] {
+    [zoom >= 18] {
       marker-file: url('symbols/barrier/level_crossing2.svg');
     }
   }
