@@ -1507,6 +1507,7 @@
     marker-fill: #4d4d4d;
     marker-clip: false;
     [int_isminor != 'yes'][zoom >= 16],
+    [railway = 'level_crossing'][zoom >= 17],
     [zoom >= 18] {
       marker-file: url('symbols/barrier/level_crossing2.svg');
     }
