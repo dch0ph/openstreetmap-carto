@@ -1499,17 +1499,18 @@
 }
 
 #railway-crossings {
-  [railway = 'level_crossing'][int_isminor != 'yes'],
+  [railway = 'level_crossing'][int_isminor = 'no'],
   [railway = 'level_crossing'][zoom >= 16],
-  [railway = 'crossing'][int_isminor != 'yes'][zoom >= 15],
+  [railway = 'crossing'][int_isminor = 'no'][zoom >= 15],
   [railway = 'crossing'][zoom >= 16] {
     marker-file: url('symbols/barrier/level_crossing.svg');
     marker-fill: #4d4d4d;
     marker-clip: false;
-    [int_isminor != 'yes'][zoom >= 16],
+    [int_isminor = 'no'][zoom >= 16],
     [railway = 'level_crossing'][zoom >= 17],
     [zoom >= 18] {
       marker-file: url('symbols/barrier/level_crossing2.svg');
+      [int_isminor = 'incomplete'] { marker-file: url('symbols/barrier/level_crossing_incomplete.svg'); }
     }
   }
 }

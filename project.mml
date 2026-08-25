@@ -1829,8 +1829,9 @@ Layer:
               crossing.way AS way,
               crossing.railway AS railway,
               CASE
+                WHEN track.railway IS NULL THEN 'incomplete'
                 WHEN track.railway IN ('disused', 'tram', 'miniature') OR track.service IN ('spur', 'siding', 'yard') THEN 'yes'
-                ELSE 'no'  -- also returned if track.railway is NULL i.e. if no intersecting railway
+                ELSE 'no'
               END AS int_isminor,
               crossing.osm_id
             FROM planet_osm_point crossing
@@ -1841,7 +1842,10 @@ Layer:
               AND crossing.way && !bbox!
             ) _
           ORDER BY
-            CASE WHEN int_isminor = 'no' THEN 1 ELSE 2 END,
+            CASE int_isminor 
+              WHEN 'no' THEN 1
+              WHEN 'incomplete' THEN 2
+              ELSE 3 END,
             CASE WHEN railway = 'crossing' THEN 1 ELSE 2 END,
             osm_id
         ) AS railway_crossings
