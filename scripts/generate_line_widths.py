@@ -22,7 +22,8 @@ import yaml
 SECTIONS = ('progressions', 'classes')
 NAME = re.compile(r'^[a-z][a-z0-9_]*$')  # names of progressions, classes and columns
 KEY_COLUMNS = ('zoom', 'class')
-
+TABLE_NAME = 'carto_line_widths_data'  # name of PostgreSQL table created to store data
+FUNCTION_NAME = 'carto_line_widths'  # name of function that returns linewidth data
 
 class WidthError(Exception):
     pass
@@ -200,17 +201,17 @@ def generate(columns, table, aliases, max_zoom, source):
     column_list = ', '.join(columns)
     out += [
         '',
-        'DROP TABLE IF EXISTS carto_line_widths_data;',
-        'CREATE TABLE carto_line_widths_data (',
+        'DROP TABLE IF EXISTS ' + TABLE_NAME + ';',
+        'CREATE TABLE '+ TABLE_NAME + ' (',
         '    zoom integer NOT NULL,',
         '    class text NOT NULL,',
     ] + ['    {} float,'.format(column) for column in columns] + [
         '    PRIMARY KEY (zoom, class));',
-        '-- If there are permission problems reading the carto_line_widths_data table,',
+        '-- If there are permission problems reading the ' + TABLE_NAME + ' table,',
         '-- uncomment the line below, setting <render user> to the relevant database user',
-        '-- GRANT SELECT ON carto_line_widths_data TO <render user>;',
+        '-- GRANT SELECT ON ' + TABLE_NAME + ' TO <render user>;',
         '',
-        'INSERT INTO carto_line_widths_data (zoom, class, {}) VALUES'.format(column_list),
+        ('INSERT INTO ' + TABLE_NAME + ' (zoom, class, {}) VALUES').format(column_list),
     ]
     rows = []
     for zoom in range(max_zoom + 1):
@@ -221,21 +222,21 @@ def generate(columns, table, aliases, max_zoom, source):
             rows.append("    ({}, '{}', {})".format(zoom, name, ', '.join(number(value) for value in values)))
     out.append(',\n'.join(rows) + ';')
     out += [
-        'ANALYZE carto_line_widths_data;',
+        'ANALYZE '+ TABLE_NAME + ';',
         '',
         '-- The widths at a zoom level, those of z{0} above it, none for no zoom level. The layers'.format(max_zoom),
         '-- join this on the class of the line. A plain SQL function like this is inlined into the',
         '-- queries, so the planner reads the table directly. It is dropped first, as its columns',
         '-- may have changed.',
-        'DROP FUNCTION IF EXISTS carto_line_widths(integer);',
-        'CREATE FUNCTION carto_line_widths(zoom integer)',
+        'DROP FUNCTION IF EXISTS ' + FUNCTION_NAME + '(integer);',
+        'CREATE FUNCTION ' + FUNCTION_NAME + '(zoom integer)',
         '  RETURNS TABLE (class text, {})'.format(', '.join(column + ' float' for column in columns)),
         '  LANGUAGE SQL',
         '  STABLE PARALLEL SAFE',
         'AS $$',
         'SELECT class, {}'.format(column_list),
-        '  FROM carto_line_widths_data',
-        '  WHERE carto_line_widths_data.zoom = CASE WHEN $1 > {0} THEN {0} ELSE $1 END'.format(max_zoom),
+        '  FROM ' + TABLE_NAME,
+        '  WHERE ' + TABLE_NAME + '.zoom = CASE WHEN $1 > {0} THEN {0} ELSE $1 END'.format(max_zoom),
         '$$;',
     ]
     return '\n'.join(out) + '\n'
